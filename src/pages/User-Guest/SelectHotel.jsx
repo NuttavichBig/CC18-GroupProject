@@ -1,11 +1,13 @@
 // HotelSelected.jsx
 import React from 'react';
 
-import HomePageSearchBox from '../../Components/FilterSearch/HomePageSearchBox';
+
 import PictureSlide from '../../Components/Nav-Footer-Chat/PictureSlide';
 import Footer from '../../Components/Nav-Footer-Chat/Footer';
 import FilterPanel from '../../Components/FilterSearch/FilterPanel';
 import HeaderUserPage from '../../Components/Nav-Footer-Chat/HeaderUserPage';
+import HotelList from '../../Components/HotelListSelectHotel/HotelList';
+import SearchBoxMain from '../../Components/FilterSearch/SearchBoxMain';
 
 const SelectHotel = () => {
   return (
@@ -15,7 +17,7 @@ const SelectHotel = () => {
       </div>
       <div className='min-h-screen relative bg-[#f9f9f9] flex justify-center items-start'>
         <div className="container mx-auto p-6 grid gap-5">
-          <HomePageSearchBox />
+          <SearchBoxMain />
 
           <div className="grid grid-cols-4 gap-6">
             <div className="col-span-1 h-full w-full">
@@ -24,7 +26,7 @@ const SelectHotel = () => {
 
 
             <div className="col-span-3 mb-[500px]">
-              {/* <HotelList /> */}
+              <HotelList />
             </div>
 
           </div>
