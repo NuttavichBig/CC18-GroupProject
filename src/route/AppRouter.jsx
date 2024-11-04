@@ -1,8 +1,13 @@
 import React from "react";
-import { createBrowserRouter } from "react-router-dom";
-import HomePage from "../pages/HomePage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import HomePage from "../../src/pages/User-Guest/HomePage";
+
+
+
+//////////////////////////////////////////////บนนี้ทำแล้ว
+
 import SelectHotel from "../pages/User-Guest/SelectHotel";
-import MainPage from "../pages/User-Guest/MainPage";
+
 import SelectDetail from "../pages/User-Guest/SelectDetail";
 import PaymentDetail from "../pages/User-Guest/PaymentDetail";
 import PaymentSummary from "../pages/User-Guest/PaymentSummary";
@@ -22,12 +27,16 @@ import HomePartner from "../pages/Partner/HomePartner";
 import BookingDetailPartner from "../pages/Partner/BookingDetailPartner";
 import ReviewDetailPartner from "../pages/Partner/ReviewDetailPartner";
 
-const route = createBrowserRouter([
+const MainRouter = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
     children: [
-      { path: "/", element: <MainPage /> },
+      { index: true, element: <HomePage /> },
+
+
+      //////////////////////////////////////////////บนนี้ทำแล้ว
+
       { path: "selectHotel", element: <SelectHotel /> },
       { path: "selectDetail", element: <SelectDetail /> },
       { path: "paymentDetail", element: <PaymentDetail /> },
@@ -61,3 +70,10 @@ const route = createBrowserRouter([
     ],
   },
 ]);
+export default function AppRouter() {
+  return (
+    <>
+      <RouterProvider router={MainRouter} />
+    </>
+  )
+}
