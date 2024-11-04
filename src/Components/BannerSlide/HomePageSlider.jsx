@@ -1,42 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import { Pagination, Autoplay } from 'swiper/modules';
-
+import axios from 'axios';
+const API = import.meta.env.VITE_API
 
 const HomePageSlider = () => {
-    const [backgroundImage, setBackgroundImage] = useState("/1.jpg");
-    const [title, setTitle] = useState("KERALA");
-    const [description, setDescription] = useState("Discover the beauty of Kerala's landscapes and culture.");
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [slides,setSlides] = useState([])
+    const [pageParameter , setPageParameter] = useState({
+        backgroundImage : '',
+        title : '',
+        description : '',
+        activeIndex : 0,
+    })
 
-    const slides = [
+    useEffect(()=>{
+        getData()
+    },[])
 
-        { src: "/1.jpg", title: "B2 South Pattaya Premier Hotel", description: "Discover the beauty of Pattaya landscapes and culture." },
-        { src: "/2.jpg", title: "Buddha Serenity Hotel, Thailand", description: "Experience the serenity of Thailand's Buddha temples." },
-        { src: "/3.jpg", title: "Broken Beach Resort, Bali", description: "Explore the stunning Broken Beach in Bali." },
-        { src: "/4.jpg", title: "Mount Fuji Inn, Japan", description: "Admire the iconic Mount Fuji in Japan." },
-        { src: "/5.jpg", title: "Great Wall Heritage Hotel, China", description: "Walk along the historic Great Wall of China." },
-        { src: "/6.jpg", title: "Paris Romance Hotel, France", description: "Enjoy the romantic cityscape of Paris." }
+        const getData = async()=>{
+            const result = await axios.get(`${API}/hotel?sortBy=rating`)
+            setSlides(result.data?.hotels)
+        }
 
-
-    ];
 
     const handleSlideChange = (swiper) => {
         const realIndex = swiper.realIndex;
-        setBackgroundImage(slides[realIndex].src);
-        setTitle(slides[realIndex].title);
-        setDescription(slides[realIndex].description);
-        setActiveIndex(realIndex);
+
+        if(slides.length >0){
+
+            setPageParameter({...pageParameter,
+                backgroundImage : slides[realIndex]?.img,
+                title : slides[realIndex]?.name,
+                description : slides[realIndex]?.detail,
+                activeIndex : realIndex
+            })
+        }
     };
 
     return (
         <div
             className="slider-container relative"
             style={{
-                backgroundImage: `url(${backgroundImage})`,
+                backgroundImage: `url(${pageParameter.backgroundImage})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 transition: 'background-image 0.5s ease',
@@ -62,8 +70,8 @@ const HomePageSlider = () => {
             ></div>
 
             <div className="text-content text-white ml-5 w-1/3 mr-10 relative z-20">
-                <h1 className="text-4xl font-bold ">{title}</h1>
-                <p className="text-lg mt-2">{description}</p>
+                <h1 className="text-4xl font-bold ">{pageParameter.title}</h1>
+                <p className="text-lg mt-2">{pageParameter.description}</p>
             </div>
 
 
@@ -97,12 +105,12 @@ const HomePageSlider = () => {
                         style={{
                             display: 'flex',
                             justifyContent: 'center',
-                            transform: index === activeIndex ? 'scale(1.1)' : 'scale(0.9)',
+                            transform: index === pageParameter.activeIndex ? 'scale(1.1)' : 'scale(0.9)',
                             transition: 'transform 0.3s ease',
                         }}
                     >
                         <img
-                            src={slide.src}
+                            src={slide.img}
                             alt={`Slide ${index + 1}`}
                             className="slide-image"
 
