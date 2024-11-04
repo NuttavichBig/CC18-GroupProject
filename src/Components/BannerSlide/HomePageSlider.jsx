@@ -71,7 +71,7 @@ const HomePageSlider = () => {
 
 
             <Swiper
-                key={pageParameter.activeIndex}
+                key={slides}
                 pagination={{ clickable: true }}
                 modules={[Pagination, Autoplay]}
                 onSlideChange={handleSlideChange}
