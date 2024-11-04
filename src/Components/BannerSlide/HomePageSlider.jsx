@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -8,36 +8,31 @@ import axios from 'axios';
 const API = import.meta.env.VITE_API
 
 const HomePageSlider = () => {
-    const [slides,setSlides] = useState([])
-    const [pageParameter , setPageParameter] = useState({
-        backgroundImage : '',
-        title : '',
-        description : '',
-        activeIndex : 0,
+    const [slides, setSlides] = useState([])
+    const [pageParameter, setPageParameter] = useState({
+        backgroundImage: '',
+        title: '',
+        description: '',
+        activeIndex: 0,
     })
 
-    useEffect(()=>{
+    useEffect(() => {
         getData()
-    },[])
-
-        const getData = async()=>{
-            const result = await axios.get(`${API}/hotel?sortBy=rating`)
-            setSlides(result.data?.hotels)
-        }
-
+    }, [])
+    const getData = async () => {
+        const result = await axios.get(`${API}/hotel?sortBy=rating`)
+        setSlides(result.data?.hotels)
+    }
 
     const handleSlideChange = (swiper) => {
         const realIndex = swiper.realIndex;
-
-        if(slides.length >0){
-
-            setPageParameter({...pageParameter,
-                backgroundImage : slides[realIndex]?.img,
-                title : slides[realIndex]?.name,
-                description : slides[realIndex]?.detail,
-                activeIndex : realIndex
-            })
-        }
+        setPageParameter({
+            ...pageParameter,
+            backgroundImage: slides[realIndex]?.img,
+            title: slides[realIndex]?.name,
+            description: slides[realIndex]?.detail,
+            activeIndex: realIndex
+        })
     };
 
     return (
@@ -76,6 +71,7 @@ const HomePageSlider = () => {
 
 
             <Swiper
+                key={pageParameter.activeIndex}
                 pagination={{ clickable: true }}
                 modules={[Pagination, Autoplay]}
                 onSlideChange={handleSlideChange}
@@ -128,4 +124,4 @@ const HomePageSlider = () => {
     );
 };
 
-export default HomePageSlider;
+export default memo(HomePageSlider);
