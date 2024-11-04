@@ -16,6 +16,7 @@ const Login = ({ setIsLoginModalOpen }) => {
       <form
         onSubmit={handleSubmit}
         className="bg-[#FFF8EB] rounded-lg shadow-lg p-8 w-full max-w-2xl relative flex"
+        onClick={e=>e.stopPropagation()}
       >
         <button
           type="button"
@@ -49,6 +50,7 @@ const Login = ({ setIsLoginModalOpen }) => {
               placeholder="Email"
               className="bg-[#FFE4B0] w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               required
+              
             />
             <label className="block mt-4">Password</label>
             <input
