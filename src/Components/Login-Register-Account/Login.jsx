@@ -1,41 +1,29 @@
-import React from 'react';
-import travellogo from '../../assets/TRAVELHOMELOGO-USER.png';
+import React from "react";
+import travellogo from "../../assets/TRAVELHOMELOGO-USER.png";
 
-const Login = ({ onClose }) => {
-  const handleClickOutside = (e) => {
-    if (e.target.id === "modal-overlay") {
-      onClose();
-    }
-  };
-
+const Login = ({ setIsLoginModalOpen }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-
     console.log("Form submitted");
-    onClose();
-
   };
 
   return (
     <div
-      id="modal-overlay"
-      onClick={handleClickOutside}
+      onClick={() => setIsLoginModalOpen(false)}
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
     >
       <form
         onSubmit={handleSubmit}
         className="bg-[#FFF8EB] rounded-lg shadow-lg p-8 w-full max-w-2xl relative flex"
       >
-
         <button
           type="button"
-          onClick={onClose}
+          onClick={() => setIsLoginModalOpen(false)}
           className="absolute top-4 right-4 text-gray-600 hover:text-red-500 focus:outline-none transition duration-200"
         >
           ✕
         </button>
-
 
         <div className="absolute top-[-3rem] left-1/2 transform -translate-x-1/2">
           <img
@@ -44,7 +32,6 @@ const Login = ({ onClose }) => {
             className="w-[100px] h-[100px] rounded-lg shadow-lg bg-[#FFF8EB]"
           />
         </div>
-
 
         <div className="w-1/2 pr-4 mt-6">
           <img
@@ -75,7 +62,6 @@ const Login = ({ onClose }) => {
             Forget Password
           </div>
 
-
           <button
             type="button"
             className="w-full flex items-center justify-center p-3  border-2 border-black rounded-lg  shadow-md hover:bg-gray-100 transition bg-[#FFF8EB]"
@@ -84,7 +70,6 @@ const Login = ({ onClose }) => {
             <span className="font-medium">Continue with Google</span>
           </button>
         </div>
-
 
         <div className="absolute bottom-[-29px] left-1/2 transform -translate-x-1/2">
           <button
