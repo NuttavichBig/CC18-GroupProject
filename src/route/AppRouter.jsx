@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import HomePage from "../../src/pages/User-Guest/HomePage";
 
 
@@ -34,10 +34,10 @@ const MainRouter = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
 
+      { path: "selecthotel", element: <SelectHotel /> },
 
-      //////////////////////////////////////////////บนนี้ทำแล้ว
+      //////////////////////////////////////////////บนนี้ทำแล้วล่างไว้พิจารณา เตรียมลบ ยังไม่มี /user
 
-      { path: "selectHotel", element: <SelectHotel /> },
       { path: "selectDetail", element: <SelectDetail /> },
       { path: "paymentDetail", element: <PaymentDetail /> },
       { path: "paymentSummery", element: <PaymentSummary /> },
@@ -47,6 +47,15 @@ const MainRouter = createBrowserRouter([
       { path: "manageAccount", element: <ManageOwnAccount /> },
       { path: "OwnPurchase", element: <OwnPurchase /> },
       { path: "OwnReview", element: <OwnReview /> },
+    ],
+  },
+  {
+    path: "/user",
+    element: <Outlet />,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: "selecthotel", element: <SelectHotel /> },
+
     ],
   },
   {
