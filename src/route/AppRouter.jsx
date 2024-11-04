@@ -3,6 +3,10 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import HomePage from "../../src/pages/User-Guest/HomePage";
 import SelectHotel from "../pages/User-Guest/SelectHotel";
 import SelectHotelDetail from "../pages/User-Guest/SelectHotelDetail";
+import HotelDetailToPayment from "../pages/User-Guest/HotelDetailToPayment";
+import HotelPayment from "../pages/User-Guest/HotelPayment";
+import HotelPaymentSucessSummary from "../pages/User-Guest/HotelPaymentSucessSummary";
+import HotelPromotion from "../pages/User-Guest/HotelPromotion";
 
 //////////////////////////////////////////////บนนี้ทำแล้ว
 
@@ -28,13 +32,16 @@ import DashboardAdmin from "../pages/Admin/DashboardAdmin";
 const MainRouter = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: <Outlet />,
     children: [
       { index: true, element: <HomePage /> },
 
       { path: "select-hotel", element: <SelectHotel /> },
       { path: "select-hotel-detail", element: <SelectHotelDetail /> },
-
+      { path: "select-hotel-detail-payment", element: <HotelDetailToPayment /> },
+      { path: "select-hotel-detail-payment-method", element: <HotelPayment /> },
+      { path: "select-hotel-detail-payment-method-success", element: <HotelPaymentSucessSummary /> },
+      { path: "promotion", element: <HotelPromotion /> },
       //////////////////////////////////////////////บนนี้ทำแล้วล่างไว้พิจารณา เตรียมลบ ยังไม่มี /user
 
       // { path: "paymentDetail", element: <PaymentDetail /> },
@@ -54,6 +61,12 @@ const MainRouter = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "select-hotel", element: <SelectHotel /> },
       { path: "select-hotel-detail", element: <SelectHotelDetail /> },
+
+      { path: "select-hotel-detail-payment", element: <HotelDetailToPayment /> },
+      { path: "select-hotel-detail-payment-method", element: <HotelPayment /> },
+      { path: "select-hotel-detail-payment-method-success", element: <HotelPaymentSucessSummary /> },
+      { path: "promotion", element: <HotelPromotion /> },
+
     ],
   },
   {

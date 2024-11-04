@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import travellogo from "../../assets/TRAVELHOMELOGO-HOMEPAGE.png";
 import Login from "../Login-Register-Account/Login";
 import Register from "../Login-Register-Account/Register";
+import { Link } from "react-router-dom";
+
 
 const HeaderHomePage = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleMouseEnterLogin = () => setIsDropdownOpen(true);
+  const handleMouseLeaveRegister = () => setIsDropdownOpen(false);
 
   return (
     <div>
@@ -30,37 +36,47 @@ const HeaderHomePage = () => {
         />
 
         <nav className="flex-grow flex justify-center space-x-8 text-xs tracking-widest uppercase">
-          <a href="#booking" className="hover:text-gray-300">
+          <Link to="/select-hotel" className="hover:text-gray-300">
             Booking
-          </a>
-          <a href="#promotion" className="hover:text-gray-300">
+          </Link>
+          <Link to="/promotion" className="hover:text-gray-300">
             Travel Promotion
-          </a>
+          </Link>
           <a href="#contact" className="hover:text-gray-300">
             Contact Us
           </a>
 
-          {/* Wrapper for Login and Register */}
-          <div className="relative group">
-            <a
-              href="#login"
-              className="hover:text-gray-300"
-              onClick={() => {
-                setIsLoginModalOpen(true);
-              }}
+          {/* Wrapper for Login and Register Dropdown */}
+          <div className="relative">
+            <span
+              className="hover:text-gray-300 cursor-pointer"
+              onClick={() => setIsLoginModalOpen(true)} // แก้ไขตรงนี้เพื่อเปิด Login modal
+              onMouseEnter={handleMouseEnterLogin} // แสดง dropdown เมื่อ hover ที่ Login
             >
               Login
-            </a>
+            </span>
+
+
             {/* Register Dropdown */}
-            <div className="absolute left-0 mt-1 hidden group-hover:block bg-white bg-opacity-75 border border-gray-300 rounded-lg p-2">
-              <a
-                href="#register"
-                className="block hover:text-gray-300 text-center text-black rounded p-2"
-                onClick={() => setIsRegisterModalOpen(true)}
+            {isDropdownOpen && (
+              <div
+                className="absolute mt-1 bg-white bg-opacity-20 border border-white rounded-lg p-2"
+                style={{
+                  width: '100px',
+                  transform: 'translateX(20%)', // ขยับ dropdown ไปทางขวา
+                }}
+                onMouseEnter={handleMouseEnterLogin} // คง dropdown เมื่อ hover ที่ dropdown เอง
+                onMouseLeave={handleMouseLeaveRegister} // ปิด dropdown เมื่อออกจาก dropdown
               >
-                Register
-              </a>
-            </div>
+                <a
+                  href="#register"
+                  className="block text-center text-white rounded  hover:bg-black hover:bg-opacity-10 transition duration-200"
+                  onClick={() => setIsRegisterModalOpen(true)}
+                >
+                  Register
+                </a>
+              </div>
+            )}
           </div>
         </nav>
 
@@ -74,6 +90,7 @@ const HeaderHomePage = () => {
         </div>
       </div>
 
+      {/* Modals */}
       {isLoginModalOpen && <Login setIsLoginModalOpen={setIsLoginModalOpen} />}
       {isRegisterModalOpen && (
         <Register setIsRegisterModalOpen={setIsRegisterModalOpen} />
