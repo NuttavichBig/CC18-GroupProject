@@ -1,0 +1,100 @@
+/* CSS */
+.slick-slider {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    user-select: none;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slick-list {
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.slick-track {
+    position: relative;
+    display: flex;
+}
+
+.slick-slide {
+    display: none;
+    float: left;
+    min-height: 1px;
+    transition: transform 0.5s ease;
+}
+
+.slick-initialized .slick-slide {
+    display: block;
+}
+
+/* ภาพที่ไม่ใช่ Center จะเบลอและมี z-index ต่ำ */
+.slick-slide img {
+    filter: grayscale(10%) blur(0px) !important;
+    opacity: 0.5;
+    transition: transform 0.5s ease, filter 0.5s ease !important;
+}
+
+/* ภาพ Center โดดเด่นขึ้น */
+.slick-center img {
+    transform: scale(1.2);
+    filter: grayscale(0%) blur(0);
+    opacity: 1;
+    z-index: 3;
+    transition: transform 0.5s ease, filter 0.5s ease;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.slider-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+    /* เพิ่ม position relative ที่นี่ */
+}
+
+.slide-item {
+    padding: 10px;
+    overflow: visible;
+}
+
+.slide-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+/* ปุ่ม Next และ Previous */
+.slick-prev,
+.slick-next {
+    font-size: 20px;
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: black;
+    z-index: 2;
+
+}
+
+.slick-prev {
+    left: 20px;
+}
+
+.slick-next {
+    right: 20px;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+    color: #333;
+}
