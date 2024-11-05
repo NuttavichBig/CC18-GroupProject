@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import slidebarpic from '../../assets/slideright.gif';
 import QRpic from '../../assets/QRCODE.jpg'
+import { useNavigate } from 'react-router-dom';
 
 function PaymentMethodForm() {
     const [paymentMethod, setPaymentMethod] = useState('Credit Card');
-
+    const navigate = useNavigate()
 
     const handleSlideEnd = (event, info) => {
         const offset = info.offset.x;
@@ -20,7 +21,7 @@ function PaymentMethodForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        alert("Payment Confirmed! Form Submitted.");
+        navigate('/bookinghotel-detail-payment-method-summary')
     };
 
     return (
@@ -92,7 +93,7 @@ function PaymentMethodForm() {
                 </div>
             )}
 
-            {/* Slide to Pay */}
+
             <div className="flex justify-center w-full">
                 <div className="relative bg-gray-300 rounded-full h-12 mt-6 w-1/2 mx-auto">
                     <motion.div

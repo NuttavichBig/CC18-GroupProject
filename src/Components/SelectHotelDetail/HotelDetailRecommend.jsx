@@ -1,7 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function HotelDetailRecommend() {
-
+    const navigate = useNavigate();
     const recommendedHotels = [
         {
             id: 1,
@@ -37,7 +38,7 @@ function HotelDetailRecommend() {
                         <p className="text-gray-500 text-sm">{hotel.location}</p>
                         <p className="text-lg font-bold mt-1">THB {hotel.price}</p>
                     </div>
-                    <button className="px-4 py-2 bg-orange-500 text-white rounded-full">BOOK NOW</button>
+                    <button onClick={() => navigate('/bookinghotel-detail')} className="px-4 py-2 bg-orange-500 text-white rounded-full">BOOK NOW</button>
                 </div>
             ))}
         </div>
