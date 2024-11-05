@@ -3,12 +3,15 @@ import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import { motion } from "framer-motion";
 import slidebarpic from "../../assets/slideright.gif";
 import "../../utills/StripeCSS/stripe.css";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckoutForm({ dpmCheckerLink }) {
     const stripe = useStripe();
     const elements = useElements();
     const [message, setMessage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,6 +30,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
             setMessage("Payment succeeded!");
         }
         setIsLoading(false);
+        navigate('/bookinghotel-detail-payment-method-summary')
     };
 
     const handleSlideEnd = async (event, info) => {
