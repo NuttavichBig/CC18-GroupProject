@@ -1,5 +1,5 @@
 // HotelSelected.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import PictureSlide from '../../Components/Nav-Footer-Chat/PictureSlide';
@@ -8,11 +8,20 @@ import FilterPanel from '../../Components/FilterSearch/FilterPanel';
 import HeaderUserPage from '../../Components/Nav-Footer-Chat/HeaderUserPage';
 import HotelList from '../../Components/HotelListSelectHotel/HotelList';
 import SearchBoxMain from '../../Components/FilterSearch/SearchBoxMain';
+import useUserStore from '../../stores/user-store';
 
 const SelectHotel = () => {
   const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const selectedLocation = useUserStore((state)=>state.selectedLocation)
+
+  useEffect(()=>{
+    if(selectedLocation){
+      handleSelectLocation(selectedLocation)
+    }
+  },[selectedLocation])
 
   const handleSelectLocation = async(location) => {
     console.log('location:', location);
@@ -47,7 +56,6 @@ const SelectHotel = () => {
             <div className="col-span-1 h-full w-full">
               <FilterPanel />
             </div>
-
 
             <div className="col-span-3 mb-[500px]">
               <HotelList hotels={locations}/>
