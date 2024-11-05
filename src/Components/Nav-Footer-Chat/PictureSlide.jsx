@@ -1,7 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import '../../utills/PictureSlideSlickCSS/slick.css';
 import '../../utills/PictureSlideSlickCSS/slick-theme.css';
+import axios from 'axios';
+const API = import.meta.env.VITE_API
 
 const Arrow = ({ direction, onClick }) => (
     <div
@@ -14,8 +16,7 @@ const Arrow = ({ direction, onClick }) => (
 
 const PictureSlide = () => {
     const sliderRef = useRef(null);
-    // const [images, setImages] = useState([]);
-
+    const [images ,setImages] = useState([])
     const settings = {
         centerMode: true,
         centerPadding: '100px',
@@ -49,23 +50,19 @@ const PictureSlide = () => {
         ],
     };
 
-    const images = [
-        "/1.jpg", "/2.jpg", "/3.jpg", "/4.jpg", "/5.jpg",
-        "/6.jpg", "/7.jpg", "/8.jpg", "/9.jpg", "/10.jpg",
-        "/11.jpg", "/12.jpg"
-    ];
-    // useEffect(() => {
-    //     // ดึงข้อมูลภาพจาก API โดยใช้ axios const fetchImages = async () => {
-    //         try {
-    //             const response = await axios.get('');
-    //             setImages(response.data.images); 
-    //         } catch (error) {
-    //             console.error('Error fetching images:', error);
-    //         }
-    //     };
+    const getImage = async()=>{
+        const result = await axios.get(`${API}/hotel?sortBy=rating`)
+        let extractImg = []
+        result.data?.hotels?.forEach(item=>{
+            extractImg.push(item.img)
+        })
+        setImages(extractImg)
+    }
 
-    //     fetchImages();
-    // }, []);
+    useEffect(()=>{
+        getImage()
+    },[])
+
 
 
 
