@@ -1,13 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const TravelerDetailForm = () => {
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
-
-
-
-
         console.log("Form submitted");
+
+
+        navigate('/bookinghotel-detail-payment-method');
     };
 
     return (
@@ -70,9 +72,3 @@ const TravelerDetailForm = () => {
 };
 
 export default TravelerDetailForm;
-
-
-
-
-
-

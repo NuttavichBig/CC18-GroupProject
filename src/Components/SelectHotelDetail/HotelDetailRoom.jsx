@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function HotelDetailRoom() {
+    const navigate = useNavigate();
+
     const rooms = [
         {
             id: 1,
@@ -36,9 +39,7 @@ function HotelDetailRoom() {
             <h3 className="text-lg font-semibold mb-4">Rooms</h3>
             {rooms.map((room) => (
                 <div key={room.id} className="flex bg-white p-4 rounded-lg shadow-md">
-
                     <img src={room.imageUrl} alt={room.type} className="w-32 h-24 object-cover rounded-lg mr-4" />
-
 
                     <div className="flex-grow flex flex-col justify-between">
                         <div className="flex space-x-8">
@@ -59,10 +60,14 @@ function HotelDetailRoom() {
                         </div>
                     </div>
 
-
                     <div className="flex flex-col items-end justify-between ml-4">
                         <span className="text-lg font-bold text-orange-500">THB {room.price}</span>
-                        <button className="bg-orange-500 text-white py-1 px-4 rounded-md">BOOK NOW</button>
+                        <button
+                            className="bg-orange-500 text-white py-1 px-4 rounded-md"
+                            onClick={() => navigate('/bookinghotel-detail-payment')}
+                        >
+                            BOOK NOW
+                        </button>
                     </div>
                 </div>
             ))}

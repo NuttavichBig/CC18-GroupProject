@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const HotelList = () => {
+    const navigate = useNavigate();
+
     const hotels = [
         {
             id: 1,
@@ -122,16 +125,15 @@ const HotelList = () => {
                         <p className="text-sm text-gray-500">{hotel.location}</p>
                         <p className="text-lg font-bold">THB {hotel.price}</p>
 
-                        {/* Rating */}
+
                         <div className="flex">
-                            {Array.from({ length: 5 }, (_, i) => (
-                                <span key={i} className={i < hotel.rating ? "text-yellow-500" : "text-gray-300"}>
-                                    ★
-                                </span>
-                            ))}
+                            <span className="text-yellow-500">{'★'.repeat(hotel.rating)}</span>
+                            <span className="text-gray-300">{'★'.repeat(5 - hotel.rating)}</span>
                         </div>
 
-                        {/* Facilities and BOOK NOW Button */}
+
+
+
                         <div className="flex justify-between items-center mt-2">
                             <div className="text-sm text-gray-700">
                                 <h4 className="font-semibold">Facilities:</h4>
@@ -141,7 +143,12 @@ const HotelList = () => {
                                     ))}
                                 </div>
                             </div>
-                            <button className="bg-orange-500 text-white py-2 px-4 rounded">BOOK NOW</button>
+                            <button
+                                className="bg-orange-500 text-white py-2 px-4 rounded"
+                                onClick={() => navigate('/bookinghotel-detail')}
+                            >
+                                BOOK NOW
+                            </button>
                         </div>
                     </div>
                 </div>
