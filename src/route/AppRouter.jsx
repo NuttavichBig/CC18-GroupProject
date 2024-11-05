@@ -7,8 +7,12 @@ import HotelDetailToPayment from "../pages/User-Guest/HotelDetailToPayment";
 import HotelPayment from "../pages/User-Guest/HotelPayment";
 import HotelPaymentSucessSummary from "../pages/User-Guest/HotelPaymentSucessSummary";
 import HotelPromotion from "../pages/User-Guest/HotelPromotion";
-
-//////////////////////////////////////////////บนนี้ทำแล้ว
+import RegisterPartner from "../pages/Partner/RegisterPartner";
+import HomeUser from "../pages/User-Guest/HomeUser";
+import ProfileForm from "../Components/UserProfile/ProfileForm";
+import MyPurchase from "../Components/UserProfile/MyPurchase";
+import ReviewTabHistory from "../Components/UserProfile/ReviewTabHistory";
+//////////////////////////////////////////////
 
 // import PaymentDetail from "../pages/User-Guest/PaymentDetail";
 // import PaymentSummary from "../pages/User-Guest/PaymentSummary";
@@ -25,6 +29,8 @@ import ReviewDetailAdmin from "../pages/Admin/ReviewDetailAdmin";
 import UserDetailAdmin from "../pages/Admin/UserDetailAdmin";
 import HomeAdmin from "../pages/Admin/HomeAdmin";
 import DashboardAdmin from "../pages/Admin/DashboardAdmin";
+
+
 // import HomePartner from "../pages/Partner/HomePartner";
 // import BookingDetailPartner from "../pages/Partner/BookingDetailPartner";
 // import ReviewDetailPartner from "../pages/Partner/ReviewDetailPartner";
@@ -35,14 +41,15 @@ const MainRouter = createBrowserRouter([
     element: <Outlet />,
     children: [
       { index: true, element: <HomePage /> },
-
-      { path: "select-hotel", element: <SelectHotel /> },
-      { path: "select-hotel-detail", element: <SelectHotelDetail /> },
-      { path: "select-hotel-detail-payment", element: <HotelDetailToPayment /> },
-      { path: "select-hotel-detail-payment-method", element: <HotelPayment /> },
-      { path: "select-hotel-detail-payment-method-success", element: <HotelPaymentSucessSummary /> },
+      { path: "bookinghotel", element: <SelectHotel /> },
+      { path: "bookinghotel-detail", element: <SelectHotelDetail /> },
+      { path: "bookinghotel-detail-payment", element: <HotelDetailToPayment /> },
+      { path: "bookinghotel-detail-payment-method", element: <HotelPayment /> },
+      { path: "bookinghotel-detail-payment-method-summary", element: <HotelPaymentSucessSummary /> },
       { path: "promotion", element: <HotelPromotion /> },
-      //////////////////////////////////////////////บนนี้ทำแล้วล่างไว้พิจารณา เตรียมลบ ยังไม่มี /user
+
+
+      ////////////////////////////////
 
       // { path: "paymentDetail", element: <PaymentDetail /> },
       // { path: "paymentSummery", element: <PaymentSummary /> },
@@ -59,13 +66,22 @@ const MainRouter = createBrowserRouter([
     element: <Outlet />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "select-hotel", element: <SelectHotel /> },
-      { path: "select-hotel-detail", element: <SelectHotelDetail /> },
-
-      { path: "select-hotel-detail-payment", element: <HotelDetailToPayment /> },
-      { path: "select-hotel-detail-payment-method", element: <HotelPayment /> },
-      { path: "select-hotel-detail-payment-method-success", element: <HotelPaymentSucessSummary /> },
+      { path: "bookinghotel", element: <SelectHotel /> },
+      { path: "bookinghotel-detail", element: <SelectHotelDetail /> },
+      { path: "bookinghotel-detail-payment", element: <HotelDetailToPayment /> },
+      { path: "bookinghotel-detail-payment-method", element: <HotelPayment /> },
+      { path: "bookinghotel-detail-payment-method-summary", element: <HotelPaymentSucessSummary /> },
       { path: "promotion", element: <HotelPromotion /> },
+    ],
+  },
+
+  {
+    path: "/userprofile",
+    element: <HomeUser />,
+    children: [
+      { path: "edit", element: <ProfileForm /> },
+      { path: "purchasehistory", element: <MyPurchase /> },
+      { path: "reviewhistory", element: <ReviewTabHistory /> },
 
     ],
   },
@@ -84,8 +100,9 @@ const MainRouter = createBrowserRouter([
   },
   {
     path: "/partner",
-    // element: <HomePartner />,
+    element: <Outlet />,
     children: [
+      { path: "registerpartner", element: <RegisterPartner /> },
       // { path: "bookingDetailPartner", element: <BookingDetailPartner /> },
       // { path: "registerPartner", element: <RegisterPartner /> },
       // { path: "reviewDetailPartner", element: <ReviewDetailPartner /> },

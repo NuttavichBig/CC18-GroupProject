@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function SidebarAdmin() {
   return (
     <>
-      <div className="bg-[#543310] h-screen flex flex-col rounded-lg">
+      <div className="bg-white h-screen flex flex-col rounded-lg">
         <div className="text-center">
           <Link to={"dashboard"}>
             <img
@@ -25,7 +25,7 @@ export default function SidebarAdmin() {
               to={"userDetailAdmin"}
               className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out"
             >
-             MANAGE USERS 
+              MANAGE USERS
             </Link>
             <Link
               to={"reviewDetailAdmin"}
@@ -51,7 +51,7 @@ export default function SidebarAdmin() {
             >
               CHAT
             </Link>
-          
+
             <button className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out ">
               LOGOUT
             </button>
