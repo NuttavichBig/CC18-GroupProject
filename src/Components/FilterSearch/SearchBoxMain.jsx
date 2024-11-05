@@ -3,12 +3,19 @@ import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import searchbuttonanimation from "../../assets/GifMainButtonOrangeSearch1.gif";
+import SearchLocation from '../GoogleApi/SearchLocation';
 
-const SearchBoxMain = () => {
+const SearchBoxMain = ({onLocationSelect}) => {
     const [journeyDate, setJourneyDate] = useState(new Date());
     const [returnDate, setReturnDate] = useState(new Date());
     const [showJourneyCalendar, setShowJourneyCalendar] = useState(false);
     const [showReturnCalendar, setShowReturnCalendar] = useState(false);
+    const [location, setLocation] = useState(null);
+
+    const handleSelectLocation = (selectedLocation) =>{
+        setLocation(selectedLocation);
+        onLocationSelect(selectedLocation);
+    }
 
     return (
         <div className="bg-[#fef6e4] rounded-lg shadow-lg px-6 py-4 w-full mx-auto mt-10 mb-5 relative">
@@ -19,11 +26,12 @@ const SearchBoxMain = () => {
 
                 <div className="flex-1 flex items-center gap-2 bg-[#fddbb7] rounded-full px-4 h-12 shadow-md border border-gray-300">
                     <span className="text-xs text-gray-600">Destination</span>
-                    <input
+                    {/* <input
                         type="text"
                         placeholder="Phuket"
                         className="flex-1 text-sm bg-transparent focus:outline-none"
-                    />
+                    /> */}
+                    <SearchLocation onSelectLocation={handleSelectLocation}/>
                 </div>
 
                 <div className="flex-1 relative">
