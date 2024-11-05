@@ -38,9 +38,15 @@ const MainRouter = createBrowserRouter([
 
       { path: "select-hotel", element: <SelectHotel /> },
       { path: "select-hotel-detail", element: <SelectHotelDetail /> },
-      { path: "select-hotel-detail-payment", element: <HotelDetailToPayment /> },
+      {
+        path: "select-hotel-detail-payment",
+        element: <HotelDetailToPayment />,
+      },
       { path: "select-hotel-detail-payment-method", element: <HotelPayment /> },
-      { path: "select-hotel-detail-payment-method-success", element: <HotelPaymentSucessSummary /> },
+      {
+        path: "select-hotel-detail-payment-method-success",
+        element: <HotelPaymentSucessSummary />,
+      },
       { path: "promotion", element: <HotelPromotion /> },
       //////////////////////////////////////////////บนนี้ทำแล้วล่างไว้พิจารณา เตรียมลบ ยังไม่มี /user
 
@@ -62,11 +68,16 @@ const MainRouter = createBrowserRouter([
       { path: "select-hotel", element: <SelectHotel /> },
       { path: "select-hotel-detail", element: <SelectHotelDetail /> },
 
-      { path: "select-hotel-detail-payment", element: <HotelDetailToPayment /> },
+      {
+        path: "select-hotel-detail-payment",
+        element: <HotelDetailToPayment />,
+      },
       { path: "select-hotel-detail-payment-method", element: <HotelPayment /> },
-      { path: "select-hotel-detail-payment-method-success", element: <HotelPaymentSucessSummary /> },
+      {
+        path: "select-hotel-detail-payment-method-success",
+        element: <HotelPaymentSucessSummary />,
+      },
       { path: "promotion", element: <HotelPromotion /> },
-
     ],
   },
   {

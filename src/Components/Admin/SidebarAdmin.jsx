@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import TRAVELHOMELOGOUSER from "../../assets/TRAVELHOMELOGO-HOMEPAGE.png";
 import { Link } from "react-router-dom";
+import AllChatAdmin from "../../pages/Admin/AllChatAdmin";
 
 export default function SidebarAdmin() {
+  const [chatOpen, setChatOpen] = useState(false);
   return (
     <>
+      {chatOpen && <AllChatAdmin setChatOpen={setChatOpen} />}
+
       <div className="bg-[#543310] h-screen flex flex-col rounded-lg">
         <div className="text-center">
           <Link to={"dashboard"}>
@@ -25,10 +29,10 @@ export default function SidebarAdmin() {
               to={"userDetailAdmin"}
               className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out"
             >
-             MANAGE USERS 
+              MANAGE USERS
             </Link>
             <Link
-              to={"reviewDetailAdmin"}
+              to={"hotelDetailAdmin"}
               className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out "
             >
               HOTELS
@@ -45,13 +49,14 @@ export default function SidebarAdmin() {
             >
               PROMOTIONS
             </Link>
-            <Link
-              to={"promotionDetailAdmin"}
+
+            <button
+              onClick={() => setChatOpen(true)}
               className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out"
             >
               CHAT
-            </Link>
-          
+            </button>
+
             <button className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out ">
               LOGOUT
             </button>
