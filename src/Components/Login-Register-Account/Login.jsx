@@ -16,14 +16,18 @@ const Login = ({ setIsLoginModalOpen }) => {
 
     useEffect(()=>{
       if(token){
-
         setIsLoginModalOpen(false)
       }
     },[token])
   const handleSubmit = async(e) => {
-    e.preventDefault();
-    await login({email : input.email, password : input.password})
-    // console.log("Form submitted");
+    try{
+
+      e.preventDefault();
+      await login({email : input.email, password : input.password})
+      // console.log("Form submitted");
+    }catch(err){
+      setInput({...input,err : err})
+    }
   };
 
 

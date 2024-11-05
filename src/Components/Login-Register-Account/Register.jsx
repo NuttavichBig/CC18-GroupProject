@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import travellogo from "../../assets/TRAVELHOMELOGO-USER.png";
 
 const Register = ({ setIsRegisterModalOpen }) => {
+  const [input ,setInput] = useState({
+    firstName : '',
+    lastName : '',
+    email : '',
+    phone : '',
+    gender : 'MALE',
+    password : '',
+    confirmPassword : '',
+    date : 1,
+    month : 1,
+    year : 1998,
+  })
+  const hdlChange = (e)=>{
+    console.log(input)
+    setInput({...input,[e.target.name] : e.target.value})
+  }
+  const hdlCheck = (e)=>{
+    console.log(input)
+    if(e.target.checked){
+      setInput({...input,[e.target.name] : e.target.value})
+    }
+  }
+  const hdlRegister = ()=>{
+    
+  }
   return (
     <div
       onClick={() => setIsRegisterModalOpen(false)}
@@ -39,9 +64,12 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 First Name
               </label>
               <input
+              name="firstName"
                 type="text"
                 placeholder="First Name"
                 className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
+                onChange={hdlChange}
+                value={input.firstName}
               />
             </div>
             <div>
@@ -49,9 +77,12 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 Last Name
               </label>
               <input
+              name="lastName"
                 type="text"
                 placeholder="Last Name"
                 className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
+                onChange={hdlChange}
+                value={input.lastName}
               />
             </div>
           </div>
@@ -61,9 +92,12 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 Day
               </label>
               <input
+              name="date"
                 type="text"
                 placeholder="Day"
                 className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
+                onChange={hdlChange}
+                value={input.date}
               />
             </div>
             <div>
@@ -71,9 +105,12 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 Month
               </label>
               <input
+              name="month"
                 type="text"
                 placeholder="Month"
                 className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
+                onChange={hdlChange}
+                value={input.month}
               />
             </div>
             <div>
@@ -81,9 +118,12 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 Year
               </label>
               <input
+              name="year"
                 type="text"
                 placeholder="Year"
                 className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
+                onChange={hdlChange}
+                value={input.year}
               />
             </div>
           </div>
@@ -92,9 +132,12 @@ const Register = ({ setIsRegisterModalOpen }) => {
               Email
             </label>
             <input
+            name="email"
               type="email"
               placeholder="Email"
               className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
+              onChange={hdlChange}
+              value={input.email}
             />
           </div>
           <div>
@@ -102,9 +145,12 @@ const Register = ({ setIsRegisterModalOpen }) => {
               Phone
             </label>
             <input
+            name="phone"
               type="text"
               placeholder="Phone"
               className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
+              onChange={hdlChange}
+              value={input.phone}
             />
           </div>
           <div>
@@ -113,13 +159,13 @@ const Register = ({ setIsRegisterModalOpen }) => {
             </label>
             <div className="flex space-x-4">
               <label>
-                <input type="radio" name="gender" /> Male
+                <input type="radio" name="gender" value={"MALE"} onChange={hdlCheck} defaultChecked={true} /> Male
               </label>
               <label>
-                <input type="radio" name="gender" /> Female
+                <input type="radio" name="gender" value={"FEMALE"} onChange={hdlCheck} /> Female
               </label>
               <label>
-                <input type="radio" name="gender" /> Other
+                <input type="radio" name="gender" value={"OTHER"} onChange={hdlCheck} /> Other
               </label>
             </div>
           </div>
@@ -128,9 +174,12 @@ const Register = ({ setIsRegisterModalOpen }) => {
               Password
             </label>
             <input
+            name="password"
               type="password"
               placeholder="Password"
               className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
+              onChange={hdlChange}
+              value={input.password}
             />
           </div>
           <div>
@@ -138,9 +187,12 @@ const Register = ({ setIsRegisterModalOpen }) => {
               Confirm Password
             </label>
             <input
+            name="confirmPassword"
               type="password"
               placeholder="Confirm Password"
               className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
+              onChange={hdlChange}
+              value={input.confirmPassword}
             />
           </div>
           <button className="w-full flex items-center justify-center p-3 border-2 border-black rounded-lg bg-[#FFF8EB] mt-4">
