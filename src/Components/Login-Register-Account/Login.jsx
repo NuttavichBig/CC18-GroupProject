@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import travellogo from "../../assets/TRAVELHOMELOGO-USER.png";
+import useUserStore from "../../stores/user-store";
+import { useShallow } from "zustand/shallow";
 
 const Login = ({ setIsLoginModalOpen }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const [input, setInput] = useState({
+    email: '',
+    password: '',
+    err : "",
+  })
+  const {token,login} = useUserStore(useShallow(state=>({
+    token : state.token,
+    login : state.login
+  })))
 
-    console.log("Form submitted");
+    useEffect(()=>{
+      if(token){
+
+        setIsLoginModalOpen(false)
+      }
+    },[token])
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    await login({email : input.email, password : input.password})
+    // console.log("Form submitted");
   };
 
+
+  const handleChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value })
+  }
   return (
     <div
       onClick={() => setIsLoginModalOpen(false)}
@@ -16,7 +38,7 @@ const Login = ({ setIsLoginModalOpen }) => {
       <form
         onSubmit={handleSubmit}
         className="bg-[#FFF8EB] rounded-lg shadow-lg p-8 w-full max-w-2xl relative flex"
-        onClick={e=>e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
         <button
           type="button"
@@ -46,18 +68,21 @@ const Login = ({ setIsLoginModalOpen }) => {
           <div className="mt-8 space-y-4">
             <label>Email</label>
             <input
+              name="email"
               type="email"
               placeholder="Email"
               className="bg-[#FFE4B0] w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               required
-              
+              onChange={handleChange}
             />
             <label className="block mt-4">Password</label>
             <input
+              name="password"
               type="password"
               placeholder="Password"
               className="bg-[#FFE4B0] w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               required
+              onChange={handleChange}
             />
           </div>
           <div className="text-right text-xs text-gray-500 cursor-pointer hover:underline">
