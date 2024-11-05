@@ -79,7 +79,7 @@ const HomePageSearchBox = () => {
                                 ranges={[{ startDate: input.journeyDate, endDate: input.journeyDate, key: 'selection' }]}
                                 minDate={new Date()}
                                 onChange={(item) => {
-                                    if(input.returnDate < item.selection.startDate){
+                                    if(input.returnDate <= item.selection.startDate){
                                         let nextDate = new Date(item.selection.startDate)
                                         nextDate.setDate(nextDate.getDate()+1)
                                         setInput({ ...input, journeyDate: item.selection.startDate,returnDate : nextDate });

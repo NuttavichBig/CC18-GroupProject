@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 
 export default function HomeAdmin() {
   return (
+
     <>
     {/* BG was not full */}
       <div className="h-screen w-full relative bg-[#FEF9F2] flex justify-center items-start">
@@ -17,6 +18,7 @@ export default function HomeAdmin() {
             <div className="col-span-2 h-full">
               <Outlet />
             </div>
+
           </div>
         </div>
       </div>
