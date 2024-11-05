@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import booking from "../../assets/booking.png";
 import hotel from "../../assets/hotel.png";
 import star from "../../assets/star.png";
 import user from "../../assets/user.png";
+import AllChatAdmin from "../../pages/Admin/AllChatAdmin";
 
-export default function DashboardAdmin() {
+export default function DashboardAdmin({}) {
+  const [chatOpen, setChatOpen] = useState(false);
   return (
     <>
+      {chatOpen && <AllChatAdmin setChatOpen={setChatOpen} />}
       <div className="p-8 min-h-screen ">
         <p className="text-2xl font-bold text-[#543310] mb-6">DASHBOARD</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
@@ -41,7 +44,12 @@ export default function DashboardAdmin() {
               <p className="text-xl font-bold text-[#543310]">TOTAL CHATS</p>
               <p className="text-3xl font-bold text-[#543310]">500</p>
             </div>
-            <button className="relative flex flex-col justify-center items-center rounded-full p-6 border-4 border-[#AF8F6F] bg-[#F8F4E1] text-[#543310] font-semibold shadow-lg hover:bg-[#AF8F6F] hover:text-white transition-all duration-100 ease-in-out">
+            <button
+              onClick={() => {
+                setChatOpen(true);
+              }}
+              className="relative flex flex-col justify-center items-center rounded-full p-6 border-4 border-[#AF8F6F] bg-[#F8F4E1] text-[#543310] font-semibold shadow-lg hover:bg-[#AF8F6F] hover:text-white transition-all duration-100 ease-in-out"
+            >
               <p className="text-2xl font-bold ">WAITING CHAT</p>
               <p className="absolute top-8 right-5 transform translate-x-1/2 -translate-y-1/2 text-3xl font-bold text-[#FF0000] rounded-full border-4 border-[#AF8F6F] bg-[#F8F4E1] p-2">
                 40

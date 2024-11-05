@@ -8,7 +8,6 @@ export default function SidebarAdmin() {
   return (
     <>
       {chatOpen && <AllChatAdmin setChatOpen={setChatOpen} />}
-
       <div className="bg-[#543310] h-screen flex flex-col rounded-lg">
         <div className="text-center">
           <Link to={"dashboard"}>
@@ -18,7 +17,7 @@ export default function SidebarAdmin() {
               className="w-[40%] mx-auto mb-4"
             />
           </Link>
-          <form action="" className="flex flex-col space-y-4 items-center">
+          <div action="" className="flex flex-col space-y-4 items-center">
             <Link
               to={"bookingDetailAdmin"}
               className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out"
@@ -60,7 +59,7 @@ export default function SidebarAdmin() {
             <button className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out ">
               LOGOUT
             </button>
-          </form>
+          </div>
         </div>
       </div>
     </>
