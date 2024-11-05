@@ -1,5 +1,6 @@
 
 import axios from "axios";
+
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 const API = import.meta.env.VITE_API
@@ -15,6 +16,8 @@ const useUserStore = create(persist((set,get)=>({
         returnDate: new Date(),
         guest: 1
     },
+    selectedLocation: null,
+    setSelectedLocation:(location)=>set({selectedLocation : location}),
     setFilter : (value)=>{
         set({filter : value})
     },
@@ -29,6 +32,7 @@ const useUserStore = create(persist((set,get)=>({
         await axios.post(`${API}/auth/register`,body)
     }
 }),{
+
     name : "stateUserData",
     storage : createJSONStorage(()=>localStorage),
     partialize: (state) => ({ 
