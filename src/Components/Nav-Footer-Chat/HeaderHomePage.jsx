@@ -101,9 +101,7 @@ const HeaderHomePage = () => {
         </nav>
 
         <div className="flex items-center space-x-4 mr-4">
-          <div className="rounded-full border border-gray-500 cursor-pointer hover:bg-gray-200 transition p-2">
-            🔍
-          </div>
+
 
           {/* Profile Dropdown for "Hello, Guest!" */}
           <div className="relative">

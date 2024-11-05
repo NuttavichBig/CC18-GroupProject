@@ -3,6 +3,8 @@ import travellogo from "../../assets/TRAVELHOMELOGO-USER.png";
 import Login from "../Login-Register-Account/Login";
 import Register from "../Login-Register-Account/Register";
 import { Link, useNavigate } from "react-router-dom";
+import useUserStore from "../../stores/user-store";
+import { useShallow } from "zustand/shallow";
 
 const HeaderUserPage = () => {
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -10,7 +12,11 @@ const HeaderUserPage = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const navigate = useNavigate();
-
+    const { user, token, logout } = useUserStore(useShallow(state => ({
+        user: state.user,
+        token: state.token,
+        logout: state.logout
+      })))
     const handleMouseEnterLogin = () => setIsDropdownOpen(true);
     const handleMouseLeaveRegister = () => setIsDropdownOpen(false);
 
@@ -50,7 +56,14 @@ const HeaderUserPage = () => {
                         Contact Us
                     </Link>
 
-
+                    {token ?
+                    <div>
+                    <span className="hover:text-gray-300 cursor-pointer"
+                      onClick={logout}>
+                      Logout
+                    </span>
+                  </div>
+                    :
                     <div className="relative">
                         <span
                             className="hover:text-gray-300 cursor-pointer"
@@ -80,16 +93,17 @@ const HeaderUserPage = () => {
                                 </a>
                             </div>
                         )}
-                    </div>
+                    </div>}
                 </nav>
 
                 {/* Profile Dropdown for "Hello, Guest!" */}
+                <div className="flex items-center space-x-4 mr-4">
                 <div className="relative">
                     <span
                         className="text-xs uppercase tracking-wider cursor-pointer hover:text-gray-300"
                         onMouseEnter={handleMouseEnterProfile}
                     >
-                        Hello, Guest!
+                         {token ? `Hello, ${user.firstName} ${user.lastName}` : 'Hello, Guest!'}
                     </span>
 
                     {isProfileDropdownOpen && (
@@ -110,6 +124,7 @@ const HeaderUserPage = () => {
                             </button>
                         </div>
                     )}
+                    </div>
                 </div>
             </div>
 

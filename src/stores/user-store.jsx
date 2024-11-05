@@ -23,7 +23,7 @@ const useUserStore = create(persist((set,get)=>({
         set({token : result.data.token , user : result.data.user})
     },
     logout : ()=>{
-        set({token : ''})
+        set({token : '',user : null})
     }
 }),{
     name : "stateUserData",
