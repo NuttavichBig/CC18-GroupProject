@@ -22,7 +22,32 @@ export default function PaymentProvider({ children }) {
         fetchClientSecret();
     }, []);
 
-    const appearance = { theme: 'stripe' };
+    const appearance = {
+        theme: 'stripe', // หรือ 'flat', 'night', 'none' ฯลฯ
+        variables: {
+            colorPrimary: '#FFA500', // กำหนดสีหลักเป็นสีส้ม
+            colorBackground: '#fffaf0', // สีพื้นหลังแบบอ่อน
+            colorText: '#333333', // สีข้อความ
+            borderRadius: '10px', // กำหนดขอบมุม
+            spacingUnit: '10px', // ระยะห่างระหว่างองค์ประกอบ
+            fontSizeBase: '16px' // ขนาดฟอนต์
+        },
+        rules: {
+            '.Input': {
+                border: '1px solid #FFA500', // กรอบสีส้มสำหรับฟิลด์ input
+                padding: '10px' // เพิ่ม padding
+            },
+            '.Tab, .Label': {
+                color: '#333333', // กำหนดสีข้อความในแท็บและ label
+                fontSize: '16px' // ขนาดฟอนต์ในแท็บและ label
+            },
+            '.Tab--selected': {
+                backgroundColor: '#fffaf0', // สีพื้นหลังเมื่อแท็บถูกเลือก
+                borderColor: '#FFA500' // สีกรอบเมื่อแท็บถูกเลือก
+            }
+        }
+    };
+
     const loader = 'auto';
 
     return (

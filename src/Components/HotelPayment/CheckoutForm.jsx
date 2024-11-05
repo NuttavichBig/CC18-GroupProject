@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import slidebarpic from "../../assets/slideright.gif";
 import "../../utills/StripeCSS/stripe.css";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +10,8 @@ export default function CheckoutForm({ dpmCheckerLink }) {
     const elements = useElements();
     const [message, setMessage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const controls = useAnimation();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,19 +25,22 @@ export default function CheckoutForm({ dpmCheckerLink }) {
         console.log("payload", payload);
         if (payload.error) {
             setMessage(payload.error.message || "An unexpected error occurred.");
+            controls.start({ x: 0 }); // หากเกิดข้อผิดพลาด ให้เลื่อนกลับไปที่จุดเริ่มต้น
         } else if (payload.paymentIntent && payload.paymentIntent.status === "succeeded") {
             console.log("Payment succeeded");
             setMessage("Payment succeeded!");
+            navigate('/bookinghotel-detail-payment-method-summary');
         }
         setIsLoading(false);
-        navigate('/bookinghotel-detail-payment-method-summary')
     };
 
     const handleSlideEnd = async (event, info) => {
         const offset = info.offset.x;
         const sliderWidth = 300;
         if (offset >= sliderWidth * 0.9) {
-            await handleSubmit(event); // ใช้ await เพื่อให้การเรียก handleSubmit ทำงานสมบูรณ์ก่อน
+            await handleSubmit(event);
+        } else {
+            controls.start({ x: 0 }); // หากเลื่อนไปไม่ถึงสุด ให้เลื่อนกลับไปที่จุดเริ่มต้น
         }
     };
 
@@ -49,12 +52,10 @@ export default function CheckoutForm({ dpmCheckerLink }) {
             className="flex flex-col p-6 bg-[#fef6e4] rounded-lg shadow-md space-y-4"
             onSubmit={handleSubmit}
         >
-            <h3 className="text-xl font-bold">Select Payment Method And Pay</h3>
+            <h3 className="text-xl font-bold mb-5">Select Payment Method And Pay</h3>
 
-            {/* ฟอร์ม Stripe Payment Element */}
             <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
 
-            {/* การแสดงตัวเลือก Dynamic Payment Methods */}
             <div id="dpm-annotation">
                 <p>
                     Payment methods are dynamically displayed based on customer location, order amount, and currency.&nbsp;
@@ -64,7 +65,6 @@ export default function CheckoutForm({ dpmCheckerLink }) {
                 </p>
             </div>
 
-            {/* ปุ่ม Slide สำหรับการชำระเงิน */}
             <div className="flex justify-center w-full">
                 <div className="relative bg-gray-300 rounded-full h-12 mt-6 w-1/2 mx-auto">
                     <motion.div
@@ -74,6 +74,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
                         onDragEnd={handleSlideEnd}
                         style={{ width: '150px' }}
                         whileTap={{ cursor: 'grabbing' }}
+                        animate={controls} // ใช้ animate controls เพื่อควบคุมตำแหน่ง
                     >
                         Slide to Pay
                         <img
@@ -85,7 +86,6 @@ export default function CheckoutForm({ dpmCheckerLink }) {
                 </div>
             </div>
 
-            {/* แสดงข้อความแสดงผลลัพธ์ */}
             {message && <div id="payment-message" className="mt-4 text-red-500">{message}</div>}
         </motion.form>
     );
