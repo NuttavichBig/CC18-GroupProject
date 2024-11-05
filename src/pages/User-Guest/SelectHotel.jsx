@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-
 import PictureSlide from '../../Components/Nav-Footer-Chat/PictureSlide';
 import Footer from '../../Components/Nav-Footer-Chat/Footer';
 import FilterPanel from '../../Components/FilterSearch/FilterPanel';
