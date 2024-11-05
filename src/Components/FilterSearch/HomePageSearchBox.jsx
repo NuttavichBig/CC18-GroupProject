@@ -1,15 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import searchbuttonanimation from "../../assets/GifMainButtonOrangeSearch1.gif"
+import useUserStore from '../../stores/user-store';
+import { useShallow } from 'zustand/shallow';
 
 const HomePageSearchBox = () => {
-    const [journeyDate, setJourneyDate] = useState(new Date());
-    const [returnDate, setReturnDate] = useState(new Date());
-    const [showJourneyCalendar, setShowJourneyCalendar] = useState(false);
-    const [showReturnCalendar, setShowReturnCalendar] = useState(false);
+    const {input,setInput} = useUserStore(useShallow(state=>({
+        input : state.filter,
+        setInput : state.setFilter
+    })))
+    const [calenderControl, setCalenderControl] = useState({
+        showJourneyCalendar: false,
+        showReturnCalendar: false,
+        minimumReturnDate: new Date()
+    })
+    useEffect(() => {
+        let date = new Date(input.journeyDate)
+        date.setDate(date.getDate() + 1)
+        setCalenderControl({ ...calenderControl, minimumReturnDate: date })
+    }, [calenderControl.showJourneyCalendar])
+    const hdlSearch = (e) => {
+        setInput({ ...input, [e.target.name]: e.target.value })
+    }
 
+    
     return (
         <div className="bg-[#fef6e4] rounded-lg shadow-lg p-6 w-full max-w-4xl mx-auto mt-10 relative">
             <style>
@@ -19,43 +35,58 @@ const HomePageSearchBox = () => {
                 <div className="col-span-1">
                     <label className="block text-sm text-gray-600 mb-1">Destination</label>
                     <input
+                        name='search'
                         type="text"
                         placeholder="Phuket BooPhu Mueang Thailand"
                         className="w-full p-3 rounded-lg border border-gray-300"
+                        onChange={hdlSearch}
                     />
                 </div>
                 <div className="col-span-2 relative">
                     <div className="w-full p-3 rounded-lg bg-[#fddbb7] flex justify-between items-center shadow-md cursor-pointer">
                         <div
                             onClick={() => {
-                                setShowJourneyCalendar(!showJourneyCalendar);
-                                setShowReturnCalendar(false);
+                                setCalenderControl({
+                                    ...calenderControl,
+                                    showJourneyCalendar: !calenderControl.showJourneyCalendar
+                                    , showReturnCalendar: false
+                                })
                             }}
                             className="text-center flex-1 py-2"
                         >
                             <span className="block font-semibold text-sm">JOURNEY</span>
-                            <span>{journeyDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
+                            <span>{input.journeyDate?.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
                         </div>
                         <div className="border-l border-gray-400 self-stretch mx-2"></div>
                         <div
                             onClick={() => {
-                                setShowReturnCalendar(!showReturnCalendar);
-                                setShowJourneyCalendar(false);
+                                setCalenderControl({
+                                    ...calenderControl
+                                    , showReturnCalendar: !calenderControl.showReturnCalendar
+                                    , showJourneyCalendar: false
+                                })
                             }}
                             className="text-center flex-1 py-2"
                         >
                             <span className="block font-semibold text-sm">RETURN DATE</span>
-                            <span>{returnDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
+                            <span>{input.returnDate?.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
                         </div>
                     </div>
 
-                    {showJourneyCalendar && (
+                    {calenderControl.showJourneyCalendar && (
                         <div className="absolute z-10 mt-2 bg-white shadow-lg rounded-lg p-4" style={{ left: 0 }}>
                             <DateRangePicker
-                                ranges={[{ startDate: journeyDate, endDate: journeyDate, key: 'selection' }]}
+                                ranges={[{ startDate: input.journeyDate, endDate: input.journeyDate, key: 'selection' }]}
+                                minDate={new Date()}
                                 onChange={(item) => {
-                                    setJourneyDate(item.selection.startDate);
-                                    setShowJourneyCalendar(false);
+                                    if(input.returnDate < item.selection.startDate){
+                                        let nextDate = new Date(item.selection.startDate)
+                                        nextDate.setDate(nextDate.getDate()+1)
+                                        setInput({ ...input, journeyDate: item.selection.startDate,returnDate : nextDate });
+                                    }else{
+                                        setInput({ ...input, journeyDate: item.selection.startDate});
+                                    }
+                                    setCalenderControl({ ...calenderControl, showJourneyCalendar: false });
                                 }}
                                 showDateDisplay={false}
                                 staticRanges={[]}
@@ -67,13 +98,14 @@ const HomePageSearchBox = () => {
                         </div>
                     )}
 
-                    {showReturnCalendar && (
+                    {calenderControl.showReturnCalendar && (
                         <div className="absolute z-10 mt-2 bg-white shadow-lg rounded-lg p-4" style={{ right: 0 }}>
                             <DateRangePicker
-                                ranges={[{ startDate: returnDate, endDate: returnDate, key: 'selection' }]}
+                                ranges={[{ startDate: input.returnDate, endDate: input.returnDate, key: 'selection' }]}
+                                minDate={calenderControl.minimumReturnDate}
                                 onChange={(item) => {
-                                    setReturnDate(item.selection.startDate);
-                                    setShowReturnCalendar(false);
+                                    setInput({ ...input, returnDate: item.selection.startDate });
+                                    setCalenderControl({ ...calenderControl, showReturnCalendar: false })
                                 }}
                                 showDateDisplay={false}
                                 staticRanges={[]}
@@ -87,10 +119,10 @@ const HomePageSearchBox = () => {
                 </div>
                 <div className="col-span-1">
                     <label className="block text-sm text-gray-600 mb-1">Guests & Rooms</label>
-                    <select className="w-full p-3 rounded-lg border border-gray-300">
-                        <option>1 Guest, 1 Room</option>
-                        <option>2 Guests, 1 Room</option>
-                        <option>3 Guests, 1 Room</option>
+                    <select className="w-full p-3 rounded-lg border border-gray-300" onChange={hdlSearch} name='guest'>
+                        <option value={1}>1 Guest, 1 Room</option>
+                        <option value={2}>2 Guests, 1 Room</option>
+                        <option value={3}>3 Guests, 1 Room</option>
                     </select>
                 </div>
             </div>
