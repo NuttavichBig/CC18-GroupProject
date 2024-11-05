@@ -2,16 +2,20 @@ import React, { useState } from "react";
 import travellogo from "../../assets/TRAVELHOMELOGO-USER.png";
 import Login from "../Login-Register-Account/Login";
 import Register from "../Login-Register-Account/Register";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HeaderUserPage = () => {
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleMouseEnterLogin = () => setIsDropdownOpen(true);
     const handleMouseLeaveRegister = () => setIsDropdownOpen(false);
 
+    const handleMouseEnterProfile = () => setIsProfileDropdownOpen(true);
+    const handleMouseLeaveProfile = () => setIsProfileDropdownOpen(false);
     return (
         <div>
             <div
@@ -32,20 +36,21 @@ const HeaderUserPage = () => {
                         width: "150px",
                         zIndex: 3,
                     }}
+                    onClick={() => navigate('/')}
                 />
 
                 <nav className="flex-grow flex justify-center space-x-8 text-xs tracking-widest uppercase">
-                    <Link to="/user/select-hotel" className="hover:text-gray-300">
+                    <Link to="/user/bookinghotel" className="hover:text-gray-300">
                         Booking
                     </Link>
                     <Link to="/user/promotion" className="hover:text-gray-300">
                         Travel Promotion
                     </Link>
-                    <a href="#contact" className="hover:text-gray-300">
+                    <Link to="/partner/registerpartner" className="hover:text-gray-300">
                         Contact Us
-                    </a>
+                    </Link>
 
-                    {/* Wrapper for Login and Register Dropdown */}
+
                     <div className="relative">
                         <span
                             className="hover:text-gray-300 cursor-pointer"
@@ -78,22 +83,44 @@ const HeaderUserPage = () => {
                     </div>
                 </nav>
 
-                <div className="flex items-center space-x-4 mr-4">
-                    <div className="rounded-full border border-gray-500 cursor-pointer hover:bg-gray-200 transition p-2">
-                        🔍
-                    </div>
-                    <span className="text-xs uppercase tracking-wider">
+                {/* Profile Dropdown for "Hello, Guest!" */}
+                <div className="relative">
+                    <span
+                        className="text-xs uppercase tracking-wider cursor-pointer hover:text-gray-300"
+                        onMouseEnter={handleMouseEnterProfile}
+                    >
                         Hello, Guest!
                     </span>
+
+                    {isProfileDropdownOpen && (
+                        <div
+                            className="absolute mt-1 bg-white bg-opacity-20 border border-black rounded-lg p-1"
+                            style={{
+                                width: '80px',
+                                transform: 'translateX(-30%)',
+                            }}
+                            onMouseEnter={handleMouseEnterProfile}
+                            onMouseLeave={handleMouseLeaveProfile}
+                        >
+                            <button
+                                onClick={() => navigate('/userprofile')}
+                                className="block text-center text-black rounded hover:bg-black hover:bg-opacity-10 transition duration-200 w-full"
+                            >
+                                Profile
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
 
-            {/* Modals */}
+
             {isLoginModalOpen && <Login setIsLoginModalOpen={setIsLoginModalOpen} />}
-            {isRegisterModalOpen && (
-                <Register setIsRegisterModalOpen={setIsRegisterModalOpen} />
-            )}
-        </div>
+            {
+                isRegisterModalOpen && (
+                    <Register setIsRegisterModalOpen={setIsRegisterModalOpen} />
+                )
+            }
+        </div >
     );
 };
 

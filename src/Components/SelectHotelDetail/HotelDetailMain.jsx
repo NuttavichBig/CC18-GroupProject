@@ -33,13 +33,11 @@ const HotelDetailMain = () => {
             <div className="flex items-center space-x-2">
                 <span className="font-semibold">Reviews:</span>
                 <div className="flex">
-                    {Array.from({ length: 5 }, (_, i) => (
-                        <span key={i} className={i < sampleHotel.rating ? "text-yellow-500" : "text-gray-300"}>
-                            ★
-                        </span>
-                    ))}
+                    <span className="text-yellow-500">{'★'.repeat(sampleHotel.rating)}</span>
+                    <span className="text-gray-300">{'★'.repeat(5 - sampleHotel.rating)}</span>
                 </div>
             </div>
+
 
             {/* Facilities */}
             <div>
