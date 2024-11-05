@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { p } from 'framer-motion/client';
 import React, { useEffect, useState } from 'react';
 const API = import.meta.env.VITE_API
 
