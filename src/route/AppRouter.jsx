@@ -41,11 +41,26 @@ const MainRouter = createBrowserRouter([
     element: <Outlet />,
     children: [
       { index: true, element: <HomePage /> },
+<<<<<<< HEAD
+
+      { path: "select-hotel", element: <SelectHotel /> },
+      { path: "select-hotel-detail", element: <SelectHotelDetail /> },
+      {
+        path: "select-hotel-detail-payment",
+        element: <HotelDetailToPayment />,
+      },
+      { path: "select-hotel-detail-payment-method", element: <HotelPayment /> },
+      {
+        path: "select-hotel-detail-payment-method-success",
+        element: <HotelPaymentSucessSummary />,
+      },
+=======
       { path: "bookinghotel", element: <SelectHotel /> },
       { path: "bookinghotel-detail", element: <SelectHotelDetail /> },
       { path: "bookinghotel-detail-payment", element: <HotelDetailToPayment /> },
       { path: "bookinghotel-detail-payment-method", element: <HotelPayment /> },
       { path: "bookinghotel-detail-payment-method-summary", element: <HotelPaymentSucessSummary /> },
+>>>>>>> dev
       { path: "promotion", element: <HotelPromotion /> },
 
 
@@ -66,6 +81,21 @@ const MainRouter = createBrowserRouter([
     element: <Outlet />,
     children: [
       { index: true, element: <HomePage /> },
+<<<<<<< HEAD
+      { path: "select-hotel", element: <SelectHotel /> },
+      { path: "select-hotel-detail", element: <SelectHotelDetail /> },
+
+      {
+        path: "select-hotel-detail-payment",
+        element: <HotelDetailToPayment />,
+      },
+      { path: "select-hotel-detail-payment-method", element: <HotelPayment /> },
+      {
+        path: "select-hotel-detail-payment-method-success",
+        element: <HotelPaymentSucessSummary />,
+      },
+      { path: "promotion", element: <HotelPromotion /> },
+=======
       { path: "bookinghotel", element: <SelectHotel /> },
       { path: "bookinghotel-detail", element: <SelectHotelDetail /> },
       { path: "bookinghotel-detail-payment", element: <HotelDetailToPayment /> },
@@ -83,6 +113,7 @@ const MainRouter = createBrowserRouter([
       { path: "purchasehistory", element: <MyPurchase /> },
       { path: "reviewhistory", element: <ReviewTabHistory /> },
 
+>>>>>>> dev
     ],
   },
   {

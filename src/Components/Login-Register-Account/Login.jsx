@@ -4,7 +4,6 @@ import travellogo from "../../assets/TRAVELHOMELOGO-USER.png";
 const Login = ({ setIsLoginModalOpen }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-
     console.log("Form submitted");
   };
 
