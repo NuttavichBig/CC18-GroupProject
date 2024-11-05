@@ -1,8 +1,8 @@
 import React from 'react';
 
 function PromotionModal({ promo, onClose }) {
-  const startDate = (new Date(promo.startDate)).toLocaleDateString()
-  const endDate = (new Date(promo.endDate)).toLocaleDateString()
+  const startDate = (new Date(promo.startDate)).toDateString()
+  const endDate = (new Date(promo.endDate)).toDateString()
   return (
     <div
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50"
