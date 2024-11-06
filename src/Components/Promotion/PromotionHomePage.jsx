@@ -6,9 +6,16 @@ function PromotionHomePage() {
     const [promotions, setPromotions] = useState([])
     
     const getPromotion = async () => {
-        const result = await axios.get(`${API}/promotion?limit=4&isActive=true&sortBy=discountPercent&orderBy=desc`)
-        console.log(result)
-        setPromotions(result.data.promotion)
+        try{
+
+            const result = await axios.get(`${API}/promotion?limit=4&isActive=true&sortBy=discountPercent&orderBy=desc`)
+            const {promotion} = result.data
+            if(promotion){
+                setPromotions(result.data.promotion)
+            }
+        }catch(err){
+            console.log(err)
+        }
     }
 
     useEffect(()=>{
@@ -20,7 +27,7 @@ function PromotionHomePage() {
             <h2 className="text-2xl font-semibold mb-6 text-gray-500">Promotion</h2>
             <div className="flex justify-center gap-6">
                 {
-                    promotions[0] &&
+                    promotions.length >= 1 &&
                     <div className="bg-[#fef6e4] rounded-lg shadow-lg overflow-hidden flex flex-col w-64">
                         <img src={promotions[0].img} alt="Promotion 1" className="w-full h-72 object-cover" />
                         <div className="p-4">
