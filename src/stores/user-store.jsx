@@ -11,7 +11,6 @@ const useUserStore = create(persist((set,get)=>({
     user : null ,
     token : '',
     filter : {
-        search : '',
         journeyDate: new Date(),
         returnDate: new Date(),
         guest: 1
