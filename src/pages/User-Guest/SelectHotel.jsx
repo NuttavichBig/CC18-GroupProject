@@ -1,7 +1,5 @@
 // HotelSelected.jsx
 import React from 'react';
-
-
 import PictureSlide from '../../Components/Nav-Footer-Chat/PictureSlide';
 import Footer from '../../Components/Nav-Footer-Chat/Footer';
 import FilterPanel from '../../Components/FilterSearch/FilterPanel';
