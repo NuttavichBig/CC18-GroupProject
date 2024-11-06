@@ -1,30 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, Marker } from '@react-google-maps/api';
-import axios from 'axios';
 import NearbyRecommend from '../GoogleApi/NearbyRecommend';
-import { useLoadGoogleMaps } from '../../stores/googleMap-store';  
+import { useLoadGoogleMaps } from '../../stores/googleMap-store';
 
 const libraries = ['places'];
 
-function HotelDetailMap() {
-    const [location, setLocation] = useState({ lat: null, lng: null });
+function HotelDetailMap({ location }) {
     const [nearbyPlaces, setNearbyPlaces] = useState([]);
     const [error, setError] = useState(null);
 
-    const { isLoaded, loadError } = useLoadGoogleMaps();  
-
-    useEffect(() => {
-        const fetchLocation = async () => {
-            try {
-                const res = await axios.get('http://localhost:8000/hotel/9');
-                setLocation(res.data);
-            } catch (error) {
-                setError('Error fetching location');
-                console.log('Error fetching location:', error);
-            }
-        };
-        fetchLocation();
-    }, []);
+    const { isLoaded, loadError } = useLoadGoogleMaps();
 
     useEffect(() => {
         if (isLoaded && location.lat && location.lng) {
@@ -44,7 +29,7 @@ function HotelDetailMap() {
                 }
             });
         }
-    }, [isLoaded, location.lat, location.lng]);
+    }, [isLoaded, location]);
 
     if (loadError) return <div>Error loading maps</div>;
     if (!isLoaded) return <div>Loading...</div>;
@@ -56,7 +41,7 @@ function HotelDetailMap() {
             <div className="bg-gray-200 h-64 w-full flex items-center justify-center rounded-lg overflow-hidden">
                 <GoogleMap
                     mapContainerStyle={{ width: '100%', height: '100%' }}
-                    center={location.lat && location.lng ? { lat: location.lat, lng: location.lng } : { lat: 0, lng: 0 }} // ตรวจสอบให้แน่ใจว่า center ไม่ใช่ null
+                    center={location.lat && location.lng ? { lat: location.lat, lng: location.lng } : { lat: 0, lng: 0 }}
                     zoom={15}
                 >
                     {location.lat && location.lng && (

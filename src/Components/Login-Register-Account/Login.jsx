@@ -27,14 +27,18 @@ const Login = ({ setIsLoginModalOpen }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login({ email: input.email, password: input.password });
+    try {
+      await login({ email: input.email, password: input.password });
+    } catch (err) {
+      const errMsg = err?.response?.data?.message || err.message;
+      setInput((prev) => ({ ...prev, err: errMsg }));
+    }
   };
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  // Move useGoogleLogin to inside the component body
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       const accessToken = tokenResponse.access_token;
@@ -87,7 +91,7 @@ const Login = ({ setIsLoginModalOpen }) => {
             />
           </div>
 
-          <div className="w-1/2 pl-4 space-y-4 ">
+          <div className="w-1/2 pl-4 space-y-4">
             <div className="mt-8 space-y-4">
               <label>Email</label>
               <input
@@ -109,25 +113,24 @@ const Login = ({ setIsLoginModalOpen }) => {
               />
             </div>
 
-            <div className="text-right text-xs pb-2 text-gray-500 cursor-pointer hover:underline">
+            <div className="text-right text-xs pb-2 text-gray-500 cursor-pointer hover:underline mb-4">
               Forget Password
             </div>
-
 
             {/* Custom Google Login Button */}
             <button
               onClick={() => googleLogin()}
               type="button"
-              className="flex items-center justify-center w-full "
+              className="flex items-center justify-center w-full"
               style={{
                 outline: "none",
-                border: "2px solid #ccc", // เพิ่มขอบสีเทาอ่อน
-                borderRadius: "8px", // เพิ่มขอบมน
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // เพิ่มเงาเล็กน้อย
+                border: "2px solid #ccc",
+                borderRadius: "8px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
                 backgroundColor: "transparent",
-                padding: "4px", // เพิ่ม padding เล็กน้อย
+                padding: "4px",
                 margin: 0,
-                transition: "box-shadow 0.3s ease, transform 0.3s ease", // ทำให้การเปลี่ยนแปลงนุ่มนวล
+                transition: "box-shadow 0.3s ease, transform 0.3s ease",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)";
@@ -143,11 +146,10 @@ const Login = ({ setIsLoginModalOpen }) => {
                 alt="Google Login"
                 className="w-[150px] h-[40px] rounded-lg"
                 style={{
-                  transition: "transform 0.3s ease", // ทำให้การเปลี่ยนแปลงขนาดนุ่มนวล
+                  transition: "transform 0.3s ease",
                 }}
               />
             </button>
-
           </div>
 
           <div className="absolute bottom-[-29px] left-1/2 transform -translate-x-1/2">
