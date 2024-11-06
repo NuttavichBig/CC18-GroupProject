@@ -15,12 +15,12 @@ import axios from 'axios';
 
 function SelectHotelDetail() {
     const location = useLocation()
-    const {hotelId} = location.state || {};
-    console.log('hotelId',hotelId)
-    console.log('hotelId id',hotelId.id)
+    const { hotelId } = location.state || {};
+    console.log('hotelId', hotelId)
+    console.log('hotelId id', hotelId.id)
     const [hotelData, setHotelData] = useState(null);
-    console.log('hotelData',hotelData)
-   
+    console.log('hotelData', hotelData)
+
     useEffect(() => {
         const fetchHotelData = async () => {
             if (hotelId) {
@@ -33,12 +33,12 @@ function SelectHotelDetail() {
                 }
             }
         };
-    
+
         fetchHotelData();
     }, [hotelId]);
-    
 
-    if(!hotelData){
+
+    if (!hotelData) {
         return <div>Loading...</div>
     }
 
@@ -62,7 +62,7 @@ function SelectHotelDetail() {
                                 <HotelDetailMain hotelData={hotelData} />
                                 <div className="flex gap-6">
                                     <div className="w-1/2 ml-3">
-                                    <HotelDetailMap location={{ lat: hotelData.lat, lng: hotelData.lng }} />
+                                        <HotelDetailMap location={{ lat: hotelData.lat, lng: hotelData.lng }} />
                                     </div>
                                     <div className="w-1/2 mr-3">
                                         <HotelDetailReview reviews={hotelData.reviews} />

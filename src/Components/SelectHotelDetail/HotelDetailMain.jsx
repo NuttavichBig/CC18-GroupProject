@@ -1,7 +1,7 @@
 import React from 'react';
 
-const HotelDetailMain = ({hotelData}) => {
-    const formatFacilityName = (key) =>{
+const HotelDetailMain = ({ hotelData }) => {
+    const formatFacilityName = (key) => {
         return key.replace(/is|([A-Z])/g, " $1").trim().replace(/  +/g, " ");
     }
 
@@ -35,13 +35,13 @@ const HotelDetailMain = ({hotelData}) => {
             <div>
                 <h3 className="font-semibold">Facilities:</h3>
                 <div className="flex flex-wrap gap-2">
-                {Object.entries(hotelData.facilitiesHotel || {})
-                                    .filter(([key,value])=>value === true)
-                                    .map(([key])=>(
-                                        <span key={key} className="px-2 py-1 bg-gray-200 rounded">
-                                            {formatFacilityName(key)}
-                                        </span>
-                    ))}
+                    {Object.entries(hotelData.facilitiesHotel || {})
+                        .filter(([key, value]) => value === true)
+                        .map(([key]) => (
+                            <span key={key} className="px-2 py-1 bg-gray-200 rounded">
+                                {formatFacilityName(key)}
+                            </span>
+                        ))}
                 </div>
             </div>
 
