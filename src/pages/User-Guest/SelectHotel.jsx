@@ -30,7 +30,6 @@ const SelectHotel = () => {
       lat : selectedLocation.lat,
       lng : selectedLocation.lng
     }
-    console.log(filter)
     if(journeyDate){
       params.checkinDate = new Date(journeyDate)
     }
@@ -45,10 +44,10 @@ const SelectHotel = () => {
       })
       console.log(res)
       setLocations(res.data.hotels || []);
-    }catch(error){
-      console.log('fail to fetch',error)
+    } catch (error) {
+      console.log('fail to fetch', error)
       setError('Error fetching data');
-    }finally{
+    } finally {
       setLoading(false);
     }
   }
@@ -68,7 +67,7 @@ const SelectHotel = () => {
             </div>
 
             <div className="col-span-3 mb-[500px]">
-              <HotelList hotels={locations}/>
+              <HotelList hotels={locations} />
             </div>
 
           </div>

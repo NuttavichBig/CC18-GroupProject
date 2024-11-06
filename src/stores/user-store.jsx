@@ -30,6 +30,10 @@ const useUserStore = create(persist((set,get)=>({
     register : async (body)=>{
         console.log(body)
         await axios.post(`${API}/auth/register`,body)
+    },
+    googleLogin : async(accessToken)=>{
+        const result = await axios.post(`${API}/auth/google`, { accessToken });
+        set({token : result.data.token , user : result.data.user})
     }
 }),{
 

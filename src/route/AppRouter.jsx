@@ -33,6 +33,7 @@ import DashboardAdmin from "../pages/Admin/DashboardAdmin";
 import HomePartner from "../pages/Partner/HomePartner";
 import BookingDetailPartner from "../pages/Partner/BookingDetailPartner";
 import ReviewDetailPartner from "../pages/Partner/ReviewDetailPartner";
+import HotelPartner from "../pages/Partner/HotelPartner";
 
 const MainRouter = createBrowserRouter([
   {
@@ -70,6 +71,7 @@ const MainRouter = createBrowserRouter([
     element: <Outlet />,
     children: [
       { index: true, element: <HomePage /> },
+      { path: "registerpartner", element: <RegisterPartner /> },
       { path: "bookinghotel", element: <SelectHotel /> },
       { path: "bookinghotel-detail", element: <SelectHotelDetail /> },
       {
@@ -109,11 +111,11 @@ const MainRouter = createBrowserRouter([
   },
   {
     path: "/partner",
-    element: <Outlet />,
+    element: <HomePartner />,
     children: [
-      { index: true, element: <HomePartner /> },
-      { path: "registerpartner", element: <RegisterPartner /> },
+      // { index: true, element: <HomePartner /> },
       { path: "bookingDetailPartner", element: <BookingDetailPartner /> },
+      { path: "hotelPartner", element: <HotelPartner /> },
       { path: "reviewDetailPartner", element: <ReviewDetailPartner /> },
     ],
   },
