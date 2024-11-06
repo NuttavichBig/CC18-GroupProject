@@ -71,6 +71,10 @@ const useUserStore = create(
       logout: () => {
         set({ token: '', user: null });
       },
+      register : async (body)=>{
+        console.log(body)
+        await axios.post(`${API}/auth/register`,body)
+    }
     }),
     {
       name: "stateUserData",
@@ -79,7 +83,7 @@ const useUserStore = create(
         user: state.user,
         token: state.token,
       }),
-    }
+    },
   )
 );
 
