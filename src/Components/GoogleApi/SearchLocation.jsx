@@ -1,8 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 
 const SearchLocation = ({ onSelectLocation }) => {
     const inputRef = useRef(null);
-
+    const [isScriptLoaded , setIsScriptLoaded] = useState(false)
+    useEffect(()=>{
+        const script = document.createElement("script");
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&loading=async&libraries=places`;
+        script.onload = () => setIsScriptLoaded(true);
+        document.body.appendChild(script);
+        return () => {
+            document.body.removeChild(script);
+          };
+    },[])
     useEffect(() => {
 
         const initializeAutocomplete = () => {
@@ -31,6 +40,7 @@ const SearchLocation = ({ onSelectLocation }) => {
         const loadGoogleMaps = () => {
             const script = document.createElement("script");
             script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&libraries=places`;
+            script.async = true;
             script.onload = () => {
                 autocompleteInstance = initializeAutocomplete();
             };
@@ -45,8 +55,7 @@ const SearchLocation = ({ onSelectLocation }) => {
             }
         };
     }, [onSelectLocation])
-
-    return (
+    return ( isScriptLoaded ? 
         <div>
             <input
                 type="text"
@@ -54,6 +63,8 @@ const SearchLocation = ({ onSelectLocation }) => {
                 placeholder="Search for a location..."
             />
         </div>
+        :
+        <div>Loading...</div>
     );
 };
 

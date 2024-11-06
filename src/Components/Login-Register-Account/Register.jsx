@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import travellogo from "../../assets/TRAVELHOMELOGO-USER.png";
+import { useShallow } from "zustand/shallow";
+import useUserStore from "../../stores/user-store";
 
 const Register = ({ setIsRegisterModalOpen }) => {
   const [input ,setInput] = useState({
@@ -14,6 +16,10 @@ const Register = ({ setIsRegisterModalOpen }) => {
     month : 1,
     year : 1998,
   })
+  const {register ,login} = useUserStore(useShallow(state=>({
+    register : state.register,
+    login : state.login
+  })))
   const hdlChange = (e)=>{
     console.log(input)
     setInput({...input,[e.target.name] : e.target.value})
@@ -24,8 +30,13 @@ const Register = ({ setIsRegisterModalOpen }) => {
       setInput({...input,[e.target.name] : e.target.value})
     }
   }
-  const hdlRegister = ()=>{
-    
+  const hdlRegister = async(e)=>{
+    e.stopPropagation()
+    const {date,month,year,...body} = input
+    body.birthdate =`${year}-${month}-${date}`
+    await register(body)
+    await login({email : body.email , password : body.password})
+    setIsRegisterModalOpen(false)
   }
   return (
     <div
@@ -201,7 +212,8 @@ const Register = ({ setIsRegisterModalOpen }) => {
         </div>
 
         <div className="absolute bottom-[-25px] left-1/2 transform -translate-x-1/2">
-          <button className="bg-orange-500 text-white font-bold px-6 py-3 rounded-lg shadow-lg">
+          <button className="bg-orange-500 text-white font-bold px-6 py-3 rounded-lg shadow-lg"
+          onClick={hdlRegister}>
             Register
           </button>
         </div>

@@ -26,7 +26,8 @@ const Login = ({ setIsLoginModalOpen }) => {
       await login({email : input.email, password : input.password})
       // console.log("Form submitted");
     }catch(err){
-      setInput({...input,err : err})
+      const errMsg = err?.response?.data?.message || err.message
+      setInput(prv => ({ ...prv, err: errMsg }))
     }
   };
 
@@ -89,8 +90,14 @@ const Login = ({ setIsLoginModalOpen }) => {
               onChange={handleChange}
             />
           </div>
+          <div className="w-full justify-between flex">
+
+          <div className="text-right text-xs text-red-500 cursor-pointer hover:underline">
+            {input.err}
+          </div>
           <div className="text-right text-xs text-gray-500 cursor-pointer hover:underline">
             Forget Password
+          </div>
           </div>
 
           <button
