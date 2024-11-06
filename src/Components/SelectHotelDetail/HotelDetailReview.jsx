@@ -1,11 +1,6 @@
 import React from 'react';
 
-function HotelDetailReview() {
-    const reviews = [
-        { name: 'Konkamon', rating: 2, comment: "The staff couldn't speak English and they look so angry, I don't know why they can work in hospitality field with that attitude." },
-        { name: 'Rawee', rating: 3, comment: "The staff couldn't speak English and they look so angry, I don't know why they can work in hospitality field with that attitude." },
-        { name: 'Bell', rating: 4, comment: "The staff couldn't speak English and they look so angry, I don't know why they can work in hospitality field with that attitude." },
-    ];
+function HotelDetailReview({reviews}) {
 
     return (
         <div className="bg-white rounded-lg p-4 shadow-md h-full">
