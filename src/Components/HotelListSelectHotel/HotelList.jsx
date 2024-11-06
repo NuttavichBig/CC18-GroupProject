@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 const HotelList = ({ hotels }) => {
     const navigate = useNavigate();
 
-    const handleBookNow = (hotel) =>{
-        navigate('/bookinghotel-detail', { state: { hotel } });
+    const handleBookNow = (hotelId) =>{
+        navigate('/bookinghotel-detail', { state: { hotelId } });
     }
 
     const formatFacilityName = (key) =>{

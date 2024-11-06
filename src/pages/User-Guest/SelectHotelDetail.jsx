@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import HeaderUserPage from '../../Components/Nav-Footer-Chat/HeaderUserPage';
 import SearchBoxMain from '../../Components/FilterSearch/SearchBoxMain';
 import FilterPanel from '../../Components/FilterSearch/FilterPanel';
@@ -9,11 +9,38 @@ import HotelDetailMap from '../../Components/SelectHotelDetail/HotelDetailMap';
 import HotelDetailReview from '../../Components/SelectHotelDetail/HotelDetailReview';
 import HotelDetailRoom from '../../Components/SelectHotelDetail/HotelDetailRoom';
 import HotelDetailRecommend from '../../Components/SelectHotelDetail/HotelDetailRecommend';
-
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 
 function SelectHotelDetail() {
+    const location = useLocation()
+    const {hotelId} = location.state || {};
+    console.log('hotelId',hotelId)
+    console.log('hotelId id',hotelId.id)
+    const [hotelData, setHotelData] = useState(null);
+    console.log('hotelData',hotelData)
+   
+    useEffect(() => {
+        const fetchHotelData = async () => {
+            if (hotelId) {
+                try {
+                    const res = await axios.get(`http://localhost:8000/hotel/${hotelId.id}`);
+                    setHotelData(res.data);
+                    console.log('data', res.data);
+                } catch (error) {
+                    console.log('error fetch hotel detail', error);
+                }
+            }
+        };
+    
+        fetchHotelData();
+    }, [hotelId]);
+    
 
+    if(!hotelData){
+        return <div>Loading...</div>
+    }
 
     return (
         <div>
@@ -32,16 +59,16 @@ function SelectHotelDetail() {
 
                         <div className="col-span-3 bg-[#fef6e4] ">
                             <div className="flex flex-col space-y-6 w-full">
-                                <HotelDetailMain />
+                                <HotelDetailMain hotelData={hotelData} />
                                 <div className="flex gap-6">
                                     <div className="w-1/2 ml-3">
-                                        <HotelDetailMap />
+                                    <HotelDetailMap location={{ lat: hotelData.lat, lng: hotelData.lng }} />
                                     </div>
                                     <div className="w-1/2 mr-3">
-                                        <HotelDetailReview />
+                                        <HotelDetailReview reviews={hotelData.reviews} />
                                     </div>
                                 </div>
-                                <HotelDetailRoom />
+                                <HotelDetailRoom rooms={hotelData.rooms} />
                             </div>
                         </div>
                     </div>
