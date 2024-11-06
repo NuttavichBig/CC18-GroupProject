@@ -5,27 +5,39 @@ import 'react-date-range/dist/theme/default.css';
 import searchbuttonanimation from "../../assets/GifMainButtonOrangeSearch1.gif"
 import useUserStore from '../../stores/user-store';
 import { useShallow } from 'zustand/shallow';
+import SearchLocation from '../GoogleApi/SearchLocation';
+import { useNavigate } from 'react-router-dom';
+
 
 const HomePageSearchBox = () => {
-    const {input,setInput} = useUserStore(useShallow(state=>({
+    const {input,setInput,setSelectedLocation} = useUserStore(useShallow(state=>({
         input : state.filter,
-        setInput : state.setFilter
+        setInput : state.setFilter,
+        setSelectedLocation : state.setSelectedLocation
     })))
     const [calenderControl, setCalenderControl] = useState({
         showJourneyCalendar: false,
         showReturnCalendar: false,
         minimumReturnDate: new Date()
     })
+
+    const navigate = useNavigate()
+
     useEffect(() => {
         let date = new Date(input.journeyDate)
         date.setDate(date.getDate() + 1)
         setCalenderControl({ ...calenderControl, minimumReturnDate: date })
     }, [calenderControl.showJourneyCalendar])
-    const hdlSearch = (e) => {
-        setInput({ ...input, [e.target.name]: e.target.value })
+
+    const handleSelectLocation = (selectedLocation) =>{
+        setSelectedLocation(selectedLocation);
     }
 
-    
+    const handleSearch = () => {
+        navigate('/bookinghotel')
+    }
+
+
     return (
         <div className="bg-[#fef6e4] rounded-lg shadow-lg p-6 w-full max-w-4xl mx-auto mt-10 relative">
             <style>
@@ -34,13 +46,7 @@ const HomePageSearchBox = () => {
             <div className="grid grid-cols-4 gap-4 items-center">
                 <div className="col-span-1">
                     <label className="block text-sm text-gray-600 mb-1">Destination</label>
-                    <input
-                        name='search'
-                        type="text"
-                        placeholder="Phuket BooPhu Mueang Thailand"
-                        className="w-full p-3 rounded-lg border border-gray-300"
-                        onChange={hdlSearch}
-                    />
+                    <SearchLocation onSelectLocation={handleSelectLocation}/>
                 </div>
                 <div className="col-span-2 relative">
                     <div className="w-full p-3 rounded-lg bg-[#fddbb7] flex justify-between items-center shadow-md cursor-pointer">
@@ -79,7 +85,7 @@ const HomePageSearchBox = () => {
                                 ranges={[{ startDate: input.journeyDate, endDate: input.journeyDate, key: 'selection' }]}
                                 minDate={new Date()}
                                 onChange={(item) => {
-                                    if(input.returnDate < item.selection.startDate){
+                                    if(input.returnDate <= item.selection.startDate){
                                         let nextDate = new Date(item.selection.startDate)
                                         nextDate.setDate(nextDate.getDate()+1)
                                         setInput({ ...input, journeyDate: item.selection.startDate,returnDate : nextDate });
@@ -119,7 +125,7 @@ const HomePageSearchBox = () => {
                 </div>
                 <div className="col-span-1">
                     <label className="block text-sm text-gray-600 mb-1">Guests & Rooms</label>
-                    <select className="w-full p-3 rounded-lg border border-gray-300" onChange={hdlSearch} name='guest'>
+                    <select className="w-full p-3 rounded-lg border border-gray-300" name='guest'>
                         <option value={1}>1 Guest, 1 Room</option>
                         <option value={2}>2 Guests, 1 Room</option>
                         <option value={3}>3 Guests, 1 Room</option>
@@ -128,7 +134,9 @@ const HomePageSearchBox = () => {
             </div>
 
             <div className="relative mt-8">
-                <button className="absolute top-0 left-1/2 transform -translate-x-1/2 bg-transparent outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-32">
+                <button 
+                onClick={handleSearch}
+                className="absolute top-0 left-1/2 transform -translate-x-1/2 bg-transparent outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-32">
                     <img
                         src={searchbuttonanimation}
                         alt="Search Button Animation"

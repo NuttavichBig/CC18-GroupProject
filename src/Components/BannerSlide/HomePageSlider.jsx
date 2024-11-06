@@ -15,7 +15,6 @@ const HomePageSlider = () => {
     description: "",
     activeIndex: 0,
   });
-
   useEffect(() => {
     getData();
   }, []);

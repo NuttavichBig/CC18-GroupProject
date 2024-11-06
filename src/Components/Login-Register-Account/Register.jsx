@@ -7,7 +7,8 @@ const Register = ({ setIsRegisterModalOpen }) => {
       onClick={() => setIsRegisterModalOpen(false)}
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
     >
-      <div className="bg-[#FFF8EB] rounded-lg shadow-lg p-8 w-full max-w-2xl relative flex">
+      <div className="bg-[#FFF8EB] rounded-lg shadow-lg p-8 w-full max-w-2xl relative flex"
+      onClick={(e)=>e.stopPropagation()}>
         <button
           onClick={() => setIsRegisterModalOpen(false)}
           className="absolute top-4 right-4 text-gray-600 hover:text-red-500 focus:outline-none"
