@@ -3,7 +3,7 @@ import React from "react";
 export default function BookingDetailAdmin() {
   return (
     <>
-      <div className="w-full text-[#ffffff] ">
+      <div className="w-full text-[#543310] ">
         <p className="bg-[#AF8F6F] text-3xl font-bold rounded-lg p-2 text-center shadow-lg">
           BOOKING INFORMATION
         </p>
@@ -21,7 +21,7 @@ export default function BookingDetailAdmin() {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-[#AF8F6F]">
+            <tr className="bg-[#F8F4E1]">
               <td className="border-collapse border p-2"></td>
               <td className="border-collapse border p-2"></td>
               <td className="border-collapse border p-2"></td>
