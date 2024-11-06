@@ -18,15 +18,21 @@ const Login = ({ setIsLoginModalOpen }) => {
     }))
   );
 
-  useEffect(() => {
-    if (token) {
-      setIsLoginModalOpen(false);
+    useEffect(()=>{
+      if(token){
+        setIsLoginModalOpen(false)
+      }
+    },[token])
+  const handleSubmit = async(e) => {
+    try{
+
+      e.preventDefault();
+      await login({email : input.email, password : input.password})
+      // console.log("Form submitted");
+    }catch(err){
+      const errMsg = err?.response?.data?.message || err.message
+      setInput(prv => ({ ...prv, err: errMsg }))
     }
-  }, [token]);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await login({ email: input.email, password: input.password });
-    // console.log("Form submitted");
   };
 
   const handleChange = (e) => {
@@ -93,9 +99,16 @@ const Login = ({ setIsLoginModalOpen }) => {
               onChange={handleChange}
             />
           </div>
+          <div className="w-full justify-between flex">
+
+          <div className="text-right text-xs text-red-500 cursor-pointer hover:underline">
+            {input.err}
+          </div>
           <div className="text-right text-xs text-gray-500 cursor-pointer hover:underline">
             Forget Password
           </div>
+          </div>
+
           {/* <button
             type="button"
             onClick={handleGoogleLogin}
