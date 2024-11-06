@@ -1,10 +1,8 @@
-
 import axios from "axios";
-
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-const API = import.meta.env.VITE_API
 
+const API = import.meta.env.VITE_API;
 
 
 const useUserStore = create(persist((set,get)=>({
@@ -22,7 +20,9 @@ const useUserStore = create(persist((set,get)=>({
     },
     login : async(body)=>{
         const result = await axios.post(`${API}/auth/login`,body)
-        set({token : result.data.token , user : result.data.user})
+        if (result.data && result.data.token) {
+          set({ token: result.data.token, user: result.data.user });
+        }
     },
     logout : ()=>{
         set({token : '',user : null})
@@ -36,15 +36,14 @@ const useUserStore = create(persist((set,get)=>({
         set({token : result.data.token , user : result.data.user})
     }
 }),{
+      name: "stateUserData",
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({
+        user: state.user,
+        token: state.token,
+      }),
+    },
+  )
+);
 
-    name : "stateUserData",
-    storage : createJSONStorage(()=>localStorage),
-    partialize: (state) => ({ 
-        user : state.user,
-        token: state.token 
-    })
-}))
-
-
-
-export default useUserStore
+export default useUserStore;
