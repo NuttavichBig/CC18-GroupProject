@@ -63,9 +63,17 @@ const useUserStore = create(
       setSelectedLocation: (location) => set({ selectedLocation: location }),
       setFilter: (value) => set({ filter: value }),
 
+    //   login: async (body) => {
+    //     const result = await axios.post(`${API}/auth/login`, body);
+    //     set({ token: result.data.token, user: result.data.user });
+    //   },
+
+
       login: async (body) => {
         const result = await axios.post(`${API}/auth/login`, body);
-        set({ token: result.data.token, user: result.data.user });
+        if (result.data && result.data.token) {
+          set({ token: result.data.token, user: result.data.user });
+        }
       },
 
       logout: () => {
