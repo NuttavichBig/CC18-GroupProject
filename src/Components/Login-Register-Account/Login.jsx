@@ -12,10 +12,11 @@ const Login = ({ setIsLoginModalOpen }) => {
     password: "",
     err: "",
   });
-  const { token, login } = useUserStore(
+  const { token, login, loginWithGoogle } = useUserStore(
     useShallow((state) => ({
       token: state.token,
       login: state.login,
+      loginWithGoogle : state.googleLogin
     }))
   );
 
@@ -44,8 +45,7 @@ const Login = ({ setIsLoginModalOpen }) => {
       const accessToken = tokenResponse.access_token;
       if (accessToken) {
         try {
-          const result = await axios.post("http://localhost:8000/auth/google", { accessToken });
-          console.log(result.data)
+          await loginWithGoogle(accessToken)
           setIsLoginModalOpen(false);
         } catch (error) {
           console.error("Google login error:", error);
@@ -58,7 +58,7 @@ const Login = ({ setIsLoginModalOpen }) => {
   });
 
   return (
-    <GoogleOAuthProvider clientId="566477429345-tl0j5fcllt4kbm1tmbesjrplglsd4r8q.apps.googleusercontent.com">
+    
       <div
         onClick={() => setIsLoginModalOpen(false)}
         className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
@@ -163,7 +163,6 @@ const Login = ({ setIsLoginModalOpen }) => {
           </div>
         </form>
       </div>
-    </GoogleOAuthProvider>
   );
 };
 
