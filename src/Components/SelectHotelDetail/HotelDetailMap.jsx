@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 import axios from 'axios';
 import NearbyRecommend from '../GoogleApi/NearbyRecommend';
+import { useLoadGoogleMaps } from '../../stores/googleMap-store';  
 
 const libraries = ['places'];
 
 function HotelDetailMap() {
-    const [location, setLocation] = useState({ lat: null, lng: null }); 
+    const [location, setLocation] = useState({ lat: null, lng: null });
     const [nearbyPlaces, setNearbyPlaces] = useState([]);
     const [error, setError] = useState(null);
 
-    const { isLoaded, loadError } = useJsApiLoader({
-        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-        libraries: libraries,
-    });
+    const { isLoaded, loadError } = useLoadGoogleMaps();  
 
     useEffect(() => {
         const fetchLocation = async () => {
