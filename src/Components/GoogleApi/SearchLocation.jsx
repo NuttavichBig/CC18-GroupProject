@@ -50,8 +50,6 @@ const SearchLocation = ({ onSelectLocation }) => {
                 placeholder="Search for a location..."
             />
         </div>
-        :
-        <div>Loading...</div>
     );
 };
 
