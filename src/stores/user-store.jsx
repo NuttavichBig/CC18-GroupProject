@@ -31,7 +31,8 @@ const useUserStore = create(persist((set,get)=>({
     register : async (body)=>{
         console.log(body)
         await axios.post(`${API}/auth/register`,body)
-    }
+    },
+    
 }),{
 
     name : "stateUserData",

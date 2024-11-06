@@ -44,7 +44,8 @@ const Login = ({ setIsLoginModalOpen }) => {
       const accessToken = tokenResponse.access_token;
       if (accessToken) {
         try {
-          await axios.post("http://localhost:8000/auth/google", { accessToken });
+          const result = await axios.post("http://localhost:8000/auth/google", { accessToken });
+          console.log(result.data)
           setIsLoginModalOpen(false);
         } catch (error) {
           console.error("Google login error:", error);
