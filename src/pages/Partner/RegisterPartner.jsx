@@ -10,12 +10,12 @@ function RegisterPartner() {
       <div className="bg-gray-400 relative h-[100px]">
         <HeaderUserPage />
       </div>
-      <div className="min-h-screen relative bg-[#f9f9f9] flex justify-center items-start">
-        <div className="container mx-auto p-6 grid gap-5">
-          <SearchBoxMain />
+      <div className="min-h-[] relative bg-[#f9f9f9] flex justify-center items-start">
+        <div className="container mx-auto p-6 py-24 grid gap-5">
+          {/* <SearchBoxMain /> */}
 
           <div className="grid grid-cols-3 gap-6">
-            <div className="col-span-3 h-full mb-[800px]">
+            <div className="col-span-3 h-full">
               <div>
                 <HotelPartnerRegisterForm />
               </div>
@@ -23,8 +23,9 @@ function RegisterPartner() {
           </div>
         </div>
       </div>
-
-      <Footer />
+      <div className="-mt-8">
+        <Footer />
+      </div>
     </div>
   );
 }
