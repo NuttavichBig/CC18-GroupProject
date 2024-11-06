@@ -15,28 +15,34 @@ const Register = ({ setIsRegisterModalOpen }) => {
     date : 1,
     month : 1,
     year : 1998,
+    err : '',
   })
   const {register ,login} = useUserStore(useShallow(state=>({
     register : state.register,
     login : state.login
   })))
   const hdlChange = (e)=>{
-    console.log(input)
     setInput({...input,[e.target.name] : e.target.value})
   }
   const hdlCheck = (e)=>{
-    console.log(input)
     if(e.target.checked){
       setInput({...input,[e.target.name] : e.target.value})
     }
   }
   const hdlRegister = async(e)=>{
-    e.stopPropagation()
-    const {date,month,year,...body} = input
-    body.birthdate =`${year}-${month}-${date}`
-    await register(body)
-    await login({email : body.email , password : body.password})
-    setIsRegisterModalOpen(false)
+    try{
+
+      e.stopPropagation()
+      const {date,month,year,err ,...body} = input
+      body.birthdate =`${year}-${month.toString().padStart(2,'0')}-${date.toString().padStart(2,'0')}`
+      await register(body)
+      console.log('after registered')
+      await login({email : body.email , password : body.password})
+      setIsRegisterModalOpen(false)
+    }catch(err){
+      const errMsg = err?.response?.data?.message || err.message
+      setInput(prv => ({ ...prv, err: errMsg }))
+    }
   }
   return (
     <div
@@ -206,6 +212,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
               value={input.confirmPassword}
             />
           </div>
+          <p className="text-red-500 text-sm">{input.err}</p>
           <button className="w-full flex items-center justify-center p-3 border-2 border-black rounded-lg bg-[#FFF8EB] mt-4">
             <span className="mr-2">🌐</span> Continue with Google
           </button>
