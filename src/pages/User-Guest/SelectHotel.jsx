@@ -15,30 +15,30 @@ const SelectHotel = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const selectedLocation = useUserStore((state)=>state.selectedLocation)
+  const selectedLocation = useUserStore((state) => state.selectedLocation)
 
-  useEffect(()=>{
-    if(selectedLocation){
+  useEffect(() => {
+    if (selectedLocation) {
       handleSelectLocation(selectedLocation)
     }
-  },[selectedLocation])
+  }, [selectedLocation])
 
-  const handleSelectLocation = async(location) => {
+  const handleSelectLocation = async (location) => {
     console.log('location:', location);
     setLoading(true);
     setError('');
     try {
-      const res = await  axios.get('http://localhost:8000/hotel',{
-        params:{
-          lat:location.lat,
-          lng:location.lng
+      const res = await axios.get('http://localhost:8000/hotel', {
+        params: {
+          lat: location.lat,
+          lng: location.lng
         }
       })
       setLocations(res.data.hotels || []);
-    }catch(error){
-      console.log('fail to fetch',error)
+    } catch (error) {
+      console.log('fail to fetch', error)
       setError('Error fetching data');
-    }finally{
+    } finally {
       setLoading(false);
     }
   }
@@ -50,7 +50,7 @@ const SelectHotel = () => {
       </div>
       <div className='min-h-screen relative bg-[#f9f9f9] flex justify-center items-start'>
         <div className="container mx-auto p-6 grid gap-5">
-          <SearchBoxMain onLocationSelect={handleSelectLocation}/>
+          <SearchBoxMain onLocationSelect={handleSelectLocation} />
 
           <div className="grid grid-cols-4 gap-6">
             <div className="col-span-1 h-full w-full">
@@ -58,7 +58,7 @@ const SelectHotel = () => {
             </div>
 
             <div className="col-span-3 mb-[500px]">
-              <HotelList hotels={locations}/>
+              <HotelList hotels={locations} />
             </div>
 
           </div>
