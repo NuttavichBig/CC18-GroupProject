@@ -4,6 +4,8 @@ import useUserStore from "../../stores/user-store";
 import { useShallow } from "zustand/shallow";
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+const clientId = import.meta.env.VITE_GOOGLE_LOGIN_CLIENT
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const Login = ({ setIsLoginModalOpen }) => {
   const [input, setInput] = useState({
@@ -39,6 +41,7 @@ const Login = ({ setIsLoginModalOpen }) => {
   };
 
   return (
+    <GoogleOAuthProvider clientId={clientId}>
     <div
       onClick={() => setIsLoginModalOpen(false)}
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
@@ -125,6 +128,7 @@ const Login = ({ setIsLoginModalOpen }) => {
         </div>
       </form>
     </div>
+    </GoogleOAuthProvider>
   );
 };
 
