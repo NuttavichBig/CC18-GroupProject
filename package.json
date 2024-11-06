@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.8",
+    "@stripe/react-stripe-js": "^2.8.1",
+    "@stripe/stripe-js": "^4.9.0",
     "@react-google-maps/api": "^2.20.3",
     "@vis.gl/react-google-maps": "^1.4.0",
     "axios": "^1.7.7",
