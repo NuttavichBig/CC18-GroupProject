@@ -3,6 +3,8 @@ import travellogo from "../../assets/TRAVELHOMELOGO-HOMEPAGE.png";
 import Login from "../Login-Register-Account/Login";
 import Register from "../Login-Register-Account/Register";
 import { Link, useNavigate } from "react-router-dom";
+import useUserStore from "../../stores/user-store";
+import { useShallow } from "zustand/shallow";
 
 const HeaderHomePage = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -10,6 +12,12 @@ const HeaderHomePage = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const navigate = useNavigate();
+
+  const { user, token, logout } = useUserStore(useShallow(state => ({
+    user: state.user,
+    token: state.token,
+    logout: state.logout
+  })))
 
   const handleMouseEnterLogin = () => setIsDropdownOpen(true);
   const handleMouseLeaveRegister = () => setIsDropdownOpen(false);
@@ -53,35 +61,43 @@ const HeaderHomePage = () => {
           </Link>
 
           {/* Login Dropdown */}
-          <div className="relative">
-            <span
-              className="hover:text-gray-300 cursor-pointer"
-              onClick={() => setIsLoginModalOpen(true)}
-              onMouseEnter={handleMouseEnterLogin}
-            >
-              Login
-            </span>
-
-            {isDropdownOpen && (
-              <div
-                className="absolute mt-1 bg-white bg-opacity-20 border border-white rounded-lg p-2"
-                style={{
-                  width: '100px',
-                  transform: 'translateX(20%)',
-                }}
+          {token ?
+            <div>
+              <span className="hover:text-gray-300 cursor-pointer"
+                onClick={logout}>
+                Logout
+              </span>
+            </div> :
+            <div className="relative">
+              <span
+                className="hover:text-gray-300 cursor-pointer"
+                onClick={() => setIsLoginModalOpen(true)}
                 onMouseEnter={handleMouseEnterLogin}
-                onMouseLeave={handleMouseLeaveRegister}
               >
-                <a
-                  href="#register"
-                  className="block text-center text-white rounded hover:bg-black hover:bg-opacity-10 transition duration-200"
-                  onClick={() => setIsRegisterModalOpen(true)}
+                Login
+              </span>
+
+              {isDropdownOpen && (
+                <div
+                  className="absolute mt-1 bg-white bg-opacity-20 border border-white rounded-lg p-2"
+                  style={{
+                    width: '100px',
+                    transform: 'translateX(20%)',
+                  }}
+                  onMouseEnter={handleMouseEnterLogin}
+                  onMouseLeave={handleMouseLeaveRegister}
                 >
-                  Register
-                </a>
-              </div>
-            )}
-          </div>
+                  <a
+                    href="#register"
+                    className="block text-center text-white rounded hover:bg-black hover:bg-opacity-10 transition duration-200"
+                    onClick={() => setIsRegisterModalOpen(true)}
+                  >
+                    Register
+                  </a>
+                </div>
+              )}
+            </div>
+          }
         </nav>
 
         <div className="flex items-center space-x-4 mr-4">
@@ -95,7 +111,7 @@ const HeaderHomePage = () => {
               className="text-xs uppercase tracking-wider cursor-pointer hover:text-gray-300"
               onMouseEnter={handleMouseEnterProfile}
             >
-              Hello, Guest!
+              {token ? `Hello, ${user.firstName} ${user.lastName}` : 'Hello, Guest!'}
             </span>
 
             {isProfileDropdownOpen && (
