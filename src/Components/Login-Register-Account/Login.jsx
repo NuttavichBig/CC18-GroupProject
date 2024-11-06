@@ -2,34 +2,42 @@ import React, { useEffect, useState } from "react";
 import travellogo from "../../assets/TRAVELHOMELOGO-USER.png";
 import useUserStore from "../../stores/user-store";
 import { useShallow } from "zustand/shallow";
+import { GoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 const Login = ({ setIsLoginModalOpen }) => {
   const [input, setInput] = useState({
-    email: '',
-    password: '',
-    err : "",
-  })
-  const {token,login} = useUserStore(useShallow(state=>({
-    token : state.token,
-    login : state.login
-  })))
+    email: "",
+    password: "",
+    err: "",
+  });
+  const { token, login } = useUserStore(
+    useShallow((state) => ({
+      token: state.token,
+      login: state.login,
+    }))
+  );
 
-    useEffect(()=>{
-      if(token){
-
-        setIsLoginModalOpen(false)
-      }
-    },[token])
-  const handleSubmit = async(e) => {
+  useEffect(() => {
+    if (token) {
+      setIsLoginModalOpen(false);
+    }
+  }, [token]);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    await login({email : input.email, password : input.password})
+    await login({ email: input.email, password: input.password });
     // console.log("Form submitted");
   };
 
-
   const handleChange = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value })
-  }
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const handleGoogleLogin = async (credential) => {
+    await axios.post("http://localhost:8000/auth/google", { credential });
+    // navigate
+  };
+
   return (
     <div
       onClick={() => setIsLoginModalOpen(false)}
@@ -38,7 +46,7 @@ const Login = ({ setIsLoginModalOpen }) => {
       <form
         onSubmit={handleSubmit}
         className="bg-[#FFF8EB] rounded-lg shadow-lg p-8 w-full max-w-2xl relative flex"
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
@@ -88,14 +96,23 @@ const Login = ({ setIsLoginModalOpen }) => {
           <div className="text-right text-xs text-gray-500 cursor-pointer hover:underline">
             Forget Password
           </div>
-
-          <button
+          {/* <button
             type="button"
+            onClick={handleGoogleLogin}
             className="w-full flex items-center justify-center p-3  border-2 border-black rounded-lg  shadow-md hover:bg-gray-100 transition bg-[#FFF8EB]"
           >
             <span className="mr-2">🌐</span>
             <span className="font-medium">Continue with Google</span>
-          </button>
+          </button> */}
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              const { credential } = credentialResponse;
+              handleGoogleLogin(credential);
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          />
         </div>
 
         <div className="absolute bottom-[-29px] left-1/2 transform -translate-x-1/2">
