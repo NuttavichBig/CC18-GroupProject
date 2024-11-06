@@ -13,7 +13,7 @@ export default function CreatePromotion({ setCreatePromotion }) {
       className="flex items-center justify-center fixed inset-0 bg-[#F2F7A140] z-50"
     >
       <div
-        className="bg-[#FFFECB] rounded-xl shadow-xl p-8 relative"
+        className="bg-[#F8F4E1] rounded-xl shadow-xl p-8 relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -33,47 +33,47 @@ export default function CreatePromotion({ setCreatePromotion }) {
             <input
               type="text"
               placeholder="Promotion Campaign"
-              className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#543310] text-lg"
+              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
               type="text"
               placeholder="Promotion Description"
-              className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#543310] text-lg"
+              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
               type="text"
               placeholder="Discount Percentage"
-              className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#543310] text-lg"
+              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
               type="text"
               placeholder="Discount Value"
-              className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#543310] text-lg"
+              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
               type="text"
               placeholder="Minimum Spend"
-              className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#543310] text-lg"
+              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
               type="text"
               placeholder="Maximum Discount"
-              className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#543310] text-lg"
+              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
               type="text"
               placeholder="Usage Limit"
-              className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#543310] text-lg"
+              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
               type="text"
               placeholder="User Limit"
-              className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#543310] text-lg"
+              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
           </div>
           <div className="relative flex items-center gap-6">
             <div
-              className="w-full p-4 rounded-lg bg-[#fddbb7] shadow-md cursor-pointer flex justify-between items-center transition-all duration-200 ease-in-out hover:shadow-lg hover:bg-[#fcdba5]"
+              className="w-full p-4 rounded-lg border-2 border-[#543310] bg-[#F8F4E1] shadow-md cursor-pointer flex justify-between items-center transition-all duration-200 ease-in-out hover:shadow-lg hover:bg-[#FFDBB5]"
               onClick={() => {
                 setShowJourneyCalendar(!showJourneyCalendar);
                 setShowReturnCalendar(false);
@@ -94,7 +94,7 @@ export default function CreatePromotion({ setCreatePromotion }) {
             </div>
 
             <div
-              className="w-full p-4 rounded-lg bg-[#fddbb7] shadow-md cursor-pointer flex justify-between items-center transition-all duration-200 ease-in-out hover:shadow-lg hover:bg-[#fcdba5]"
+              className="w-full p-4 rounded-lg border-2 border-[#543310] bg-[#F8F4E1] shadow-md cursor-pointer flex justify-between items-center transition-all duration-200 ease-in-out hover:shadow-lg hover:bg-[#FFDBB5]"
               onClick={() => {
                 setShowReturnCalendar(!showReturnCalendar);
                 setShowJourneyCalendar(false);
@@ -162,8 +162,7 @@ export default function CreatePromotion({ setCreatePromotion }) {
               />
             </div>
           )}
-
-          <button className="mt-4 p-3 rounded-lg bg-[#543310] text-white font-semibold shadow-lg hover:bg-[#F8F4E1] hover:text-[#543310] transition-all duration-300 ease-in-out">
+          <button className="mt-4 p-3 rounded-lg bg-[#543310] border-2 border-[#543310] text-white font-semibold shadow-lg hover:bg-[#FFDBB5] hover:text-[#543310] transition-all duration-300 ease-in-out">
             Create Campaign
           </button>
         </form>

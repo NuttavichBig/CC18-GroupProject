@@ -1,53 +1,56 @@
-import React from "react";
-import room from "../../assets/room.png";
-import Stars from "../../assets/Stars.png";
+import React, { useState } from "react";
+import DetailHotel from "../../Components/Admin/DetailHotel";
 
 export default function HotelDetailAdmin() {
+  const [hotelDetail, setHotelDetail] = useState(false);
+
   return (
     <>
+      {hotelDetail && <DetailHotel setHotelDetail={setHotelDetail} />}
       <div className="w-full text-[#543310]">
-        <p className="bg-[#F8F4E1] text-3xl font-bold rounded-lg p-2 text-center mb-8 shadow-lg">
+        <p className="bg-[#AF8F6F] text-3xl font-bold rounded-lg p-2 text-center shadow-lg">
           HOTEL INFORMATION
         </p>
-        <div className="bg-[#F8F4E1] rounded-lg p-4 flex shadow-lg">
-          <img
-            src={room}
-            alt="Hotel Room"
-            className="w-[300px] h-[200px] rounded-lg"
-          />
-          <div className="flex flex-col gap-4 px-4">
-            <p className="font-bold">
-              IMAGE SLIDE Lotte Hotels & Resorts Korea PHONE : 0000000000
-            </p>
-            <p>
-              Book Flights with Traveloka at a special price. Exclusive for
-              students only! Don't miss out on this amazing Flight price.
-            </p>
-            <p className="font-bold">Facility</p>
-            <p>
-              Book Flights with Traveloka at a special price. Exclusive for
-              students only! Don't miss out on this amazing Flight price.
-            </p>
-            <p className="font-bold">WEB PAGE</p>
-            <a href="#">www.hotel.com</a>
-            <p className="font-bold">CHECK-IN CHECK-OUT</p>
-            <div className="flex gap-4">
-              <p>AFTER 14.00</p>
-              <p>BEFORE 12.00</p>
-            </div>
-            <div className="flex">
-              {[...Array(5)].map((_, index) => (
-                <img
-                  key={index}
-                  src={Stars}
-                  alt="Star"
-                  className="w-[40px] h-[40px]"
-                />
-              ))}
-            </div>
-            <p className="font-bold">STATUS : ACTIVE</p>
-          </div>
-        </div>
+        <table className=" text-center w-full mt-4 border-collapse">
+          <thead>
+            <tr className="bg-[#AF8F6F]">
+              <th className="border-collapse border p-2">ID</th>
+              <th className="border-collapse border p-2">PARTNER NAME</th>
+              <th className="border-collapse border p-2">BANK NAME</th>
+              <th className="border-collapse border p-2">BANK NO.</th>
+              <th className="border-collapse border p-2">TAX NO.</th>
+              <th className="border-collapse border p-2">ADDRESS</th>
+              <th className="border-collapse border p-2">STATUS</th>
+              <th className="border-collapse border p-2">MORE DETAIL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="bg-[#F8F4E1]">
+              <td className="border-collapse border p-2"></td>
+              <td className="border-collapse border p-2"></td>
+              <td className="border-collapse border p-2"></td>
+              <td className="border-collapse border p-2"></td>
+              <td className="border-collapse border p-2"></td>
+              <td className="border-collapse border p-2"></td>
+              <td className="border-collapse border p-2">
+                <select name="" id="" className="bg-[#F8F4E1]">
+                  <option value="">ACTIVE</option>
+                  <option value="">INACTIVE</option>
+                </select>
+              </td>
+              <td className="border-collapse border p-2">
+                <button
+                  onClick={() => {
+                    setHotelDetail(true);
+                  }}
+                  className="p-1 rounded-lg border-2 bg-[#F8F4E1] border-[#543310] text-[#543310] font-semibold shadow-lg hover:bg-[#543310] hover:text-white transition-all duration-100 ease-in-out"
+                >
+                  MORE DETAIL
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </>
   );
