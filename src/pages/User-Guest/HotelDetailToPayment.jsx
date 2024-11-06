@@ -11,7 +11,6 @@ import TravelerDetailForm from '../../Components/HotelDetailToPayment/TravelerDe
 
 function HotelDetailToPayment() {
 
-
     return (
         <div>
             <div className='bg-gray-400 relative h-[100px]'>
@@ -40,11 +39,6 @@ function HotelDetailToPayment() {
                             </div>
                         </div>
                     </div>
-
-
-
-
-
 
                     <div className="grid grid-cols-3 gap-6 ">
 

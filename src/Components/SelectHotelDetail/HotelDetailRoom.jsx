@@ -1,70 +1,61 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function HotelDetailRoom() {
+function HotelDetailRoom({ rooms }) {
+    console.log(rooms);
     const navigate = useNavigate();
 
-    const rooms = [
-        {
-            id: 1,
-            type: "Deluxe",
-            amenities: ["Without Breakfast", "1 double bed", "Air conditioning"],
-            guests: "2 Adults",
-            availability: "2 rooms left",
-            price: 750,
-            imageUrl: "/1.jpg"
-        },
-        {
-            id: 2,
-            type: "Deluxe",
-            amenities: ["Without Breakfast", "1 double bed", "Air conditioning"],
-            guests: "2 Adults",
-            availability: "2 rooms left",
-            price: 750,
-            imageUrl: "/2.jpg"
-        },
-        {
-            id: 3,
-            type: "Deluxe",
-            amenities: ["Without Breakfast", "1 double bed", "Air conditioning"],
-            guests: "2 Adults",
-            availability: "2 rooms left",
-            price: 750,
-            imageUrl: "/3.jpg"
-        },
-    ];
+    if (!rooms || rooms.length === 0) {
+        return <div>No rooms available at this time.</div>;
+    }
+
+    const formatFacilityName = (key) => {
+        return key.replace(/is|([A-Z])/g, " $1").trim().replace(/  +/g, " ");
+    }
+
+    const handleBookNow = (room) => {
+        navigate('/bookinghotel-detail-payment', { state: { room } });
+    };
 
     return (
         <div className="bg-[#fef6e4] rounded-lg p-4 shadow-md space-y-6 w-full">
             <h3 className="text-lg font-semibold mb-4">Rooms</h3>
             {rooms.map((room) => (
                 <div key={room.id} className="flex bg-white p-4 rounded-lg shadow-md">
-                    <img src={room.imageUrl} alt={room.type} className="w-32 h-24 object-cover rounded-lg mr-4" />
+                    <img
+                        src={room.images && room.images.length > 0 ? room.images[0].img : "/default-room.jpg"}
+                        alt={room.type}
+                        className="w-32 h-24 object-cover rounded-lg mr-4"
+                    />
 
                     <div className="flex-grow flex flex-col justify-between">
                         <div className="flex space-x-8">
                             <div>
                                 <h4 className="text-md font-semibold">{room.type}</h4>
-                                {room.amenities.map((amenity, index) => (
-                                    <p key={index} className="text-sm text-gray-600">{amenity}</p>
-                                ))}
+                                {Object.entries(room.facilitiesRoom || {})
+                                    .filter(([key, value]) => value === true)
+                                    .map(([key]) => (
+                                        <span key={key} className="px-2 py-1 bg-gray-200 rounded">
+                                            {formatFacilityName(key)}
+                                        </span>
+                                    ))}
                             </div>
                             <div>
                                 <p className="font-semibold">Guests</p>
-                                <p className="text-sm text-gray-600">{room.guests}</p>
+                                <p className="text-sm text-gray-600">{room.recommendPeople || "Not specified"} Adult</p>
                             </div>
                             <div>
                                 <p className="font-semibold">Available Room</p>
-                                <p className="text-sm text-gray-600">{room.availability}</p>
+                                <p className="text-sm text-gray-600">{room.status || "Not specified"}</p>
                             </div>
                         </div>
                     </div>
 
                     <div className="flex flex-col items-end justify-between ml-4">
-                        <span className="text-lg font-bold text-orange-500">THB {room.price}</span>
+                        <span className="text-lg font-bold text-orange-500">THB {room.price || "N/A"}</span>
                         <button
                             className="bg-orange-500 text-white py-1 px-4 rounded-md"
-                            onClick={() => navigate('/bookinghotel-detail-payment')}
+                            onClick={() => handleBookNow(room)}
                         >
                             BOOK NOW
                         </button>

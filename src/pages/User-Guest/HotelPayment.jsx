@@ -5,6 +5,8 @@ import HotelDetailMain from '../../Components/SelectHotelDetail/HotelDetailMain'
 import Footer from '../../Components/Nav-Footer-Chat/Footer';
 import SummaryRoomDetail from '../../Components/HotelPayment/SummaryRoomDetail';
 import PaymentMethodForm from '../../Components/HotelPayment/PaymentMethodForm';
+import CheckoutForm from '../../Components/HotelPayment/CheckoutForm';
+import PaymentProvider from '../../Components/HotelPayment/PaymentProvider';
 
 
 
@@ -55,7 +57,11 @@ function HotelPayment() {
 
                             <div className="flex gap-6">
                                 <div className="w-full bg-[#fef6e4]">
-                                    <PaymentMethodForm />
+                                    {/* <PaymentMethodForm /> */}
+                                    {/* ใช้stripe แทน */}
+                                    <PaymentProvider >
+                                        <CheckoutForm />
+                                    </PaymentProvider >
                                 </div>
                             </div>
 
