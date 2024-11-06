@@ -30,10 +30,9 @@ import UserDetailAdmin from "../pages/Admin/UserDetailAdmin";
 import HomeAdmin from "../pages/Admin/HomeAdmin";
 import DashboardAdmin from "../pages/Admin/DashboardAdmin";
 
-
-// import HomePartner from "../pages/Partner/HomePartner";
-// import BookingDetailPartner from "../pages/Partner/BookingDetailPartner";
-// import ReviewDetailPartner from "../pages/Partner/ReviewDetailPartner";
+import HomePartner from "../pages/Partner/HomePartner";
+import BookingDetailPartner from "../pages/Partner/BookingDetailPartner";
+import ReviewDetailPartner from "../pages/Partner/ReviewDetailPartner";
 
 const MainRouter = createBrowserRouter([
   {
@@ -43,11 +42,16 @@ const MainRouter = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "bookinghotel", element: <SelectHotel /> },
       { path: "bookinghotel-detail", element: <SelectHotelDetail /> },
-      { path: "bookinghotel-detail-payment", element: <HotelDetailToPayment /> },
+      {
+        path: "bookinghotel-detail-payment",
+        element: <HotelDetailToPayment />,
+      },
       { path: "bookinghotel-detail-payment-method", element: <HotelPayment /> },
-      { path: "bookinghotel-detail-payment-method-summary", element: <HotelPaymentSucessSummary /> },
+      {
+        path: "bookinghotel-detail-payment-method-summary",
+        element: <HotelPaymentSucessSummary />,
+      },
       { path: "promotion", element: <HotelPromotion /> },
-
 
       ////////////////////////////////
 
@@ -68,9 +72,15 @@ const MainRouter = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "bookinghotel", element: <SelectHotel /> },
       { path: "bookinghotel-detail", element: <SelectHotelDetail /> },
-      { path: "bookinghotel-detail-payment", element: <HotelDetailToPayment /> },
+      {
+        path: "bookinghotel-detail-payment",
+        element: <HotelDetailToPayment />,
+      },
       { path: "bookinghotel-detail-payment-method", element: <HotelPayment /> },
-      { path: "bookinghotel-detail-payment-method-summary", element: <HotelPaymentSucessSummary /> },
+      {
+        path: "bookinghotel-detail-payment-method-summary",
+        element: <HotelPaymentSucessSummary />,
+      },
       { path: "promotion", element: <HotelPromotion /> },
     ],
   },
@@ -82,7 +92,6 @@ const MainRouter = createBrowserRouter([
       { path: "edit", element: <ProfileForm /> },
       { path: "purchasehistory", element: <MyPurchase /> },
       { path: "reviewhistory", element: <ReviewTabHistory /> },
-
     ],
   },
   {
@@ -102,10 +111,10 @@ const MainRouter = createBrowserRouter([
     path: "/partner",
     element: <Outlet />,
     children: [
+      { index: true, element: <HomePartner /> },
       { path: "registerpartner", element: <RegisterPartner /> },
-      // { path: "bookingDetailPartner", element: <BookingDetailPartner /> },
-      // { path: "registerPartner", element: <RegisterPartner /> },
-      // { path: "reviewDetailPartner", element: <ReviewDetailPartner /> },
+      { path: "bookingDetailPartner", element: <BookingDetailPartner /> },
+      { path: "reviewDetailPartner", element: <ReviewDetailPartner /> },
     ],
   },
 ]);
