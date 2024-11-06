@@ -20,7 +20,10 @@ const HomePageSlider = () => {
   }, []);
   const getData = async () => {
     const result = await axios.get(`${API}/hotel?sortBy=rating`);
-    setSlides(result.data?.hotels);
+    const {hotels} = result.data
+    if(hotels){
+      setSlides(result.data?.hotels);
+    }
   };
 
   const handleSlideChange = (swiper) => {
