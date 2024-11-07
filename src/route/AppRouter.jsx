@@ -35,6 +35,10 @@ import BookingDetailPartner from "../pages/Partner/BookingDetailPartner";
 import ReviewDetailPartner from "../pages/Partner/ReviewDetailPartner";
 import HotelPartner from "../pages/Partner/HotelPartner";
 import ProtectRouter from "./ProtectRouter";
+import PartnerUpdate from "../Components/Partner/PartnerUpdate";
+import HotelUpdate from "../Components/Partner/HotelUpdate";
+import RoomUpdate from "../Components/Partner/RoomUpdate";
+
 
 const MainRouter = createBrowserRouter([
   {
@@ -115,9 +119,13 @@ const MainRouter = createBrowserRouter([
     element: <HomePartner />,
     children: [
       // { index: true, element: <HomePartner /> },
+
       { path: "bookingDetailPartner", element: <ProtectRouter element={<BookingDetailPartner /> } reqRole={['PARTNER']}/> },
       { path: "hotelPartner", element:  <ProtectRouter element={<HotelPartner /> } reqRole={['PARTNER']}/>},
       { path: "reviewDetailPartner", element: <ProtectRouter element={<ReviewDetailPartner />  } reqRole={['PARTNER']}/>},
+      { path: "partnerUpdate", element: <PartnerUpdate /> },
+      { path: "HotelUpdate", element: <HotelUpdate /> },
+      { path: "roomUpdate", element: <RoomUpdate /> },
     ],
   },
 ]);
