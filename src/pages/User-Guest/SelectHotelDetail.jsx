@@ -15,15 +15,8 @@ import useHotelStore from '../../stores/hotel-store';
 
 
 function SelectHotelDetail() {
-    const location = useLocation()
-    // const {hotel} = location.state || {};
-    // console.log('hotelId',hotel)
-    // console.log('hotelId id',hotel.id)
     const [hotelData, setHotelData] = useState(null);
-    // console.log('hotelData',hotelData)
-   
     const currentHotel = useHotelStore(state=>state.currentHotel)
-
 
     useEffect(() => {
         const fetchHotelData = async () => {
@@ -31,7 +24,6 @@ function SelectHotelDetail() {
                 try {
                     const res = await axios.get(`http://localhost:8000/hotel/${currentHotel.id}`);
                     setHotelData(res.data);
-                    console.log('data', res.data);
                 } catch (error) {
                     console.log('error fetch hotel detail', error);
                 }

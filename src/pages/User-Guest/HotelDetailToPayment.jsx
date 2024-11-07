@@ -2,7 +2,6 @@ import React from 'react';
 import HeaderUserPage from '../../Components/Nav-Footer-Chat/HeaderUserPage';
 import SearchBoxMain from '../../Components/FilterSearch/SearchBoxMain';
 import HotelDetailMain from '../../Components/SelectHotelDetail/HotelDetailMain';
-import HotelDetailRoom from '../../Components/SelectHotelDetail/HotelDetailRoom';
 import Footer from '../../Components/Nav-Footer-Chat/Footer';
 import RoomSelection from '../../Components/HotelDetailToPayment/RoomSelection';
 import TravelerDetailForm from '../../Components/HotelDetailToPayment/TravelerDetailForm';
@@ -55,11 +54,6 @@ function HotelDetailToPayment() {
                                 <div className="w-full bg-[#fef6e4]">
                                     <TravelerDetailForm />
                                 </div>
-                            </div>
-
-
-                            <div className="bg-[#fef6e4]">
-                                <HotelDetailRoom />
                             </div>
                         </div>
                     </div>
