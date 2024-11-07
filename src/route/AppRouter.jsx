@@ -34,6 +34,9 @@ import HomePartner from "../pages/Partner/HomePartner";
 import BookingDetailPartner from "../pages/Partner/BookingDetailPartner";
 import ReviewDetailPartner from "../pages/Partner/ReviewDetailPartner";
 import HotelPartner from "../pages/Partner/HotelPartner";
+import PartnerUpdate from "../Components/Partner/PartnerUpdate";
+import HotelUpdate from "../Components/Partner/HotelUpdate";
+import RoomUpdate from "../Components/Partner/RoomUpdate";
 
 const MainRouter = createBrowserRouter([
   {
@@ -117,6 +120,9 @@ const MainRouter = createBrowserRouter([
       { path: "bookingDetailPartner", element: <BookingDetailPartner /> },
       { path: "hotelPartner", element: <HotelPartner /> },
       { path: "reviewDetailPartner", element: <ReviewDetailPartner /> },
+      { path: "partnerUpdate", element: <PartnerUpdate /> },
+      { path: "HotelUpdate", element: <HotelUpdate /> },
+      { path: "roomUpdate", element: <RoomUpdate /> },
     ],
   },
 ]);
