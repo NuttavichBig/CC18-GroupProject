@@ -10,9 +10,17 @@ export default function PromotionDetailAdmin() {
         <CreatePromotion setCreatePromotion={setCreatePromotion} />
       )}
       <div className="w-full text-[#543310]">
-        <p className="bg-[#F8F4E1] text-3xl font-bold rounded-lg p-2 text-center mb-8 shadow-lg">
+        <p className="bg-[#AF8F6F] text-3xl font-bold rounded-lg p-2 text-center shadow-lg">
           PROMOTION
         </p>
+        <div className="flex justify-end my-2">
+          <button
+            onClick={(e) => setCreatePromotion(true)}
+            className="p-2 rounded-lg border-2 bg-[#F8F4E1] border-[#543310] text-[#543310] font-semibold shadow-lg hover:bg-[#543310] hover:text-white transition-all duration-100 ease-in-out"
+          >
+            CREATE PROMOTION
+          </button>
+        </div>
         <div className="bg-[#F8F4E1] rounded-lg p-4 flex shadow-lg">
           <img
             src={room}
@@ -29,11 +37,8 @@ export default function PromotionDetailAdmin() {
             <p className="text-3xl">Promotion Code : PPAP22</p>
           </div>
           <div className="flex items-center">
-            <button
-              onClick={(e) => setCreatePromotion(true)}
-              className="w-[150px] h-[100px] rounded-lg border-2 bg-[#F8F4E1] border-[#543310] text-[#543310] font-semibold shadow-lg hover:bg-[#543310] hover:text-white transition-all duration-100 ease-in-out"
-            >
-              CREATE PROMOTION
+            <button className=" rounded-lg p-1 border-2 border-[#CD1818] bg-[#F8F4E1] text-[#CD1818] font-semibold shadow-lg hover:bg-[#CD1818] hover:text-white transition-all duration-100 ease-in-out">
+              Remove
             </button>
           </div>
         </div>

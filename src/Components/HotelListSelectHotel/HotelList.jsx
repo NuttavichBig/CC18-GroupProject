@@ -1,11 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import useHotelStore from '../../stores/hotel-store';
 
 const HotelList = ({ hotels }) => {
     const navigate = useNavigate();
 
-    const handleBookNow = (hotelId) =>{
-        navigate('/bookinghotel-detail', { state: { hotelId } });
+    const actionSetCurrentHotel = useHotelStore(state=>state.actionSetCurrentHotel)
+
+
+    const handleBookNow = (hotel) =>{
+        actionSetCurrentHotel(hotel)
+        navigate('/bookinghotel-detail');
+        // navigate('/bookinghotel-detail', { state: { hotel } });
     }
 
     const formatFacilityName = (key) =>{

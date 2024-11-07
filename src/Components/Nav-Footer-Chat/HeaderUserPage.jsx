@@ -52,7 +52,7 @@ const HeaderUserPage = () => {
                     <Link to="/user/promotion" className="hover:text-gray-300">
                         Travel Promotion
                     </Link>
-                    <Link to="/partner/registerpartner" className="hover:text-gray-300">
+                    <Link to="/user/registerpartner" className="hover:text-gray-300">
                         Contact Us
                     </Link>
 

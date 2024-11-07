@@ -9,31 +9,40 @@ import HeaderUserPage from '../../Components/Nav-Footer-Chat/HeaderUserPage';
 import HotelList from '../../Components/HotelListSelectHotel/HotelList';
 import SearchBoxMain from '../../Components/FilterSearch/SearchBoxMain';
 import useUserStore from '../../stores/user-store';
+import { useShallow } from 'zustand/shallow';
 
 const SelectHotel = () => {
   const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const selectedLocation = useUserStore((state) => state.selectedLocation)
+  const {selectedLocation,filter} = useUserStore(useShallow(state=>({
+    selectedLocation : state.selectedLocation,
+    filter : state.filter
+  })))
 
-  useEffect(() => {
-    if (selectedLocation) {
-      handleSelectLocation(selectedLocation)
+
+  const handleSearch = async() => {
+    try {
+    const {journeyDate,returnDate} = filter
+      // console.log('location:', location);
+    const params ={
+      lat : selectedLocation.lat,
+      lng : selectedLocation.lng
     }
-  }, [selectedLocation])
-
-  const handleSelectLocation = async (location) => {
-    console.log('location:', location);
+    if(journeyDate){
+      params.checkinDate = new Date(journeyDate)
+    }
+    if(returnDate){
+      params.checkoutDate = new Date(returnDate)
+    }
+    
     setLoading(true);
     setError('');
-    try {
-      const res = await axios.get('http://localhost:8000/hotel', {
-        params: {
-          lat: location.lat,
-          lng: location.lng
-        }
+      const res = await  axios.get('http://localhost:8000/hotel',{
+        params : params
       })
+      console.log(res)
       setLocations(res.data.hotels || []);
     } catch (error) {
       console.log('fail to fetch', error)
@@ -50,7 +59,7 @@ const SelectHotel = () => {
       </div>
       <div className='min-h-screen relative bg-[#f9f9f9] flex justify-center items-start'>
         <div className="container mx-auto p-6 grid gap-5">
-          <SearchBoxMain onLocationSelect={handleSelectLocation} />
+          <SearchBoxMain handleSearch={handleSearch}/>
 
           <div className="grid grid-cols-4 gap-6">
             <div className="col-span-1 h-full w-full">

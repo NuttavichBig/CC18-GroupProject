@@ -11,21 +11,25 @@ import HotelDetailRoom from '../../Components/SelectHotelDetail/HotelDetailRoom'
 import HotelDetailRecommend from '../../Components/SelectHotelDetail/HotelDetailRecommend';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import useHotelStore from '../../stores/hotel-store';
 
 
 function SelectHotelDetail() {
     const location = useLocation()
-    const { hotelId } = location.state || {};
-    console.log('hotelId', hotelId)
-    console.log('hotelId id', hotelId.id)
+    // const {hotel} = location.state || {};
+    // console.log('hotelId',hotel)
+    // console.log('hotelId id',hotel.id)
     const [hotelData, setHotelData] = useState(null);
-    console.log('hotelData', hotelData)
+    // console.log('hotelData',hotelData)
+
+    const currentHotel = useHotelStore(state => state.currentHotel)
+
 
     useEffect(() => {
         const fetchHotelData = async () => {
-            if (hotelId) {
+            if (currentHotel) {
                 try {
-                    const res = await axios.get(`http://localhost:8000/hotel/${hotelId.id}`);
+                    const res = await axios.get(`http://localhost:8000/hotel/${currentHotel.id}`);
                     setHotelData(res.data);
                     console.log('data', res.data);
                 } catch (error) {
@@ -35,7 +39,8 @@ function SelectHotelDetail() {
         };
 
         fetchHotelData();
-    }, [hotelId]);
+    }, [currentHotel]);
+
 
 
     if (!hotelData) {
