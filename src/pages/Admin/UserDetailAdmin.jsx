@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useUserStore from "../../stores/user-store";
-import GetAllPartner from "../../Components/Partner/GetAllPartner";
+
 
 export default function UserDetailAdmin() {
   const [users, setUsers] = useState([]);
@@ -62,67 +62,67 @@ export default function UserDetailAdmin() {
   return (
     <div className="w-full text-[#ffffff] ">
       <div>
-      <p className="bg-[#AF8F6F] text-3xl font-bold rounded-lg p-2 text-center shadow-lg">
-        USER INFORMATION
-      </p>
-      <table className="text-center w-full mt-4 border-collapse">
-        <thead>
-          <tr className="bg-[#AF8F6F]">
-            {/* Column Headers */}
-            <th>ID</th>
-            <th>FIRSTNAME</th>
-            <th>LASTNAME</th>
-            <th>PHONE</th>
-            <th>EMAIL</th>
-            <th>DATE OF BIRTH</th>
-            <th>GENDER</th>
-            <th>ROLE</th>
-            <th>STATUS</th>
-            <th>ACTIONS</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id} className="bg-[#AF8F6F]">
-              <td>{user.id}</td>
-              <td>{user.firstName}</td>
-              <td>{user.lastName}</td>
-              <td>{user.phone}</td>
-              <td>{user.email}</td>
-              <td>{user.birthdate}</td>
-              <td>{user.gender}</td>
-              <td>
-                <select
-                  value={user.role}
-                  onChange={(e) => handleUpdate(user.id, { role: e.target.value })}
-                  className="bg-[#AF8F6F]"
-                >
-                  <option value="USER">USER</option>
-                  <option value="ADMIN">ADMIN</option>
-                  <option value="PARTNER">PARTNER</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  value={user.status}
-                  onChange={(e) => handleUpdate(user.id, { status: e.target.value })}
-                  className="bg-[#AF8F6F]"
-                >
-                  <option value="PENDING">PENDING</option>
-                  <option value="ACTIVE">ACTIVE</option>
-                  <option value="INACTIVE">INACTIVE</option>
-                  <option value="BANNED">BANNED</option>
-                </select>
-              </td>
-              <td>
-                <button onClick={() => handleDelete(user.id)} className="text-red-500">
-                  Delete
-                </button>
-              </td>
+        <p className="bg-[#AF8F6F] text-3xl font-bold rounded-lg p-2 text-center shadow-lg">
+          USER INFORMATION
+        </p>
+        <table className="text-center w-full mt-4 border-collapse">
+          <thead>
+            <tr className="bg-[#AF8F6F]">
+              {/* Column Headers */}
+              <th>ID</th>
+              <th>FIRSTNAME</th>
+              <th>LASTNAME</th>
+              <th>PHONE</th>
+              <th>EMAIL</th>
+              <th>DATE OF BIRTH</th>
+              <th>GENDER</th>
+              <th>ROLE</th>
+              <th>STATUS</th>
+              <th>ACTIONS</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.id} className="bg-[#AF8F6F]">
+                <td>{user.id}</td>
+                <td>{user.firstName}</td>
+                <td>{user.lastName}</td>
+                <td>{user.phone}</td>
+                <td>{user.email}</td>
+                <td>{user.birthdate}</td>
+                <td>{user.gender}</td>
+                <td>
+                  <select
+                    value={user.role}
+                    onChange={(e) => handleUpdate(user.id, { role: e.target.value })}
+                    className="bg-[#AF8F6F]"
+                  >
+                    <option value="USER">USER</option>
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="PARTNER">PARTNER</option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    value={user.status}
+                    onChange={(e) => handleUpdate(user.id, { status: e.target.value })}
+                    className="bg-[#AF8F6F]"
+                  >
+                    <option value="PENDING">PENDING</option>
+                    <option value="ACTIVE">ACTIVE</option>
+                    <option value="INACTIVE">INACTIVE</option>
+                    <option value="BANNED">BANNED</option>
+                  </select>
+                </td>
+                <td>
+                  <button onClick={() => handleDelete(user.id)} className="text-red-500">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
     </div>

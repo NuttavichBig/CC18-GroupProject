@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 import useHotelStore from '../../stores/hotel-store';
 
-<<<<<<< HEAD
-const HotelDetailMain = ({ hotelData }) => {
-    const formatFacilityName = (key) => {
-=======
 const HotelDetailMain = () => {
-    const formatFacilityName = (key) =>{
->>>>>>> dev
+    const formatFacilityName = (key) => {
         return key.replace(/is|([A-Z])/g, " $1").trim().replace(/  +/g, " ");
     }
 
-    const currentHotel = useHotelStore(state=>state.currentHotel)
+    const currentHotel = useHotelStore(state => state.currentHotel)
 
 
 
@@ -45,28 +40,18 @@ const HotelDetailMain = () => {
             <div>
                 <h3 className="font-semibold">Facilities:</h3>
                 <div className="flex flex-wrap gap-2">
-<<<<<<< HEAD
-                    {Object.entries(hotelData.facilitiesHotel || {})
+                    {Object.entries(currentHotel.facilitiesHotel || {})
                         .filter(([key, value]) => value === true)
                         .map(([key]) => (
                             <span key={key} className="px-2 py-1 bg-gray-200 rounded">
                                 {formatFacilityName(key)}
                             </span>
                         ))}
-=======
-                {Object.entries(currentHotel.facilitiesHotel || {})
-                                    .filter(([key,value])=>value === true)
-                                    .map(([key])=>(
-                                        <span key={key} className="px-2 py-1 bg-gray-200 rounded">
-                                            {formatFacilityName(key)}
-                                        </span>
-                    ))}
->>>>>>> dev
-                </div>
-            </div>
+                </div >
+            </div >
 
 
-        </div>
+        </div >
     );
 };
 
