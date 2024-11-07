@@ -4,42 +4,42 @@ import { useShallow } from "zustand/shallow";
 import useUserStore from "../../stores/user-store";
 
 const Register = ({ setIsRegisterModalOpen }) => {
-  const [input ,setInput] = useState({
-    firstName : '',
-    lastName : '',
-    email : '',
-    phone : '',
-    gender : 'MALE',
-    password : '',
-    confirmPassword : '',
-    date : 1,
-    month : 1,
-    year : 1998,
-    err : '',
+  const [input, setInput] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    gender: 'MALE',
+    password: '',
+    confirmPassword: '',
+    date: 1,
+    month: 1,
+    year: 1998,
+    err: '',
   })
-  const {register ,login} = useUserStore(useShallow(state=>({
-    register : state.register,
-    login : state.login
+  const { register, login } = useUserStore(useShallow(state => ({
+    register: state.register,
+    login: state.login
   })))
-  const hdlChange = (e)=>{
-    setInput({...input,[e.target.name] : e.target.value})
+  const hdlChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value })
   }
-  const hdlCheck = (e)=>{
-    if(e.target.checked){
-      setInput({...input,[e.target.name] : e.target.value})
+  const hdlCheck = (e) => {
+    if (e.target.checked) {
+      setInput({ ...input, [e.target.name]: e.target.value })
     }
   }
-  const hdlRegister = async(e)=>{
-    try{
+  const hdlRegister = async (e) => {
+    try {
 
       e.stopPropagation()
-      const {date,month,year,err ,...body} = input
-      body.birthdate =`${year}-${month.toString().padStart(2,'0')}-${date.toString().padStart(2,'0')}`
+      const { date, month, year, err, ...body } = input
+      body.birthdate = `${year}-${month.toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`
       await register(body)
       console.log('after registered')
-      await login({email : body.email , password : body.password})
+      await login({ email: body.email, password: body.password })
       setIsRegisterModalOpen(false)
-    }catch(err){
+    } catch (err) {
       const errMsg = err?.response?.data?.message || err.message
       setInput(prv => ({ ...prv, err: errMsg }))
     }
@@ -50,7 +50,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
     >
       <div className="bg-[#FFF8EB] rounded-lg shadow-lg p-8 w-full max-w-2xl relative flex"
-      onClick={(e)=>e.stopPropagation()}>
+        onClick={(e) => e.stopPropagation()}>
         <button
           onClick={() => setIsRegisterModalOpen(false)}
           className="absolute top-4 right-4 text-gray-600 hover:text-red-500 focus:outline-none"
@@ -81,7 +81,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 First Name
               </label>
               <input
-              name="firstName"
+                name="firstName"
                 type="text"
                 placeholder="First Name"
                 className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
@@ -94,7 +94,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 Last Name
               </label>
               <input
-              name="lastName"
+                name="lastName"
                 type="text"
                 placeholder="Last Name"
                 className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
@@ -109,7 +109,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 Day
               </label>
               <input
-              name="date"
+                name="date"
                 type="text"
                 placeholder="Day"
                 className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
@@ -122,7 +122,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 Month
               </label>
               <input
-              name="month"
+                name="month"
                 type="text"
                 placeholder="Month"
                 className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
@@ -135,7 +135,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 Year
               </label>
               <input
-              name="year"
+                name="year"
                 type="text"
                 placeholder="Year"
                 className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
@@ -149,7 +149,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
               Email
             </label>
             <input
-            name="email"
+              name="email"
               type="email"
               placeholder="Email"
               className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
@@ -162,7 +162,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
               Phone
             </label>
             <input
-            name="phone"
+              name="phone"
               type="text"
               placeholder="Phone"
               className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
@@ -191,7 +191,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
               Password
             </label>
             <input
-            name="password"
+              name="password"
               type="password"
               placeholder="Password"
               className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
@@ -204,7 +204,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
               Confirm Password
             </label>
             <input
-            name="confirmPassword"
+              name="confirmPassword"
               type="password"
               placeholder="Confirm Password"
               className="bg-[#FFE4B0] w-full p-3 border rounded-lg"
@@ -220,7 +220,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
 
         <div className="absolute bottom-[-25px] left-1/2 transform -translate-x-1/2">
           <button className="bg-orange-500 text-white font-bold px-6 py-3 rounded-lg shadow-lg"
-          onClick={hdlRegister}>
+            onClick={hdlRegister}>
             Register
           </button>
         </div>

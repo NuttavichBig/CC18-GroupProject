@@ -1,8 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import defaultPic from '../../assets/ProfilePicture.webp';
+import useUserStore from '../../stores/user-store';
 
-function SidebarUser({ profileImage }) {
+function SidebarUser() {
+    const profileImage = useUserStore(state => state.user?.image);
+
     return (
         <div className="bg-white border p-6 rounded-lg shadow-md w-[300px] text-center relative mt-16 ml-14 ">
             <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-24 h-24 rounded-full shadow-md overflow-hidden bg-white">

@@ -61,7 +61,7 @@ const SearchBoxMain = (props) => {
                             className="flex-1 text-center flex flex-col items-center"
                         >
                             <span className="block font-semibold text-xs">JOURNEY</span>
-                            <span className="text-sm">{input.journeyDate?.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
+                            <span className="text-sm">{(new Date(input.journeyDate)).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
                         </div>
                         <div className="border-l border-gray-400 self-stretch mx-2"></div>
                         <div
@@ -75,7 +75,7 @@ const SearchBoxMain = (props) => {
                             className="flex-1 text-center flex flex-col items-center"
                         >
                             <span className="block font-semibold text-xs">RETURN DATE</span>
-                            <span className="text-sm">{input.returnDate?.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
+                            <span className="text-sm">{(new Date(input.returnDate)).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
                         </div>
                     </div>
 
