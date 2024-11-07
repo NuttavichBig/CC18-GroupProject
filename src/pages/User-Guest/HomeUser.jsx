@@ -4,7 +4,7 @@ import SidebarUser from "../../Components/UserProfile/SidebarUser";
 import HeaderUserPage from "../../Components/Nav-Footer-Chat/HeaderUserPage";
 
 export default function HomeAdmin() {
-    const [profileImage, setProfileImage] = useState(null);
+
     return (
         <>
             <div className="min-h-screen relative bg-white flex justify-center items-start">
@@ -12,7 +12,7 @@ export default function HomeAdmin() {
                     <HeaderUserPage />
                     <div className="grid grid-cols-3 gap-6 mt-20">
                         <div className="col-span-1 ml-20">
-                            <SidebarUser profileImage={profileImage} />
+                            <SidebarUser />
                         </div>
                         <div className="col-span-2  h-screen">
                             <Outlet />
