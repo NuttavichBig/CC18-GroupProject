@@ -78,8 +78,6 @@ export default function PromotionDetailAdmin() {
     }
   }
   
-  
-
   return (
     <>
       {createPromotion && (
