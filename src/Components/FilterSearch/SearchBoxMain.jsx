@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-import searchbuttonanimation from "../../assets/GifMainButtonOrangeSearch1.gif";
 import SearchLocation from '../GoogleApi/SearchLocation';
 import useUserStore from '../../stores/user-store';
 import { useShallow } from 'zustand/shallow';
 
-const SearchBoxMain = () => {
-    const [journeyDate, setJourneyDate] = useState(new Date());
-    const [returnDate, setReturnDate] = useState(new Date());
-    const [showJourneyCalendar, setShowJourneyCalendar] = useState(false);
-    const [showReturnCalendar, setShowReturnCalendar] = useState(false);
+const SearchBoxMain = (props) => {
+    const {handleSearch} = props
+    // const [journeyDate, setJourneyDate] = useState(new Date());
+    // const [returnDate, setReturnDate] = useState(new Date());
+    // const [showJourneyCalendar, setShowJourneyCalendar] = useState(false);
+    // const [showReturnCalendar, setShowReturnCalendar] = useState(false);
+    const [calenderControl, setCalenderControl] = useState({
+        showJourneyCalendar: false,
+        showReturnCalendar: false,
+        minimumReturnDate: new Date()
+    })
     const { input, setInput, setSelectedLocation } = useUserStore(
         useShallow((state) => ({
             input: state.filter,
@@ -19,6 +24,12 @@ const SearchBoxMain = () => {
             setSelectedLocation: state.setSelectedLocation
         }))
     );
+    useEffect(() => {
+        let date = new Date(input.journeyDate)
+        date.setDate(date.getDate() + 1)
+        setCalenderControl({ ...calenderControl, minimumReturnDate: date })
+    }, [calenderControl.showJourneyCalendar])
+
 
     const handleSelectLocation = (selectedLocation) => {
         setSelectedLocation(selectedLocation);
@@ -34,43 +45,56 @@ const SearchBoxMain = () => {
 
                 <div className="flex-1 flex items-center gap-2 bg-[#fddbb7] rounded-full px-4 h-12 shadow-md border border-gray-300">
                     <span className="text-xs text-gray-600">Destination</span>
-                    <SearchLocation onSelectLocation={handleSelectLocation}/>
+                    <SearchLocation onSelectLocation={handleSelectLocation} />
                 </div>
 
                 <div className="flex-1 relative">
                     <div className="w-full h-12 px-4 rounded-full bg-[#fddbb7] flex items-center justify-between shadow-md cursor-pointer border border-gray-300">
                         <div
                             onClick={() => {
-                                setShowJourneyCalendar(!showJourneyCalendar);
-                                setShowReturnCalendar(false);
+                                setCalenderControl({
+                                    ...calenderControl,
+                                    showJourneyCalendar: !calenderControl.showJourneyCalendar
+                                    , showReturnCalendar: false
+                                })
                             }}
                             className="flex-1 text-center flex flex-col items-center"
                         >
                             <span className="block font-semibold text-xs">JOURNEY</span>
-                            <span className="text-sm">{journeyDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
+                            <span className="text-sm">{input.journeyDate?.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
                         </div>
                         <div className="border-l border-gray-400 self-stretch mx-2"></div>
                         <div
                             onClick={() => {
-                                setShowReturnCalendar(!showReturnCalendar);
-                                setShowJourneyCalendar(false);
+                                setCalenderControl({
+                                    ...calenderControl
+                                    , showReturnCalendar: !calenderControl.showReturnCalendar
+                                    , showJourneyCalendar: false
+                                })
                             }}
                             className="flex-1 text-center flex flex-col items-center"
                         >
                             <span className="block font-semibold text-xs">RETURN DATE</span>
-                            <span className="text-sm">{returnDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
+                            <span className="text-sm">{input.returnDate?.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
                         </div>
                     </div>
 
 
-                    {showJourneyCalendar && (
+                    {calenderControl.showJourneyCalendar && (
                         <div className="absolute z-10 mt-2 bg-white shadow-lg rounded-lg p-4" style={{ left: 0 }}>
                             <DateRangePicker
-                                ranges={[{ startDate: journeyDate, endDate: journeyDate, key: 'selection' }]}
+                                ranges={[{ startDate: input.journeyDate, endDate: input.journeyDate, key: 'selection' }]}
                                 onChange={(item) => {
-                                    setJourneyDate(item.selection.startDate);
-                                    setShowJourneyCalendar(false);
+                                    if (input.returnDate <= item.selection.startDate) {
+                                        let nextDate = new Date(item.selection.startDate)
+                                        nextDate.setDate(nextDate.getDate() + 1)
+                                        setInput({ ...input, journeyDate: item.selection.startDate, returnDate: nextDate });
+                                    } else {
+                                        setInput({ ...input, journeyDate: item.selection.startDate });
+                                    }
+                                    setCalenderControl({ ...calenderControl, showJourneyCalendar: false });
                                 }}
+                                minDate={new Date()}
                                 showDateDisplay={false}
                                 staticRanges={[]}
                                 inputRanges={[]}
@@ -82,14 +106,15 @@ const SearchBoxMain = () => {
                     )}
 
 
-                    {showReturnCalendar && (
+                    {calenderControl.showReturnCalendar && (
                         <div className="absolute z-10 mt-2 bg-white shadow-lg rounded-lg p-4" style={{ right: 0 }}>
                             <DateRangePicker
-                                ranges={[{ startDate: returnDate, endDate: returnDate, key: 'selection' }]}
+                                ranges={[{ startDate: input.returnDate, endDate: input.returnDate, key: 'selection' }]}
                                 onChange={(item) => {
-                                    setReturnDate(item.selection.startDate);
-                                    setShowReturnCalendar(false);
+                                    setInput({ ...input, returnDate: item.selection.startDate });
+                                    setCalenderControl({ ...calenderControl, showReturnCalendar: false })
                                 }}
+                                minDate={calenderControl.minimumReturnDate}
                                 showDateDisplay={false}
                                 staticRanges={[]}
                                 inputRanges={[]}
@@ -111,7 +136,8 @@ const SearchBoxMain = () => {
                 </div>
 
 
-                <button className="flex-shrink-0 h-12 w-28 bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold rounded-full shadow-md transition-transform duration-200 hover:scale-105">
+                <button className="flex-shrink-0 h-12 w-28 bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold rounded-full shadow-md transition-transform duration-200 hover:scale-105"
+                onClick={handleSearch}>
                     Search
                 </button>
             </div>
