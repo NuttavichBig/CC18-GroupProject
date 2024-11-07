@@ -1,15 +1,20 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import HeaderHomePage from '../../Components/Nav-Footer-Chat/HeaderHomePage';
 import HomePageSlider from '../../Components/BannerSlide/HomePageSlider';
 import HomePageSearchBox from '../../Components/FilterSearch/HomePageSearchBox';
 import PromotionHomePage from '../../Components/Promotion/PromotionHomePage';
 import PictureSlide from '../../Components/Nav-Footer-Chat/PictureSlide';
 import Footer from '../../Components/Nav-Footer-Chat/Footer';
+import useUserStore from '../../stores/user-store';
 
 
 
 const HomePage = () => {
+  const setAllFilterDefault = useUserStore(state=>state.setAllFilterDefault)
+  useEffect(()=>{
+    setAllFilterDefault()
+  },[])
   return (
     <div>
       <HeaderHomePage />

@@ -1,7 +1,6 @@
 // HotelSelected.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
 import PictureSlide from '../../Components/Nav-Footer-Chat/PictureSlide';
 import Footer from '../../Components/Nav-Footer-Chat/Footer';
 import FilterPanel from '../../Components/FilterSearch/FilterPanel';
@@ -10,6 +9,7 @@ import HotelList from '../../Components/HotelListSelectHotel/HotelList';
 import SearchBoxMain from '../../Components/FilterSearch/SearchBoxMain';
 import useUserStore from '../../stores/user-store';
 import { useShallow } from 'zustand/shallow';
+const API = import.meta.env.VITE_API
 
 const SelectHotel = () => {
   const [locations, setLocations] = useState([]);
@@ -20,7 +20,9 @@ const SelectHotel = () => {
     selectedLocation : state.selectedLocation,
     filter : state.filter
   })))
-
+  useEffect(()=>{
+    handleSearch()
+  },[])
 
   const handleSearch = async() => {
     try {
@@ -39,7 +41,7 @@ const SelectHotel = () => {
     
     setLoading(true);
     setError('');
-      const res = await  axios.get('http://localhost:8000/hotel',{
+      const res = await  axios.get(`${API}/hotel`,{
         params : params
       })
       console.log(res)
