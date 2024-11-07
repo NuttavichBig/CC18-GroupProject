@@ -33,6 +33,11 @@ const HomePageSearchBox = () => {
         setSelectedLocation(selectedLocation);
     }
 
+    const hdlGuestChange = (e) =>{
+        setInput({...input,[e.target.name] : e.target.value})
+    }
+
+
     const handleSearch = () => {
         navigate('/bookinghotel')
     }
@@ -125,7 +130,8 @@ const HomePageSearchBox = () => {
                 </div>
                 <div className="col-span-1">
                     <label className="block text-sm text-gray-600 mb-1">Guests & Rooms</label>
-                    <select className="w-full p-3 rounded-lg border border-gray-300" name='guest'>
+                    <select className="w-full p-3 rounded-lg border border-gray-300" name='guest' 
+                    value={input.guest} onChange={hdlGuestChange}>
                         <option value={1}>1 Guest, 1 Room</option>
                         <option value={2}>2 Guests, 1 Room</option>
                         <option value={3}>3 Guests, 1 Room</option>
