@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useUserStore from "../../stores/user-store";
-// import GetAllPartner from "../../Components/Partner/GetAllPartner";
+
 
 export default function UserDetailAdmin() {
   const [users, setUsers] = useState([]);
