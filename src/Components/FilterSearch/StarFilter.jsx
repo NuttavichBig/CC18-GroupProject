@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-function StarFilter() {
+function StarFilter(props) {
+  const {hdlStarCheck} = props
   const [isOpen, setIsOpen] = useState(false);
   const stars = [5, 4, 3, 2, 1];
 
@@ -17,7 +18,8 @@ function StarFilter() {
         <div className="mt-4">
           {stars.map((star) => (
             <label key={star} className="flex items-center mb-2">
-              <input type="radio" name="star" className="mr-2 accent-orange-500" />
+              <input type="radio" name="star" className="mr-2 accent-orange-500" value={star}
+              onChange={hdlStarCheck}/>
               <span className="text-yellow-500">
                 {'★'.repeat(star)}
               </span>

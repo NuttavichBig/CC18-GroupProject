@@ -61,6 +61,8 @@ const HeaderHomePage = () => {
             Contact Us
           </Link>
 
+
+
           {token ? (
             <div>
               <span
@@ -101,8 +103,8 @@ const HeaderHomePage = () => {
               )}
             </div>
           )}
-
-          <div className="space-x-4 pl-12">
+        </nav>
+          <div className="space-x-4 pr-12 flex items-center">
             <div className="relative">
               <span
                 className="text-xs uppercase tracking-wider cursor-pointer hover:text-gray-300"
@@ -133,7 +135,7 @@ const HeaderHomePage = () => {
               )}
             </div>
           </div>
-        </nav>
+
       </div>
 
       {isLoginModalOpen && <Login setIsLoginModalOpen={setIsLoginModalOpen} />}
