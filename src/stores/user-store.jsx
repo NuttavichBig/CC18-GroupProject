@@ -14,6 +14,15 @@ const useUserStore = create(persist((set, get) => ({
     guest: 1
   },
   selectedLocation: null,
+
+
+  setUserProfileImage: (imageUrl) => {
+    set((state) => ({
+      user: { ...state.user, image: imageUrl }
+    }));
+  },
+
+
   setSelectedLocation: (location) => set({ selectedLocation: location }),
   setFilter: (value) => {
     set({ filter: value })

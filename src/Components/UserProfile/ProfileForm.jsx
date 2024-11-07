@@ -5,6 +5,8 @@ import useUserStore from '../../stores/user-store';
 
 function ProfileForm() {
     const token = useUserStore(state => state.token)
+    const setUserProfileImage = useUserStore(state => state.setUserProfileImage);
+
     const [localProfileImage, setLocalProfileImage] = useState(null);
     const [profileData, setProfileData] = useState({
         firstName: '',
@@ -12,7 +14,6 @@ function ProfileForm() {
         day: '',
         month: '',
         year: '',
-        email: '',
         phone: '',
         gender: '',
         image: null,
@@ -43,12 +44,12 @@ function ProfileForm() {
             alert("กรุณากรอกวันที่ให้ถูกต้อง");
             return;
         }
-        const birthDate = `${profileData.day}/${profileData.month}/${profileData.year}`;
+        const birthdate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
+        console.log(birthdate)
         const formData = new FormData();
         formData.append('firstName', profileData.firstName);
         formData.append('lastName', profileData.lastName);
-        formData.append('birthDate', birthDate);
-        formData.append('email', profileData.email);
+        formData.append('birthdate', birthdate);
         formData.append('phone', profileData.phone);
         formData.append('gender', profileData.gender);
         if (profileData.image) {
@@ -56,12 +57,16 @@ function ProfileForm() {
         }
 
         try {
-            await axios.patch('http://localhost:8000/auth/user', formData, {
+            const response = await axios.patch('http://localhost:8000/auth/user', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            if (response.data.user.image) {
+                setUserProfileImage(response.data.user.image);
+            }
+            console.log(response.data.user.image)
             alert("Profile updated successfully");
         } catch (error) {
             console.error("Error updating profile:", error);
@@ -142,17 +147,7 @@ function ProfileForm() {
                         />
                     </div>
                 </div>
-                <div className="col-span-2">
-                    <label className="block text-gray-700 mb-2">Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={profileData.email}
-                        onChange={handleChange}
-                        className="w-full p-3 rounded bg-[#fef0d6]"
-                        placeholder="Email"
-                    />
-                </div>
+
                 <div className="col-span-2">
                     <label className="block text-gray-700 mb-2">Phone</label>
                     <input
@@ -173,9 +168,9 @@ function ProfileForm() {
                         className="w-full p-3 rounded bg-[#fef0d6]"
                     >
                         <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                        <option value="OTHER">Other</option>
                     </select>
                 </div>
             </div>
