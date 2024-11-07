@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
+import useUserStore from '../../stores/user-store';
+import { useShallow } from 'zustand/shallow';
 
 function PriceRangeFilter() {
   const [isOpen, setIsOpen] = useState(false); //  dropdown
-  const [price, setPrice] = useState(5000);
+  const {input , setInput}=  useUserStore(useShallow(state=>({
+    input : state.filter,
+    setInput : state.setFilter
+  })))
+  // const [price, setPrice] = useState(5000);
 
-  const handlePriceChange = (e) => {
-    setPrice(parseInt(e.target.value));
-  };
+  // const handlePriceChange = (e) => {
+  //   setPrice(parseInt(e.target.value));
+  // };
 
   return (
     <div className="p-4 bg-[#fef6e4] rounded-lg shadow">
@@ -20,6 +26,7 @@ function PriceRangeFilter() {
       {isOpen && (
         <div className="mt-4 flex flex-col items-center">
           <input
+          name='maxPrice'
             type="range"
             min="0"
             max="5000"

@@ -21,6 +21,7 @@ const SelectHotel = () => {
     filter : state.filter
   })))
   useEffect(()=>{
+    console.log(filter)
     handleSearch()
   },[])
 

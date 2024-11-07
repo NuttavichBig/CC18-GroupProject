@@ -42,6 +42,15 @@ const useUserStore = create(persist((set, get) => ({
   googleLogin: async (accessToken) => {
     const result = await axios.post(`${API}/auth/google`, { accessToken });
     set({ token: result.data.token, user: result.data.user })
+  },
+  getMe : async()=>{
+    const { token }  = useUserStore.getState();
+    if(!token) throw new Error('Please Login')
+      const result  = await axios.get(`${API}/auth/user`,{
+    headers : {
+      Authorization : `Bearer ${token}`
+    }})
+    return result.data
   }
 }), {
   name: "stateUserData",
