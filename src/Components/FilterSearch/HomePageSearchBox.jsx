@@ -61,7 +61,7 @@ const HomePageSearchBox = () => {
                             className="text-center flex-1 py-2"
                         >
                             <span className="block font-semibold text-sm">JOURNEY</span>
-                            <span>{input.journeyDate?.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
+                            <span>{(new Date(input.journeyDate)).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
                         </div>
                         <div className="border-l border-gray-400 self-stretch mx-2"></div>
                         <div
@@ -75,7 +75,7 @@ const HomePageSearchBox = () => {
                             className="text-center flex-1 py-2"
                         >
                             <span className="block font-semibold text-sm">RETURN DATE</span>
-                            <span>{input.returnDate?.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
+                            <span>{(new Date(input.returnDate)).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</span>
                         </div>
                     </div>
 
