@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useUserStore from "../../stores/user-store";
 
-const API = import.meta.env.VITE_API;
 
 export default function BookingDetailAdmin() {
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState(null);
   const token = useUserStore((state) => state.token);
+  const API = import.meta.env.VITE_API;
 
   useEffect(() => {
     const fetchBookings = async () => {
