@@ -7,6 +7,7 @@ import useUserStore from "../../stores/user-store";
 import { useShallow } from "zustand/shallow";
 import SearchLocation from "../GoogleApi/SearchLocation";
 import { useNavigate } from "react-router-dom";
+import { motion, useAnimation } from "framer-motion";
 
 const HomePageSearchBox = () => {
   const { input, setInput, setSelectedLocation } = useUserStore(
@@ -16,6 +17,7 @@ const HomePageSearchBox = () => {
       setSelectedLocation: state.setSelectedLocation,
     }))
   );
+
   const [calenderControl, setCalenderControl] = useState({
     showJourneyCalendar: false,
     showReturnCalendar: false,
@@ -23,6 +25,20 @@ const HomePageSearchBox = () => {
   });
 
   const navigate = useNavigate();
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 250) {
+        controls.start({ backgroundColor: "rgba(255, 165, 0, 0.8)" });
+      } else {
+        controls.start({ backgroundColor: "rgba(0, 0, 0, 0.4)" });
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [controls]);
 
   useEffect(() => {
     let date = new Date(input.journeyDate);
@@ -38,66 +54,74 @@ const HomePageSearchBox = () => {
     navigate("/bookinghotel");
   };
 
-  //Ploy at add room and guest
   const [adults, setAdults] = useState(1);
   const [rooms, setRooms] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen);
   const increment = (setter, value) => setter(value + 1);
   const decrement = (setter, value) => setter(value > 1 ? value - 1 : 1);
-  //
+
   return (
-    <div className="bg-[#F8F4E1] rounded-lg shadow-lg p-6 w-full max-w-4xl mx-auto mt-10 relative">
+    <motion.div
+      className="bg-black bg-opacity-40 rounded-lg shadow-lg p-6 w-full max-w-[80%] mx-auto relative justify-end"
+      animate={controls}
+      initial={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}
+    >
       <style>{`.rdrDefinedRangesWrapper { display: none; }`}</style>
-      <div className="grid grid-cols-4 gap-4 items-center">
+      <div className="grid grid-cols-5 gap-4 items-center w-full ml-7">
         <div className="col-span-1">
-          <p className="block text-sm text-[#543310] mb-1">Destination</p>
+          <p className="block text-sm text-white mb-1 font-bold">Destination</p>
           <SearchLocation onSelectLocation={handleSelectLocation} />
         </div>
-        <div className="col-span-2 relative">
-          <div className="w-full p-3 rounded-lg bg-[#FED8B1] flex justify-between items-center shadow-md cursor-pointer">
-            <div
-              onClick={() => {
-                setCalenderControl({
-                  ...calenderControl,
-                  showJourneyCalendar: !calenderControl.showJourneyCalendar,
-                  showReturnCalendar: false,
-                });
-              }}
-              className="text-center flex-1 py-2 text-[#543310]"
-            >
-              <span className="block font-semibold text-sm text-[#543310]">
-                JOURNEY
-              </span>
-              <span>
-                {new Date(input.journeyDate).toLocaleDateString("en-GB", {
-                  day: "2-digit",
-                  month: "short",
-                  year: "2-digit",
-                })}
-              </span>
+        <div className="col-span-2 relative flex items-center ml-3">
+          <div className="flex-1">
+            <span className="block font-bold text-sm text-white text-center mb-1">
+              JOURNEY
+            </span>
+            <div className="w-full p-3 rounded-l-lg border-r border-h border-white bg-gradient-to-t from-orange-400 to-orange-500 flex justify-between items-center shadow-md cursor-pointer h-10">
+              <div
+                onClick={() => {
+                  setCalenderControl({
+                    ...calenderControl,
+                    showJourneyCalendar: !calenderControl.showJourneyCalendar,
+                    showReturnCalendar: false,
+                  });
+                }}
+                className="text-center flex-1 py-2 text-[#543310]"
+              >
+                <span className="text-white font-bold text-xl">
+                  {new Date(input.journeyDate).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "2-digit",
+                  })}
+                </span>
+              </div>
             </div>
-            <div className="border border-[#543310] self-stretch mx-2 text-[#543310]"></div>
-            <div
-              onClick={() => {
-                setCalenderControl({
-                  ...calenderControl,
-                  showReturnCalendar: !calenderControl.showReturnCalendar,
-                  showJourneyCalendar: false,
-                });
-              }}
-              className="text-center  flex-1 py-2 text-[#543310]"
-            >
-              <span className="block font-semibold text-sm text-[#543310]">
-                RETURN DATE
-              </span>
-              <span>
-                {new Date(input.returnDate).toLocaleDateString("en-GB", {
-                  day: "2-digit",
-                  month: "short",
-                  year: "2-digit",
-                })}
-              </span>
+          </div>
+          <div className="flex-1">
+            <span className="block font-bold text-sm text-white text-center mb-1">
+              RETURN DATE
+            </span>
+            <div className="w-full p-3 rounded-r-lg bg-gradient-to-t from-orange-400 to-orange-500 flex justify-between items-center shadow-md cursor-pointer h-10">
+              <div
+                onClick={() => {
+                  setCalenderControl({
+                    ...calenderControl,
+                    showReturnCalendar: !calenderControl.showReturnCalendar,
+                    showJourneyCalendar: false,
+                  });
+                }}
+                className="text-center flex-1 py-2 text-[#543310]"
+              >
+                <span className="text-white font-bold text-xl">
+                  {new Date(input.returnDate).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "2-digit",
+                  })}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -176,12 +200,12 @@ const HomePageSearchBox = () => {
             </div>
           )}
         </div>
-        <div className="col-span-1">
-          <p className="block text-sm text-[#543310] mb-1">Guest and Room</p>
+        <div className="col-span-1 ">
+          <p className="block text-sm text-white mb-1 font-bold">Guest and Room</p>
           <div className="relative inline-block text-left">
             <button
               onClick={toggleDropdown}
-              className="flex items-center p-2 border rounded-md text-[#543310] bg-white shadow"
+              className="flex items-center p-2 border rounded-md text-[#543310] bg-white shadow w-full"
             >
               <span className="mr-2">
                 {adults} GUEST, {rooms} ROOM
@@ -222,7 +246,7 @@ const HomePageSearchBox = () => {
                     </div>
                   </div>
 
-                  <div className="flex justify-between items-center text-[#543310]">
+                  <div className="flex justify-between items-center text-black">
                     <span>ROOM</span>
                     <div className="flex items-center space-x-2">
                       <button
@@ -254,18 +278,22 @@ const HomePageSearchBox = () => {
             )}
           </div>
         </div>
+        <div className="col-span-1 flex justify-center mt-5">
+          <button
+            onClick={handleSearch}
+            className="font-bold shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-2 outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-28 h-10"
+          >
+            SEARCH
+          </button>
+        </div>
       </div>
 
-      <div className="relative mt-8">
-        <button
-          onClick={handleSearch}
-          className="shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-3 absolute top-0 left-1/2 transform -translate-x-1/2 bg-transparent outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-32"
-        >
-          SEARCH
-        </button>
-      </div>
-    </div>
+    </motion.div >
   );
 };
 
 export default HomePageSearchBox;
+
+
+
+

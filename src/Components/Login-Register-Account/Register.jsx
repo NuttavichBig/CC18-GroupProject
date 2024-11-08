@@ -212,10 +212,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
               value={input.confirmPassword}
             />
           </div>
-          <p className="text-red-500 text-sm">{input.err}</p>
-          <button className="w-full flex items-center justify-center p-3 border-2 border-black rounded-lg bg-[#FFF8EB] mt-4">
-            <span className="mr-2">🌐</span> Continue with Google
-          </button>
+
         </div>
 
         <div className="absolute bottom-[-25px] left-1/2 transform -translate-x-1/2">
