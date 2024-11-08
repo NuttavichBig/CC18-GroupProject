@@ -73,7 +73,7 @@ const HomePageSearchBox = () => {
           <p className="block text-sm text-white mb-1 font-bold">Destination</p>
           <SearchLocation onSelectLocation={handleSelectLocation} />
         </div>
-        <div className="col-span-2 relative flex items-center ml-3">
+        <div className="col-span-2 relative flex items-center ">
           <div className="flex-1">
             <span className="block font-bold text-sm text-white text-center mb-1">
               JOURNEY
@@ -200,7 +200,7 @@ const HomePageSearchBox = () => {
             </div>
           )}
         </div>
-        <div className="col-span-1 ">
+        <div className="col-span-1 ml-5">
           <p className="block text-sm text-white mb-1 font-bold">Guest and Room</p>
           <div className="relative inline-block text-left">
             <button
