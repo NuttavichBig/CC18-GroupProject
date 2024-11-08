@@ -75,7 +75,7 @@ export default function BookingDetailAdmin() {
         <tbody>
   {bookings.length > 0 ? (
     bookings.map((booking) => (
-      <tr key={booking.id} className="bg-white text-black">
+      <tr key={booking.id} className="bg-[#F8F4E1] text-[#543310]">
         <td className="border p-2">{booking.id}</td>
         <td className="border p-2">{booking.users?.email || "N/A"}</td>
         <td className="border p-2">{booking.hotels?.name || "N/A"}</td>
@@ -93,7 +93,7 @@ export default function BookingDetailAdmin() {
                     onChange={(e) =>
                       handlePaymentStatusChange(booking.id, e.target.value)
                     }
-                    className="p-1 rounded border"
+                    className="p-1 rounded border border-[#543310] bg-[#F8F4E1] text-[#543310]"
                   >
                     <option value="PENDING">PENDING</option>
                     <option value="CONFIRMED">CONFIRMED</option>

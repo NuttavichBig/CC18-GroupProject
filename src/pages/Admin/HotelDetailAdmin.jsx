@@ -5,7 +5,6 @@ import useUserStore from "../../stores/user-store";
 
 export default function HotelDetailAdmin() {
   const [hotelDetail, setHotelDetail] = useState(null);
-  console.log('hotel detail',hotelDetail);
   const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = useUserStore((state) => state.token);
@@ -17,7 +16,6 @@ export default function HotelDetailAdmin() {
         const response = await axios.get(`${API}/admin/partner`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log('partner',response.data);
         setPartners(response.data);
       } catch (error) {
         console.log("Error fetching users:", error);
@@ -34,7 +32,9 @@ export default function HotelDetailAdmin() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPartners((prev) =>
-        prev.map((partner) => (partner.id === partnerId ? { ...partner, ...updatedData } : partner))
+        prev.map((partner) =>
+          partner.id === partnerId ? { ...partner, ...updatedData } : partner
+        )
       );
     } catch (error) {
       console.error("Error updating user:", error);
@@ -55,32 +55,32 @@ export default function HotelDetailAdmin() {
         <table className="text-center w-full mt-4 border-collapse">
           <thead>
             <tr className="bg-[#AF8F6F]">
-              <th className="border-collapse border p-2">ID</th>
-              <th className="border-collapse border p-2">PARTNER NAME</th>
-              <th className="border-collapse border p-2">BANK NAME</th>
-              <th className="border-collapse border p-2">BANK NO.</th>
-              <th className="border-collapse border p-2">TAX NO.</th>
-              <th className="border-collapse border p-2">ADDRESS</th>
-              <th className="border-collapse border p-2">STATUS</th>
-              <th className="border-collapse border p-2">MORE DETAIL</th>
+              <th className="border p-2">ID</th>
+              <th className="border p-2">PARTNER NAME</th>
+              <th className="border p-2">BANK NAME</th>
+              <th className="border p-2">BANK NO.</th>
+              <th className="border p-2">TAX NO.</th>
+              <th className="border p-2">ADDRESS</th>
+              <th className="border p-2">STATUS</th>
+              <th className="border p-2">MORE DETAIL</th>
             </tr>
           </thead>
           <tbody>
             {partners.map((partner) => (
-              <tr key={partner.id} className="bg-[#AF8F6F]">
-                <td>{partner.id}</td>
-                <td>{partner.companyName}</td>
-                <td>{partner.bankName}</td>
-                <td>{partner.bankAccount}</td>
-                <td>{partner.taxNo}</td>
-                <td>{partner.address}</td>
-                <td>
+              <tr key={partner.id} className="bg-[#F8F4E1] text-[#543310]">
+                <td className="border p-2">{partner.id}</td>
+                <td className="border p-2">{partner.companyName}</td>
+                <td className="border p-2">{partner.bankName}</td>
+                <td className="border p-2">{partner.bankAccount}</td>
+                <td className="border p-2">{partner.taxNo}</td>
+                <td className="border p-2">{partner.address}</td>
+                <td className="border p-2">
                   <select
                     value={partner.status}
                     onChange={(e) =>
                       handleUpdate(partner.id, { status: e.target.value })
                     }
-                    className="bg-[#AF8F6F]"
+                    className="p-1 rounded border border-[#543310] bg-[#F8F4E1] text-[#543310]"
                   >
                     <option value="PENDING">PENDING</option>
                     <option value="ACTIVE">ACTIVE</option>
@@ -88,14 +88,14 @@ export default function HotelDetailAdmin() {
                     <option value="BANNED">BANNED</option>
                   </select>
                 </td>
-                <td className="border-collapse border p-2">
+                <td className="border p-2">
                   <button
                     onClick={() => {
-                      setHotelDetail(partner.hotels)
+                      setHotelDetail(partner.hotels);
                     }}
-                    className="p-1 rounded-lg border-2 bg-[#F8F4E1] border-[#543310] text-[#543310] font-semibold shadow-lg hover:bg-[#543310] hover:text-white transition-all duration-100 ease-in-out"
+                    className="p-1 rounded border-2 bg-[#F8F4E1] border-[#543310] text-[#543310] shadow-lg hover:bg-[#543310] hover:text-white transition-all duration-100 ease-in-out"
                   >
-                    MORE DETAIL
+                    DETAIL
                   </button>
                 </td>
               </tr>

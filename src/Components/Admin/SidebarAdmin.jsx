@@ -10,7 +10,7 @@ export default function SidebarAdmin() {
       {chatOpen && <AllChatAdmin setChatOpen={setChatOpen} />}
       <div className="bg-[#543310] h-screen flex flex-col rounded-lg">
         <div className="text-center">
-          <Link to={"dashboard"}>
+          <Link to={""}>
             <img
               src={TRAVELHOMELOGOUSER}
               alt=""

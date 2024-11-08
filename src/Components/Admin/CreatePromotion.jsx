@@ -59,10 +59,10 @@ export default function CreatePromotion({ onCreateSuccess, onClose }) {
   return (
     <div
       onClick={() => onClose()}
-      className="flex items-center justify-center fixed inset-0 bg-[#F2F7A140] z-50"
+      className="flex items-center justify-center fixed inset-0 bg-[#F2F7A140] z-50 overflow-hidden"
     >
       <div
-        className="bg-[#F8F4E1] rounded-xl shadow-xl p-8 relative"
+        className="bg-[#F8F4E1] rounded-xl shadow-xl p-8 relative w-[80%] max-w-4xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -72,81 +72,85 @@ export default function CreatePromotion({ onCreateSuccess, onClose }) {
           &times;
         </button>
 
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <p className="text-3xl font-bold text-[#543310]">Create Promotion</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-          {/* Text Inputs */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
+          {/* Promotion Details */}
+          <input
+            type="text"
+            name="name"
+            placeholder="Promotion Campaign"
+            onChange={handleChange}
+            className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
+          />
+          <input
+            type="text"
+            name="description"
+            placeholder="Promotion Description"
+            onChange={handleChange}
+            className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
+          />
+          <input
+            type="number"
+            name="discountPercent"
+            placeholder="Discount Percentage"
+            onChange={handleChange}
+            className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
+          />
+          <input
+            type="number"
+            name="discountValue"
+            placeholder="Discount Value"
+            onChange={handleChange}
+            className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
+          />
+          <input
+            type="number"
+            name="minimumSpend"
+            placeholder="Minimum Spend"
+            onChange={handleChange}
+            className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
+          />
+          <input
+            type="number"
+            name="maxDiscount"
+            placeholder="Maximum Discount"
+            onChange={handleChange}
+            required
+            className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
+          />
+          <input
+            type="number"
+            name="usageLimit"
+            placeholder="Usage Limit"
+            onChange={handleChange}
+            required
+            className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
+          />
+          <input
+            type="number"
+            name="userLimit"
+            placeholder="User Limit"
+            onChange={handleChange}
+            required
+            className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
+          />
+
+          {/* File Upload */}
+          <div className="col-span-2">
             <input
-              type="text"
-              name="name"
-              placeholder="Promotion Campaign"
-              onChange={handleChange}
-              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
-            />
-            <input
-              type="text"
-              name="description"
-              placeholder="Promotion Description"
-              onChange={handleChange}
-              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
-            />
-            <input
-              type="number"
-              name="discountPercent"
-              placeholder="Discount Percentage"
-              onChange={handleChange}
-              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
-            />
-            <input
-              type="number"
-              name="discountValue"
-              placeholder="Discount Value"
-              onChange={handleChange}
-              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
-            />
-            <input
-              type="number"
-              name="minimumSpend"
-              placeholder="Minimum Spend"
-              onChange={handleChange}
-              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
-            />
-            <input
-              type="number"
-              name="maxDiscount"
-              placeholder="Maximum Discount"
-              onChange={handleChange}
-              required
-              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
-            />
-            <input
-              type="number"
-              name="usageLimit"
-              placeholder="Usage Limit"
-              onChange={handleChange}
-              required
-              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
-            />
-            <input
-              type="number"
-              name="userLimit"
-              placeholder="User Limit"
-              onChange={handleChange}
-              required
-              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
+              type="file"
+              name="img"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="w-full p-2 "
             />
           </div>
-          <input
-            type="file"
-            name="img"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="mt-4"
-          />
-          <div className="flex justify-between my-4">
+
+          {/* Date Picker */}
+          <div className="col-span-2 flex justify-center my-4 overflow-hidden">
             <DateRangePicker
               onChange={(range) => {
                 setPromotionData({
@@ -164,12 +168,16 @@ export default function CreatePromotion({ onCreateSuccess, onClose }) {
               ]}
             />
           </div>
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-          >
-            Create Promotion
-          </button>
+
+          {/* Submit Button */}
+          <div className="col-span-2 flex justify-center">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition"
+            >
+              Create Promotion
+            </button>
+          </div>
         </form>
       </div>
     </div>

@@ -47,7 +47,7 @@ export default function DashboardAdmin({ }) {
         <p className="text-2xl font-bold text-[#543310] mb-6">DASHBOARD</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           <a
-            href="bookingDetailAdmin"
+            href="admin/bookingDetailAdmin"
             className="rounded-lg p-6  bg-[#F8F4E1] text-[#543310] font-semibold shadow-lg hover:bg-[#AF8F6F] hover:text-white transition-all duration-100 ease-in-out"
           >
             <div className="flex items-center gap-4">
@@ -56,7 +56,7 @@ export default function DashboardAdmin({ }) {
             </div>
           </a>
           <a
-            href="userDetailAdmin"
+            href="admin/userDetailAdmin"
             className="rounded-lg p-6 bg-[#F8F4E1] text-[#543310] font-semibold shadow-lg hover:bg-[#AF8F6F] hover:text-white transition-all duration-100 ease-in-out"
           >
             <div className="flex items-center gap-4">
@@ -65,7 +65,7 @@ export default function DashboardAdmin({ }) {
             </div>
           </a>
           <a
-            href="hotelDetailAdmin"
+            href="admin/hotelDetailAdmin"
             className="rounded-lg p-6  bg-[#F8F4E1] text-[#543310] font-semibold shadow-lg hover:bg-[#AF8F6F] hover:text-white transition-all duration-100 ease-in-out"
           >
             <div className="flex items-center gap-4">
@@ -74,7 +74,7 @@ export default function DashboardAdmin({ }) {
             </div>
           </a>
           <a
-            href="reviewDetailAdmin"
+            href="admin/reviewDetailAdmin"
             className="rounded-lg p-6 bg-[#F8F4E1] text-[#543310] font-semibold shadow-lg hover:bg-[#AF8F6F] hover:text-white transition-all duration-100 ease-in-out"
           >
             <div className="flex items-center gap-4">

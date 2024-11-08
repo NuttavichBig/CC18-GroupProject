@@ -106,7 +106,7 @@ const MainRouter = createBrowserRouter([
     element: <HomeAdmin />,
     children: [
       // { index: true, element: <HomeAdmin /> },
-      { path: "dashboard", element:  <ProtectRouter element={<DashboardAdmin /> } reqRole={['ADMIN']}/>},
+      { index: true, element:  <ProtectRouter element={<DashboardAdmin /> } reqRole={['ADMIN']}/>},
       { path: "userDetailAdmin", element:  <ProtectRouter element={<UserDetailAdmin />} reqRole={['ADMIN']}/>},
       { path: "bookingDetailAdmin", element:  <ProtectRouter element={<BookingDetailAdmin /> } reqRole={['ADMIN']}/>},
       { path: "hotelDetailAdmin", element:  <ProtectRouter element={<HotelDetailAdmin /> } reqRole={['ADMIN']}/>},

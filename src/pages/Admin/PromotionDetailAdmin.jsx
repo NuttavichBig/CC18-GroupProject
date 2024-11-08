@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 import CreatePromotion from "../../Components/Admin/CreatePromotion";
 import EditPromotion from "../../Components/Admin/EditPromotion ";
 import axios from "axios";
@@ -38,7 +38,6 @@ export default function PromotionDetailAdmin() {
     }
   };
 
-
   const handleRemove = async (promotionId) => {
     try {
       await axios.delete(`${API}/admin/promotion/${promotionId}`, {
@@ -58,14 +57,21 @@ export default function PromotionDetailAdmin() {
 
   const handleUpdatePromotion = (updatedPromotion) => {
     setPromotions((prev) =>
-      prev.map((promo) => (promo.id === updatedPromotion.id ? updatedPromotion : promo))
+      prev.map((promo) =>
+        promo.id === updatedPromotion.id ? updatedPromotion : promo
+      )
     );
     setEditPromotion(false);
   };
 
   return (
     <>
-       {createPromotion && <CreatePromotion onCreateSuccess={fetchPromotions} onClose={() => setCreatePromotion(false)} />}
+      {createPromotion && (
+        <CreatePromotion
+          onCreateSuccess={fetchPromotions}
+          onClose={() => setCreatePromotion(false)}
+        />
+      )}
       {editPromotion && (
         <EditPromotion
           promotion={selectedPromotion}
@@ -90,11 +96,14 @@ export default function PromotionDetailAdmin() {
         ) : (
           <div className="space-y-4">
             {promotions.map((promotion) => (
-              <div key={promotion.id} className="bg-[#F8F4E1] rounded-lg p-4 flex shadow-lg">
+              <div
+                key={promotion.id}
+                className="bg-[#AF8F6F] rounded-lg p-4 flex shadow-lg"
+              >
                 <img
                   src={promotion.img}
                   alt="Hotel Room"
-                  className="w-[300px] h-[200px] rounded-lg"
+                  className="w-[250px] h-[200px] rounded-lg border-[#543310] border-2"
                 />
                 <div className="flex flex-col gap-4 px-4">
                   <p className="mb-4 text-3xl">{promotion.name}</p>
@@ -104,18 +113,21 @@ export default function PromotionDetailAdmin() {
                     {formatDate(promotion.endDate)}
                   </p>
                   <p>Usage limit: {promotion.usageLimit}</p>
-                  <p className="text-3xl">Promotion Code: {promotion.code}</p>
+                  <p className="text-3xl">
+                    Promotion Code :{" "}
+                    <span className="text-white">{promotion.code}</span>
+                  </p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-end gap-2">
                   <button
                     onClick={() => handleEditClick(promotion)}
-                    className="rounded-lg p-1 border-2 border-[#CD1818] bg-[#F8F4E1] text-[#CD1818] font-semibold shadow-lg hover:bg-[#CD1818] hover:text-white transition-all duration-100 ease-in-out"
+                    className="rounded p-1 border-2 border-[#CD1818] bg-[#F8F4E1] text-[#CD1818] shadow-lg hover:bg-[#CD1818] hover:text-white transition-all duration-100 ease-in-out"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleRemove(promotion.id)}
-                    className="rounded-lg p-1 border-2 border-[#CD1818] bg-[#F8F4E1] text-[#CD1818] font-semibold shadow-lg hover:bg-[#CD1818] hover:text-white transition-all duration-100 ease-in-out"
+                    className="rounded p-1 border-2 border-[#CD1818] bg-[#F8F4E1] text-[#CD1818] shadow-lg hover:bg-[#CD1818] hover:text-white transition-all duration-100 ease-in-out"
                   >
                     Remove
                   </button>
