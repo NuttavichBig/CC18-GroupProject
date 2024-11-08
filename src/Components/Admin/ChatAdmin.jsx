@@ -44,7 +44,6 @@ export default function ChatAdmin() {
   const hdlChange = (e)=>{
     setInput(e.target.value)
   }
-  console.log(chatRoom)
   return (
     <>
       <div className="bg-[#F8F4E1] p-10 rounded-lg shadow-lg flex flex-col justify-between w-[800px] h-[700px]">

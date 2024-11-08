@@ -26,7 +26,6 @@ export default function ChatFormUser() {
     } else {
       socket = io(API)
     }
-    console.log(socket)
     setSocket(socket)
   }, [])
   useEffect(() => {
@@ -35,7 +34,6 @@ export default function ChatFormUser() {
         console.log(data.message)
       })
       socket.on('message', (data) => {
-        console.log(data.data)
         setPageParams(prv => ({ ...prv, messages: [...prv.messages, data.data] }))
       })
       socket.emit('joinChat')
@@ -60,13 +58,11 @@ export default function ChatFormUser() {
 
   const handleSendMessage = () => {
     if (socket) {
-      console.log(pageParams.input)
       if (pageParams.input.trim()) {
         socket.emit('message', (pageParams.input))
         setPageParams({ ...pageParams, input: '' })
       }
     }
-    console.log(pageParams)
   };
   return (
     <>
@@ -101,7 +97,7 @@ export default function ChatFormUser() {
                     <div
                       className={`${item.isAdmin ? 'bg-slate-100' : 'bg-orange-100'} p-2 my-1 rounded-lg w-fit`}
                     >
-                      {item.message}{console.log(item.isAdmin)}
+                      {item.message}
                     </div>
                   </div>
                 )
