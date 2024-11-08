@@ -29,7 +29,7 @@ const HomePageSearchBox = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 350) {
+      if (window.scrollY > 250) {
         controls.start({ backgroundColor: "rgba(255, 165, 0, 0.8)" });
       } else {
         controls.start({ backgroundColor: "rgba(0, 0, 0, 0.4)" });

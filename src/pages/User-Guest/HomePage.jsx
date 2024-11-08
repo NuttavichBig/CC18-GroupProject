@@ -17,7 +17,7 @@ const HomePage = () => {
     setAllFilterDefault();
 
     const handleScroll = () => {
-      if (window.scrollY > 350) {
+      if (window.scrollY > 250) {
         controls.start({
           top: "50px",
           transform: "translate(-50%, -50%)",
