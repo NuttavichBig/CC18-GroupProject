@@ -5,6 +5,7 @@ import useUserStore from "../../stores/user-store";
 
 export default function HotelDetailAdmin() {
   const [hotelDetail, setHotelDetail] = useState(null);
+  console.log('hotel detail',hotelDetail);
   const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = useUserStore((state) => state.token);
@@ -16,9 +17,10 @@ export default function HotelDetailAdmin() {
         const response = await axios.get(`${API}/admin/partner`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+        console.log('partner',response.data);
         setPartners(response.data);
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.log("Error fetching users:", error);
       } finally {
         setLoading(false);
       }
@@ -89,7 +91,7 @@ export default function HotelDetailAdmin() {
                 <td className="border-collapse border p-2">
                   <button
                     onClick={() => {
-                      setHotelDetail(partner.hotel)
+                      setHotelDetail(partner.hotels)
                     }}
                     className="p-1 rounded-lg border-2 bg-[#F8F4E1] border-[#543310] text-[#543310] font-semibold shadow-lg hover:bg-[#543310] hover:text-white transition-all duration-100 ease-in-out"
                   >

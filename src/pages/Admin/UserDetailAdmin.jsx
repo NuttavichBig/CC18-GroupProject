@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useUserStore from "../../stores/user-store";
 
-
 export default function UserDetailAdmin() {
   const [users, setUsers] = useState([]);
   console.log("users", users);
