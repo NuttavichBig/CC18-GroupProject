@@ -7,6 +7,9 @@ function ProfileForm() {
     const token = useUserStore(state => state.token)
     const setUserProfileImage = useUserStore(state => state.setUserProfileImage);
 
+
+
+
     const [localProfileImage, setLocalProfileImage] = useState(null);
     const [profileData, setProfileData] = useState({
         firstName: '',
