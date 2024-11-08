@@ -25,7 +25,7 @@ function RoomSelection() {
   const journeyDateObj = new Date(filter.journeyDate);
   const returnDateObj = new Date(filter.returnDate);
   const differenceInTime = returnDateObj - journeyDateObj;
-  const nights = Math.ceil(differenceInTime / (1000 * 60 * 60 * 24)); // convert ms to days
+  const nights = Math.max(1, Math.ceil(differenceInTime / (1000 * 60 * 60 * 24)));
 
   const totalPrice = Number(selectedRoom.price) * nights;
   actionSetSummary(totalPrice)
