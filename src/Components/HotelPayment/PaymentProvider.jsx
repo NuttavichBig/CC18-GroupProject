@@ -69,16 +69,18 @@ import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
 import LoadingRainbow from "../Loading/LoadingRainbow";
+import useHotelStore from "../../stores/hotel-store";
 
 const stripePromise = loadStripe("pk_test_51QHdYyBU681vIFBkL7FTVXhlWjLIlvdVbeCAUK4UC8hTsHqUtxMvbb72EQVxIF9sUdU8aJQn3oeDgv17crnmXikJ006cLmV8Fz");
 
 export default function PaymentProvider({ children }) {
     const [clientSecret, setClientSecret] = useState("");
 
+    const summary = useHotelStore(state=>state.summary)
     useEffect(() => {
         const fetchClientSecret = async () => {
             try {
-                const res = await axios.post("http://localhost:8000/payment/create-payment-intent", {});
+                const res = await axios.post("http://localhost:8000/payment/create-payment-intent", {totalPrice: summary});
                 setClientSecret(res.data.clientSecret);
             } catch (error) {
                 console.error("Error fetching client secret:", error);

@@ -4,6 +4,8 @@ import { motion, useAnimation } from "framer-motion";
 import slidebarpic from "../../assets/slideright.gif";
 import "../../utills/StripeCSS/stripe.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import useBookingStore from "../../stores/booking-store";
 
 export default function CheckoutForm({ dpmCheckerLink }) {
     const stripe = useStripe();
@@ -12,6 +14,8 @@ export default function CheckoutForm({ dpmCheckerLink }) {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const controls = useAnimation();
+    const id = useBookingStore(state=>state.id)
+    console.log(id)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,6 +33,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
         } else if (payload.paymentIntent && payload.paymentIntent.status === "succeeded") {
             console.log("Payment succeeded");
             setMessage("Payment succeeded!");
+            await axios.post("http://localhost:8000/payment/payment-success",{stripeId:payload.paymentIntent.id , bookingId: id })
             navigate('/bookinghotel-detail-payment-method-summary');
         }
         setIsLoading(false);

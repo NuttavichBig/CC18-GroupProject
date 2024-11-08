@@ -16,13 +16,7 @@ import useHotelStore from '../../stores/hotel-store';
 
 function SelectHotelDetail() {
     const [hotelData, setHotelData] = useState(null);
-<<<<<<< HEAD
     const currentHotel = useHotelStore(state=>state.currentHotel)
-=======
-    // console.log('hotelData',hotelData)
-
-    const currentHotel = useHotelStore(state => state.currentHotel)
->>>>>>> dev
 
     useEffect(() => {
         const fetchHotelData = async () => {

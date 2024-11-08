@@ -4,30 +4,30 @@ import { createJSONStorage, persist } from "zustand/middleware";
 const useBookingStore = create(
   persist(
     (set, get) => ({
-      currentHotel: null,
-      selectedRoom: null, // Keep selectedRoom as a single item
-      summary: null,
-      actionSetCurrentHotel: (hotel) => {
-        set({ currentHotel: hotel });
+      id: null,
+      bookingData : null,
+      bookingDetail : null,
+      actionSetBooking : (Data) => {
+        set({ bookingData: Data })
       },
-      actionClearHotel: () => {
-        set({ currentHotel: null });
+      actionClearBookingData : () => {
+        set({bookingData: null})
       },
-      actionSetSelectedRoom: (room) => {
-        set({ selectedRoom: room });
+      actionSetId : (bookingId) =>{
+        set({id: bookingId})
       },
-      actionClearSelectedRoom: () => {
-        set({ selectedRoom: null });
+      actionClearId : () =>{
+        set({id: null})
       },
-      actionSetSummary: (summaryData) => { // Renamed parameter to avoid conflict
-        set({ summary: summaryData });
+      actionSetBookingDetail : (Data) => {
+        set({bookingDetail: Data})
       },
-      actionClearSummary: () =>{
-        set({ summary: null });
+      actionClearBookingDetail : () => {
+        set({bookingDetail: null})
       }
     }),
     {
-      name: "HotelData",
+      name: "bookingData",
       storage: createJSONStorage(() => localStorage),
     }
   )
