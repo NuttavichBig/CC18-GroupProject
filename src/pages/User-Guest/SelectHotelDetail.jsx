@@ -16,7 +16,13 @@ import useHotelStore from '../../stores/hotel-store';
 
 function SelectHotelDetail() {
     const [hotelData, setHotelData] = useState(null);
+<<<<<<< HEAD
     const currentHotel = useHotelStore(state=>state.currentHotel)
+=======
+    // console.log('hotelData',hotelData)
+
+    const currentHotel = useHotelStore(state => state.currentHotel)
+>>>>>>> dev
 
     useEffect(() => {
         const fetchHotelData = async () => {
@@ -29,12 +35,13 @@ function SelectHotelDetail() {
                 }
             }
         };
-    
+
         fetchHotelData();
     }, [currentHotel]);
-    
 
-    if(!hotelData){
+
+
+    if (!hotelData) {
         return <div>Loading...</div>
     }
 
@@ -58,7 +65,7 @@ function SelectHotelDetail() {
                                 <HotelDetailMain hotelData={hotelData} />
                                 <div className="flex gap-6">
                                     <div className="w-1/2 ml-3">
-                                    <HotelDetailMap location={{ lat: hotelData.lat, lng: hotelData.lng }} />
+                                        <HotelDetailMap location={{ lat: hotelData.lat, lng: hotelData.lng }} />
                                     </div>
                                     <div className="w-1/2 mr-3">
                                         <HotelDetailReview reviews={hotelData.reviews} />

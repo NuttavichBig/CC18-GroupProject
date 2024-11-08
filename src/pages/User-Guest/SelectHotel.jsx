@@ -21,26 +21,40 @@ const SelectHotel = () => {
     filter : state.filter
   })))
   useEffect(()=>{
+    console.log(filter)
     handleSearch()
   },[])
 
   const handleSearch = async() => {
     try {
-    const {journeyDate,returnDate} = filter
       // console.log('location:', location);
     const params ={
       lat : selectedLocation.lat,
       lng : selectedLocation.lng
     }
-    if(journeyDate){
-      params.checkinDate = new Date(journeyDate)
+    if(filter.journeyDate){
+      params.checkinDate = new Date(filter.journeyDate)
     }
-    if(returnDate){
-      params.checkoutDate = new Date(returnDate)
+    if(filter.returnDate){
+      params.checkoutDate = new Date(filter.returnDate)
     }
-    
+    if(filter.maxPrice){
+      params.maxPrice = filter.maxPrice
+    }
+    if(filter.facilities){
+      params.facilities = []
+      for (const [key, value] of Object.entries(filter.facilities)) {
+        if(value === true){
+          params.facilities = [...params.facilities,key]
+        }
+      }
+    }
+    if(filter.star){
+      params.star = filter.star
+    }
     setLoading(true);
     setError('');
+    console.log(params)
       const res = await  axios.get(`${API}/hotel`,{
         params : params
       })

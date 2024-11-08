@@ -25,13 +25,31 @@ export default function SidebarPartner() {
               to={"hotelPartner"}
               className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out "
             >
-              HOTELS
+              ROOMS
             </Link>
             <Link
               to={"reviewDetailPartner"}
               className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out "
             >
               REVIEWS
+            </Link>
+            <Link
+              to={"partnerUpdate"}
+              className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out "
+            >
+              UPDATE PROFILE PARTNER
+            </Link>
+            <Link
+              to={"HotelUpdate"}
+              className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out "
+            >
+              UPDATE HOTEL DETAIL
+            </Link>
+            <Link
+              to={"roomUpdate"}
+              className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out "
+            >
+              UPDATE ROOM
             </Link>
             <button className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out ">
               LOGOUT
