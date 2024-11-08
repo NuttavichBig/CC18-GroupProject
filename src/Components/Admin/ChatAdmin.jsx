@@ -52,7 +52,7 @@ export default function ChatAdmin() {
 
           {chatRoom !== null && chatRoom.messages.map((message,index) =>
             <div key={index}className={`flex gap-4 ${message.isAdmin ? 'flex-row-reverse' : 'justify-start'}`}>
-              <img src={message.isAdmin ? userchat : chatRoom?.user?.image} alt="" className="w-[50px]" />
+              <img src={message.isAdmin ? userchat : chatRoom?.user?.image || userchat} alt="" className="w-[50px]" />
               <div>
                 <p className={`font-bold ${message?.isAdmin ? 'text-end':'text-start'}`}>{message?.isAdmin ? 'Support' : chatRoom?.user?.email}</p>
                 <p className={` ${message?.isAdmin ? 'text-end':'text-start'}`}>{message?.message}</p>
