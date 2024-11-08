@@ -6,10 +6,8 @@ const API = import.meta.env.VITE_API;
 
 export default function BookingDetailAdmin() {
   const [bookings, setBookings] = useState([]);
-  console.log('booking',bookings);
   const [error, setError] = useState(null);
   const token = useUserStore((state) => state.token);
-  console.log('token:',token);
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -27,10 +25,32 @@ export default function BookingDetailAdmin() {
       }
     };
     
-    
-
     fetchBookings();
   }, [token]);
+
+
+  const handlePaymentStatusChange = async (bookingId, newStatus) => {
+    console.log('bookingId:', bookingId, 'newStatus:', newStatus);
+    try {
+      const response = await axios.patch(
+        `${API}/admin/booking/${bookingId}`,
+        { status: newStatus },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setBookings((prevBookings) =>
+        prevBookings.map((booking) =>
+          booking.id === bookingId ? { ...booking, status: newStatus } : booking
+        )
+      );
+      alert(response.data.message);
+    } catch (err) {
+      setError("Failed to update payment status");
+    }
+  };
 
   if (error) return <div>{error}</div>;
 
@@ -67,18 +87,31 @@ export default function BookingDetailAdmin() {
         </td>
         <td className="border p-2">{booking.userHavePromotionId || "None"}</td>
         <td className="border p-2">THB {booking.totalPrice || "0.00"}</td>
-        <td className="border p-2">{booking.status || "Pending"}</td>
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan="8" className="border p-2">
-        No bookings found.
-      </td>
-    </tr>
-  )}
-</tbody>
-
+        <td className="border p-2">
+                  <select
+                    value={booking.status || "Pending"}
+                    onChange={(e) =>
+                      handlePaymentStatusChange(booking.id, e.target.value)
+                    }
+                    className="p-1 rounded border"
+                  >
+                    <option value="PENDING">PENDING</option>
+                    <option value="CONFIRMED">CONFIRMED</option>
+                    <option value="CANCELED">CANCELED</option>
+                    <option value="FAILED">FAILED</option>
+                    <option value="REFUND">REFUND</option>
+                  </select>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="8" className="border p-2">
+                No bookings found.
+              </td>
+            </tr>
+          )}
+        </tbody>
       </table>
     </div>
   );

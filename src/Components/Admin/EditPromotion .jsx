@@ -1,23 +1,30 @@
-import { form } from "framer-motion/client";
 import React, { useState } from "react";
 import { DateRangePicker } from "react-date-range";
 import useUserStore from "../../stores/user-store";
+import axios from "axios";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 
 export default function EditPromotion({ promotion, onSave, onCancel }) {
   const [journeyDate, setJourneyDate] = useState(new Date(promotion.startDate));
   const [returnDate, setReturnDate] = useState(new Date(promotion.endDate));
-  const [showJourneyCalendar, setShowJourneyCalendar] = useState(false);
-  const [showReturnCalendar, setShowReturnCalendar] = useState(false);
+  const [dateRange, setDateRange] = useState({
+    startDate: new Date(promotion.startDate),
+    endDate: new Date(promotion.endDate),
+    key: 'selection'
+  });
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const token = useUserStore((state) => state.token);
+  const API = import.meta.env.VITE_API;
 
   const [formData, setFormData] = useState({
     name: promotion.name,
     description: promotion.description,
-    discountPercentage: promotion.discountPercentage,
+    discountPercent: promotion.discountPercent,
     discountValue: promotion.discountValue,
     minimumSpend: promotion.minimumSpend,
-    maximumDiscount: promotion.maximumDiscount,
+    maxDiscount: promotion.maxDiscount,
     usageLimit: promotion.usageLimit,
     userLimit: promotion.userLimit,
   });
@@ -30,18 +37,63 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
     }));
   };
 
-  console.log(promotion.id)
-  const handleSubmit =  async(e) => {
+  const handleDateRangeChange = (ranges) => {
+    setDateRange(ranges.selection);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const formPayload = createFormPayload(); 
+  
     try {
-      console.log(formData)
-      const response = await axios.patch(`${API}/admin/promotion/${promotion.id}`, formData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      console.log(response.data)
+      const response = await axios.patch(
+        `${API}/admin/promotion/${promotion.id}`, 
+        formPayload, 
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+  
+      if (response.status >= 200 && response.status < 300) {
+        onSave({ ...promotion, ...formData });
+        alert("Promotion updated successfully.");
+      } else {
+        alert("Failed to update promotion.");
+      }
     } catch (error) {
-      console.log(error)
+      console.error("Error updating promotion:", error.response ? error.response.data : error.message);
+      alert("An error occurred while updating the promotion.");
     }
-  }
+  };
+
+  const createFormPayload = () => {
+    const formPayload = new FormData();
+    
+    const fields = {
+      name: formData.name,
+      description: formData.description,
+      discountPercent: parseFloat(formData.discountPercent) || 0,
+      discountValue: parseFloat(formData.discountValue) || 0,
+      minimumSpend: parseFloat(formData.minimumSpend) || 0,
+      maxDiscount: parseFloat(formData.maxDiscount) || 0,
+      usageLimit: parseInt(formData.usageLimit, 10) || 0,
+      userLimit: parseInt(formData.userLimit, 10) || 0,
+      startDate: journeyDate.toISOString().split("T")[0],
+      endDate: returnDate.toISOString().split("T")[0],
+    };
+ 
+    Object.entries(fields).forEach(([key, value]) => formPayload.append(key, value));
+    
+    if (selectedFile) {
+      formPayload.append("img", selectedFile);
+    }
+  
+    return formPayload;
+  };
 
   return (
     <div
@@ -97,14 +149,14 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="discountPercentage" className="text-lg font-semibold text-[#543310]">
+              <label htmlFor="discountPercent" className="text-lg font-semibold text-[#543310]">
                 Discount Percentage (%)
               </label>
               <input
                 type="text"
-                name="discountPercentage"
-                id="discountPercentage"
-                value={formData.discountPercentage}
+                name="discountPercent"
+                id="discountPercent"
+                value={formData.discountPercent}
                 onChange={handleInputChange}
                 placeholder="Enter discount percentage"
                 className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#543310] text-[#543310] placeholder:text-[#B4A791] shadow-md transition-all duration-200 ease-in-out"
@@ -142,14 +194,14 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="maximumDiscount" className="text-lg font-semibold text-[#543310]">
+              <label htmlFor="maxDiscount" className="text-lg font-semibold text-[#543310]">
                 Maximum Discount (THB)
               </label>
               <input
                 type="text"
-                name="maximumDiscount"
-                id="maximumDiscount"
-                value={formData.maximumDiscount}
+                name="maxDiscount"
+                id="maxDiscount"
+                value={formData.maxDiscount}
                 onChange={handleInputChange}
                 placeholder="Enter maximum discount"
                 className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#543310] text-[#543310] placeholder:text-[#B4A791] shadow-md transition-all duration-200 ease-in-out"
@@ -187,26 +239,45 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
             </div>
           </div>
 
-          {/* Date Picker */}
+          {/* Date Range Picker */}
           <div className="space-y-2">
             <label className="text-lg font-semibold text-[#543310]">Promotion Duration</label>
             <DateRangePicker
-              ranges={[{ startDate: journeyDate, endDate: returnDate, key: "selection" }]}
-              onChange={({ selection }) => {
-                setJourneyDate(selection.startDate);
-                setReturnDate(selection.endDate);
-              }}
-              showDateDisplay={false}
-              className="bg-[#F8F4E1] p-4 border-2 border-[#543310] rounded-lg shadow-md w-full focus:outline-none focus:ring-2 focus:ring-[#543310] justify-center"
+              ranges={[dateRange]}
+              onChange={handleDateRangeChange}
+              moveRangeOnFirstSelection={false}
+              editableDateInputs={true}
+              months={1}
+              direction="horizontal"
+              className="z-50"
             />
           </div>
 
-          <button
-            type="submit"
-            className="mt-6 p-4 rounded-lg w-full bg-[#543310] border-2 border-[#543310] text-white font-semibold shadow-lg hover:bg-[#FFDBB5] hover:text-[#543310] transition-all duration-300 ease-in-out"
-          >
-            Save Changes
-          </button>
+          {/* File Upload */}
+          <div className="space-y-2">
+            <label className="text-lg font-semibold text-[#543310]">Upload Image</label>
+            <input
+              type="file"
+              onChange={(e) => setSelectedFile(e.target.files[0])}
+              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-4 w-full text-[#543310] placeholder:text-[#B4A791] shadow-md"
+            />
+          </div>
+
+          <div className="flex justify-center space-x-4 mt-6">
+            <button
+              type="button"
+              onClick={onCancel}
+              className="bg-[#543310] text-white py-2 px-6 rounded-lg shadow-md hover:bg-[#3c2614] transition-all duration-200 ease-in-out"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-[#F8F4E1] text-[#543310] py-2 px-6 rounded-lg shadow-md hover:bg-[#D8C29A] transition-all duration-200 ease-in-out"
+            >
+              Save Changes
+            </button>
+          </div>
         </form>
       </div>
     </div>
