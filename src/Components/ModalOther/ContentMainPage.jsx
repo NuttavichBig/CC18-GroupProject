@@ -1,6 +1,7 @@
 import React from "react";
 import tripbag from "../../assets/tripbag.png";
 import envelope from "../../assets/envelope.png";
+import tag from "../../assets/tag.png";
 import secure from "../../assets/secure.png";
 
 export default function ContentMainPage() {
@@ -10,7 +11,7 @@ export default function ContentMainPage() {
         <p className="text-2xl font-semibold mb-6 text-[#543310] text-center">
           Why book with Us ?
         </p>
-        <div className="bg-[#F8F4E1] rounded-lg p-8 mt-10 shadow-lg grid grid-cols-1 md:grid-cols-3 gap-8 text-[#543310] mx-10">
+        <div className="bg-[#F8F4E1] rounded-lg p-8 mt-10 shadow-lg grid grid-cols-1 md:grid-cols-4 gap-8 text-[#543310] mx-10">
           <div className="p-3 bg-white rounded-lg shadow-md flex items-center">
             <img src={tripbag} alt="" className="w-[60px] h-[60px] mr-3" />
             <div className="flex flex-col">
@@ -23,7 +24,18 @@ export default function ContentMainPage() {
               </p>
             </div>
           </div>
-
+          <div className="p-3 bg-white rounded-lg shadow-md flex items-center ">
+            <img src={tag} alt="" className="w-[50px] h-[50px] mr-3" />
+            <div className="flex flex-col">
+              <p className="text-lg font-semibold mb-2">
+                Convenient Member Benefits
+              </p>
+              <p className="text-sm">
+                Saved List and Flight Price Alert allow you to keep track of
+                favorite items and monitor airfare changes.
+              </p>
+            </div>
+          </div>
           <div className="p-3 bg-white rounded-lg shadow-md flex items-center">
             <img src={envelope} alt="" className="w-[50px] h-[50px] mr-3" />
             <div className="flex flex-col">
@@ -51,6 +63,9 @@ export default function ContentMainPage() {
           </div>
         </div>
       </div>
+      <p className="text-2xl font-semibold mb-6 text-[#543310] text-center">
+        Rediscover yourself in Thailand and beyond
+      </p>
     </>
   );
 }

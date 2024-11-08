@@ -7,8 +7,8 @@ const Footer = () => {
   return (
     <>
       <footer className="w-screen bottom-0">
-        <div className="relative">
-          <svg viewBox="0 0 120 28" className="w-full">
+        <div className="relative overflow-hidden">
+          <svg viewBox="0 0 120 28" className="w-full relative z-10">
             <defs>
               <mask id="mask">
                 <circle cx="7" cy="12" r="40" fill="#fff" />
@@ -55,33 +55,36 @@ const Footer = () => {
             </g>
           </svg>
 
-          {/* Text Sections */}
-          <div className="text-white absolute top-[250px] right-0 left-0 flex justify-around">
-            <div className="flex flex-col items-center">
+          {/* Text Sections inside the wave */}
+          <div className="absolute inset-0 flex justify-around items-center h-20 mt-80 z-50">
+            <div className="flex flex-col items-center text-white">
               <p className="text-lg font-bold pb-4">PAYMENT PARTNER</p>
               <div className="flex gap-4">
                 <img
                   src={mastercard}
-                  alt=""
-                  className="w-[70px] rounded-full bg-white "
+                  alt="Mastercard"
+                  className="w-12 rounded-full bg-white"
                 />
                 <img
                   src={visa}
-                  alt=""
-                  className="w-[70px]  rounded-full bg-white "
+                  alt="Visa"
+                  className="w-12 rounded-full bg-white"
                 />
               </div>
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center text-white">
               <p className="text-lg font-bold pb-4">CONTACT US</p>
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center text-white">
               <p className="text-lg font-bold pb-4">FOLLOW US ON</p>
             </div>
           </div>
-          <button className="fixed z-50 top-full right-0 left-0 flex justify-end items-end">
+
+          {/* Chat Button */}
+          <div className="fixed bottom-5 right-5 z-50">
             <ChatFormUser />
-          </button>
+          </div>
+
           {/* Footer Copyright */}
           <div className="bg-blue-500 text-white text-center py-2">
             Copyright © 2024 TravelCome. All rights reserved
