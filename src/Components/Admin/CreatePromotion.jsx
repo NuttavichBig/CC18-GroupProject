@@ -1,15 +1,64 @@
 import React, { useState } from "react";
 import { DateRangePicker } from "react-date-range";
+import useUserStore from "../../stores/user-store";
+import axios from "axios";
 
-export default function CreatePromotion({ setCreatePromotion }) {
-  const [journeyDate, setJourneyDate] = useState(new Date());
-  const [returnDate, setReturnDate] = useState(new Date());
-  const [showJourneyCalendar, setShowJourneyCalendar] = useState(false);
-  const [showReturnCalendar, setShowReturnCalendar] = useState(false);
+export default function CreatePromotion({ onCreateSuccess, onClose }) {
+  const [promotionData, setPromotionData] = useState({
+    name: "",
+    description: "",
+    discountPercent: "",
+    discountValue: "",
+    minimumSpend: "",
+    maxDiscount: "",
+    usageLimit: "",
+    userLimit: "",
+    startDate: new Date(),
+    endDate: new Date(),
+    img: null,
+  });
+  const token = useUserStore((state) => state.token);
+  const API = import.meta.env.VITE_API;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPromotionData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleFileChange = (e) => {
+    setPromotionData((prevData) => ({ ...prevData, img: e.target.files[0] }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      Object.keys(promotionData).forEach((key) => {
+        if (key === "startDate" || key === "endDate") {
+          formData.append(key, promotionData[key].toISOString());
+        } else {
+          formData.append(key, promotionData[key]);
+        }
+      });
+
+      const response = await axios.post(`${API}/admin/promotion`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      alert(response.data.message);
+      onCreateSuccess();
+      onClose();
+    } catch (error) {
+      console.error("Error creating promotion:", error);
+      alert("Error creating promotion. Please try again.");
+    }
+  };
 
   return (
     <div
-      onClick={() => setCreatePromotion(false)}
+      onClick={() => onClose()}
       className="flex items-center justify-center fixed inset-0 bg-[#F2F7A140] z-50"
     >
       <div
@@ -17,7 +66,7 @@ export default function CreatePromotion({ setCreatePromotion }) {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          onClick={() => setCreatePromotion(false)}
+          onClick={() => onClose()}
           className="absolute top-4 right-4 text-3xl font-semibold text-[#543310] bg-transparent border-none cursor-pointer"
         >
           &times;
@@ -27,143 +76,99 @@ export default function CreatePromotion({ setCreatePromotion }) {
           <p className="text-3xl font-bold text-[#543310]">Create Promotion</p>
         </div>
 
-        <form className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           {/* Text Inputs */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <input
               type="text"
+              name="name"
               placeholder="Promotion Campaign"
+              onChange={handleChange}
               className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
               type="text"
+              name="description"
               placeholder="Promotion Description"
+              onChange={handleChange}
               className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
-              type="text"
+              type="number"
+              name="discountPercent"
               placeholder="Discount Percentage"
+              onChange={handleChange}
               className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
-              type="text"
+              type="number"
+              name="discountValue"
               placeholder="Discount Value"
+              onChange={handleChange}
               className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
-              type="text"
+              type="number"
+              name="minimumSpend"
               placeholder="Minimum Spend"
+              onChange={handleChange}
               className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
-              type="text"
+              type="number"
+              name="maxDiscount"
               placeholder="Maximum Discount"
+              onChange={handleChange}
+              required
               className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
-              type="text"
+              type="number"
+              name="usageLimit"
               placeholder="Usage Limit"
+              onChange={handleChange}
+              required
               className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
             <input
-              type="text"
+              type="number"
+              name="userLimit"
               placeholder="User Limit"
+              onChange={handleChange}
+              required
               className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-3 w-64 focus:outline-none focus:ring-2 focus:ring-[#F8F4E1] text-center"
             />
           </div>
-          <div className="relative flex items-center gap-6">
-            <div
-              className="w-full p-4 rounded-lg border-2 border-[#543310] bg-[#F8F4E1] shadow-md cursor-pointer flex justify-between items-center transition-all duration-200 ease-in-out hover:shadow-lg hover:bg-[#FFDBB5]"
-              onClick={() => {
-                setShowJourneyCalendar(!showJourneyCalendar);
-                setShowReturnCalendar(false);
+          <input
+            type="file"
+            name="img"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="mt-4"
+          />
+          <div className="flex justify-between my-4">
+            <DateRangePicker
+              onChange={(range) => {
+                setPromotionData({
+                  ...promotionData,
+                  startDate: range.selection.startDate,
+                  endDate: range.selection.endDate,
+                });
               }}
-            >
-              <div className="flex flex-col items-center text-sm">
-                <span className="font-semibold text-[#543310]">
-                  Start Campaign
-                </span>
-                <span className="text-[#543310]">
-                  {journeyDate.toLocaleDateString("en-GB", {
-                    day: "2-digit",
-                    month: "short",
-                    year: "2-digit",
-                  })}
-                </span>
-              </div>
-            </div>
-
-            <div
-              className="w-full p-4 rounded-lg border-2 border-[#543310] bg-[#F8F4E1] shadow-md cursor-pointer flex justify-between items-center transition-all duration-200 ease-in-out hover:shadow-lg hover:bg-[#FFDBB5]"
-              onClick={() => {
-                setShowReturnCalendar(!showReturnCalendar);
-                setShowJourneyCalendar(false);
-              }}
-            >
-              <div className="flex flex-col items-center text-sm">
-                <span className="font-semibold text-[#543310]">
-                  End Campaign
-                </span>
-                <span className="text-[#543310]">
-                  {returnDate.toLocaleDateString("en-GB", {
-                    day: "2-digit",
-                    month: "short",
-                    year: "2-digit",
-                  })}
-                </span>
-              </div>
-            </div>
+              ranges={[
+                {
+                  startDate: promotionData.startDate,
+                  endDate: promotionData.endDate,
+                  key: "selection",
+                },
+              ]}
+            />
           </div>
-
-          {showJourneyCalendar && (
-            <div className="absolute z-10 mt-2 bg-white shadow-lg rounded-lg p-4 w-72 left-0">
-              <DateRangePicker
-                ranges={[
-                  {
-                    startDate: journeyDate,
-                    endDate: journeyDate,
-                    key: "selection",
-                  },
-                ]}
-                onChange={(item) => {
-                  setJourneyDate(item.selection.startDate);
-                  setShowJourneyCalendar(false);
-                }}
-                showDateDisplay={false}
-                staticRanges={[]}
-                inputRanges={[]}
-                months={1}
-                direction="horizontal"
-                className="rounded-lg"
-              />
-            </div>
-          )}
-
-          {showReturnCalendar && (
-            <div className="absolute z-10 mt-2 bg-white shadow-lg rounded-lg p-4 w-72 right-0">
-              <DateRangePicker
-                ranges={[
-                  {
-                    startDate: returnDate,
-                    endDate: returnDate,
-                    key: "selection",
-                  },
-                ]}
-                onChange={(item) => {
-                  setReturnDate(item.selection.startDate);
-                  setShowReturnCalendar(false);
-                }}
-                showDateDisplay={false}
-                staticRanges={[]}
-                inputRanges={[]}
-                months={1}
-                direction="horizontal"
-                className="rounded-lg"
-              />
-            </div>
-          )}
-          <button className="mt-4 p-3 rounded-lg bg-[#543310] border-2 border-[#543310] text-white font-semibold shadow-lg hover:bg-[#FFDBB5] hover:text-[#543310] transition-all duration-300 ease-in-out">
-            Create Campaign
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+          >
+            Create Promotion
           </button>
         </form>
       </div>
