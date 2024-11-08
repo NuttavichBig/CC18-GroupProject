@@ -1,16 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import booking from "../../assets/booking.png";
 import hotel from "../../assets/hotel.png";
 import star from "../../assets/star.png";
 import user from "../../assets/user.png";
 import AllChatAdmin from "../../pages/Admin/AllChatAdmin";
-import { Link } from "react-router-dom";
+import useAdminStore from "../../stores/socket-store";
+import { useShallow } from "zustand/shallow";
 
-export default function DashboardAdmin({}) {
+export default function DashboardAdmin({ }) {
+  const { socket, connect } = useAdminStore(useShallow(state => ({
+    socket: state.socket,
+    connect: state.connect
+  })))
+    const [ChatBoxList , setChatBoxList] = useState([])
+  useEffect(() => {
+    connect()
+  }, [])
+  useEffect(() => {
+    if (socket) {
+      socket.on('adminJoinComplete',(allLastMessage)=>{
+        setChatBoxList(allLastMessage)
+      })
+      socket.emit('adminJoin')
+      socket.on('userMessage',(data)=>{
+        const newData = data.data
+      })
+    }
+    return (() => {
+      if (socket) socket.off('userMessage')
+    })
+  }, [socket])
   const [chatOpen, setChatOpen] = useState(false);
   return (
     <>
-      {chatOpen && <AllChatAdmin setChatOpen={setChatOpen} />}
+      {chatOpen && <AllChatAdmin setChatOpen={setChatOpen} />}  
       <div className="p-8 min-h-screen ">
         <p className="text-2xl font-bold text-[#543310] mb-6">DASHBOARD</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
