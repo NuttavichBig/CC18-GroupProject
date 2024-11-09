@@ -18,7 +18,6 @@ const useAdminStore = create(persist((set, get) => ({
                     Authorization: `Bearer ${token}`
                 },
             });
-            console.log(socket)
             set({ socket })
         }
     },
@@ -27,7 +26,6 @@ const useAdminStore = create(persist((set, get) => ({
         if(socket && id){
             socket.off('joinComplete')
             socket.on('joinComplete',(data)=>{
-                console.log(data.message)
                 set({chatRoom : data.room})
             })
             socket.emit('adminJoinChat',id)

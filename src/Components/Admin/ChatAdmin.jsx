@@ -44,7 +44,6 @@ export default function ChatAdmin() {
   const hdlChange = (e)=>{
     setInput(e.target.value)
   }
-  console.log(chatRoom)
   return (
     <>
       <div className="bg-[#F8F4E1] p-10 rounded-lg shadow-lg flex flex-col justify-between w-[800px] h-[700px]">
@@ -52,7 +51,7 @@ export default function ChatAdmin() {
 
           {chatRoom !== null && chatRoom.messages.map((message,index) =>
             <div key={index}className={`flex gap-4 ${message.isAdmin ? 'flex-row-reverse' : 'justify-start'}`}>
-              <img src={message.isAdmin ? userchat : chatRoom?.user?.image} alt="" className="w-[50px]" />
+              <img src={message.isAdmin ? userchat : chatRoom?.user?.image || userchat} alt="" className="w-[50px]" />
               <div>
                 <p className={`font-bold ${message?.isAdmin ? 'text-end':'text-start'}`}>{message?.isAdmin ? 'Support' : chatRoom?.user?.email}</p>
                 <p className={` ${message?.isAdmin ? 'text-end':'text-start'}`}>{message?.message}</p>

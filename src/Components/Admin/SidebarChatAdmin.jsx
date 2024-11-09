@@ -21,10 +21,11 @@ export default function SidebarChatAdmin({ chatBoxList }) {
               setChatBox(item.id)
                 }}>
               
-              <img src={item.user.image ||userchat} alt="" className="w-[50px]" />
+              <img src={item?.user?.image ||userchat} alt="" className="w-[50px]" />
               <div>
-                <p className="font-bold">{item.user.email}</p>
-                <p>{item.messages.message}</p>
+                <p className="font-bold">{item?.user?.email || 'guest'}</p>
+                
+                <p>{item?.messages[0]?.message}</p>
               </div>
             </div>
           )}
