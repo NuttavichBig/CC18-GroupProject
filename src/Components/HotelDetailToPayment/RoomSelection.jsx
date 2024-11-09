@@ -36,7 +36,7 @@ function RoomSelection(props) {
         {/* Image */}
         <div className="w-full h-40 bg-gray-200 rounded-lg overflow-hidden">
           <img
-            src={selectedRoom.images[0]}
+            src={selectedRoom.images[0].img}
             alt={selectedRoom.title}
             className="object-cover w-full h-full"
           />

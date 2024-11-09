@@ -72,6 +72,7 @@ import LoadingRainbow from "../Loading/LoadingRainbow";
 import useHotelStore from "../../stores/hotel-store";
 import useBookingStore from "../../stores/booking-store";
 import { useShallow } from "zustand/shallow";
+import PaymentFormLoading from '../Loading/PaymentsendFormLoading'
 
 const stripePromise = loadStripe("pk_test_51QHdYyBU681vIFBkL7FTVXhlWjLIlvdVbeCAUK4UC8hTsHqUtxMvbb72EQVxIF9sUdU8aJQn3oeDgv17crnmXikJ006cLmV8Fz");
 
@@ -82,13 +83,22 @@ export default function PaymentProvider({ children }) {
     })))
 
     const summary = useHotelStore(state=>state.summary)
+
+    const [loadingStripe, setLoadingStripe] = useState(true);
+    const [loadingClientSecret, setLoadingClientSecret] = useState(true);
     useEffect(() => {
         const fetchClientSecret = async () => {
+            // Load Stripe
+        stripePromise.then(() => setLoadingStripe(false));
+
+
             try {
                 const res = await axios.post("http://localhost:8000/payment/create-payment-intent", {totalPrice: summary});
                 setClientSecret(res.data.clientSecret);
+                setLoadingClientSecret(false);
             } catch (error) {
                 console.error("Error fetching client secret:", error);
+                setLoadingClientSecret(false);
             }
         };
 
@@ -124,7 +134,7 @@ export default function PaymentProvider({ children }) {
     const loader = 'auto';
 
     // ถ้า clientSecret ยังไม่มี ให้แสดง LoadingBooking
-    if (!clientSecret) {
+    if (loadingStripe || loadingClientSecret) {
         return <LoadingRainbow />;
     }
 

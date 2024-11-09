@@ -94,7 +94,7 @@ const TravelerDetailForm = (props) => {
         bookingPayload.promotionId = +pageParams.coupon.id;
       }
       console.log(bookingPayload)
-      actionSetBookingDetail(bookingPayload)
+      actionSetBookingDetail({...bookingPayload,nights : pageParams.nights})
 
       const res = await axios.post(
         "http://localhost:8000/booking",
@@ -114,6 +114,10 @@ const TravelerDetailForm = (props) => {
       alert("You must be logged in to use a promotion.");
       return;
     }
+    if(!coupon.promotion.trim()){
+      alert("Please fill your code")
+      return;
+    }
     try {
       const res = await axios.get(`http://localhost:8000/promotion/${coupon.promotion}`);
       const couponData = res.data;
@@ -122,18 +126,7 @@ const TravelerDetailForm = (props) => {
       }
       console.log(couponData)
       setPageParams({ ...pageParams, coupon: couponData })
-      // if (summary >= parseFloat(couponData.minimumSpend)) {
-      //   const discountFromPercent = (summary * couponData.discountPercent) / 100;
-      //   const appliedDiscount = Math.min(discountFromPercent, parseFloat(couponData.maxDiscount));
-
-      //   setDiscount(appliedDiscount);
-      //   setDiscountedPrice(summary - appliedDiscount);
-      //   setPromotionId(couponData.id); // Save the promotionId to send with the booking
       alert("Coupon applied successfully!");
-      // } 
-      // else {
-      //   alert(`This coupon requires a minimum spend of ${couponData.minimumSpend}`);
-      // }
     } catch (error) {
       console.log("Error applying coupon:", error);
       alert("An error occurred while applying the coupon.");

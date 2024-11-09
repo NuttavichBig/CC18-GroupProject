@@ -1,5 +1,7 @@
+import axios from "axios";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+const API = import.meta.env.VITE_API
 
 const useBookingStore = create(
   persist(
@@ -8,6 +10,7 @@ const useBookingStore = create(
       bookingData : null,
       bookingDetail : null,
       clientSecret : '',
+      uuid : null,
       setClientSecret : (data)=>{
         set({clientSecret : data})
       },
@@ -28,6 +31,11 @@ const useBookingStore = create(
       },
       actionClearBookingDetail : () => {
         set({bookingDetail: null})
+      },
+      searchByUUID : async(uuid)=>{
+        const result = await axios.get(`${API}/booking/${uuid}`)
+        console.log(result.data)
+        return result.data
       }
     }),
     {
