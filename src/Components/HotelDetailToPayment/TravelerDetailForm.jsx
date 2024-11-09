@@ -4,18 +4,23 @@ import useHotelStore from "../../stores/hotel-store";
 import useUserStore from "../../stores/user-store";
 import axios from "axios";
 import useBookingStore from "../../stores/booking-store";
+import { useShallow } from "zustand/shallow";
 
 const TravelerDetailForm = () => {
   const navigate = useNavigate();
-  const user = useUserStore((state) => state.user);
-  const summary = useHotelStore((state) => state.summary);
-  const currentHotel = useHotelStore((state) => state.currentHotel);
-  const filter = useUserStore((state) => state.filter);
-
-  const actionSetBooking = useBookingStore((state) => state.actionSetBooking);
-  const actionSetId = useBookingStore((state) => state.actionSetId);
-  const actionSetBookingDetail = useBookingStore(state=>state.actionSetBookingDetail)
-
+  const {user,filter} = useUserStore(useShallow(state=>({
+    user : state.user,
+    filter : state.filter
+  })))
+  const {summary , currentHotel } = useHotelStore(useShallow(state=>({
+    summary : state.summary,
+    currentHotel  :state.currentHotel
+  })))
+  const {actionSetBooking,actionSetId,actionSetBookingDetail} = useBookingStore(useShallow(state=>({
+    actionSetBooking : state.actionSetBooking,
+    actionSetId : state.actionSetId,
+    actionSetBookingDetail : state.actionSetBookingDetail
+  })))
   const [bookingData, setBookingData] = useState({
     firstName: "",
     lastName: "",

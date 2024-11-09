@@ -7,6 +7,10 @@ const useBookingStore = create(
       id: null,
       bookingData : null,
       bookingDetail : null,
+      clientSecret : '',
+      setClientSecret : (data)=>{
+        set({clientSecret : data})
+      },
       actionSetBooking : (Data) => {
         set({ bookingData: Data })
       },

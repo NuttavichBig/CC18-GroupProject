@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { motion, useAnimation } from "framer-motion";
 import slidebarpic from "../../assets/slideright.gif";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useBookingStore from "../../stores/booking-store";
 import PaymentFormLoading from '../Loading/PaymentsendFormLoading'
+import { useShallow } from "zustand/shallow";
 
 export default function CheckoutForm({ dpmCheckerLink }) {
     const stripe = useStripe();
@@ -16,33 +17,47 @@ export default function CheckoutForm({ dpmCheckerLink }) {
 
     const navigate = useNavigate();
     const controls = useAnimation();
-    const id = useBookingStore(state=>state.id)
-    console.log(id)
+    const { id, clientSecret } = useBookingStore(useShallow(state => ({
+        id: state.id,
+        clientSecret: state.clientSecret
+    })))
+    useEffect(() => {
+        if (message) {
+            controls.start({ x: 0 });
+
+        }
+    }, [message])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!stripe || !elements) return;
-
         try {
-            const payload = await stripe.confirmPayment({
-                elements,
-                redirect: "if_required",
-            });
-            console.log('payload', payload)
-            if (payload.error) {
-                setMessage(payload.error.message || "An unexpected error occurred.");
-                controls.start({ x: 0 });
+            if (!isLoading) {
+                console.log('submit')
+                const paymentIntentStatus = await stripe.retrievePaymentIntent(clientSecret)
+                if (paymentIntentStatus.paymentIntent.status === 'succeeded') {
+                    setMessage('Payment already completed.');
+                    return;
+                }
+                const payload = await stripe.confirmPayment({
+                    elements,
+                    redirect: "if_required",
+                });
+                console.log('payload', payload)
+                if (payload.error) {
+                    setMessage(payload.error.message || "An unexpected error occurred.");
 
-            } else if (payload.paymentIntent && payload.paymentIntent.status === "succeeded") {
-                console.log("Payment succeeded");
-                setMessage("Payment succeeded!");
-                await axios.post("http://localhost:8000/payment/payment-success",{stripeId:payload.paymentIntent.id , bookingId: id })
-                setIsLoading(true);
+                } else if (payload.paymentIntent && payload.paymentIntent.status === "succeeded") {
+                    console.log("Payment succeeded");
+                    setMessage("Payment succeeded!");
+                    setIsLoading(true);
+                    await axios.post("http://localhost:8000/payment/payment-success", { stripeId: payload.paymentIntent.id, bookingId: id })
 
-                setTimeout(() => {
-                    setIsLoading(false);
-                    navigate('/bookinghotel-detail-payment-method-summary');
-                }, 2000);
+                    setTimeout(() => {
+                        setIsLoading(false);
+                        navigate('/bookinghotel-detail-payment-method-summary');
+                    }, 2000);
+                }
             }
         } catch (error) {
             console.error("Payment error:", error);
@@ -54,7 +69,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
     const handleSlideEnd = async (event, info) => {
         const offset = info.offset.x;
         const sliderWidth = 300;
-        if (offset >= sliderWidth * 0.8) {
+        if (offset >= sliderWidth * 0.8 && isLoading === false) {
             await handleSubmit(event);
         }
     };

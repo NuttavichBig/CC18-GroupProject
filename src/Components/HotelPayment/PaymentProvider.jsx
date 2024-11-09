@@ -70,11 +70,16 @@ import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
 import LoadingRainbow from "../Loading/LoadingRainbow";
 import useHotelStore from "../../stores/hotel-store";
+import useBookingStore from "../../stores/booking-store";
+import { useShallow } from "zustand/shallow";
 
 const stripePromise = loadStripe("pk_test_51QHdYyBU681vIFBkL7FTVXhlWjLIlvdVbeCAUK4UC8hTsHqUtxMvbb72EQVxIF9sUdU8aJQn3oeDgv17crnmXikJ006cLmV8Fz");
 
 export default function PaymentProvider({ children }) {
-    const [clientSecret, setClientSecret] = useState("");
+    const {clientSecret , setClientSecret} =  useBookingStore(useShallow(state=>({
+        clientSecret  :state.clientSecret,
+        setClientSecret  :state.setClientSecret
+    })))
 
     const summary = useHotelStore(state=>state.summary)
     useEffect(() => {
