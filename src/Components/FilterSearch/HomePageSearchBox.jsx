@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import searchbuttonanimation from "../../assets/GifMainButtonOrangeSearch1.gif";
 import useUserStore from "../../stores/user-store";
 import { useShallow } from "zustand/shallow";
 import SearchLocation from "../GoogleApi/SearchLocation";
@@ -70,15 +69,13 @@ const HomePageSearchBox = () => {
       <style>{`.rdrDefinedRangesWrapper { display: none; }`}</style>
       <div className="grid grid-cols-5 gap-4 items-center w-full ml-7">
         <div className="col-span-1">
-          <p className="block text-sm text-white mb-1 font-bold">Destination</p>
+          <p className="block text-white mb-1 ">Destination</p>
           <SearchLocation onSelectLocation={handleSelectLocation} />
         </div>
         <div className="col-span-2 relative flex items-center ">
           <div className="flex-1">
-            <span className="block font-bold text-sm text-white text-center mb-1">
-              JOURNEY
-            </span>
-            <div className="w-full p-3 rounded-l-lg border-r border-h border-white bg-gradient-to-t from-orange-400 to-orange-500 flex justify-between items-center shadow-md cursor-pointer h-10">
+            <span className="block  text-white text-center mb-1">JOURNEY</span>
+            <div className="w-full p-3 rounded-l-lg border-r border-h border-white bg-gradient-to-t from-orange-400 to-orange-600 flex justify-between items-center shadow-md cursor-pointer h-10">
               <div
                 onClick={() => {
                   setCalenderControl({
@@ -89,7 +86,7 @@ const HomePageSearchBox = () => {
                 }}
                 className="text-center flex-1 py-2 text-[#543310]"
               >
-                <span className="text-white font-bold text-xl">
+                <span className="text-white text-xl">
                   {new Date(input.journeyDate).toLocaleDateString("en-GB", {
                     day: "2-digit",
                     month: "short",
@@ -100,10 +97,10 @@ const HomePageSearchBox = () => {
             </div>
           </div>
           <div className="flex-1">
-            <span className="block font-bold text-sm text-white text-center mb-1">
+            <span className="block text-white text-center mb-1">
               RETURN DATE
             </span>
-            <div className="w-full p-3 rounded-r-lg bg-gradient-to-t from-orange-400 to-orange-500 flex justify-between items-center shadow-md cursor-pointer h-10">
+            <div className="w-full p-3 rounded-r-lg bg-gradient-to-t from-orange-400 to-orange-600 flex justify-between items-center shadow-md cursor-pointer h-10">
               <div
                 onClick={() => {
                   setCalenderControl({
@@ -114,7 +111,7 @@ const HomePageSearchBox = () => {
                 }}
                 className="text-center flex-1 py-2 text-[#543310]"
               >
-                <span className="text-white font-bold text-xl">
+                <span className="text-white text-xl">
                   {new Date(input.returnDate).toLocaleDateString("en-GB", {
                     day: "2-digit",
                     month: "short",
@@ -201,11 +198,11 @@ const HomePageSearchBox = () => {
           )}
         </div>
         <div className="col-span-1 ml-5">
-          <p className="block text-sm text-white mb-1 font-bold">Guest and Room</p>
+          <p className="block  text-white mb-1 ">Guest and Room</p>
           <div className="relative inline-block text-left">
             <button
               onClick={toggleDropdown}
-              className="flex items-center p-2 border rounded-md text-[#543310] bg-white shadow w-full"
+              className="flex items-center bg-[#fef6e4] p-2 border rounded-md text-[#543310]  shadow w-full"
             >
               <span className="mr-2">
                 {adults} GUEST, {rooms} ROOM
@@ -225,21 +222,21 @@ const HomePageSearchBox = () => {
             </button>
 
             {isOpen && (
-              <div className="absolute z-10 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg">
+              <div className="absolute z-10 mt-2 w-56 bg-[#fef6e4] rounded-lg shadow-lg">
                 <div className="p-4 space-y-4">
                   <div className="flex justify-between items-center text-[#543310] ">
                     <span>GUEST</span>
                     <div className="flex items-center space-x-2">
                       <button
                         onClick={() => decrement(setAdults, adults)}
-                        className="p-1 bg-gray-200 rounded"
+                        className="p-1 bg-orange-200 rounded"
                       >
                         -
                       </button>
                       <span>{adults}</span>
                       <button
                         onClick={() => increment(setAdults, adults)}
-                        className="p-1 bg-gray-200 rounded"
+                        className="p-1 bg-orange-300 rounded"
                       >
                         +
                       </button>
@@ -251,14 +248,14 @@ const HomePageSearchBox = () => {
                     <div className="flex items-center space-x-2">
                       <button
                         onClick={() => decrement(setRooms, rooms)}
-                        className="p-1 bg-gray-200 rounded"
+                        className="p-1 bg-orange-200 rounded"
                       >
                         -
                       </button>
                       <span>{rooms}</span>
                       <button
                         onClick={() => increment(setRooms, rooms)}
-                        className="p-1 bg-gray-200 rounded"
+                        className="p-1 bg-orange-300 rounded"
                       >
                         +
                       </button>
@@ -269,7 +266,7 @@ const HomePageSearchBox = () => {
                 <div className="p-4 border-t flex justify-center">
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="bg-gradient-to-t from-orange-400 to-orange-500 text-white p-3 rounded-lg"
+                    className="bg-gradient-to-t from-orange-400 to-orange-600 text-white p-3 rounded-lg"
                   >
                     SUBMIT
                   </button>
@@ -278,22 +275,18 @@ const HomePageSearchBox = () => {
             )}
           </div>
         </div>
-        <div className="col-span-1 flex justify-center mt-5">
+
+        <div className="col-span-1 flex justify-center mt-6">
           <button
             onClick={handleSearch}
-            className="font-bold shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-2 outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-28 h-10"
+            className=" shadow-lg bg-gradient-to-t from-orange-400 to-orange-600 text-white p-2 outline-none border-none transition-transform duration-150 rounded-full overflow-hidden hover:scale-110 w-28 h-10"
           >
             SEARCH
           </button>
         </div>
       </div>
-
-    </motion.div >
+    </motion.div>
   );
 };
 
 export default HomePageSearchBox;
-
-
-
-

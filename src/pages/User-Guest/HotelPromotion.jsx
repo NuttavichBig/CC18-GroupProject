@@ -11,10 +11,10 @@ function HotelPromotion() {
 
     return (
         <div>
-            <div className='bg-gray-400 relative h-[100px]'>
+            <div className='bg-white relative h-[100px]'>
                 <HeaderUserPage />
             </div>
-            <div className='min-h-screen relative bg-[#f9f9f9] flex justify-center items-start'>
+            <div className='min-h-screen relative bg-[#white] flex justify-center items-start'>
                 <div className="container mx-auto p-6 grid gap-5">
                     <SearchBoxMain />
 

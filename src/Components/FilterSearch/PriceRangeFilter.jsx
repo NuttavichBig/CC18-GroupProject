@@ -3,7 +3,7 @@ import useUserStore from '../../stores/user-store';
 
 function PriceRangeFilter(props) {
   const {hdlChange} = props
-  const [isOpen, setIsOpen] = useState(false); //  dropdown
+  const [isOpen, setIsOpen] = useState(true); //  dropdown
   const input=  useUserStore(state=>state.filter)
   // const [price, setPrice] = useState(5000);
 

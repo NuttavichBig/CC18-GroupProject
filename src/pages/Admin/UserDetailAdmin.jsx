@@ -56,37 +56,43 @@ export default function UserDetailAdmin() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="w-full text-[#ffffff]">
+    <div className="w-full text-[#543310]">
       <div>
         <p className="bg-[#AF8F6F] text-3xl font-bold rounded-lg p-2 text-center shadow-lg">
           USER INFORMATION
         </p>
-        <table className="text-center w-full mt-4 border-collapse">
+        <table className="text-center w-full mt-4 border-collapse border-2 border-[#543310]">
           <thead>
             <tr className="bg-[#AF8F6F]">
-              <th className="border p-2">ID</th>
-              <th className="border p-2">FIRSTNAME</th>
-              <th className="border p-2">LASTNAME</th>
-              <th className="border p-2">PHONE</th>
-              <th className="border p-2">EMAIL</th>
-              <th className="border p-2">DATE OF BIRTH</th>
-              <th className="border p-2">GENDER</th>
-              <th className="border p-2">ROLE</th>
-              <th className="border p-2">STATUS</th>
-              <th className="border p-2">ACTIONS</th>
+              <th className="border-2 border-[#543310] p-2">ID</th>
+              <th className="border-2 border-[#543310] p-2">FIRSTNAME</th>
+              <th className="border-2 border-[#543310] p-2">LASTNAME</th>
+              <th className="border-2 border-[#543310] p-2">PHONE</th>
+              <th className="border-2 border-[#543310] p-2">EMAIL</th>
+              <th className="border-2 border-[#543310] p-2">DATE OF BIRTH</th>
+              <th className="border-2 border-[#543310] p-2">GENDER</th>
+              <th className="border-2 border-[#543310] p-2">ROLE</th>
+              <th className="border-2 border-[#543310] p-2">STATUS</th>
+              <th className="border-2 border-[#543310] p-2">ACTIONS</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
               <tr key={user.id} className="bg-[#F8F4E1] text-[#543310]">
-                <td className="border p-2">{user.id}</td>
-                <td className="border p-2">{user.firstName}</td>
-                <td className="border p-2">{user.lastName}</td>
-                <td className="border p-2">{user.phone}</td>
-                <td className="border p-2">{user.email}</td>
-                <td className="border p-2">{user.birthdate}</td>
-                <td className="border p-2">{user.gender}</td>
-                <td className="border p-2">
+                <td className="border-2 border-[#543310] p-2">{user.id}</td>
+                <td className="border-2 border-[#543310] p-2">
+                  {user.firstName}
+                </td>
+                <td className="border-2 border-[#543310] p-2">
+                  {user.lastName}
+                </td>
+                <td className="border-2 border-[#543310] p-2">{user.phone}</td>
+                <td className="border-2 border-[#543310] p-2">{user.email}</td>
+                <td className="border-2 border-[#543310] p-2">
+                  {user.birthdate}
+                </td>
+                <td className="border-2 border-[#543310] p-2">{user.gender}</td>
+                <td className="border-2 border-[#543310] p-2">
                   <select
                     value={user.role}
                     onChange={(e) =>
@@ -99,7 +105,7 @@ export default function UserDetailAdmin() {
                     <option value="PARTNER">PARTNER</option>
                   </select>
                 </td>
-                <td className="border p-2">
+                <td className="border-2 border-[#543310] p-2">
                   <select
                     value={user.status}
                     onChange={(e) =>
@@ -113,11 +119,11 @@ export default function UserDetailAdmin() {
                     <option value="BANNED">BANNED</option>
                   </select>
                 </td>
-                <td className="border p-2">
+                <td className="border-2 border-[#543310] p-2">
                   <button
                     onClick={() => handleDelete(user.id)}
                     className="rounded-lg p-1 border-2 border-[#CD1818] bg-[#F8F4E1] text-[#CD1818] shadow-lg hover:bg-[#CD1818] hover:text-white transition-all duration-100 ease-in-out"
-                    >
+                  >
                     Delete
                   </button>
                 </td>

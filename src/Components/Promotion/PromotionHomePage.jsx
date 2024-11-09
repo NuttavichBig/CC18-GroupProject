@@ -68,7 +68,7 @@ function PromotionHomePage() {
               <p className="text-sm text-[#543310] mt-2">
                 {promotions[0].name}
               </p>
-              <button className="bg-gradient-to-t from-orange-400 to-orange-500 text-white py-2 px-4 rounded-lg mt-4 w-full">
+              <button className="bg-gradient-to-t from-orange-400 to-orange-600 text-white py-2 px-4 rounded-lg mt-4 w-full">
                 MORE
               </button>
             </div>
@@ -116,7 +116,7 @@ function PromotionHomePage() {
               <p className="text-sm text-[#543310] mt-2">
                 {promotions[3].name}
               </p>
-              <button className="bg-gradient-to-t from-orange-400 to-orange-500 text-white py-2 px-4 rounded-lg mt-4 w-full">
+              <button className="bg-gradient-to-t from-orange-400 to-orange-600 text-white py-2 px-4 rounded-lg mt-4 w-full">
                 MORE
               </button>
             </div>

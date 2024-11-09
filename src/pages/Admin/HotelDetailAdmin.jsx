@@ -49,32 +49,42 @@ export default function HotelDetailAdmin() {
         <DetailHotel hotelData={hotelDetail} setHotelDetail={setHotelDetail} />
       )}
       <div className="w-full text-[#543310]">
-        <p className="bg-[#AF8F6F] text-3xl font-bold rounded-lg p-2 text-center shadow-lg">
+        <p className="bg-[#AF8F6F] text-3xl font-bold rounded-lg p-2 text-center shadow-lg ">
           HOTEL INFORMATION
         </p>
-        <table className="text-center w-full mt-4 border-collapse">
+        <table className="text-center w-full mt-4 border-collapse border-2 border-[#543310]">
           <thead>
             <tr className="bg-[#AF8F6F]">
-              <th className="border p-2">ID</th>
-              <th className="border p-2">PARTNER NAME</th>
-              <th className="border p-2">BANK NAME</th>
-              <th className="border p-2">BANK NO.</th>
-              <th className="border p-2">TAX NO.</th>
-              <th className="border p-2">ADDRESS</th>
-              <th className="border p-2">STATUS</th>
-              <th className="border p-2">MORE DETAIL</th>
+              <th className="border-2 border-[#543310] p-2">ID</th>
+              <th className="border-2 border-[#543310] p-2">PARTNER NAME</th>
+              <th className="border-2 border-[#543310] p-2">BANK NAME</th>
+              <th className="border-2 border-[#543310] p-2">BANK NO.</th>
+              <th className="border-2 border-[#543310] p-2">TAX NO.</th>
+              <th className="border-2 border-[#543310] p-2">ADDRESS</th>
+              <th className="border-2 border-[#543310] p-2">STATUS</th>
+              <th className="border-2 border-[#543310] p-2">MORE DETAIL</th>
             </tr>
           </thead>
           <tbody>
             {partners.map((partner) => (
               <tr key={partner.id} className="bg-[#F8F4E1] text-[#543310]">
-                <td className="border p-2">{partner.id}</td>
-                <td className="border p-2">{partner.companyName}</td>
-                <td className="border p-2">{partner.bankName}</td>
-                <td className="border p-2">{partner.bankAccount}</td>
-                <td className="border p-2">{partner.taxNo}</td>
-                <td className="border p-2">{partner.address}</td>
-                <td className="border p-2">
+                <td className="border-2 border-[#543310] p-2">{partner.id}</td>
+                <td className="border-2 border-[#543310] p-2">
+                  {partner.companyName}
+                </td>
+                <td className="border-2 border-[#543310] p-2">
+                  {partner.bankName}
+                </td>
+                <td className="border-2 border-[#543310] p-2">
+                  {partner.bankAccount}
+                </td>
+                <td className="border-2 border-[#543310] p-2">
+                  {partner.taxNo}
+                </td>
+                <td className="border-2 border-[#543310] p-2">
+                  {partner.address}
+                </td>
+                <td className="border-2 border-[#543310] p-2">
                   <select
                     value={partner.status}
                     onChange={(e) =>
@@ -88,7 +98,7 @@ export default function HotelDetailAdmin() {
                     <option value="BANNED">BANNED</option>
                   </select>
                 </td>
-                <td className="border p-2">
+                <td className="border-2 border-[#543310] p-2">
                   <button
                     onClick={() => {
                       setHotelDetail(partner.hotels);
