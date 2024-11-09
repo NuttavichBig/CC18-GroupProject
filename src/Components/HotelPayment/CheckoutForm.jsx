@@ -4,7 +4,7 @@ import { motion, useAnimation } from "framer-motion";
 import slidebarpic from "../../assets/slideright.gif";
 import "../../utills/StripeCSS/stripe.css";
 import { useNavigate } from "react-router-dom";
-import PaymentFormLoading from '../../Components/Loading/paymentsendFormLoading'
+import PaymentFormLoading from '../Loading/PaymentsendFormLoading'
 
 export default function CheckoutForm({ dpmCheckerLink }) {
     const stripe = useStripe();
@@ -24,7 +24,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
                 elements,
                 redirect: "if_required",
             });
-
+            console.log('payload', payload)
             if (payload.error) {
                 setMessage(payload.error.message || "An unexpected error occurred.");
                 controls.start({ x: 0 });

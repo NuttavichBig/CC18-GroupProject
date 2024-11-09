@@ -1,7 +1,7 @@
 import React from 'react';
 import loadingAnimationUrl from '../../assets/Loading/paymentSendFormmethodloading.gif';
 
-const LoadingRainbow = () => {
+const PaymentsendFormLoading = () => {
     return (
         <div style={styles.container}>
             <img src={loadingAnimationUrl} alt="Loading..." style={styles.image} />
@@ -16,7 +16,7 @@ const styles = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100%',  // ปรับให้เต็มความสูงของการ์ด
+        height: '100vh',  // ปรับให้เต็มความสูงของการ์ด
         width: '100%',   // ปรับให้เต็มความกว้างของการ์ด
         textAlign: 'center',
         backgroundColor: '#f9f9f9',
@@ -38,4 +38,4 @@ const styles = {
     },
 };
 
-export default LoadingRainbow;
+export default PaymentsendFormLoading;
