@@ -8,9 +8,10 @@ import useAdminStore from "../../stores/socket-store";
 import { useShallow } from "zustand/shallow";
 
 export default function DashboardAdmin({ }) {
-  const { socket, connect } = useAdminStore(useShallow(state => ({
+  const { socket, connect,setChatBoxNull } = useAdminStore(useShallow(state => ({
     socket: state.socket,
-    connect: state.connect
+    connect: state.connect,
+    setChatBoxNull : state.setChatBoxNull
   })))
     const [chatBoxList , setChatBoxList] = useState([])
     const [chatOpen, setChatOpen] = useState(false);
@@ -35,9 +36,20 @@ export default function DashboardAdmin({ }) {
           return newArr;
         });
       })
+      socket.on('userLeave',(delChat)=>{
+        console.log('someone leave')
+        setChatBoxList(prev=>{
+          const newData = prev.filter(item=>item.id !== delChat.id)
+          return newData
+        })
+        setChatBoxNull()
+      })
     }
     return (() => {
-      if (socket) socket.off('userMessage')
+      if (socket) {
+        socket.off('userMessage')
+        socket.off('userLeave')
+      }
     })
   }, [socket])
   return (

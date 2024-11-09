@@ -38,6 +38,9 @@ const useAdminStore = create(persist((set, get) => ({
             const updatedMessage = [...chatRoom.messages,newMsg]
             set({chatRoom : {...chatRoom,messages  : updatedMessage}})
         }
+    },
+    setChatBoxNull : ()=>{
+        set({chatRoom : null})
     }
 }), {
   name: "statSocketData",

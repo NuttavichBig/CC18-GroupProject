@@ -16,18 +16,23 @@ export default function ChatFormUser() {
     token: state.token
   })))
   useEffect(() => {
-    let socket = null
+    if (socket) {
+      console.log('disconnected')
+      socket.disconnect();
+    }
+    let socketCreate = null
     if (token) {
-      socket = io(API, {
+      socketCreate = io(API, {
         extraHeaders: {
           Authorization: `Bearer ${token}`
         },
       });
     } else {
-      socket = io(API)
+      socketCreate = io(API)
     }
-    setSocket(socket)
-  }, [])
+    console.log(socketCreate)
+    setSocket(socketCreate)
+  }, [token])
   useEffect(() => {
     if (socket) {
       socket.on('joinComplete', (data) => {
@@ -51,7 +56,7 @@ export default function ChatFormUser() {
     if (chatBoxRef.current) {
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
     }
-  }, [pageParams?.messages]); 
+  }, [pageParams?.messages]);
   const toggleChat = () => {
     setPageParams({ ...pageParams, isOpen: !pageParams.isOpen });
   };
