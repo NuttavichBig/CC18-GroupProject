@@ -2,33 +2,22 @@ import React, { useEffect, useState } from 'react';
 
 import PromotionModal from '../ModalOther/PromotionModal';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 const API = import.meta.env.VITE_API
 
-// const promotions = [
-//     { id: 1, imageUrl: '/1.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 2, imageUrl: '/2.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 3, imageUrl: '/3.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 4, imageUrl: '/4.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 5, imageUrl: '/5.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 6, imageUrl: '/6.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 7, imageUrl: '/7.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 8, imageUrl: '/8.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 9, imageUrl: '/9.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 10, imageUrl: '/10.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-// ];
 
 function PromotionListShowAll() {
     const [selectedPromo, setSelectedPromo] = useState(null); //modal
-    const [promotions,setPromotions] = useState([]);
+    const [promotions, setPromotions] = useState([]);
 
 
-    const getPromotions =async ()=>{
+    const getPromotions = async () => {
         const result = await axios.get(`${API}/promotion?isActive=true&sortBy=startDate&`)
         setPromotions(result.data.promotion)
     }
-    useEffect(()=>{
+    useEffect(() => {
         getPromotions()
-    },[])
+    }, [])
     console.log(promotions)
 
     // decoration
@@ -73,7 +62,7 @@ function PromotionListShowAll() {
         <div className="max-w-7xl mx-auto p-6 relative justify-center">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" style={{ paddingLeft: '40px' }}>
                 {promotions.map((promo, index) => (
-                    <div
+                    <motion.div
                         key={promo.id}
                         className="mb-8"
                         style={{
@@ -81,7 +70,11 @@ function PromotionListShowAll() {
                             width: '300px',
                             height: '200px',
                             position: 'relative',
+
                         }}
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.2, duration: 0.6 }}
                     >
                         <div
                             id={`shadow-card-${index}`}
@@ -115,7 +108,7 @@ function PromotionListShowAll() {
                             />
                             <div className="flex flex-col justify-center items-center w-1/2 p-4 text-center">
                                 <h3 className="text-orange-600 text-lg font-bold">
-                                    Special Discounts {promo.discountPercent > 0?`${promo.discountPercent}%`:`${promo.discountValue}฿`}
+                                    Special Discounts {promo.discountPercent > 0 ? `${promo.discountPercent}%` : `${promo.discountValue}฿`}
                                 </h3>
                                 <p className="text-gray-600 text-sm">{promo.name}</p>
                                 <button
@@ -130,7 +123,7 @@ function PromotionListShowAll() {
 
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
 
@@ -147,3 +140,29 @@ function PromotionListShowAll() {
 }
 
 export default PromotionListShowAll;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const promotions = [
+//     { id: 1, imageUrl: '/1.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
+//     { id: 2, imageUrl: '/2.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
+//     { id: 3, imageUrl: '/3.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
+//     { id: 4, imageUrl: '/4.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
+//     { id: 5, imageUrl: '/5.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
+//     { id: 6, imageUrl: '/6.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
+//     { id: 7, imageUrl: '/7.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
+//     { id: 8, imageUrl: '/8.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
+//     { id: 9, imageUrl: '/9.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
+//     { id: 10, imageUrl: '/10.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
+// ];
