@@ -42,7 +42,7 @@ const SearchBoxMain = (props) => {
   const decrement = (setter, value) => setter(value > 1 ? value - 1 : 1);
 
   return (
-    <div className="bg-[#fef6e4] rounded-lg shadow-lg px-6 py-4 w-full mx-auto mt-10 mb-5 relative">
+    <div className="bg-[#fef6e4] text-[#543310] rounded-lg shadow-lg px-6 py-4 w-full mx-auto mt-10 mb-5 relative">
       <style>{`.rdrDefinedRangesWrapper { display: none; }`}</style>
       <div className="flex items-center gap-4">
         <div className="flex-1 flex items-center gap-2 bg-[#fddbb7] rounded-full px-4 h-12 shadow-md ">

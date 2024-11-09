@@ -94,7 +94,7 @@ const MainRouter = createBrowserRouter([
 
   {
     path: "/userprofile",
-    element: <HomeUser />,
+    element: <ProtectRouter element={<HomeUser />} reqRole={['USER','PARTNER']}/>,
     children: [
       { path: "edit", element:  <ProtectRouter element={<ProfileForm />} reqRole={['USER','PARTNER']}/>},
       { path: "purchasehistory", element:  <ProtectRouter element={<MyPurchase />} reqRole={['USER','PARTNER']}/>},
@@ -103,7 +103,7 @@ const MainRouter = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <HomeAdmin />,
+    element: <ProtectRouter element={<HomeAdmin /> } reqRole={['ADMIN']}/>,
     children: [
       // { index: true, element: <HomeAdmin /> },
       { index: true, element:  <ProtectRouter element={<DashboardAdmin /> } reqRole={['ADMIN']}/>},
@@ -116,7 +116,7 @@ const MainRouter = createBrowserRouter([
   },
   {
     path: "/partner",
-    element: <HomePartner />,
+    element: <ProtectRouter element={<HomePartner /> } reqRole={['PARTNER']}/>,
     children: [
       // { index: true, element: <HomePartner /> },
 

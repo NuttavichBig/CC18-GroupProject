@@ -19,14 +19,14 @@ function PromotionModal({ promo, onClose }) {
         >
           ✕
         </button>
-        <img src={promo.img} alt="Promotion" className="w-full h-40 object-cover rounded-lg mb-4" />
+        <img src={promo.img} alt="Promotion" className="w-full h-50 object-cover rounded-lg mb-4" />
         <h3 className="text-xl font-bold text-orange-600 mb-2">Special Discounts {promo.discountPercent > 0?`${promo.discountPercent}%`:`${promo.discountValue}฿`}</h3>
         <p className="text-gray-600">{promo.name}</p>
         <p className='text-gray-500 text-sm'>{`${startDate} to ${endDate}`}</p>
         <p className="text-gray-600 mt-4">
           {promo.description}
         </p>
-        <p className="text-gray-600 mt-4 font-bold">{promo.code}</p>
+        <p className="text-orange-600 mt-4 text-2xl font-bold">{promo.code}</p>
       </div>
     </div>
   );
