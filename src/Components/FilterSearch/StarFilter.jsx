@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 function StarFilter(props) {
-  const {hdlStarCheck} = props
+  const { hdlStarCheck } = props
   const [isOpen, setIsOpen] = useState(false);
   const stars = [5, 4, 3, 2, 1];
 
   return (
-    <div className="p-4 bg-[#fef6e4] rounded-lg shadow">
+    <div className="p-4 bg-cream-gradient rounded-lg shadow">
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={() => setIsOpen(!isOpen)} // toggle dropdown
@@ -19,7 +19,7 @@ function StarFilter(props) {
           {stars.map((star) => (
             <label key={star} className="flex items-center mb-2">
               <input type="radio" name="star" className="mr-2 accent-orange-500" value={star}
-              onChange={hdlStarCheck}/>
+                onChange={hdlStarCheck} />
               <span className="text-yellow-500">
                 {'★'.repeat(star)}
               </span>

@@ -16,7 +16,7 @@ function SummaryRoomDetail() {
     ];
 
     return (
-        <div className="p-6 bg-[#fef6e4] rounded-lg shadow-md space-y-4">
+        <div className="p-6 bg-cream-gradient rounded-lg shadow-md space-y-4">
             {roomDetails.map((room, index) => (
                 <div key={index} className="flex items-center space-x-4">
                     <div className="w-1/3 h-24 rounded-lg overflow-hidden">

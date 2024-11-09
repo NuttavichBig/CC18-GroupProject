@@ -27,7 +27,7 @@ function RoomSelection() {
     return (
         <div className="container mx-auto grid grid-cols-1 gap-6">
             {rooms.map(room => (
-                <div key={room.id} className="p-6 bg-[#fef6e4] rounded-xl shadow-lg space-y-4">
+                <div key={room.id} className="p-6 bg-cream-light-gradient rounded-xl shadow-lg space-y-4">
                     {/* Image */}
                     <div className="w-full h-40 bg-gray-200 rounded-lg overflow-hidden">
                         <img src={room.imageUrl} alt={room.title} className="object-cover w-full h-full" />

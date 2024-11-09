@@ -64,7 +64,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col p-6 bg-[#fef6e4] rounded-lg shadow-md space-y-4"
+            className="flex flex-col p-6 bg-cream-light-gradient rounded-lg shadow-md space-y-4"
             onSubmit={handleSubmit}
         >
             <h3 className="text-xl font-bold mb-5">Select Payment Method And Pay</h3>

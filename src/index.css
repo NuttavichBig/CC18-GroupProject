@@ -1,3 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* พื้นหลังแบบ Gradient สีครีมหรูหรา */
+.bg-luxury-cream-gradient {
+    background: linear-gradient(to bottom right, #fef6e4 30%, #f8ecd3 60%, #ece3d6 80%);
+}
+
+.bg-cream-light-gradient {
+    background: linear-gradient(to bottom left, #fffaf2, #fff0db);
+}
+
+/* พื้นหลังแบบ Gradient สีครีมอ่อน */
+.bg-cream-gradient {
+    background: linear-gradient(to bottom right, #fff2e6, #ffe6cc);
+}
+
+/* พื้นหลังแบบ Gradient สีส้มอ่อน */
+.bg-orange-light-gradient {
+    background: linear-gradient(to right, #fbd1a2, #f8b88b);
+}
+
+/* ปุ่มsearch พื้นหลังแบบ Gradient สีส้มเข้ม */
+.bg-orange-dark-gradient {
+    background: linear-gradient(to right, #f08a4b, #e05b3c);
+}
+
+/* พื้นหลังแบบ Gradient สีส้มเข้มชมพูสวย */
+.bg-orange-dark-pink-gradient {
+    background: linear-gradient(to right, #f08a4b, #e144ba);
+}
+
+/* สีขอบที่เป็นสีส้มอ่อน */
+.border-orange-light {
+    border-color: #e5a478;
+}
+
+/* สีข้อความสีน้ำตาลโทนอุ่น */
+.text-warm-brown {
+    color: #413831;
+}
+
+/* กำหนด Transition ที่นุ่มนวล */
+.transition-ease {
+    transition: transform 0.2s ease-in-out;
+}
