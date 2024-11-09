@@ -67,7 +67,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
             className="flex flex-col p-6 bg-cream-light-gradient rounded-lg shadow-md space-y-4"
             onSubmit={handleSubmit}
         >
-            <h3 className="text-xl font-bold mb-5">Select Payment Method And Pay</h3>
+            <h3 className="text-xl font-bold mb-5">Select Payment Method</h3>
 
             <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
 
