@@ -28,17 +28,52 @@ function HotelDetailRecommend() {
     ];
 
     return (
-        <div className="bg-[#fef6e4] rounded-lg p-4 shadow-md space-y-4 w-full">
-            <h3 className="text-lg font-semibold mb-4">Recommended Hotels</h3>
+        <div style={{
+            background: 'linear-gradient(to bottom right, #fffaf2, #fff0db)',
+            borderRadius: '12px',
+            padding: '16px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+            width: '100%',
+        }}>
+            <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '16px', color: '#413831' }}>Recommended Hotels</h3>
             {recommendedHotels.map(hotel => (
-                <div key={hotel.id} className="flex items-center bg-white p-4 rounded-lg shadow-md mb-4">
-                    <img src={hotel.imageUrl} alt={hotel.name} className="w-32 h-20 object-cover rounded-lg mr-4" />
-                    <div className="flex-grow">
-                        <h4 className="font-semibold text-lg">{hotel.name}</h4>
-                        <p className="text-gray-500 text-sm">{hotel.location}</p>
-                        <p className="text-lg font-bold mt-1">THB {hotel.price}</p>
+                <div key={hotel.id} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    backgroundColor: '#fff',
+                    padding: '16px',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                    border: '1px solid #e5a478',
+                    marginBottom: '16px',
+                }}>
+                    <img src={hotel.imageUrl} alt={hotel.name} style={{
+                        width: '8rem',
+                        height: '5rem',
+                        objectFit: 'cover',
+                        borderRadius: '8px',
+                        marginRight: '16px',
+                    }} />
+                    <div style={{ flexGrow: 1 }}>
+                        <h4 style={{ fontWeight: '600', fontSize: '1.125rem', color: '#413831' }}>{hotel.name}</h4>
+                        <p style={{ color: '#6b6b6b', fontSize: '0.875rem' }}>{hotel.location}</p>
+                        <p style={{ fontSize: '1.25rem', fontWeight: 'bold', marginTop: '8px', color: '#f08a4b' }}>THB {hotel.price}</p>
                     </div>
-                    <button onClick={() => navigate('/bookinghotel-detail')} className="px-4 py-2 bg-orange-500 text-white rounded-full">BOOK NOW</button>
+                    <button
+                        onClick={() => navigate('/bookinghotel-detail')}
+                        style={{
+                            background: 'linear-gradient(to right, #f08a4b, #e05b3c)',
+                            color: '#fff',
+                            padding: '0.5rem 1rem',
+                            borderRadius: '9999px',
+                            fontWeight: 'bold',
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                            transition: 'transform 0.2s ease-in-out',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        BOOK NOW
+                    </button>
                 </div>
             ))}
         </div>

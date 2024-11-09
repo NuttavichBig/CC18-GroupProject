@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import useUserStore from '../../stores/user-store';
 
 function PriceRangeFilter(props) {
-  const {hdlChange} = props
+  const { hdlChange } = props
   const [isOpen, setIsOpen] = useState(false); //  dropdown
-  const input=  useUserStore(state=>state.filter)
+  const input = useUserStore(state => state.filter)
   // const [price, setPrice] = useState(5000);
 
   // const handlePriceChange = (e) => {
@@ -12,7 +12,7 @@ function PriceRangeFilter(props) {
   // };
 
   return (
-    <div className="p-4 bg-[#fef6e4] rounded-lg shadow">
+    <div className="p-4 bg-cream-gradient rounded-lg shadow">
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
@@ -23,7 +23,7 @@ function PriceRangeFilter(props) {
       {isOpen && (
         <div className="mt-4 flex flex-col items-center">
           <input
-          name='maxPrice'
+            name='maxPrice'
             type="range"
             min="0"
             max="5000"
@@ -33,7 +33,7 @@ function PriceRangeFilter(props) {
             style={{
               appearance: 'none',
               height: '4px',
-              background: `linear-gradient(to right, orange 0%, orange ${input.maxPrice / 50}%, #ddd ${input.maxPrice/ 50}%, #ddd 100%)`,
+              background: `linear-gradient(to right, orange 0%, orange ${input.maxPrice / 50}%, #ddd ${input.maxPrice / 50}%, #ddd 100%)`,
               borderRadius: '2px',
               outline: 'none',
             }}

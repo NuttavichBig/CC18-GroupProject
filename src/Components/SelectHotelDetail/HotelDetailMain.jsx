@@ -11,7 +11,7 @@ const HotelDetailMain = () => {
 
 
     return (
-        <div className="flex flex-col w-full p-6 bg-[#fef6e4] rounded-lg shadow-lg space-y-6">
+        <div className="flex flex-col w-full p-6 bg-cream-light-gradient rounded-lg shadow-lg space-y-6">
 
             <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold">{currentHotel.name}</h2>

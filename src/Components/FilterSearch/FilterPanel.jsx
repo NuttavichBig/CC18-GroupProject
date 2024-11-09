@@ -13,7 +13,7 @@ const FilterPanel = () => {
         setInput: state.setFilter
     })))
 
-    
+
     console.log(input)
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const FilterPanel = () => {
                 isPetFriendly: false,
                 isElevator: false,
             },
-            star : null
+            star: null
         })
     }, [])
     const hdlChange = (e) => {
@@ -42,12 +42,12 @@ const FilterPanel = () => {
     const hdlFacilityCheck = (e) => {
         setInput({ ...input, facilities: { ...input.facilities, [e.target.name]: e.target.checked } })
     }
-    const hdlStarCheck = (e)=>{
+    const hdlStarCheck = (e) => {
         if (e.target.checked) {
             setInput({ ...input, [e.target.name]: e.target.value })
-          }
         }
-    
+    }
+
     return (
         <div className="w-full  ">
             <div className="mb-6 shadow-md rounded-lg ">
@@ -58,7 +58,7 @@ const FilterPanel = () => {
                 <FacilitiesFilter hdlFacilityCheck={hdlFacilityCheck} facilities={input.facilities} />
             </div>
             <div className="shadow-md rounded-lg">
-                <StarFilter hdlStarCheck={hdlStarCheck}/>
+                <StarFilter hdlStarCheck={hdlStarCheck} />
             </div>
         </div>
     );
