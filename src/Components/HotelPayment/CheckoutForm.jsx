@@ -12,8 +12,11 @@ import { useShallow } from "zustand/shallow";
 export default function CheckoutForm({ dpmCheckerLink }) {
     const stripe = useStripe();
     const elements = useElements();
-    const [message, setMessage] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [pageParams , setPageParams] = useState({
+        errMsg : '',
+        isLoading : false,
+        sliderCount : 0,
+    })
 
     const navigate = useNavigate();
     const controls = useAnimation();
@@ -22,21 +25,21 @@ export default function CheckoutForm({ dpmCheckerLink }) {
         clientSecret: state.clientSecret
     })))
     useEffect(() => {
-        if (message) {
+        if (pageParams.errMsg) {
             controls.start({ x: 0 });
 
         }
-    }, [message])
+    }, [pageParams.errMsg])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!stripe || !elements) return;
         try {
-            if (!isLoading) {
+            if (!pageParams.isLoading) {
                 console.log('submit')
                 const paymentIntentStatus = await stripe.retrievePaymentIntent(clientSecret)
                 if (paymentIntentStatus.paymentIntent.status === 'succeeded') {
-                    setMessage('Payment already completed.');
+                    setPageParams({...pageParams,errMsg : 'Payment already completed.'});
                     return;
                 }
                 const payload = await stripe.confirmPayment({
@@ -45,23 +48,22 @@ export default function CheckoutForm({ dpmCheckerLink }) {
                 });
                 console.log('payload', payload)
                 if (payload.error) {
-                    setMessage(payload.error.message || "An unexpected error occurred.");
+                    setPageParams({...pageParams, errMsg : payload.error.message || "An unexpected error occurred."});
 
                 } else if (payload.paymentIntent && payload.paymentIntent.status === "succeeded") {
                     console.log("Payment succeeded");
-                    setMessage("Payment succeeded!");
-                    setIsLoading(true);
+                    setPageParams({...pageParams, isLoading : true,errMsg : "Payment succeeded!"});
                     await axios.post("http://localhost:8000/payment/payment-success", { stripeId: payload.paymentIntent.id, bookingId: id })
 
                     setTimeout(() => {
-                        setIsLoading(false);
+                        setPageParams({...pageParams, isLoading : false});
                         navigate('/bookinghotel-detail-payment-method-summary');
                     }, 2000);
                 }
             }
         } catch (error) {
             console.error("Payment error:", error);
-            setMessage("An unexpected error occurred.");
+            setPageParams({...pageParams, errMsg : "An unexpected error occurred."});
 
         }
     };
@@ -69,13 +71,16 @@ export default function CheckoutForm({ dpmCheckerLink }) {
     const handleSlideEnd = async (event, info) => {
         const offset = info.offset.x;
         const sliderWidth = 300;
-        if (offset >= sliderWidth * 0.8 && isLoading === false) {
+        if (offset >= sliderWidth * 0.8 && pageParams.isLoading === false && pageParams.sliderCount < 1) {
+            setPageParams({...pageParams,sliderCount : pageParams.sliderCount+1})
             await handleSubmit(event);
+        }else if(offset <= sliderWidth * 0.25){
+            setPageParams({...pageParams,sliderCount : 0})
         }
     };
 
 
-    if (isLoading) {
+    if (pageParams.isLoading) {
         return <PaymentFormLoading />;
     }
 
@@ -121,7 +126,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
                 </div>
             </div>
 
-            {message && <div id="payment-message" className="mt-4 text-red-500">{message}</div>}
+            {pageParams.errMsg && <div id="payment-message" className="mt-4 text-red-500">{pageParams.errMsg}</div>}
         </motion.form>
     );
 }

@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import useUserStore from "../../stores/user-store";
 import useHotelStore from "../../stores/hotel-store";
 
-function RoomSelection() {
-  const [breakfastIncluded, setBreakfastIncluded] = useState(false);
+function RoomSelection(props) {
+  const { pageParams, setPageParams } = props
   const filter = useUserStore((state) => state.filter);
-  const selectedRoom = useHotelStore((state) => state.selectedRoom);
-  const actionSetSummary = useHotelStore(state=>state.actionSetSummary)
+  const  selectedRoom = useHotelStore(state=>state.selectedRoom)
 
   const journeyDate = new Date(filter.journeyDate).toLocaleDateString("en-US", {
     weekday: "short",
@@ -21,14 +20,12 @@ function RoomSelection() {
     day: "numeric",
   });
 
-  //Calculate Date
-  const journeyDateObj = new Date(filter.journeyDate);
-  const returnDateObj = new Date(filter.returnDate);
-  const differenceInTime = returnDateObj - journeyDateObj;
-  const nights = Math.max(1, Math.ceil(differenceInTime / (1000 * 60 * 60 * 24)));
 
-  const totalPrice = Number(selectedRoom.price) * nights;
-  actionSetSummary(totalPrice)
+
+
+  const hdlChange = (e) => {
+    setPageParams({ ...pageParams, [e.target.name]: +e.target.value })
+  }
 
   return (
     <div className="container mx-auto grid grid-cols-1 gap-6">
@@ -54,7 +51,7 @@ function RoomSelection() {
 
           {/* 6 nights with line and dots */}
           <div className="text-orange-500 font-medium text-center">
-            <p>{nights} nights</p>
+            <p>{pageParams.nights} nights</p>
             <div className="flex items-center space-x-2px">
               <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
               <div className="w-16 h-0.5 bg-orange-500"></div>
@@ -80,24 +77,23 @@ function RoomSelection() {
           </div>
           <div className="flex justify-between items-center">
             <span>
-              {breakfastIncluded ? "With Breakfast" : "Without Breakfast"}
+              {pageParams.breakfastIncluded ? "With Breakfast" : "Without Breakfast"}
             </span>
             <label className="relative inline-flex items-center cursor-pointer">
               <input
                 type="checkbox"
                 className="sr-only peer"
-                checked={breakfastIncluded}
-                onChange={() => setBreakfastIncluded(!breakfastIncluded)}
+                checked={pageParams.breakfastIncluded}
+                onChange={() => setPageParams({ ...pageParams, breakfastIncluded: !pageParams.breakfastIncluded })}
               />
-              <div className="w-[70px] h-5 bg-orange-200 rounded-full peer peer-checked:bg-orange-500 relative">
+              <div className="w-[40px] h-5 bg-orange-200 rounded-full peer peer-checked:bg-orange-500 relative">
                 <span
-                  className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform ${
-                    breakfastIncluded
-                      ? "translate-x-5 bg-orange-500 shadow-lg"
-                      : "bg-white"
-                  }`}
+                  className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform ${pageParams.breakfastIncluded
+                    ? "translate-x-5 bg-orange-500 shadow-lg"
+                    : "bg-white"
+                    }`}
                   style={{
-                    boxShadow: breakfastIncluded
+                    boxShadow: pageParams.breakfastIncluded
                       ? "0px 2px 5px rgba(0, 0, 0, 0.3)"
                       : "none",
                   }}
@@ -112,9 +108,11 @@ function RoomSelection() {
         <div className="mt-4 text-sm">
           <p>Price details</p>
           <div className="flex justify-between">
-            <p>1 Room(s), {nights} night(s)</p>
+            <div className="flex items-center gap-2">
+              <p>Room(s)</p><input type="number" className="h-8 px-2 w-12" onChange={hdlChange} min={1} name="room" value={pageParams.room} /> <p>, {pageParams.nights} night(s)</p>
+            </div>
             <p className="text-lg font-bold text-orange-600">
-              THB {totalPrice}.00
+              THB {pageParams.totalPrice}.00
             </p>
           </div>
         </div>

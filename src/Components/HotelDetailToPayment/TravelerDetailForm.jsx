@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useHotelStore from "../../stores/hotel-store";
 import useUserStore from "../../stores/user-store";
@@ -6,20 +6,21 @@ import axios from "axios";
 import useBookingStore from "../../stores/booking-store";
 import { useShallow } from "zustand/shallow";
 
-const TravelerDetailForm = () => {
+const TravelerDetailForm = (props) => {
+  const { pageParams, setPageParams } = props
   const navigate = useNavigate();
-  const {user,filter} = useUserStore(useShallow(state=>({
-    user : state.user,
-    filter : state.filter
+  const { user, filter } = useUserStore(useShallow(state => ({
+    user: state.user,
+    filter: state.filter
   })))
-  const {summary , currentHotel } = useHotelStore(useShallow(state=>({
-    summary : state.summary,
-    currentHotel  :state.currentHotel
+  const { currentHotel, selectedRoom } = useHotelStore(useShallow(state => ({
+    currentHotel: state.currentHotel,
+    selectedRoom: state.selectedRoom
   })))
-  const {actionSetBooking,actionSetId,actionSetBookingDetail} = useBookingStore(useShallow(state=>({
-    actionSetBooking : state.actionSetBooking,
-    actionSetId : state.actionSetId,
-    actionSetBookingDetail : state.actionSetBookingDetail
+  const { actionSetBooking, actionSetId, actionSetBookingDetail } = useBookingStore(useShallow(state => ({
+    actionSetBooking: state.actionSetBooking,
+    actionSetId: state.actionSetId,
+    actionSetBookingDetail: state.actionSetBookingDetail
   })))
   const [bookingData, setBookingData] = useState({
     firstName: "",
@@ -31,10 +32,25 @@ const TravelerDetailForm = () => {
   const [coupon, setCoupon] = useState({
     promotion: "",
   });
-  const [discount, setDiscount] = useState(0);
-  const [discountedPrice, setDiscountedPrice] = useState(summary);
-  const [promotionId, setPromotionId] = useState(null);
 
+  useEffect(() => {// discount control
+    if (pageParams.coupon) {
+      console.log('have coupon')
+      console.log(pageParams)
+      if (+pageParams.totalPrice < +pageParams.coupon?.minimumSpend) {
+        alert(`This coupon requires a minimum spend of ${pageParams.coupon?.minimumSpend}`)
+        setPageParams(prv=>({ ...prv, coupon: null, discount: 0 }))
+      } else {
+
+        let discountedPrice = parseFloat(((+pageParams.totalPrice * +pageParams.coupon?.discountPercent) / 100) + +pageParams.coupon?.discountValue)
+        if (discountedPrice > pageParams.coupon?.maxDiscount) {
+          discountedPrice = parseFloat(pageParams.coupon.maxDiscount)
+        }
+        console.log(discountedPrice)
+        setPageParams(prv=>({ ...prv, discount: discountedPrice }))
+      }
+    }
+  }, [pageParams.coupon, pageParams.totalPrice])
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -60,21 +76,24 @@ const TravelerDetailForm = () => {
     actionSetBooking(bookingData);
 
     try {
+      console.log(selectedRoom)
       const bookingPayload = {
-        totalPrice: discountedPrice,
+        totalPrice: +pageParams.summaryPrice,
         checkinDate: checkInDate,
         checkoutDate: checkOutDate,
-        hotelId: currentHotel.id,
+        hotelId: +currentHotel.id,
+        roomId: +selectedRoom.id,
+        amount: +pageParams.room
       };
 
       if (user?.id) {
-        bookingPayload.userId = user.id;
+        bookingPayload.userId = +user.id;
       }
 
-      if (promotionId) {
-        bookingPayload.promotionId = promotionId;
+      if (pageParams.coupon) {
+        bookingPayload.promotionId = +pageParams.coupon.id;
       }
-
+      console.log(bookingPayload)
       actionSetBookingDetail(bookingPayload)
 
       const res = await axios.post(
@@ -95,23 +114,26 @@ const TravelerDetailForm = () => {
       alert("You must be logged in to use a promotion.");
       return;
     }
-
     try {
       const res = await axios.get(`http://localhost:8000/promotion/${coupon.promotion}`);
       const couponData = res.data;
-
-      if (summary >= parseFloat(couponData.minimumSpend)) {
-        const discountFromPercent = (summary * couponData.discountPercent) / 100;
-        const appliedDiscount = Math.min(discountFromPercent, parseFloat(couponData.maxDiscount));
-
-        setDiscount(appliedDiscount);
-        setDiscountedPrice(summary - appliedDiscount);
-        setPromotionId(couponData.id); // Save the promotionId to send with the booking
-
-        alert("Coupon applied successfully!");
-      } else {
-        alert(`This coupon requires a minimum spend of ${couponData.minimumSpend}`);
+      if (!couponData) {
+        return alert("You coupon invalid")
       }
+      console.log(couponData)
+      setPageParams({ ...pageParams, coupon: couponData })
+      // if (summary >= parseFloat(couponData.minimumSpend)) {
+      //   const discountFromPercent = (summary * couponData.discountPercent) / 100;
+      //   const appliedDiscount = Math.min(discountFromPercent, parseFloat(couponData.maxDiscount));
+
+      //   setDiscount(appliedDiscount);
+      //   setDiscountedPrice(summary - appliedDiscount);
+      //   setPromotionId(couponData.id); // Save the promotionId to send with the booking
+      alert("Coupon applied successfully!");
+      // } 
+      // else {
+      //   alert(`This coupon requires a minimum spend of ${couponData.minimumSpend}`);
+      // }
     } catch (error) {
       console.log("Error applying coupon:", error);
       alert("An error occurred while applying the coupon.");
@@ -186,13 +208,11 @@ const TravelerDetailForm = () => {
       </div>
       <div className="flex justify-between items-center mt-4">
         <p className="text-lg font-bold">Total Price</p>
-        <div className="text-right">
+        <div className="text-right flex-col-reverse flex">
           <p className="text-xl font-bold text-orange-500">
-            {discountedPrice.toFixed(2)}
+            {pageParams.summaryPrice.toFixed(2)}
           </p>
-          {discount > 0 && (
-            <p className="text-sm text-gray-500 line-through">{summary.toFixed(2)}</p>
-          )}
+          <p className="text-sm text-gray-500">- {pageParams.discount?.toFixed(2) || '0.00'}</p>
         </div>
       </div>
       <button type="submit" className="flex justify-center items-center m-auto w-[150px] mt-6 bg-orange-500 text-white py-2 rounded">
