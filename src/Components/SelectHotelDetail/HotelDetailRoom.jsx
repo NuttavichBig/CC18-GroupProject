@@ -1,8 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import useHotelStore from '../../stores/hotel-store';
 
 function HotelDetailRoom({ rooms }) {
     const navigate = useNavigate();
+    const actionSetSelectedRoom = useHotelStore(state=>state.actionSetSelectedRoom)
+    const actionClearSelectedRooms = useHotelStore(state=>state.actionClearSelectedRooms)
 
     if (!rooms || rooms.length === 0) {
         return <div>No rooms available at this time.</div>;
@@ -13,7 +16,9 @@ function HotelDetailRoom({ rooms }) {
     }
 
     const handleBookNow = (room) => {
-        navigate('/bookinghotel-detail-payment', { state: { room } });
+        // actionClearSelectedRooms()
+        actionSetSelectedRoom(room)
+        navigate('/bookinghotel-detail-payment');
     };
 
     return (
