@@ -71,7 +71,7 @@ function SelectHotelDetail() {
                     </div>
 
 
-                    <div className="grid grid-cols-4 gap-6 mb-[500px]">
+                    <div className="grid grid-cols-4 gap-6 mt-[60px] mb-[500px]">
                         <div className="col-span-1"></div>
                         <div className="col-span-3 bg-[#fef6e4]">
                             <HotelDetailRecommend />

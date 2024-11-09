@@ -65,7 +65,7 @@ function HotelDetailToPayment() {
                     <SearchBoxMain />
 
                     <div className="p-6">
-                        <span className='ml-1'>Overview to pay</span>
+                        <span className='ml-1 font-bold'>Overview to pay</span>
                         <HotelDetailMain />
                     </div>
 

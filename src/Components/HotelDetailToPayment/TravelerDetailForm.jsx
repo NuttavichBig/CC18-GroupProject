@@ -134,54 +134,54 @@ const TravelerDetailForm = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-[#fef6e4] p-6 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4">Traveler Details :</h3>
+    <form onSubmit={handleSubmit} className="bg-luxury-cream-gradient p-6 rounded-lg shadow-md">
+      <h3 className="text-lg font-semibold mb-4 text-warm-brown">Traveler Details :</h3>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <label className="block text-gray-700">Name :</label>
+          <label className="block text-warm-brown">Name :</label>
           <input
             type="text"
-            className="w-full p-2 mt-1 rounded bg-[#fef0d6]"
+            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
             name="firstName"
             value={bookingData.firstName}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label className="block text-gray-700">Last Name :</label>
+          <label className="block text-warm-brown">Last Name :</label>
           <input
             type="text"
-            className="w-full p-2 mt-1 rounded bg-[#fef0d6]"
+            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
             name="lastName"
             value={bookingData.lastName}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label className="block text-gray-700">Email :</label>
+          <label className="block text-warm-brown">Email :</label>
           <input
             type="email"
-            className="w-full p-2 mt-1 rounded bg-[#fef0d6]"
+            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
             name="email"
             value={bookingData.email}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label className="block text-gray-700">Phone :</label>
+          <label className="block text-warm-brown">Phone :</label>
           <input
             type="text"
-            className="w-full p-2 mt-1 rounded bg-[#fef0d6]"
+            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
             name="phone"
             value={bookingData.phone}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label className="block text-gray-700">Promotion Code :</label>
+          <label className="block text-warm-brown">Promotion Code :</label>
           <input
             type="text"
-            className="w-full p-2 mt-1 rounded bg-[#fef0d6]"
+            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
             name="promotion"
             value={coupon.promotion}
             onChange={handleCouponChange}
@@ -200,7 +200,7 @@ const TravelerDetailForm = (props) => {
         </div>
       </div>
       <div className="flex justify-between items-center mt-4">
-        <p className="text-lg font-bold">Total Price</p>
+        <p className="text-lg font-bold text-warm-brown">Total Price</p>
         <div className="text-right flex-col-reverse flex">
           <p className="text-xl font-bold text-orange-500">
             {pageParams.summaryPrice.toFixed(2)}
@@ -208,7 +208,7 @@ const TravelerDetailForm = (props) => {
           <p className="text-sm text-gray-500">- {pageParams.discount?.toFixed(2) || '0.00'}</p>
         </div>
       </div>
-      <button type="submit" className="flex justify-center items-center m-auto w-[150px] mt-6 bg-orange-500 text-white py-2 rounded">
+      <button type="submit" className="flex justify-center items-center m-auto w-[150px] mt-6 bg-orange-dark-gradient text-white py-2 rounded-full shadow-lg transition-ease hover:scale-105">
         Continue to Pay
       </button>
     </form>

@@ -11,7 +11,7 @@ export default function ContentMainPage() {
         <p className="text-2xl font-semibold mb-6 text-[#543310] text-center">
           Why book with Us ?
         </p>
-        <div className="bg-[#F8F4E1] rounded-lg p-8 mt-10 shadow-lg grid grid-cols-1 md:grid-cols-4 gap-8 text-[#543310] mx-10">
+        <div className="bg-cream-light-gradient rounded-lg p-8 mt-10 shadow-lg grid grid-cols-1 md:grid-cols-4 gap-8 text-[#543310] mx-10">
           <div className="p-3 bg-white rounded-lg shadow-md flex items-center">
             <img src={tripbag} alt="" className="w-[60px] h-[60px] mr-3" />
             <div className="flex flex-col">
