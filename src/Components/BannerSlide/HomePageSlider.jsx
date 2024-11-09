@@ -76,7 +76,7 @@ const HomePageSlider = () => {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(0, 0, 0, 0.5)", // สีดำโปร่งแสง
+          backgroundColor: "rgba(0, 0, 0, 0.4)", // สีดำโปร่งแสง
           zIndex: 0,
         }}
       ></div>
