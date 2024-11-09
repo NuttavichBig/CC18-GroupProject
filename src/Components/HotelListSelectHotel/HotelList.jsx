@@ -11,7 +11,6 @@ const HotelList = ({ hotels }) => {
     const handleBookNow = (hotel) => {
         actionSetCurrentHotel(hotel)
         navigate('/bookinghotel-detail');
-        // navigate('/bookinghotel-detail', { state: { hotel } });
     }
 
     const formatFacilityName = (key) => {
