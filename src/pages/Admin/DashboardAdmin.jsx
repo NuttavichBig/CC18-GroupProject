@@ -97,7 +97,7 @@ export default function DashboardAdmin({ }) {
             >
               <p className="text-2xl font-bold ">WAITING CHAT</p>
               <p className="absolute top-8 right-5 transform translate-x-1/2 -translate-y-1/2 text-3xl font-bold text-[#FF0000] rounded-full border-4 border-[#AF8F6F] bg-[#F8F4E1] p-2">
-                {(chatBoxList.filter(el=>el.isAdmin === true)).length}
+                {(chatBoxList.filter(el=>el.isAdmin === false)).length}
               </p>
             </button>
           </div>

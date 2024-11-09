@@ -36,7 +36,7 @@ const useAdminStore = create(persist((set, get) => ({
         const {chatRoom} = useAdminStore.getState()
         if(chatRoom){
             const updatedMessage = [...chatRoom.messages,newMsg]
-            set({chatRoom : {messages  : updatedMessage}})
+            set({chatRoom : {...chatRoom,messages  : updatedMessage}})
         }
     }
 }), {
