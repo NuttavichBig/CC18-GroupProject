@@ -6,7 +6,7 @@ import useBookingStore from '../../stores/booking-store';
 function SummaryRoomDetail() {
     const selectedRoom = useHotelStore(state=>state.selectedRoom)
     const bookingDetail = useBookingStore(state=>state.bookingDetail)
-    const bookingData = useBookingStore(state=>state.bookingData)
+    // const bookingData = useBookingStore(state=>state.bookingData)
 
     return (
         <div className="p-6 bg-[#fef6e4] rounded-lg shadow-md space-y-4">
@@ -55,9 +55,9 @@ function SummaryRoomDetail() {
 
             <div className="mt-6 text-sm space-y-1">
                 <p className='font-bold'>Contact Details</p>
-                <p className='ml-5'>Name: {bookingData.firstName} {bookingData.lastName}</p>
-                <p className='ml-5'>Tel: {bookingData.phone}</p>
-                <p className='ml-5'>Email: {bookingData.email}</p>
+                <p className='ml-5'>Name: {bookingDetail.firstName} {bookingDetail.lastName}</p>
+                <p className='ml-5'>Tel: {bookingDetail.phone}</p>
+                <p className='ml-5'>Email: {bookingDetail.email}</p>
             </div>
         </div>
     );

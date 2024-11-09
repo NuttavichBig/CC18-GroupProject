@@ -11,6 +11,7 @@ const useBookingStore = create(
       bookingDetail : null,
       clientSecret : '',
       uuid : null,
+      resBookingData : null,
       setClientSecret : (data)=>{
         set({clientSecret : data})
       },
@@ -31,6 +32,9 @@ const useBookingStore = create(
       },
       actionClearBookingDetail : () => {
         set({bookingDetail: null})
+      },
+      setResponseBooking : (data)=>{
+        set({resBookingData  :data})
       },
       searchByUUID : async(uuid)=>{
         const result = await axios.get(`${API}/booking/${uuid}`)

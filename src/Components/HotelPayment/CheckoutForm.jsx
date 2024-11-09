@@ -21,9 +21,10 @@ export default function CheckoutForm({ dpmCheckerLink }) {
     const [isSubmit ,setIsSubmit] = useState(false)
     const navigate = useNavigate();
     const controls = useAnimation();
-    const { id, clientSecret } = useBookingStore(useShallow(state => ({
+    const { id, clientSecret,setResponseBooking } = useBookingStore(useShallow(state => ({
         id: state.id,
-        clientSecret: state.clientSecret
+        clientSecret: state.clientSecret,
+        setResponseBooking : state.setResponseBooking
     })))
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -60,7 +61,9 @@ export default function CheckoutForm({ dpmCheckerLink }) {
         } else if (payload.paymentIntent && payload.paymentIntent.status === "succeeded") {
             console.log("Payment succeeded");
             setPageParams(prv=>({...prv,errMsg : '',isLoading : true}))
-            await axios.post("http://localhost:8000/payment/payment-success", { stripeId: payload.paymentIntent.id, bookingId: id })
+            const result= await axios.post("http://localhost:8000/payment/payment-success", { stripeId: payload.paymentIntent.id, bookingId: id })
+            const booking = result.data
+            setResponseBooking(booking)
             navigate('/bookinghotel-detail-payment-method-summary');
         }
     }

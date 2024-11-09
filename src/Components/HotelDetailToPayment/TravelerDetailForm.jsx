@@ -17,16 +17,15 @@ const TravelerDetailForm = (props) => {
     currentHotel: state.currentHotel,
     selectedRoom: state.selectedRoom
   })))
-  const { actionSetBooking, actionSetId, actionSetBookingDetail } = useBookingStore(useShallow(state => ({
-    actionSetBooking: state.actionSetBooking,
+  const { actionSetId, actionSetBookingDetail } = useBookingStore(useShallow(state => ({
     actionSetId: state.actionSetId,
     actionSetBookingDetail: state.actionSetBookingDetail
   })))
   const [bookingData, setBookingData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
+    firstName: user?.firstName || "",
+    lastName:user?.lastName || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
   });
 
   const [coupon, setCoupon] = useState({
@@ -39,7 +38,7 @@ const TravelerDetailForm = (props) => {
       console.log(pageParams)
       if (+pageParams.totalPrice < +pageParams.coupon?.minimumSpend) {
         alert(`This coupon requires a minimum spend of ${pageParams.coupon?.minimumSpend}`)
-        setPageParams(prv=>({ ...prv, coupon: null, discount: 0 }))
+        setPageParams(prv => ({ ...prv, coupon: null, discount: 0 }))
       } else {
 
         let discountedPrice = parseFloat(((+pageParams.totalPrice * +pageParams.coupon?.discountPercent) / 100) + +pageParams.coupon?.discountValue)
@@ -47,7 +46,7 @@ const TravelerDetailForm = (props) => {
           discountedPrice = parseFloat(pageParams.coupon.maxDiscount)
         }
         console.log(discountedPrice)
-        setPageParams(prv=>({ ...prv, discount: discountedPrice }))
+        setPageParams(prv => ({ ...prv, discount: discountedPrice }))
       }
     }
   }, [pageParams.coupon, pageParams.totalPrice])
@@ -72,9 +71,6 @@ const TravelerDetailForm = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    actionSetBooking(bookingData);
-
     try {
       console.log(selectedRoom)
       const bookingPayload = {
@@ -83,7 +79,11 @@ const TravelerDetailForm = (props) => {
         checkoutDate: checkOutDate,
         hotelId: +currentHotel.id,
         roomId: +selectedRoom.id,
-        amount: +pageParams.room
+        amount: +pageParams.room,
+        firstName: bookingData.firstName,
+        lastName: bookingData.lastName,
+        phone: bookingData.phone,
+        email: bookingData.email
       };
 
       if (user?.id) {
@@ -94,7 +94,7 @@ const TravelerDetailForm = (props) => {
         bookingPayload.promotionId = +pageParams.coupon.id;
       }
       console.log(bookingPayload)
-      actionSetBookingDetail({...bookingPayload,nights : pageParams.nights})
+      actionSetBookingDetail({ ...bookingPayload, nights: pageParams.nights })
 
       const res = await axios.post(
         "http://localhost:8000/booking",
@@ -114,7 +114,7 @@ const TravelerDetailForm = (props) => {
       alert("You must be logged in to use a promotion.");
       return;
     }
-    if(!coupon.promotion.trim()){
+    if (!coupon.promotion.trim()) {
       alert("Please fill your code")
       return;
     }
