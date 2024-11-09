@@ -7,7 +7,7 @@ import useUserStore from '../../stores/user-store';
 import { useShallow } from 'zustand/shallow';
 
 const SearchBoxMain = (props) => {
-    const {handleSearch} = props
+    const { handleSearch } = props
     // const [journeyDate, setJourneyDate] = useState(new Date());
     // const [returnDate, setReturnDate] = useState(new Date());
     // const [showJourneyCalendar, setShowJourneyCalendar] = useState(false);
@@ -137,7 +137,7 @@ const SearchBoxMain = (props) => {
 
 
                 <button className="flex-shrink-0 h-12 w-28 bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold rounded-full shadow-md transition-transform duration-200 hover:scale-105"
-                onClick={handleSearch}>
+                    onClick={handleSearch}>
                     Search
                 </button>
             </div>
