@@ -3,12 +3,18 @@ import tripbag from "../../assets/tripbag.png";
 import envelope from "../../assets/envelope.png";
 import tag from "../../assets/tag.png";
 import secure from "../../assets/secure.png";
+import content from "../../assets/content.mp4";
 
 export default function ContentMainPage() {
   return (
     <>
       <div className="mb-10">
-        <p className="text-2xl font-semibold mb-6 text-[#543310] text-center">
+        <div className="flex justify-center mb-10">
+          <video autoPlay loop muted className="rounded-xl h-[500px]">
+            <source src={content} type="video/mp4" />
+          </video>
+        </div>
+        <p className="text-2xl font-semibold mb-10 text-[#543310] text-center">
           Why book with Us ?
         </p>
         <div className="bg-[#F8F4E1] rounded-lg p-8 mt-10 shadow-lg grid grid-cols-1 md:grid-cols-4 gap-8 text-[#543310] mx-10">
@@ -63,9 +69,11 @@ export default function ContentMainPage() {
           </div>
         </div>
       </div>
-      <p className="text-2xl font-semibold mb-6 text-[#543310] text-center">
-        Rediscover yourself in Thailand and beyond
-      </p>
+      <div>
+        <p className="text-2xl font-semibold mb-6 text-[#543310] text-center">
+          Rediscover yourself in Thailand and beyond
+        </p>
+      </div>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import bgImage from "../assets/bgImage.png";
+import bgImage from "../assets/Unauthor.png";
 import HeaderUserPage from "../Components/Nav-Footer-Chat/HeaderUserPage";
 
 export default function Unauthorized() {
@@ -15,8 +15,8 @@ export default function Unauthorized() {
         alignItems: "center",
       }}
     >
-      <div >
-      <HeaderUserPage />
+      <div>
+        <HeaderUserPage />
       </div>
     </div>
   );

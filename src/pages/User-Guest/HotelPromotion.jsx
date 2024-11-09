@@ -22,7 +22,6 @@ function HotelPromotion() {
           </div>
         </div>
       </div>
-      <PictureSlide />
       <Footer />
     </div>
   );

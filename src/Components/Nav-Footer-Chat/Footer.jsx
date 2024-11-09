@@ -56,27 +56,33 @@ const Footer = () => {
           </svg>
 
           {/* Text Sections inside the wave */}
-          <div className="absolute inset-0 flex justify-around items-center h-20 mt-80 z-50">
+          <div className="absolute inset-0 flex justify-around h-20 my-56 z-50">
             <div className="flex flex-col items-center text-white">
               <p className="text-lg font-bold pb-4">PAYMENT PARTNER</p>
               <div className="flex gap-4">
                 <img
                   src={mastercard}
                   alt="Mastercard"
-                  className="w-12 rounded-full bg-white"
+                  className="w-16 rounded-lg p-1 bg-white"
                 />
                 <img
                   src={visa}
                   alt="Visa"
-                  className="w-12 rounded-full bg-white"
+                  className="w-16 rounded-lg p-1 bg-white"
                 />
               </div>
             </div>
-            <div className="flex flex-col items-center text-white">
-              <p className="text-lg font-bold pb-4">CONTACT US</p>
+            <div className="flex flex-col text-white">
+              <p className="text-lg font-bold pb-2">CONTACT US</p>
+              <p>About Us</p>
+              <p>News</p>
+              <p>Condition</p>
             </div>
-            <div className="flex flex-col items-center text-white">
-              <p className="text-lg font-bold pb-4">FOLLOW US ON</p>
+            <div className="flex flex-col text-white">
+              <p className="text-lg font-bold pb-2">FOLLOW US ON</p>
+              <p>Facebook</p>
+              <p>Instagram</p>
+              <p>Line official</p>
             </div>
           </div>
 
