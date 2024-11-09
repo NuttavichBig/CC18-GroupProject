@@ -13,12 +13,6 @@ const FilterPanel = () => {
         setInput: state.setFilter
     })))
 
-<<<<<<< HEAD
-=======
-
-    console.log(input)
-
->>>>>>> dev
     useEffect(() => {
         setInput({
             ...input,
