@@ -22,7 +22,6 @@ export default function BookingDetailPartner() {
     })
     setPartnerList(result.data.data)
   }
-  console.log(partnerList)
   return (
     <>
       <div className="w-full text-[#543310]">

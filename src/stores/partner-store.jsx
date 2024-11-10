@@ -34,6 +34,27 @@ const usePartnerStore = create((set,get)=>({
           Authorization: `Bearer ${token}`
         }
       })
+    },
+    updatePartner : async(body)=>{
+      const {token} = useUserStore.getState()
+      const result = await axios.patch(`${API}/partner`,body,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      console.log(result.data.partner)
+      set({partner  :result.data.partner})
+    },
+    updateHotel : async(body)=>{
+      const {token} = useUserStore.getState()
+      const {hotel} =usePartnerStore.getState()
+      const result = await axios.patch(`${API}/hotel/${hotel.id}`,body,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      console.log(result.data)
+      set({hotel : result.data})
     }
     
     

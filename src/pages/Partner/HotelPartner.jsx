@@ -23,7 +23,6 @@ export default function HotelPartner() {
 
   const getHotelDetail = async () => {
     const result = await axios.get(`${API}/hotel/${hotel.id}`)
-    console.log(result.data.rooms)
     setRooms(result.data.rooms)
   }
 
