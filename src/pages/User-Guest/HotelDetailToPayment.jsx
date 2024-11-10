@@ -8,15 +8,15 @@ import TravelerDetailForm from '../../Components/HotelDetailToPayment/TravelerDe
 import useHotelStore from '../../stores/hotel-store';
 import { useShallow } from 'zustand/shallow';
 import useUserStore from '../../stores/user-store';
-
+import BookingProgressBallLeft from "../../Components/BookingProgrssBall/BookingProgressBallLeft"
 
 
 function HotelDetailToPayment() {
     const filter = useUserStore(state => state.filter)
-    const { selectedRoom, actionSetSummary ,actionSetRoom} = useHotelStore(useShallow(state => ({
+    const { selectedRoom, actionSetSummary, actionSetRoom } = useHotelStore(useShallow(state => ({
         selectedRoom: state.selectedRoom,
         actionSetSummary: state.actionSetSummary,
-        actionSetRoom  :state.actionSetRoom
+        actionSetRoom: state.actionSetRoom
     })))
 
 
@@ -32,24 +32,24 @@ function HotelDetailToPayment() {
         summaryPrice: 0,
         nights: 0
     })
-    useEffect(()=>{
+    useEffect(() => {
         console.log('fisrt effect')
         const nights = Math.max(1, Math.ceil(differenceInTime / (1000 * 60 * 60 * 24)))
-        setPageParams(prv=>({
-            ...prv, nights : nights
+        setPageParams(prv => ({
+            ...prv, nights: nights
         }))
-    },[])
+    }, [])
     useEffect(() => {
         const breakfast = pageParams.breakfastIncluded ? 60 : 0
         // const price = (Number(selectedRoom.price) + breakfast) * pageParams.nights * pageParams.room;
-        setPageParams(prv=>({ ...prv, totalPrice: (Number(selectedRoom.price) + breakfast) * prv.nights * prv.room }))
+        setPageParams(prv => ({ ...prv, totalPrice: (Number(selectedRoom.price) + breakfast) * prv.nights * prv.room }))
         actionSetRoom(pageParams.room)
-    }, [pageParams.room, pageParams.breakfastIncluded,pageParams.nights])
+    }, [pageParams.room, pageParams.breakfastIncluded, pageParams.nights])
     useEffect(() => {
         actionSetSummary(pageParams.summaryPrice)
     }, [pageParams.summaryPrice])
     useEffect(() => { // summary control
-        setPageParams(prv=>({ ...prv, summaryPrice: prv.totalPrice - prv.discount }))
+        setPageParams(prv => ({ ...prv, summaryPrice: prv.totalPrice - prv.discount }))
     }, [pageParams.discount, pageParams.totalPrice])
     // useEffect(()=>{
     //     console.log(pageParams)
@@ -71,18 +71,7 @@ function HotelDetailToPayment() {
 
 
                     {/* Progress Bar */}
-                    <div className="grid grid-cols-2 items-center mb-8">
-                        <h2 className="text-5xl font-bold text-gray-600 ml-2">Your Accommodation Booking</h2>
-                        <div className="flex justify-center items-center w-full">
-                            <div className="flex items-center h-[100px]">
-                                <div className="rounded-full bg-orange-500" style={{ width: '60px', height: '60px' }}></div>
-                                <div className="h-1 w-52 bg-black mx-0"></div>
-                                <div className="rounded-full bg-gray-300" style={{ width: '60px', height: '60px' }}></div>
-                                <div className="h-1 w-52 bg-black mx-0"></div>
-                                <div className="rounded-full bg-gray-300" style={{ width: '60px', height: '60px' }}></div>
-                            </div>
-                        </div>
-                    </div>
+                    <BookingProgressBallLeft />
 
                     <div className="grid grid-cols-3 gap-6 ">
 

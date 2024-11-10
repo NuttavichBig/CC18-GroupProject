@@ -60,17 +60,9 @@ function HotelDetailRecommend() {
                         <p style={{ fontSize: '1.25rem', fontWeight: 'bold', marginTop: '8px', color: '#f08a4b' }}>THB {hotel.price}</p>
                     </div>
                     <button
+                        className="bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
                         onClick={() => navigate('/bookinghotel-detail')}
-                        style={{
-                            background: 'linear-gradient(to right, #f08a4b, #e05b3c)',
-                            color: '#fff',
-                            padding: '0.5rem 1rem',
-                            borderRadius: '9999px',
-                            fontWeight: 'bold',
-                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                            transition: 'transform 0.2s ease-in-out',
-                            cursor: 'pointer'
-                        }}
+
                     >
                         BOOK NOW
                     </button>

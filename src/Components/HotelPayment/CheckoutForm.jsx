@@ -12,39 +12,39 @@ import { useShallow } from "zustand/shallow";
 export default function CheckoutForm({ dpmCheckerLink }) {
     const stripe = useStripe()
     const elements = useElements()
-    const [pageParams , setPageParams] = useState({
-        errMsg : '',
+    const [pageParams, setPageParams] = useState({
+        errMsg: '',
         // isLoading : false,
         // stripe : useStripe(),
         // elements : useElements()
     })
-    const [isSubmit ,setIsSubmit] = useState(false)
+    const [isSubmit, setIsSubmit] = useState(false)
     const navigate = useNavigate();
     const controls = useAnimation();
-    const { id, clientSecret,setResponseBooking } = useBookingStore(useShallow(state => ({
+    const { id, clientSecret, setResponseBooking } = useBookingStore(useShallow(state => ({
         id: state.id,
         clientSecret: state.clientSecret,
-        setResponseBooking : state.setResponseBooking
+        setResponseBooking: state.setResponseBooking
     })))
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             console.log('submit')
             if (!pageParams.isLoading) {
-                        await stripeCall();
+                await stripeCall();
 
             }
         } catch (error) {
             console.log(error)
             const errMsg = error?.response?.data?.message || error.message
-            setPageParams(prv=>({...prv, errMsg : errMsg}));
-        }finally{
+            setPageParams(prv => ({ ...prv, errMsg: errMsg }));
+        } finally {
             controls.start({ x: 0 });
-            setPageParams(prv=>({...prv,isLoading : false}))
+            setPageParams(prv => ({ ...prv, isLoading: false }))
         }
     };
-    const stripeCall = async ()=>{
-        if(!stripe || !elements){
+    const stripeCall = async () => {
+        if (!stripe || !elements) {
             throw new Error("Stripe or Elements not loaded")
         }
         const paymentIntentStatus = await stripe.retrievePaymentIntent(clientSecret)
@@ -52,7 +52,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
             throw new Error('Payment already completed.')
         }
         const payload = await stripe.confirmPayment({
-            elements : elements,
+            elements: elements,
             redirect: "if_required",
         });
         console.log('payload', payload)
@@ -60,8 +60,8 @@ export default function CheckoutForm({ dpmCheckerLink }) {
             throw new Error('An unexpected error occurred')
         } else if (payload.paymentIntent && payload.paymentIntent.status === "succeeded") {
             console.log("Payment succeeded");
-            setPageParams(prv=>({...prv,errMsg : '',isLoading : true}))
-            const result= await axios.post("http://localhost:8000/payment/payment-success", { stripeId: payload.paymentIntent.id, bookingId: id })
+            setPageParams(prv => ({ ...prv, errMsg: '', isLoading: true }))
+            const result = await axios.post("http://localhost:8000/payment/payment-success", { stripeId: payload.paymentIntent.id, bookingId: id })
             const booking = result.data
             setResponseBooking(booking)
             navigate('/bookinghotel-detail-payment-method-summary');
@@ -71,17 +71,17 @@ export default function CheckoutForm({ dpmCheckerLink }) {
     const handleSlideEnd = async (event, info) => {
         const offset = info.offset.x;
         const sliderWidth = 300;
-        if (offset >= sliderWidth * 0.8 ) {
-            if(isSubmit)return;
+        if (offset >= sliderWidth * 0.8) {
+            if (isSubmit) return;
             console.log('you')
             setIsSubmit(true)
             if (debounceTimeout) clearTimeout(debounceTimeout);
             debounceTimeout = setTimeout(async () => {
-            await handleSubmit(event); // Call submit function only once after debounce
-        }, 300);
-        }else if(offset <= sliderWidth * 0.25){
+                await handleSubmit(event); // Call submit function only once after debounce
+            }, 300);
+        } else if (offset <= sliderWidth * 0.25) {
             setIsSubmit(false)
-            
+
         }
     };
 
@@ -114,7 +114,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
             <div className="flex justify-center w-full">
                 <div className="relative bg-gray-300 rounded-full h-12 mt-6 w-1/2 mx-auto">
                     <motion.div
-                        className="h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-semibold relative z-10"
+                        className="h-12 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white font-semibold relative z-10 cursor-pointer "
                         drag="x"
                         dragConstraints={{ left: 0, right: 300 }}
                         onDrag={handleSlideEnd}
