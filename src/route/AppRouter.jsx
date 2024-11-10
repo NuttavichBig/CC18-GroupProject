@@ -29,7 +29,6 @@ import HotelPartner from "../pages/Partner/HotelPartner";
 import ProtectRouter from "./ProtectRouter";
 import PartnerUpdate from "../Components/Partner/PartnerUpdate";
 import HotelUpdate from "../Components/Partner/HotelUpdate";
-import RoomUpdate from "../Components/Partner/RoomUpdate";
 
 
 const MainRouter = createBrowserRouter([
@@ -107,7 +106,6 @@ const MainRouter = createBrowserRouter([
       { path: "reviewDetailPartner", element: <ProtectRouter element={<ReviewDetailPartner />} reqRole={['PARTNER']} /> },
       { path: "partnerUpdate", element: <PartnerUpdate /> },
       { path: "HotelUpdate", element: <HotelUpdate /> },
-      { path: "roomUpdate", element: <RoomUpdate /> },
     ],
   },
 ]);
