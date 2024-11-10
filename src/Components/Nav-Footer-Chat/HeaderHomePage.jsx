@@ -30,15 +30,17 @@ const HeaderHomePage = () => {
   return (
     <>
       <div
-        className="w-full flex items-center text-white"
+        className="w-full h-[100px] flex items-center text-white"
         style={{
           position: "absolute",
-          top: -30,
+          top: 0,
           left: 0,
           zIndex: 10,
-          backgroundColor: "rgba(0, 0, 0, 0.01)",
+          background: "linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(0, 0, 0, 0) 100%)",
         }}
       >
+
+
         <img
           src={travellogo}
           alt="Travel Logo"
@@ -104,37 +106,37 @@ const HeaderHomePage = () => {
             </div>
           )}
         </nav>
-          <div className="space-x-4 pr-12 flex items-center">
-            <div className="relative">
-              <span
-                className="text-xs uppercase tracking-wider cursor-pointer hover:text-gray-300"
-                onMouseEnter={handleMouseEnterProfile}
-              >
-                {token
-                  ? `Hello, ${user.firstName} ${user.lastName}`
-                  : "Hello, Guest!"}
-              </span>
+        <div className="space-x-4 pr-12 flex items-center">
+          <div className="relative">
+            <span
+              className="text-xs uppercase tracking-wider cursor-pointer hover:text-gray-300"
+              onMouseEnter={handleMouseEnterProfile}
+            >
+              {token
+                ? `Hello, ${user.firstName} ${user.lastName}`
+                : "Hello, Guest!"}
+            </span>
 
-              {isProfileDropdownOpen && (
-                <div
-                  className="absolute mt-1 bg-white bg-opacity-20 border border-white rounded-lg p-2"
-                  style={{
-                    width: "100px",
-                    transform: "translateX(20%)",
-                  }}
-                  onMouseEnter={handleMouseEnterProfile}
-                  onMouseLeave={handleMouseLeaveProfile}
+            {isProfileDropdownOpen && (
+              <div
+                className="absolute mt-1 bg-white bg-opacity-20 border border-white rounded-lg p-2"
+                style={{
+                  width: "100px",
+                  transform: "translateX(20%)",
+                }}
+                onMouseEnter={handleMouseEnterProfile}
+                onMouseLeave={handleMouseLeaveProfile}
+              >
+                <button
+                  onClick={() => navigate("/userprofile")}
+                  className="block text-center text-white rounded text-xs hover:bg-black hover:bg-opacity-10 transition duration-200"
                 >
-                  <button
-                    onClick={() => navigate("/userprofile")}
-                    className="block text-center text-white rounded text-xs hover:bg-black hover:bg-opacity-10 transition duration-200"
-                  >
-                    PROFILE
-                  </button>
-                </div>
-              )}
-            </div>
+                  PROFILE
+                </button>
+              </div>
+            )}
           </div>
+        </div>
 
       </div>
 

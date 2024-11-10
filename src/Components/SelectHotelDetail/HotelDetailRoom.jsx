@@ -4,8 +4,8 @@ import useHotelStore from '../../stores/hotel-store';
 
 function HotelDetailRoom({ rooms }) {
     const navigate = useNavigate();
-    const actionSetSelectedRoom = useHotelStore(state=>state.actionSetSelectedRoom)
-    const actionClearSelectedRooms = useHotelStore(state=>state.actionClearSelectedRooms)
+    const actionSetSelectedRoom = useHotelStore(state => state.actionSetSelectedRoom)
+    const actionClearSelectedRooms = useHotelStore(state => state.actionClearSelectedRooms)
 
     if (!rooms || rooms.length === 0) {
         return <div>No rooms available at this time.</div>;
@@ -91,20 +91,8 @@ function HotelDetailRoom({ rooms }) {
                         whiteSpace: 'nowrap'
                     }}>THB {room.price || "N/A"}</span>
                     <button
-                        style={{
-                            position: 'absolute',
-                            right: '16px',
-                            bottom: '16px',
-                            background: 'linear-gradient(to right, #f08a4b, #e05b3c)',
-                            color: '#fff',
-                            fontWeight: 'bold',
-                            padding: '0.4rem 1rem',
-                            borderRadius: '20px',
-                            fontSize: '0.875rem',
-                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                            transition: 'transform 0.2s ease-in-out',
-                            cursor: 'pointer',
-                        }}
+                        className="absolute right-4 bottom-4 bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white font-bold py-2 px-4 rounded-full text-base shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
+
                         onClick={() => handleBookNow(room)}
                     >
                         BOOK NOW

@@ -6,6 +6,8 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import { Pagination, Autoplay } from "swiper/modules";
 import axios from "axios";
+import { motion } from "framer-motion";
+
 const API = import.meta.env.VITE_API;
 
 const HomePageSlider = () => {
@@ -76,7 +78,7 @@ const HomePageSlider = () => {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(0, 0, 0, 0.5)", // สีดำโปร่งแสง
+          backgroundColor: "rgba(0, 0, 0, 0.4)", // สีดำโปร่งแสง
           zIndex: 0,
         }}
       ></div>
@@ -125,17 +127,30 @@ const HomePageSlider = () => {
               transition: "transform 0.3s ease",
             }}
           >
-            <img
-              src={slide.img}
-              alt={`Slide ${index + 1}`}
-              className="slide-image"
+            <motion.div
+              initial={{ scale: 0.9 }}
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 800, damping: 20 }}
               style={{
                 width: "100%",
                 height: "350px",
-                borderRadius: "10px",
-                boxShadow: "0px 4px 15px rgba(0, 0, 0, 1)",
+                borderRadius: "20px",
+                overflow: "hidden",
+                boxShadow: "8px 8px 20px rgba(0, 0, 0, 0.3)",
               }}
-            />
+            >
+              <motion.img
+                src={slide.img}
+                alt={`Slide ${index + 1}`}
+                className="slide-image"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </motion.div>
+
           </SwiperSlide>
         ))}
       </Swiper>

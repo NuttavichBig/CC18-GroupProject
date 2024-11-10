@@ -133,7 +133,8 @@ const SearchBoxMain = (props) => {
                     </select>
                 </div>
 
-                <button className="flex-shrink-0 h-12 w-28 bg-orange-dark-gradient text-white font-bold rounded-full shadow-lg transition-ease hover:scale-105"
+                <button
+                    className="bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-3 px-5 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
                     onClick={handleSearch}>
                     Search
                 </button>

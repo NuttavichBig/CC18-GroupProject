@@ -25,7 +25,7 @@ export default function SidebarChatAdmin({ chatBoxList }) {
               <div>
                 <p className="font-bold">{item?.user?.email || 'guest'}</p>
                 
-                <p>{item?.messages[0]?.message}</p>
+                <p>{item?.messages[0]?.message || ''}</p>
               </div>
             </div>
           )}

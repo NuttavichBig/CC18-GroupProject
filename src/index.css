@@ -5,7 +5,7 @@
 
 /* พื้นหลังแบบ Gradient สีครีมหรูหรา */
 .bg-luxury-cream-gradient {
-    background: linear-gradient(to bottom right, #fef6e4 30%, #f8ecd3 60%, #ece3d6 80%);
+    background: linear-gradient(to bottom left, #fff9ed 30%, #fdf1dc 60%, #f9e9d0 80%);
 }
 
 .bg-cream-light-gradient {

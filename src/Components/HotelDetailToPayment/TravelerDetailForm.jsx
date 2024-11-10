@@ -23,7 +23,7 @@ const TravelerDetailForm = (props) => {
   })))
   const [bookingData, setBookingData] = useState({
     firstName: user?.firstName || "",
-    lastName:user?.lastName || "",
+    lastName: user?.lastName || "",
     email: user?.email || "",
     phone: user?.phone || "",
   });
@@ -191,11 +191,11 @@ const TravelerDetailForm = (props) => {
         <div className="flex items-end">
           <button
             type="button"
-            className="bg-orange-500 w-1/5 p-1 rounded-md text-white h-3/4"
+            className="bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2.5 px-4 rounded-lg font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
             onClick={handleUseCoupon}
             disabled={!user?.id} // Disable button if user is a guest
           >
-            ใช้คูปอง
+            Use Coupon
           </button>
         </div>
       </div>
@@ -208,10 +208,13 @@ const TravelerDetailForm = (props) => {
           <p className="text-sm text-gray-500">- {pageParams.discount?.toFixed(2) || '0.00'}</p>
         </div>
       </div>
-      <button type="submit" className="flex justify-center items-center m-auto w-[150px] mt-6 bg-orange-dark-gradient text-white py-2 rounded-full shadow-lg transition-ease hover:scale-105">
+      <button type="submit"
+        className="flex justify-center items-center m-auto w-[170px] mt-6 bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-3 rounded-full font-bold text-lg shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.2),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
+
+      >
         Continue to Pay
       </button>
-    </form>
+    </form >
   );
 };
 

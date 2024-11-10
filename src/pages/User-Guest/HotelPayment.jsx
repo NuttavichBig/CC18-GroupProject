@@ -7,6 +7,7 @@ import SummaryRoomDetail from '../../Components/HotelPayment/SummaryRoomDetail';
 import PaymentMethodForm from '../../Components/HotelPayment/PaymentMethodForm';
 import CheckoutForm from '../../Components/HotelPayment/CheckoutForm';
 import PaymentProvider from '../../Components/HotelPayment/PaymentProvider';
+import BookingProgressBallMiddle from '../../Components/BookingProgrssBall/BookingProgressBallMiddle';
 
 
 
@@ -27,20 +28,7 @@ function HotelPayment() {
                         <HotelDetailMain />
                     </div>
 
-
-                    <div className="grid grid-cols-2 items-center mb-8">
-                        <h2 className="text-5xl font-bold text-gray-600">Payment</h2>
-                        <div className="flex justify-center items-center w-full">
-                            <div className="flex items-center h-[100px]">
-                                <div className="rounded-full bg-orange-500" style={{ width: '60px', height: '60px' }}></div>
-                                <div className="h-1 w-52 bg-black mx-0"></div>
-                                <div className="rounded-full bg-orange-500" style={{ width: '60px', height: '60px' }}></div>
-                                <div className="h-1 w-52 bg-black mx-0"></div>
-                                <div className="rounded-full bg-gray-300" style={{ width: '60px', height: '60px' }}></div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <BookingProgressBallMiddle />
 
 
 
