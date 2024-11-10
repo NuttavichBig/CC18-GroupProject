@@ -211,7 +211,7 @@ function RoomUpdateForm(props) {
                                         onChange={hdlChangeText} /> THB
                                 </div>
                                 <div>Amount :
-                                    <input type='number' step={0.01} value={input.roomAmount} name='roomAmount'
+                                    <input type='number' value={input.roomAmount} name='roomAmount'
                                         className='px-2 py-1'
                                         onChange={hdlChangeText} /> room(s)
 
