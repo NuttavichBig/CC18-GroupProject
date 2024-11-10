@@ -49,7 +49,7 @@ const HotelList = ({ hotels }) => {
                                     </div>
                                 </div>
                                 <button
-                                    className="bg-orange-500 text-white py-2 px-4 rounded"
+                                    className="bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
                                     onClick={() => handleBookNow(hotel)}
                                 >
                                     BOOK NOW

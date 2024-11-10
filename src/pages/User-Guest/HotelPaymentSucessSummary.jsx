@@ -4,6 +4,7 @@ import SearchBoxMain from '../../Components/FilterSearch/SearchBoxMain';
 import HeaderUserPage from '../../Components/Nav-Footer-Chat/HeaderUserPage';
 import Footer from '../../Components/Nav-Footer-Chat/Footer';
 import PaymentResult from '../../Components/HotelPaymentSucessSummary/PaymentResult';
+import BookingProgressBallRight from '../../Components/BookingProgrssBall/BookingProgressBallRight';
 
 
 
@@ -25,19 +26,7 @@ function HotelPaymentSucessSummary() {
                     </div>
 
 
-
-                    <div className="grid grid-cols-1 items-center mb-8">
-
-                        <div className="flex justify-center items-center w-full">
-                            <div className="flex items-center h-[100px]">
-                                <div className="rounded-full bg-orange-500" style={{ width: '60px', height: '60px' }}></div>
-                                <div className="h-1 w-52 bg-black mx-0"></div>
-                                <div className="rounded-full bg-orange-500" style={{ width: '60px', height: '60px' }}></div>
-                                <div className="h-1 w-52 bg-black mx-0"></div>
-                                <div className="rounded-full bg-orange-500" style={{ width: '60px', height: '60px' }}></div>
-                            </div>
-                        </div>
-                    </div>
+                    <BookingProgressBallRight />
 
 
 
