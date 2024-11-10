@@ -53,7 +53,7 @@ export default function ChatAdmin() {
             <div key={index}className={`flex gap-4 ${message.isAdmin ? 'flex-row-reverse' : 'justify-start'}`}>
               <img src={message.isAdmin ? userchat : chatRoom?.user?.image || userchat} alt="" className="w-[50px]" />
               <div>
-                <p className={`font-bold ${message?.isAdmin ? 'text-end':'text-start'}`}>{message?.isAdmin ? 'Support' : chatRoom?.user?.email}</p>
+                <p className={`font-bold ${message?.isAdmin ? 'text-end':'text-start'}`}>{message?.isAdmin ? 'Support' : chatRoom?.user?.email || 'guest'}</p>
                 <p className={` ${message?.isAdmin ? 'text-end':'text-start'}`}>{message?.message}</p>
               </div>
             </div>
