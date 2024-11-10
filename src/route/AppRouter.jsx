@@ -29,7 +29,6 @@ import HotelPartner from "../pages/Partner/HotelPartner";
 import ProtectRouter from "./ProtectRouter";
 import PartnerUpdate from "../Components/Partner/PartnerUpdate";
 import HotelUpdate from "../Components/Partner/HotelUpdate";
-import RoomUpdate from "../Components/Partner/RoomUpdate";
 
 
 const MainRouter = createBrowserRouter([
@@ -76,38 +75,37 @@ const MainRouter = createBrowserRouter([
 
   {
     path: "/userprofile",
-    element: <HomeUser />,
+    element: <ProtectRouter element={<HomeUser />} reqRole={['USER', 'PARTNER']} />,
     children: [
-      { path: "edit", element: <ProtectRouter element={<ProfileForm />} reqRole={['USER', 'PARTNER']} /> },
-      { path: "purchasehistory", element: <ProtectRouter element={<MyPurchase />} reqRole={['USER', 'PARTNER']} /> },
-      { path: "reviewhistory", element: <ProtectRouter element={<ReviewTabHistory />} reqRole={['USER', 'PARTNER']} /> },
+      { path: "edit", element: <ProfileForm /> },
+      { path: "purchasehistory", element: <MyPurchase /> },
+      { path: "reviewhistory", element: <ReviewTabHistory /> },
     ],
   },
   {
     path: "/admin",
-    element: <HomeAdmin />,
+    element: <ProtectRouter element={<HomeAdmin />} reqRole={['ADMIN']} />,
     children: [
 
-      { path: "dashboard", element: <ProtectRouter element={<DashboardAdmin />} reqRole={['ADMIN']} /> },
-      { path: "userDetailAdmin", element: <ProtectRouter element={<UserDetailAdmin />} reqRole={['ADMIN']} /> },
-      { path: "bookingDetailAdmin", element: <ProtectRouter element={<BookingDetailAdmin />} reqRole={['ADMIN']} /> },
-      { path: "hotelDetailAdmin", element: <ProtectRouter element={<HotelDetailAdmin />} reqRole={['ADMIN']} /> },
-      { path: "promotionDetailAdmin", element: <ProtectRouter element={<PromotionDetailAdmin />} reqRole={['ADMIN']} /> },
-      { path: "reviewDetailAdmin", element: <ProtectRouter element={<ReviewDetailAdmin />} reqRole={['ADMIN']} /> },
+      { path: "dashboard", element: <DashboardAdmin /> },
+      { path: "userDetailAdmin", element: <UserDetailAdmin /> },
+      { path: "bookingDetailAdmin", element: <BookingDetailAdmin /> },
+      { path: "hotelDetailAdmin", element: <HotelDetailAdmin /> },
+      { path: "promotionDetailAdmin", element: <PromotionDetailAdmin /> },
+      { path: "reviewDetailAdmin", element: <ReviewDetailAdmin /> },
     ],
   },
   {
     path: "/partner",
-    element: <HomePartner />,
+    element: <ProtectRouter element={<HomePartner />} reqRole={['PARTNER']} />,
     children: [
 
 
-      { path: "bookingDetailPartner", element: <ProtectRouter element={<BookingDetailPartner />} reqRole={['PARTNER']} /> },
-      { path: "hotelPartner", element: <ProtectRouter element={<HotelPartner />} reqRole={['PARTNER']} /> },
-      { path: "reviewDetailPartner", element: <ProtectRouter element={<ReviewDetailPartner />} reqRole={['PARTNER']} /> },
+      { path: "bookingDetailPartner", element: <BookingDetailPartner /> },
+      { path: "hotelPartner", element: <HotelPartner /> },
+      { path: "reviewDetailPartner", element: <ReviewDetailPartner /> },
       { path: "partnerUpdate", element: <PartnerUpdate /> },
       { path: "HotelUpdate", element: <HotelUpdate /> },
-      { path: "roomUpdate", element: <RoomUpdate /> },
     ],
   },
 ]);
