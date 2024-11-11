@@ -138,16 +138,3 @@ function PromotionListShowAll() {
 }
 
 export default PromotionListShowAll;
-
-// const promotions = [
-//     { id: 1, imageUrl: '/1.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 2, imageUrl: '/2.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 3, imageUrl: '/3.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 4, imageUrl: '/4.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 5, imageUrl: '/5.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 6, imageUrl: '/6.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 7, imageUrl: '/7.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 8, imageUrl: '/8.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 9, imageUrl: '/9.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 10, imageUrl: '/10.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-// ];
