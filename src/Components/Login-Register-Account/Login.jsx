@@ -4,7 +4,7 @@ import useUserStore from "../../stores/user-store";
 import { useShallow } from "zustand/shallow";
 import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import googleloginbutton from '../../assets/googleloginbuttonanimation3.gif';
+import googleloginbutton from "../../assets/googleloginbuttonanimation3.gif";
 
 const Login = ({ setIsLoginModalOpen }) => {
   const [input, setInput] = useState({
@@ -16,7 +16,7 @@ const Login = ({ setIsLoginModalOpen }) => {
     useShallow((state) => ({
       token: state.token,
       login: state.login,
-      loginWithGoogle: state.googleLogin
+      loginWithGoogle: state.googleLogin,
     }))
   );
 
@@ -45,7 +45,7 @@ const Login = ({ setIsLoginModalOpen }) => {
       const accessToken = tokenResponse.access_token;
       if (accessToken) {
         try {
-          await loginWithGoogle(accessToken)
+          await loginWithGoogle(accessToken);
           setIsLoginModalOpen(false);
         } catch (error) {
           console.error("Google login error:", error);
@@ -58,14 +58,13 @@ const Login = ({ setIsLoginModalOpen }) => {
   });
 
   return (
-
     <div
       onClick={() => setIsLoginModalOpen(false)}
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 text-[#543310]"
     >
       <form
         onSubmit={handleSubmit}
-        className="bg-[#FFF8EB] rounded-lg shadow-lg p-8 w-full max-w-2xl relative flex"
+        className="bg-[#FFF8EB] rounded-lg shadow-lg p-8  w-full max-w-2xl relative flex"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -76,7 +75,7 @@ const Login = ({ setIsLoginModalOpen }) => {
           ✕
         </button>
 
-        <div className="absolute top-[-3rem] left-1/2 transform -translate-x-1/2">
+        <div className="absolute top-[-4rem] left-1/2 transform -translate-x-1/2">
           <img
             src={travellogo}
             alt="Travel Logo"
@@ -99,7 +98,7 @@ const Login = ({ setIsLoginModalOpen }) => {
               name="email"
               type="email"
               placeholder="Email"
-              className="bg-[#FFE4B0] w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               required
               onChange={handleChange}
             />
@@ -108,17 +107,16 @@ const Login = ({ setIsLoginModalOpen }) => {
               name="password"
               type="password"
               placeholder="Password"
-              className="bg-[#FFE4B0] w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="bg-[#FFE4B0] w-full p-3  rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               required
               onChange={handleChange}
             />
           </div>
 
-          <div className="text-right text-xs pb-2 text-gray-500 cursor-pointer hover:underline mb-4">
+          <div className="text-right text-xs pb-2 text-gray-400 cursor-pointer hover:underline mb-4">
             Forget Password
           </div>
 
-          {/* Custom Google Login Button */}
           <button
             onClick={() => googleLogin()}
             type="button"
@@ -134,11 +132,13 @@ const Login = ({ setIsLoginModalOpen }) => {
               transition: "box-shadow 0.3s ease, transform 0.3s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)";
+              e.currentTarget.style.boxShadow =
+                "0px 4px 8px rgba(0, 0, 0, 0.2)";
               e.currentTarget.style.transform = "scale(1.05)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0px 2px 4px rgba(0, 0, 0, 0.1)";
+              e.currentTarget.style.boxShadow =
+                "0px 2px 4px rgba(0, 0, 0, 0.1)";
               e.currentTarget.style.transform = "scale(1)";
             }}
           >
@@ -167,20 +167,6 @@ const Login = ({ setIsLoginModalOpen }) => {
 };
 
 export default Login;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React, { useEffect, useState } from "react";
 // import travellogo from "../../assets/TRAVELHOMELOGO-USER.png";
@@ -313,5 +299,3 @@ export default Login;
 // };
 
 // export default Login;
-
-
