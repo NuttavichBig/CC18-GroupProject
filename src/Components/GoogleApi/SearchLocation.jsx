@@ -50,7 +50,7 @@ const SearchLocation = ({ onSelectLocation }) => {
         type="text"
         ref={inputRef}
         placeholder="Search for Hotel Location"
-        className="rounded-lg p-2 focus:ring-2 shadow-md"
+        className="rounded-full p-1 placeholder:text-[#543310]"
       />
     </div>
   );
