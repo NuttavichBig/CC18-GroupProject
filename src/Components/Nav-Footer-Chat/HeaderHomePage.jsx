@@ -28,19 +28,18 @@ const HeaderHomePage = () => {
   const handleMouseLeaveProfile = () => setIsProfileDropdownOpen(false);
 
   return (
-    <>
+    <div>
       <div
-        className="w-full h-[100px] flex items-center text-white"
+        className="w-full flex items-center text-white"
         style={{
           position: "absolute",
-          top: 0,
+          top: -30,
           left: 0,
           zIndex: 10,
-          background: "linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(0, 0, 0, 0) 100%)",
+          background:
+            "linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(0, 0, 0, 0) 100%)",
         }}
       >
-
-
         <img
           src={travellogo}
           alt="Travel Logo"
@@ -52,7 +51,7 @@ const HeaderHomePage = () => {
           onClick={() => navigate("/")}
         />
 
-        <nav className="flex-grow flex justify-center space-x-8 text-xs tracking-widest uppercase">
+        <nav className="flex-grow flex justify-center space-x-16 tracking-widest uppercase">
           <Link to="/bookinghotel" className="hover:text-gray-300">
             Booking
           </Link>
@@ -62,8 +61,6 @@ const HeaderHomePage = () => {
           <Link to="/user/registerpartner" className="hover:text-gray-300">
             Contact Us
           </Link>
-
-
 
           {token ? (
             <div>
@@ -86,9 +83,10 @@ const HeaderHomePage = () => {
 
               {isDropdownOpen && (
                 <div
-                  className="absolute mt-1 bg-white bg-opacity-20 border border-white rounded-lg p-2"
+                  className="absolute mt-1 bg-white bg-opacity-20 border border-white rounded-lg p-1 flex items-center justify-center"
                   style={{
                     width: "100px",
+                    height: "35px",
                     transform: "translateX(20%)",
                   }}
                   onMouseEnter={handleMouseEnterLogin}
@@ -96,7 +94,7 @@ const HeaderHomePage = () => {
                 >
                   <a
                     href="#register"
-                    className="block text-center text-white rounded hover:bg-black hover:bg-opacity-10 transition duration-200"
+                    className="block text-center text-white rounded hover:bg-black hover:bg-opacity-10 transition duration-200 w-full"
                     onClick={() => setIsRegisterModalOpen(true)}
                   >
                     Register
@@ -106,10 +104,11 @@ const HeaderHomePage = () => {
             </div>
           )}
         </nav>
-        <div className="space-x-4 pr-12 flex items-center">
+
+        <div className="flex items-center space-x-4 mr-4">
           <div className="relative">
             <span
-              className="text-xs uppercase tracking-wider cursor-pointer hover:text-gray-300"
+              className="uppercase tracking-wider cursor-pointer hover:text-gray-300 border-white border rounded-lg p-2"
               onMouseEnter={handleMouseEnterProfile}
             >
               {token
@@ -119,17 +118,17 @@ const HeaderHomePage = () => {
 
             {isProfileDropdownOpen && (
               <div
-                className="absolute mt-1 bg-white bg-opacity-20 border border-white rounded-lg p-2"
+                className="absolute mt-3 bg-white bg-opacity-20 border border-white rounded-lg p-1"
                 style={{
-                  width: "100px",
-                  transform: "translateX(20%)",
+                  width: "80px",
+                  transform: "translateX(-30%)",
                 }}
                 onMouseEnter={handleMouseEnterProfile}
                 onMouseLeave={handleMouseLeaveProfile}
               >
                 <button
                   onClick={() => navigate("/userprofile")}
-                  className="block text-center text-white rounded text-xs hover:bg-black hover:bg-opacity-10 transition duration-200"
+                  className="block text-center text-white rounded hover:bg-black hover:bg-opacity-10 transition duration-200 w-full"
                 >
                   PROFILE
                 </button>
@@ -137,14 +136,13 @@ const HeaderHomePage = () => {
             )}
           </div>
         </div>
-
       </div>
 
       {isLoginModalOpen && <Login setIsLoginModalOpen={setIsLoginModalOpen} />}
       {isRegisterModalOpen && (
         <Register setIsRegisterModalOpen={setIsRegisterModalOpen} />
       )}
-    </>
+    </div>
   );
 };
 
