@@ -1,44 +1,36 @@
 // PaymentResult.jsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import hotelsuccessicon from '../../assets/hotelsuccesspaymenticon.jpg';
+import useBookingStore from '../../stores/booking-store';
 
 function PaymentResult() {
-    const roomDetails = [
-        {
-            title: "Superior Premier",
-            description: ["Without Breakfast", "1 double bed", "Air conditioning"],
-            imageUrl: "/1.jpg",
-        },
-        {
-            title: "Deluxe Premier",
-            description: ["Without Breakfast", "1 double bed", "Air conditioning"],
-            imageUrl: "/2.jpg",
-        },
-        {
-            title: "Junior Suite",
-            description: ["With Breakfast", "1 king bed", "Sea view"],
-            imageUrl: "/3.jpg",
-        },
-        {
-            title: "Executive Suite",
-            description: ["With Breakfast", "2 double beds", "City view"],
-            imageUrl: "/4.jpg",
-        }
-    ];
+    const resBookingData = useBookingStore(state=>state.resBookingData)
+    const [date , setDate]= useState({
+        checkInDate : '',
+        checkOutDate : ''
+    })
 
+    useEffect(()=>{
+        const checkInDate = new Date(resBookingData.booking.checkinDate)
+        const checkOutDate = new Date(resBookingData.booking.checkoutDate)
+        const checkInDateString = `${checkInDate.getFullYear()}-${checkInDate.getMonth().toString().padStart(2, '0')}-${checkInDate.getDate().toString().padStart(2, '0')}`
+        const checkOutDateString = `${checkOutDate.getFullYear()}-${checkOutDate.getMonth().toString().padStart(2, '0')}-${checkOutDate.getDate().toString().padStart(2, '0')}`
+        setDate(prv=>({...prv,checkInDate : checkInDateString , checkOutDate : checkOutDateString}))
+    },[])
+    
     return (
         <div className="max-w-4xl mx-auto p-8 bg-[#fef6e4] rounded-lg shadow-md space-y-8">
 
             <div className="flex justify-between items-center text-gray-700">
                 <p className="text-lg font-medium">Book Number</p>
-                <p className="text-lg font-medium">LL866PT</p>
+                <p className="text-lg font-medium">{resBookingData.booking.UUID}</p>
             </div>
 
 
             <div className="flex items-center justify-between">
                 <div className="w-[250px] text-center p-4 border rounded-lg bg-white border-orange-400">
                     <p className="text-orange-500 font-medium ">Check-In</p>
-                    <p>Wed, 25 Oct 2024</p>
+                    <p>{date.checkInDate}</p>
                     <p>From 14:00</p>
                 </div>
 
@@ -53,21 +45,20 @@ function PaymentResult() {
 
                 <div className="w-[250px] text-center p-4 border rounded-lg bg-white border-orange-400">
                     <p className="text-orange-500 font-medium">Check-Out</p>
-                    <p>Thur, 31 Oct 2024</p>
+                    <p>{date.checkOutDate }</p>
                     <p>Before 12:00</p>
                 </div>
             </div>
 
 
             <div className="grid grid-cols-2 gap-8 mt-4">
-                {roomDetails.map((room, index) => (
+                {resBookingData.booking.bookingRooms.map((room, index) => (
                     <div key={index} className="flex space-x-4 items-start">
-                        <img src={room.imageUrl} alt={room.title} className="w-48 h-28 rounded-lg object-cover" />
+                        <img src={room.rooms?.images[0]?.img} alt={room.rooms?.name} className="w-48 h-28 rounded-lg object-cover" />
                         <div className="text-left">
-                            <p className="font-medium mt-2">{room.title}</p>
-                            {room.description.map((line, i) => (
-                                <p key={i}>{line}</p>
-                            ))}
+                            <p className="font-medium mt-2">{room.rooms?.name}</p>
+                                <p>{room.rooms?.detail}</p>
+    
                         </div>
                     </div>
                 ))}
@@ -76,16 +67,16 @@ function PaymentResult() {
 
             <div className="flex justify-between items-center mt-4 text-gray-700">
                 <p className="text-lg font-medium">Total Price</p>
-                <p className="text-xl font-semibold text-orange-500">THB 3,890.00</p>
+                <p className="text-xl font-semibold text-orange-500">THB {resBookingData.booking?.totalPrice}</p>
             </div>
 
 
             <div className="flex justify-between items-start mt-6 text-gray-700">
                 <p className="font-medium">Contact Details</p>
                 <div className="text-left">
-                    <p>Name: Konkamon Fungsuk</p>
-                    <p>Tel: +668926924147</p>
-                    <p>Email: konkamonfungsuk@gmail.com</p>
+                    <p>{resBookingData.booking?.firstName+' '+resBookingData.booking?.lastName}</p>
+                    <p>Tel: {resBookingData.booking?.phone}</p>
+                    <p>Email: {resBookingData.booking?.email}</p>
                 </div>
             </div>
 

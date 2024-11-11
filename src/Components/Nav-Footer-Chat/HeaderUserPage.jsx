@@ -58,10 +58,10 @@ const HeaderUserPage = () => {
 
                     {token ?
                     <div>
-                    <span className="hover:text-gray-300 cursor-pointer"
+                    <Link to={'/'} className="hover:text-gray-300 cursor-pointer"
                       onClick={logout}>
                       Logout
-                    </span>
+                    </Link>
                   </div>
                     :
                     <div className="relative">

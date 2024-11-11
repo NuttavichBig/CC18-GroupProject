@@ -12,8 +12,8 @@ const HotelList = ({ hotels }) => {
   const handleBookNow = (hotel) => {
     actionSetCurrentHotel(hotel);
     navigate("/bookinghotel-detail");
-    // navigate('/bookinghotel-detail', { state: { hotel } });
   };
+
 
   const formatFacilityName = (key) => {
     return key
@@ -30,7 +30,7 @@ const HotelList = ({ hotels }) => {
         hotels.map((hotel) => (
           <div
             key={hotel.id}
-            className="flex bg-[#FFFFFF] rounded-lg shadow-md mb-4 p-4"
+            className="flex bg-luxury-cream-gradient rounded-lg shadow-md mb-4 p-4"
           >
             <img
               src={hotel.img}
@@ -52,7 +52,7 @@ const HotelList = ({ hotels }) => {
               </div>
 
               <div className="flex justify-between items-center mt-2">
-                <div className="flex flex-wrap gap-2 items-center">
+                <div className="text-sm text-gray-700">
                   <h4 className="font-semibold">Facilities:</h4>
                   <div className="flex flex-wrap gap-2">
                     {Object.entries(hotel.facilitiesHotel || {})
@@ -60,7 +60,7 @@ const HotelList = ({ hotels }) => {
                       .map(([key]) => (
                         <span
                           key={key}
-                          className="px-3 py-1 bg-orange-100 text-sm rounded-full"
+                          className="px-2 py-1 bg-gray-200 rounded"
                         >
                           {formatFacilityName(key)}
                         </span>
@@ -68,7 +68,7 @@ const HotelList = ({ hotels }) => {
                   </div>
                 </div>
                 <button
-                  className="shadow-lg bg-gradient-to-t from-orange-400 to-orange-600 text-white p-2 outline-none border-none transition-transform duration-150 rounded-lg overflow-hidden hover:scale-110 w-28 h-10"
+                  className="bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
                   onClick={() => handleBookNow(hotel)}
                 >
                   BOOK NOW

@@ -1,74 +1,221 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useHotelStore from "../../stores/hotel-store";
+import useUserStore from "../../stores/user-store";
+import axios from "axios";
+import useBookingStore from "../../stores/booking-store";
+import { useShallow } from "zustand/shallow";
 
-const TravelerDetailForm = () => {
-    const navigate = useNavigate();
+const TravelerDetailForm = (props) => {
+  const { pageParams, setPageParams } = props
+  const navigate = useNavigate();
+  const { user, filter } = useUserStore(useShallow(state => ({
+    user: state.user,
+    filter: state.filter
+  })))
+  const { currentHotel, selectedRoom } = useHotelStore(useShallow(state => ({
+    currentHotel: state.currentHotel,
+    selectedRoom: state.selectedRoom
+  })))
+  const { actionSetId, actionSetBookingDetail } = useBookingStore(useShallow(state => ({
+    actionSetId: state.actionSetId,
+    actionSetBookingDetail: state.actionSetBookingDetail
+  })))
+  const [bookingData, setBookingData] = useState({
+    firstName: user?.firstName || "",
+    lastName: user?.lastName || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+  });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Form submitted");
+  const [coupon, setCoupon] = useState({
+    promotion: "",
+  });
 
+  useEffect(() => {// discount control
+    if (pageParams.coupon) {
+      console.log('have coupon')
+      console.log(pageParams)
+      if (+pageParams.totalPrice < +pageParams.coupon?.minimumSpend) {
+        alert(`This coupon requires a minimum spend of ${pageParams.coupon?.minimumSpend}`)
+        setPageParams(prv => ({ ...prv, coupon: null, discount: 0 }))
+      } else {
 
-        navigate('/bookinghotel-detail-payment-method');
-    };
+        let discountedPrice = parseFloat(((+pageParams.totalPrice * +pageParams.coupon?.discountPercent) / 100) + +pageParams.coupon?.discountValue)
+        if (discountedPrice > pageParams.coupon?.maxDiscount) {
+          discountedPrice = parseFloat(pageParams.coupon.maxDiscount)
+        }
+        console.log(discountedPrice)
+        setPageParams(prv => ({ ...prv, discount: discountedPrice }))
+      }
+    }
+  }, [pageParams.coupon, pageParams.totalPrice])
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
-    return (
-        <form onSubmit={handleSubmit} className="bg-[#fef6e4] p-6 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold mb-4">Traveler Details :</h3>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                    <label className="block text-gray-700">Title :</label>
-                    <select className="w-full p-2 mt-1 rounded bg-[#fef0d6]">
-                        <option>drop down select</option>
-                    </select>
-                </div>
-                <div>
-                    <label className="block text-gray-700">Last Name :</label>
-                    <input type="text" className="w-full p-2 mt-1 rounded bg-[#fef0d6]" />
-                </div>
-                <div>
-                    <label className="block text-gray-700">Name :</label>
-                    <input type="text" className="w-full p-2 mt-1 rounded bg-[#fef0d6]" />
-                </div>
-                <div>
-                    <label className="block text-gray-700">Email :</label>
-                    <input type="email" className="w-full p-2 mt-1 rounded bg-[#fef0d6]" />
-                </div>
-                <div>
-                    <label className="block text-gray-700">Phone :</label>
-                    <input type="text" className="w-full p-2 mt-1 rounded bg-[#fef0d6]" />
-                </div>
-                <div>
-                    <label className="block text-gray-700">Date of Birth:</label>
-                    <div className="grid grid-cols-3 gap-2">
-                        <input type="text" placeholder="DD" className="w-full p-2 rounded bg-[#fef0d6]" />
-                        <input type="text" placeholder="MM" className="w-full p-2 rounded bg-[#fef0d6]" />
-                        <input type="text" placeholder="YYYY" className="w-full p-2 rounded bg-[#fef0d6]" />
-                    </div>
-                </div>
-                <div>
-                    <label className="block text-gray-700">Nationality :</label>
-                    <select className="w-full p-2 mt-1 rounded bg-[#fef0d6]">
-                        <option>drop down select</option>
-                    </select>
-                </div>
-                <div>
-                    <label className="block text-gray-700">Promotion Code :</label>
-                    <input type="text" className="w-full p-2 mt-1 rounded bg-[#fef0d6]" />
-                </div>
-            </div>
-            <div className="flex justify-between items-center mt-4">
-                <p className="text-lg font-bold">Total Price</p>
-                <div className="text-right">
-                    <p className="text-xl font-bold text-orange-500">THB 3,890.00</p>
-                    <p className="text-sm text-gray-500 line-through">THB 5,186.67</p>
-                </div>
-            </div>
-            <button type="submit" className="flex justify-center items-center m-auto w-[150px] mt-6 bg-orange-500 text-white py-2 rounded">
-                Continue to Pay
-            </button>
-        </form>
-    );
+  const checkInDate = formatDate(filter.journeyDate);
+  const checkOutDate = formatDate(filter.returnDate);
+
+  const handleCouponChange = (e) => {
+    setCoupon((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleChange = (e) => {
+    setBookingData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(selectedRoom)
+      const bookingPayload = {
+        totalPrice: +pageParams.summaryPrice,
+        checkinDate: checkInDate,
+        checkoutDate: checkOutDate,
+        hotelId: +currentHotel.id,
+        roomId: +selectedRoom.id,
+        amount: +pageParams.room,
+        firstName: bookingData.firstName,
+        lastName: bookingData.lastName,
+        phone: bookingData.phone,
+        email: bookingData.email
+      };
+
+      if (user?.id) {
+        bookingPayload.userId = +user.id;
+      }
+
+      if (pageParams.coupon) {
+        bookingPayload.promotionId = +pageParams.coupon.id;
+      }
+      console.log(bookingPayload)
+      actionSetBookingDetail({ ...bookingPayload, nights: pageParams.nights })
+
+      const res = await axios.post(
+        "http://localhost:8000/booking",
+        bookingPayload
+      );
+      actionSetId(res.data.booking.id);
+
+      navigate("/bookinghotel-detail-payment-method");
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleUseCoupon = async () => {
+    // Check if the user is logged in (i.e., has a user ID)
+    if (!user?.id) {
+      alert("You must be logged in to use a promotion.");
+      return;
+    }
+    if (!coupon.promotion.trim()) {
+      alert("Please fill your code")
+      return;
+    }
+    try {
+      const res = await axios.get(`http://localhost:8000/promotion/${coupon.promotion}`);
+      const couponData = res.data;
+      if (!couponData) {
+        return alert("You coupon invalid")
+      }
+      console.log(couponData)
+      setPageParams({ ...pageParams, coupon: couponData })
+      alert("Coupon applied successfully!");
+    } catch (error) {
+      console.log("Error applying coupon:", error);
+      alert("An error occurred while applying the coupon.");
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-luxury-cream-gradient p-6 rounded-lg shadow-md">
+      <h3 className="text-lg font-semibold mb-4 text-warm-brown">Traveler Details :</h3>
+      <div className="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <label className="block text-warm-brown">Name :</label>
+          <input
+            type="text"
+            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
+            name="firstName"
+            value={bookingData.firstName}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label className="block text-warm-brown">Last Name :</label>
+          <input
+            type="text"
+            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
+            name="lastName"
+            value={bookingData.lastName}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label className="block text-warm-brown">Email :</label>
+          <input
+            type="email"
+            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
+            name="email"
+            value={bookingData.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label className="block text-warm-brown">Phone :</label>
+          <input
+            type="text"
+            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
+            name="phone"
+            value={bookingData.phone}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label className="block text-warm-brown">Promotion Code :</label>
+          <input
+            type="text"
+            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
+            name="promotion"
+            value={coupon.promotion}
+            onChange={handleCouponChange}
+            disabled={!user?.id} // Disable input if user is a guest
+          />
+        </div>
+        <div className="flex items-end">
+          <button
+            type="button"
+            className="bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2.5 px-4 rounded-lg font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
+            onClick={handleUseCoupon}
+            disabled={!user?.id} // Disable button if user is a guest
+          >
+            Use Coupon
+          </button>
+        </div>
+      </div>
+      <div className="flex justify-between items-center mt-4">
+        <p className="text-lg font-bold text-warm-brown">Total Price</p>
+        <div className="text-right flex-col-reverse flex">
+          <p className="text-xl font-bold text-orange-500">
+            {pageParams.summaryPrice.toFixed(2)}
+          </p>
+          <p className="text-sm text-gray-500">- {pageParams.discount?.toFixed(2) || '0.00'}</p>
+        </div>
+      </div>
+      <button type="submit"
+        className="flex justify-center items-center m-auto w-[170px] mt-6 bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-3 rounded-full font-bold text-lg shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.2),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
+
+      >
+        Continue to Pay
+      </button>
+    </form >
+  );
 };
 
 export default TravelerDetailForm;

@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function NavbarPartner() {
   return (
     <>
       <div className="bg-[#543310] p-8 rounded-lg shadow-lg flex justify-between items-center">
-        <button className="font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out hover:rounded-lg">
+        <Link to={'/'} className="font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out hover:rounded-lg">
           HOME
-        </button>
+        </Link>
         <form action="" className="flex items-center space-x-2">
           <input
             type="text"

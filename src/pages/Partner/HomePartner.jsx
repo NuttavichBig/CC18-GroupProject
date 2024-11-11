@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavbarPartner from "../../Components/Partner/NavbarPartner";
 import SidebarPartner from "../../Components/Partner/SidebarPartner";
 import { Outlet } from "react-router-dom";
+import usePartnerStore from "../../stores/partner-store";
 
 export default function HomePartner() {
+  const setPartner = usePartnerStore(state=>state.setPartner)
+  useEffect(()=>{
+    setPartner()
+  },[])
   return (
     <>
       <div className="h-screen w-full relative bg-[#FEF9F2] flex justify-center items-start">
@@ -14,7 +19,7 @@ export default function HomePartner() {
               <SidebarPartner />
             </div>
             <div className="col-span-3 h-full">
-              <Outlet />
+              <Outlet/>
             </div>
           </div>
         </div>

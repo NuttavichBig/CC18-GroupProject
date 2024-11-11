@@ -1,28 +1,45 @@
-import axios from "axios";
-import { use } from "framer-motion/m";
-import React, { useState } from "react";
-import useUserStore from "../../stores/user-store";
+import React, { useEffect, useState } from "react";
 
-function HotelPartnerRegisterForm() {
-  const [formData, setFormData] = useState({
-    companyName: "",
-    address: "",
-    bankName: "",
-    bankAccount: "",
-    taxNo: "",
-  });
 
-  const token = useUserStore(state=>state.token)
+function HotelPartnerRegisterForm(props) {
+  const { setAllFormData, partnerData, setPage } = props
+  const [input, setInput] = useState({
+    companyName: '',
+    address: '',
+    bankAccount: '',
+    bankName: '',
+    taxNo: '',
+  })
+  const [errMsg , setErrMsg] = useState('')
+  useEffect(() => {
+    if (partnerData) {
+      setInput(prv => ({
+        ...prv,
+        companyName: partnerData.companyName,
+        address: partnerData.address,
+        bankAccount: partnerData.bankAccount,
+        bankName: partnerData.bankName,
+        taxNo: partnerData.taxNo,
+      }))
+    }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await axios.post("http://localhost:8000/partner",formData,{
-        headers: { Authorization: `Bearer ${token}` },
-      })
+    try{
+        if(!input.companyName || !input.address || !input.bankAccount || !input.bankName || !input.taxNo ){
+          throw new Error('You have to complete all info')
+        }
+        setAllFormData(prv=>({...prv,partner : input}))
+        setPage(prv=>prv+1)
+    }catch(err){
+      const errMsg = err.response?.data?.message || err.message
+      setErrMsg(errMsg)
+    }
   };
 
   const handleChange = (e) => {
-    setFormData((prv) => ({ ...prv, [e.target.name]: e.target.value }));
+    setInput((prv) => ({ ...prv, [e.target.name]: e.target.value }));
   };
 
   return (
@@ -37,7 +54,7 @@ function HotelPartnerRegisterForm() {
             type="text"
             className="w-full p-3 rounded bg-[#fef0d6]"
             name="companyName"
-            value={formData.companyName}
+            value={input.companyName}
             onChange={handleChange}
             placeholder="Company Name"
           />
@@ -49,7 +66,7 @@ function HotelPartnerRegisterForm() {
             type="text"
             className="w-full p-3 rounded bg-[#fef0d6]"
             name="address"
-            value={formData.address}
+            value={input.address}
             onChange={handleChange}
             placeholder="Address"
           />
@@ -63,20 +80,20 @@ function HotelPartnerRegisterForm() {
             type="text"
             className="w-full p-3 rounded bg-[#fef0d6]"
             name="bankAccount"
-            value={formData.bankAccount}
+            value={input.bankAccount}
             onChange={handleChange}
             placeholder="Account Number"
           />
         </div>
         <div>
           <label className="block text-gray-700 mb-2">Bank Name</label>
-          <select className="w-full p-3 rounded bg-[#fef0d6]" name="bankName" value={formData.bankName} onChange={handleChange}>
+          <select className="w-full p-3 rounded bg-[#fef0d6]" name="bankName" value={input.bankName} onChange={handleChange}>
             <option>Select Bank</option>
-            <option>ธนาคารกรุงเทพ</option>
-            <option>ธนาคารกสิกรไทย</option>
-            <option>ธนาคารกรุงไทย</option>
-            <option>ธนาคารไทยพาณิชย์</option>
-            <option>ธนาคารกรุงศรีอยุธยา</option>
+            <option value={'ธนาคารกรุงเทพ'}>ธนาคารกรุงเทพ</option>
+            <option value={'ธนาคารกสิกรไทย'}>ธนาคารกสิกรไทย</option>
+            <option value={'ธนาคารกรุงไทย'}>ธนาคารกรุงไทย</option>
+            <option value={'ธนาคารไทยพาณิชย์'}>ธนาคารไทยพาณิชย์</option>
+            <option value={'ธนาคารกรุงศรีอยุธยา'}>ธนาคารกรุงศรีอยุธยา</option>
           </select>
         </div>
 
@@ -86,18 +103,19 @@ function HotelPartnerRegisterForm() {
             type="text"
             className="w-full p-3 rounded bg-[#fef0d6]"
             name="taxNo"
-            value={formData.taxNo}
+            value={input.taxNo}
             onChange={handleChange}
             placeholder="Tax Number"
           />
         </div>
       </div>
-      <div className="flex justify-center mt-8">
+      <div className="flex flex-col justify-center mt-8">
+        <p className="text-sm text-red-500">{errMsg}</p>
         <button
           type="submit"
           className="bg-orange-500 text-white py-2 px-8 rounded-md"
         >
-          Register Partner
+          Next
         </button>
       </div>
     </form>
