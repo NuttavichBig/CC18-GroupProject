@@ -59,7 +59,6 @@ function HotelPartnerRegisterForm(props) {
             placeholder="Company Name"
           />
         </div>
-
         <div className="col-span-2">
           <label className="block text-gray-700 mb-2">Address</label>
           <input
