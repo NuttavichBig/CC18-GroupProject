@@ -67,8 +67,7 @@ const useUserStore = create(persist((set, get) => ({
     if(!token) throw new Error('Please Login')
     const result = await axios.patch(`${API}/auth/user`,data,{
       headers : {
-        Authorization : `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data'
+        Authorization : `Bearer ${token}`
       }})
     set({user:result.data.user })
     return result

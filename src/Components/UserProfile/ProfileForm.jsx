@@ -5,10 +5,9 @@ import useUserStore from '../../stores/user-store';
 
 function ProfileForm() {
     const user = useUserStore(state=>state.user)
-    const token = useUserStore(state => state.token)
     const setUserProfileImage = useUserStore(state => state.setUserProfileImage);
     const updateUserProfile = useUserStore(state=>state.updateUserProfile)
-    const [localProfileImage, setLocalProfileImage] = useState(null);
+    const [localProfileImage, setLocalProfileImage] = useState(user.image);
    
     const dateObj = user?.birthdate ? new Date(user.birthdate) : null;
     const day = dateObj ? dateObj.getUTCDate().toString().padStart(2, '0') : '';
@@ -23,7 +22,7 @@ function ProfileForm() {
         year: year || "",
         phone: user?.phone || "",
         gender: user?.gender || "",
-        image: user.image || null,
+        image: null,
     });
 
     const handleChange = (e) => {
@@ -59,6 +58,7 @@ function ProfileForm() {
         formData.append('birthdate', birthdate);
         formData.append('phone', profileData.phone);
         formData.append('gender', profileData.gender);
+
         if (profileData.image) {
             formData.append('image', profileData.image);
         }
