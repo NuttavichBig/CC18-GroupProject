@@ -4,6 +4,7 @@ import Footer from "../../Components/Nav-Footer-Chat/Footer";
 import HotelPartnerRegisterForm from "../../Components/Partner/HotelPartnerRegisterForm";
 import UserHotelRegisterForm from "../../Components/Partner/UserHotelRegisterForm";
 import RoomPartnerRegisterForm from "../../Components/Partner/RoomPartnerRegisterForm";
+import PartnerRegisterComplete from "../../Components/Partner/PartnerRegisterComplete";
 
 function RegisterPartner() {
   const [allFormData , setAllFormData] =useState({
@@ -35,6 +36,10 @@ function RegisterPartner() {
                   {
                     page === 3 &&
                     <RoomPartnerRegisterForm setAllFormData={setAllFormData} setPage={setPage} allFormData={allFormData}/>
+                  }
+                  {
+                    page === 4 &&
+                    <PartnerRegisterComplete/>
                   }
               </div>
             </div>
