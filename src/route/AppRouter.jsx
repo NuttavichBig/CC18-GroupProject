@@ -29,6 +29,7 @@ import HotelPartner from "../pages/Partner/HotelPartner";
 import ProtectRouter from "./ProtectRouter";
 import PartnerUpdate from "../Components/Partner/PartnerUpdate";
 import HotelUpdate from "../Components/Partner/HotelUpdate";
+import PartnerDashboard from "../pages/Partner/PartnerDashboard";
 
 
 const MainRouter = createBrowserRouter([
@@ -86,7 +87,6 @@ const MainRouter = createBrowserRouter([
     path: "/admin",
     element: <ProtectRouter element={<HomeAdmin />} reqRole={['ADMIN']} />,
     children: [
-
       { path: "dashboard", element: <DashboardAdmin /> },
       { path: "userDetailAdmin", element: <UserDetailAdmin /> },
       { path: "bookingDetailAdmin", element: <BookingDetailAdmin /> },
@@ -99,8 +99,7 @@ const MainRouter = createBrowserRouter([
     path: "/partner",
     element: <ProtectRouter element={<HomePartner />} reqRole={['PARTNER']} />,
     children: [
-
-
+      { index: true, element: <PartnerDashboard /> },
       { path: "bookingDetailPartner", element: <BookingDetailPartner /> },
       { path: "hotelPartner", element: <HotelPartner /> },
       { path: "reviewDetailPartner", element: <ReviewDetailPartner /> },
