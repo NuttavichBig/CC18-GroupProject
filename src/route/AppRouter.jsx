@@ -30,6 +30,7 @@ import ProtectRouter from "./ProtectRouter";
 import PartnerUpdate from "../Components/Partner/PartnerUpdate";
 import HotelUpdate from "../Components/Partner/HotelUpdate";
 import PartnerDashboard from "../pages/Partner/PartnerDashboard";
+import UUIDBookingSearch from "../pages/User-Guest/UUIDBookingSearch";
 
 
 const MainRouter = createBrowserRouter([
@@ -50,6 +51,7 @@ const MainRouter = createBrowserRouter([
         element: <HotelPaymentSucessSummary />,
       },
       { path: "promotion", element: <HotelPromotion /> },
+      { path: "UUID" , element : <UUIDBookingSearch/>}
 
     ],
   },
