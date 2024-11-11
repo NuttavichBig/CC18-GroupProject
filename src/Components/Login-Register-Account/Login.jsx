@@ -64,7 +64,7 @@ const Login = ({ setIsLoginModalOpen }) => {
     >
       <form
         onSubmit={handleSubmit}
-        className="bg-[#FFF8EB] rounded-lg shadow-lg p-8  w-full max-w-2xl relative flex"
+        className="bg-[#FFF8EB] rounded-lg shadow-lg p-8 w-full max-w-3xl h-[400px] relative flex"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -87,7 +87,7 @@ const Login = ({ setIsLoginModalOpen }) => {
           <img
             src="/1.jpg"
             alt="Hotel Preview"
-            className="w-full h-full rounded-lg object-cover"
+            className="w-full h-[295px] rounded-lg object-cover"
           />
         </div>
 
@@ -107,13 +107,13 @@ const Login = ({ setIsLoginModalOpen }) => {
               name="password"
               type="password"
               placeholder="Password"
-              className="bg-[#FFE4B0] w-full p-3  rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               required
               onChange={handleChange}
             />
           </div>
 
-          <div className="text-right text-xs pb-2 text-gray-400 cursor-pointer hover:underline mb-4">
+          <div className="text-right text-xs pb-3 text-gray-400 cursor-pointer hover:underline mb-4">
             Forget Password
           </div>
 
@@ -153,10 +153,10 @@ const Login = ({ setIsLoginModalOpen }) => {
           </button>
         </div>
 
-        <div className="absolute bottom-[-29px] left-1/2 transform -translate-x-1/2">
+        <div className="absolute bottom-[-20px] left-1/2 transform -translate-x-1/2">
           <button
             type="submit"
-            className="bg-orange-500 text-white font-bold px-6 py-3 rounded-lg shadow-lg hover:bg-orange-600 transition"
+            className="font-bold shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-2 outline-none border-none transition-transform duration-200 rounded-lg overflow-hidden hover:scale-105 w-28 h-10"
           >
             LOGIN
           </button>
