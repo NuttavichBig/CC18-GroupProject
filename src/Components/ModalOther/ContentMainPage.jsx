@@ -7,11 +7,11 @@ import secure from "../../assets/secure.png";
 export default function ContentMainPage() {
   return (
     <>
-      <div className="mb-10">
-        <p className="text-2xl font-semibold mb-6 text-[#543310] text-center">
+      <div className="pb-10">
+        <p className="text-2xl font-semibold  text-[#543310] text-center">
           Why book with Us ?
         </p>
-        <div className="bg-cream-light-gradient rounded-lg p-8 mt-10 shadow-lg grid grid-cols-1 md:grid-cols-4 gap-8 text-[#543310] mx-10">
+        <div className="bg-cream-light-gradient rounded-lg p-8 mt-10 shadow-lg grid grid-cols-1 md:grid-cols-4 gap-8 text-[#543310] m-12">
           <div className="p-3 bg-white rounded-lg shadow-md flex items-center">
             <img src={tripbag} alt="" className="w-[60px] h-[60px] mr-3" />
             <div className="flex flex-col">
@@ -63,7 +63,7 @@ export default function ContentMainPage() {
           </div>
         </div>
       </div>
-      <p className="text-2xl font-semibold mb-6 text-[#543310] text-center">
+      <p className="text-2xl font-semibold mb-10 text-[#543310] text-center">
         Rediscover yourself in Thailand and beyond
       </p>
     </>
