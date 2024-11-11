@@ -30,9 +30,9 @@ export default function DashboardAdmin({ }) {
           const indx = prevChatBoxList.findIndex(item => item.id === newData.id);
           let newArr = [...prevChatBoxList];
           if (indx !== -1) {
-            newArr.splice(indx, 1);  // Remove the old item
+            newArr.splice(indx, 1);  
           }
-          newArr = [newData, ...newArr];  // Add the new item at the start
+          newArr = [newData, ...newArr];  
           return newArr;
         });
       })
