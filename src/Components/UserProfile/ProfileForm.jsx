@@ -4,22 +4,26 @@ import defaultPic from '../../assets/ProfilePicture.webp';
 import useUserStore from '../../stores/user-store';
 
 function ProfileForm() {
+    const user = useUserStore(state=>state.user)
     const token = useUserStore(state => state.token)
     const setUserProfileImage = useUserStore(state => state.setUserProfileImage);
-
-
-
-
+    const updateUserProfile = useUserStore(state=>state.updateUserProfile)
     const [localProfileImage, setLocalProfileImage] = useState(null);
+   
+    const dateObj = user?.birthdate ? new Date(user.birthdate) : null;
+    const day = dateObj ? dateObj.getUTCDate().toString().padStart(2, '0') : '';
+    const month = dateObj ? (dateObj.getUTCMonth() + 1).toString().padStart(2, '0') : ''; 
+    const year = dateObj ? dateObj.getUTCFullYear().toString() : '';
+
     const [profileData, setProfileData] = useState({
-        firstName: '',
-        lastName: '',
-        day: '',
-        month: '',
-        year: '',
-        phone: '',
-        gender: '',
-        image: null,
+        firstName: user?.firstName || "",
+        lastName: user?.lastName || "",
+        day: day || "",
+        month: month || "",
+        year: year || "",
+        phone: user?.phone || "",
+        gender: user?.gender || "",
+        image: user.image || null,
     });
 
     const handleChange = (e) => {
@@ -58,14 +62,9 @@ function ProfileForm() {
         if (profileData.image) {
             formData.append('image', profileData.image);
         }
-
         try {
-            const response = await axios.patch('http://localhost:8000/auth/user', formData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            const response = await updateUserProfile(formData)
+            console.log(response)
             if (response.data.user.image) {
                 setUserProfileImage(response.data.user.image);
             }

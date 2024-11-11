@@ -17,7 +17,7 @@ function SidebarUser() {
                 />
             </div>
             <div className="mt-2">
-                <h3 className="text-left text-base font-semibold">{FirstName || LastName ? `${FirstName || ''} ${LastName || ''}` : 'Guest'}</h3>
+                <h3 className="text-center text-base font-semibold">{FirstName || LastName ? `${FirstName || ''} ${LastName || ''}` : 'Guest'}</h3>
                 <hr className="my-2 border-gray-400 w-full mx-auto" />
                 <ul className="text-gray-700 space-y-6 mt-4">
                     <li>
