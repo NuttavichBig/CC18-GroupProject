@@ -61,6 +61,16 @@ const useUserStore = create(persist((set, get) => ({
       Authorization : `Bearer ${token}`
     }})
     return result.data
+  },
+  updateUserProfile: async (data) =>{
+    const { token }  = useUserStore.getState();
+    if(!token) throw new Error('Please Login')
+    const result = await axios.patch(`${API}/auth/user`,data,{
+      headers : {
+        Authorization : `Bearer ${token}`
+      }})
+    set({user:result.data.user })
+    return result
   }
 }), {
   name: "stateUserData",

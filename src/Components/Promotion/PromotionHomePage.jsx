@@ -24,36 +24,12 @@ function PromotionHomePage() {
   }, []);
 
   return (
-    <div className="text-center py-6">
-      <h2 className="text-3xl font-semibold mb-8 text-[#543310]">Promotion</h2>
+    <div className="text-center py-10">
+      <h2 className="text-2xl font-semibold mb-10 text-[#543310]">
+        Promotions
+      </h2>
 
       <div className="flex flex-wrap justify-center gap-8">
-        <div className="flex flex-col gap-6">
-          {promotions.length >= 2 && (
-            <div className="bg-[#fef6e4] rounded-lg shadow-lg overflow-hidden w-52">
-              <img
-                src={promotions[1].img}
-                alt="Promotion 2"
-                className="w-full h-32 object-cover"
-              />
-              <div className="p-4 text-sm text-[#543310] font-medium text-center">
-                {promotions[1].name}
-              </div>
-            </div>
-          )}
-          {promotions.length >= 3 && (
-            <div className="bg-[#fef6e4] rounded-lg shadow-lg overflow-hidden w-52">
-              <img
-                src={promotions[2].img}
-                alt="Promotion 3"
-                className="w-full h-32 object-cover"
-              />
-              <div className="p-4 text-sm text-[#543310] font-medium text-center">
-                {promotions[2].name}
-              </div>
-            </div>
-          )}
-        </div>
         {promotions.length >= 1 && (
           <div className="bg-[#fef6e4] rounded-lg shadow-lg overflow-hidden flex flex-col w-72">
             <img
@@ -74,38 +50,31 @@ function PromotionHomePage() {
             </div>
           </div>
         )}
-
-        <div className="flex flex-col gap-6">
-          {promotions.length >= 2 && (
-            <div className="bg-[#fef6e4] rounded-lg shadow-lg overflow-hidden w-52">
-              <img
-                src={promotions[1].img}
-                alt="Promotion 2"
-                className="w-full h-32 object-cover"
-              />
-              <div className="p-4 text-sm text-[#543310] font-medium text-center">
+        {promotions.length >= 1 && (
+          <div className="bg-[#fef6e4] rounded-lg shadow-lg overflow-hidden flex flex-col w-72">
+            <img
+              src={promotions[1].img}
+              alt="Promotion 1"
+              className="w-full h-56 object-cover"
+            />
+            <div className="p-5">
+              <h3 className="text-xl font-semibold text-[#543310]">
+                Special Discounts {promotions[0].discountPercent}%
+              </h3>
+              <p className="text-sm text-[#543310] mt-2">
                 {promotions[1].name}
-              </div>
+              </p>
+              <button className="bg-gradient-to-t from-orange-400 to-orange-500 text-white py-2 px-4 rounded-lg mt-4 w-full">
+                MORE
+              </button>
             </div>
-          )}
-          {promotions.length >= 3 && (
-            <div className="bg-[#fef6e4] rounded-lg shadow-lg overflow-hidden w-52">
-              <img
-                src={promotions[2].img}
-                alt="Promotion 3"
-                className="w-full h-32 object-cover"
-              />
-              <div className="p-4 text-sm text-[#543310] font-medium text-center">
-                {promotions[2].name}
-              </div>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {promotions.length >= 4 && (
           <div className="bg-[#fef6e4] rounded-lg shadow-lg overflow-hidden flex flex-col w-72">
             <img
-              src={promotions[3].img}
+              src={promotions[2].img}
               alt="Promotion 4"
               className="w-full h-56 object-cover"
             />
@@ -114,7 +83,7 @@ function PromotionHomePage() {
                 Special Discounts {promotions[3].discountPercent}%
               </h3>
               <p className="text-sm text-[#543310] mt-2">
-                {promotions[3].name}
+                {promotions[2].name}
               </p>
               <button className="bg-gradient-to-t from-orange-400 to-orange-500 text-white py-2 px-4 rounded-lg mt-4 w-full">
                 MORE
@@ -122,32 +91,6 @@ function PromotionHomePage() {
             </div>
           </div>
         )}
-        <div className="flex flex-col gap-6">
-          {promotions.length >= 2 && (
-            <div className="bg-[#fef6e4] rounded-lg shadow-lg overflow-hidden w-52">
-              <img
-                src={promotions[1].img}
-                alt="Promotion 2"
-                className="w-full h-32 object-cover"
-              />
-              <div className="p-4 text-sm text-[#543310] font-medium text-center">
-                {promotions[1].name}
-              </div>
-            </div>
-          )}
-          {promotions.length >= 3 && (
-            <div className="bg-[#fef6e4] rounded-lg shadow-lg overflow-hidden w-52">
-              <img
-                src={promotions[2].img}
-                alt="Promotion 3"
-                className="w-full h-32 object-cover"
-              />
-              <div className="p-4 text-sm text-[#543310] font-medium text-center">
-                {promotions[2].name}
-              </div>
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );
