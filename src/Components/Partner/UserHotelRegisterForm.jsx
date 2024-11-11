@@ -123,35 +123,6 @@ function UserHotelRegisterForm(props) {
                     </textarea>
                 
                 </div>
-
-                <div>
-                    <label className="block text-gray-700 mb-2">Address</label>
-                    <input
-                        type="text"
-                        className="w-full p-3 rounded bg-[#fef0d6]"
-                        name="address"
-                        value={input.address}
-                        onChange={handleChange}
-                        placeholder="Address"
-                    />
-                </div>
-
-                <div>
-                    <label className="block text-gray-700 mb-2">
-                        Star
-                    </label>
-                    <select className="w-full p-3 rounded bg-[#fef0d6] text-amber-500"
-                    value={input.star}
-                    name="star"
-                    onChange={handleChange}>
-                        <option value={1}>★</option>
-                        <option value={2}>★★</option>
-                        <option value={3}>★★★</option>
-                        <option value={4}>★★★★</option>
-                        <option value={5}>★★★★★</option>
-                    </select>
-                </div>
-
                 <div>
                     <label className="block text-gray-700 mb-2">Check-in Time</label>
                     <input
@@ -175,6 +146,22 @@ function UserHotelRegisterForm(props) {
                     />
                 </div>
                 <div>
+                    <label className="block text-gray-700 mb-2">
+                        Star
+                    </label>
+                    <select className="w-full p-3 rounded bg-[#fef0d6] text-amber-500"
+                    value={input.star}
+                    name="star"
+                    onChange={handleChange}>
+                        <option value={1}>★</option>
+                        <option value={2}>★★</option>
+                        <option value={3}>★★★</option>
+                        <option value={4}>★★★★</option>
+                        <option value={5}>★★★★★</option>
+                    </select>
+                </div>
+
+                <div>
                     <label className="block text-gray-700 mb-2">Phone</label>
                     <input
                         type="text"
@@ -196,28 +183,9 @@ function UserHotelRegisterForm(props) {
                         placeholder="Web Page"
                     />
                 </div>
-                <div>
-                    <label className="block text-gray-700 mb-2">Lat</label>
-                    <input
-                        type="text"
-                        className="w-full p-3 rounded bg-[#fef0d6]"
-                        name="lat"
-                        value={input.lat}
-                        onChange={handleChange}
-                        placeholder="Lat"
-                    />
-                </div>
-                <div>
-                    <label className="block text-gray-700 mb-2">Lng</label>
-                    <input
-                        type="text"
-                        className="w-full p-3 rounded bg-[#fef0d6]"
-                        name="lng"
-                        value={input.lng}
-                        onChange={handleChange}
-                        placeholder="Lng"
-                    />
-                </div>
+
+
+                {/* Facility */}
                 <div className="col-span-2 flex">
                     <div className="w-1/4 flex flex-col">
                     <label className="flex gap-2">
@@ -305,8 +273,49 @@ function UserHotelRegisterForm(props) {
                         <p>Elevator</p>
                     </label>
                     </div>
-                
                 </div>
+                {/* ----------- */}
+
+                {/* Adress */}
+                <div>
+                    <label className="block text-gray-700 mb-2">Address</label>
+                    <input
+                        type="text"
+                        className="w-full p-3 rounded bg-[#fef0d6]"
+                        name="address"
+                        value={input.address}
+                        onChange={handleChange}
+                        placeholder="Address"
+                    />
+                </div>
+                <div>
+                    <label className="block text-gray-700 mb-2">Lat</label>
+                    <input
+                        type="text"
+                        className="w-full p-3 rounded bg-[#fef0d6]"
+                        name="lat"
+                        value={input.lat}
+                        onChange={handleChange}
+                        placeholder="Lat"
+                    />
+                </div>
+                <div>
+                    <label className="block text-gray-700 mb-2">Lng</label>
+                    <input
+                        type="text"
+                        className="w-full p-3 rounded bg-[#fef0d6]"
+                        name="lng"
+                        value={input.lng}
+                        onChange={handleChange}
+                        placeholder="Lng"
+                    />
+                </div>
+                {/* ----------- */}
+                {/* map */}
+                <div>
+                    <p className="block text-gray-700 mb-2">Map</p>
+                </div>
+                {/* ----------- */}
 
             </div>
             <div className="flex flex-col justify-center mt-8">
