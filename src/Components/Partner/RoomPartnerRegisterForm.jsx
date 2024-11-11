@@ -54,7 +54,10 @@ function RoomPartnerRegisterForm(props) {
     }
 
     const handleDataConfirm = async()=>{
+
         try{
+            setPageParam(prv=>({...prv,isLoading : true}))
+            
 
         }catch(err){
             const errMsg = err.response?.data?.message || err.message
@@ -93,6 +96,7 @@ function RoomPartnerRegisterForm(props) {
                 }}>Back</button>
                 <button
                     className="w-3/4 bg-orange-500 text-white py-2 px-8 rounded-md hover:bg-black"
+                    onClick={handleDataConfirm}
                 >
                     Confirm
                 </button>
