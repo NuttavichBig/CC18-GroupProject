@@ -52,6 +52,7 @@ export default function DashboardAdmin({ }) {
       }
     })
   }, [socket])
+
   return (
     <>
       {chatOpen && <AllChatAdmin setChatOpen={setChatOpen} chatBoxList={chatBoxList} />}  
