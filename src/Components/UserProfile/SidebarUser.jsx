@@ -22,7 +22,7 @@ function SidebarUser() {
                 <ul className="text-gray-700 space-y-6 mt-4">
                     <li>
                         <NavLink
-                            to="/userprofile/edit"
+                            to="/userprofile"
                             end
                             className={({ isActive }) =>
                                 isActive ? 'text-orange-500 font-bold' : 'hover:text-orange-500 cursor-pointer'

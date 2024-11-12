@@ -17,6 +17,16 @@ const Register = ({ setIsRegisterModalOpen }) => {
     year: 1998,
     err: "",
   });
+
+  const [errMsg, setErrMsg] = useState({
+    firstName: '',
+    lastName: "",
+    email: "",
+    phone: '',
+    password: '',
+    confirmPassword: '',
+    birthdate: ''
+  })
   const { register, login } = useUserStore(
     useShallow((state) => ({
       register: state.register,
@@ -34,6 +44,10 @@ const Register = ({ setIsRegisterModalOpen }) => {
   const hdlRegister = async (e) => {
     try {
       e.stopPropagation();
+      validator();
+      if(errMsg.firstName || errMsg.lastName || errMsg.birthdate || errMsg.email || errMsg.phone || errMsg.password || errMsg.confirmPassword){
+        throw new Error('Please complete all your form')
+      }
       const { date, month, year, err, ...body } = input;
       body.birthdate = `${year}-${month.toString().padStart(2, "0")}-${date
         .toString()
@@ -47,6 +61,52 @@ const Register = ({ setIsRegisterModalOpen }) => {
       setInput((prv) => ({ ...prv, err: errMsg }));
     }
   };
+
+  const validator = () => {
+    if (!input.firstName) {
+      setErrMsg(prv => ({ ...prv, firstName: 'First name is required' }))
+    }else{
+      setErrMsg(prv => ({ ...prv, firstName: '' }))
+    }
+    if (!input.lastName) {
+      setErrMsg(prv => ({ ...prv, lastName: 'Last name is required' }))
+    }else{
+      setErrMsg(prv => ({ ...prv, lastName: '' }))
+    }
+    if (!input.date || !input.month || !input.year) {
+      setErrMsg(prv => ({ ...prv, birthdate: 'Birth day is required' }))
+    } else if (input.date.length > 2 || input.month.length > 2 || !input.year.length > 4) {
+      setErrMsg(prv => ({ ...prv, birthdate: 'Birth day should be valid' }))
+    }else{
+      setErrMsg(prv => ({ ...prv, birthdate: '' }))
+    }
+    if (!input.email) {
+      setErrMsg(prv => ({ ...prv, email: 'Email should be provided' }))
+    } else if (!input.email.includes('@')) {
+      setErrMsg(prv => ({ ...prv, email: 'Email is invalid' }))
+    }else{
+      setErrMsg(prv => ({ ...prv, email: '' }))
+    }
+    if (!input.phone) {
+      setErrMsg(prv => ({ ...prv, phone: 'Phone should be provided' }))
+    } else if (input.phone.length < 9 || input.phone.length > 10) {
+      setErrMsg(prv => ({ ...prv, phone: "Phone should be 9-10 number" }))
+    }else{
+      setErrMsg(prv => ({ ...prv, phone: "" }))
+    }
+    if (!input.password) {
+      setErrMsg(prv => ({ ...prv, password: 'Password should be provided' }))
+    }else{
+      setErrMsg(prv => ({ ...prv, password: '' }))
+    }
+    if (!input.confirmPassword) {
+      setErrMsg(prv => ({ ...prv, confirmPassword: "Confirm password should be provided" }))
+    } else if (input.password !== input.confirmPassword) {
+      setErrMsg(prv => ({ ...prv, confirmPassword: "Password not match" }))
+    }else{
+      setErrMsg(prv => ({ ...prv, confirmPassword: "" }))
+    }
+  }
   return (
     <div
       onClick={() => setIsRegisterModalOpen(false)}
@@ -91,6 +151,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 onChange={hdlChange}
                 value={input.firstName}
               />
+              <p className="text-sm text-red-500">{errMsg.firstName}</p>
             </div>
             <div>
               <label className="block text-sm pb-2">Last Name</label>
@@ -102,6 +163,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 onChange={hdlChange}
                 value={input.lastName}
               />
+              <p className="text-sm text-red-500">{errMsg.lastName}</p>
             </div>
           </div>
           <div className="grid grid-cols-3 gap-4">
@@ -114,7 +176,9 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 onChange={hdlChange}
                 value={input.date}
+                maxLength={2}
               />
+              <p className="text-sm text-red-500">{errMsg.birthdate}</p>
             </div>
             <div>
               <label className="block text-sm pb-2">Month</label>
@@ -125,6 +189,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 onChange={hdlChange}
                 value={input.month}
+                maxLength={2}
               />
             </div>
             <div>
@@ -136,6 +201,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
                 className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 onChange={hdlChange}
                 value={input.year}
+                maxLength={4}
               />
             </div>
           </div>
@@ -149,6 +215,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
               onChange={hdlChange}
               value={input.email}
             />
+            <p className="text-sm text-red-500">{errMsg.email}</p>
           </div>
           <div>
             <label className="block text-sm pb-2">Phone</label>
@@ -159,7 +226,10 @@ const Register = ({ setIsRegisterModalOpen }) => {
               className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               onChange={hdlChange}
               value={input.phone}
+              minLength={9}
+              maxLength={10}
             />
+            <p className="text-sm text-red-500">{errMsg.phone}</p>
           </div>
           <div>
             <label className="block text-sm pb-2">Gender</label>
@@ -204,6 +274,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
               onChange={hdlChange}
               value={input.password}
             />
+            <p className="text-sm text-red-500">{errMsg.password}</p>
           </div>
           <div>
             <label className="block text-sm pb-2">Confirm Password</label>
@@ -215,6 +286,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
               onChange={hdlChange}
               value={input.confirmPassword}
             />
+            <p className="text-sm text-red-500">{errMsg.confirmPassword}</p>
           </div>
         </div>
 
