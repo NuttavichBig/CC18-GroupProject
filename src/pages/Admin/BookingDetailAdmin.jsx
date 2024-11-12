@@ -28,7 +28,6 @@ export default function BookingDetailAdmin() {
     fetchBookings();
   }, [token]);
 
-
   const handlePaymentStatusChange = async (bookingId, newStatus) => {
     console.log('bookingId:', bookingId, 'newStatus:', newStatus);
     try {
@@ -55,64 +54,72 @@ export default function BookingDetailAdmin() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="w-full text-[#ffffff]">
-      <p className="bg-[#AF8F6F] text-3xl font-bold rounded-lg p-2 text-center shadow-lg">
+    <div className="w-full bg-gray-100 py-6 px-4">
+      {/* Title Section */}
+      <p className="bg-gradient-to-r from-[#0088d1] to-[#1E4D8C] text-3xl font-bold text-white rounded-lg py-2 text-center shadow-lg">
         BOOKING INFORMATION
       </p>
-      <table className="text-center w-full mt-4 border-collapse">
-        <thead>
-          <tr className="bg-[#AF8F6F]">
-            <th className="border p-2">ID</th>
-            <th className="border p-2">GUEST NAME</th>
-            <th className="border p-2">HOTEL NAME</th>
-            <th className="border p-2">CHECK-IN DATE</th>
-            <th className="border p-2">CHECK-OUT DATE</th>
-            <th className="border p-2">PROMOTION</th>
-            <th className="border p-2">TOTAL PRICE</th>
-            <th className="border p-2">PAYMENT STATUS</th>
-          </tr>
-        </thead>
-        <tbody>
-  {bookings.length > 0 ? (
-    bookings.map((booking) => (
-      <tr key={booking.id} className="bg-white text-black">
-        <td className="border p-2">{booking.id}</td>
-        <td className="border p-2">{booking.users?.email || "N/A"}</td>
-        <td className="border p-2">{booking.hotels?.name || "N/A"}</td>
-        <td className="border p-2">
-          {new Date(booking.checkinDate).toLocaleDateString()}
-        </td>
-        <td className="border p-2">
-          {new Date(booking.checkoutDate).toLocaleDateString()}
-        </td>
-        <td className="border p-2">{booking.userHavePromotionId || "None"}</td>
-        <td className="border p-2">THB {booking.totalPrice || "0.00"}</td>
-        <td className="border p-2">
-                  <select
-                    value={booking.status || "Pending"}
-                    onChange={(e) =>
-                      handlePaymentStatusChange(booking.id, e.target.value)
-                    }
-                    className="p-1 rounded border"
-                  >
-                    <option value="PENDING">PENDING</option>
-                    <option value="CONFIRMED">CONFIRMED</option>
-                    <option value="CANCELED">CANCELED</option>
-                    <option value="FAILED">FAILED</option>
-                    <option value="REFUND">REFUND</option>
-                  </select>
+
+      {/* Table Section */}
+      <div className="overflow-x-auto mt-6 bg-white rounded-lg shadow-md">
+        <table className="min-w-full text-sm text-center text-gray-600">
+          <thead className="bg-[#0088d1] text-white">
+            <tr>
+              <th className="p-4 border-b">ID</th>
+              <th className="p-4 border-b">GUEST NAME</th>
+              <th className="p-4 border-b">HOTEL NAME</th>
+              <th className="p-4 border-b">CHECK-IN DATE</th>
+              <th className="p-4 border-b">CHECK-OUT DATE</th>
+              <th className="p-4 border-b">PROMOTION</th>
+              <th className="p-4 border-b">TOTAL PRICE</th>
+              <th className="p-4 border-b">PAYMENT STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bookings.length > 0 ? (
+              bookings.map((booking) => (
+                <tr
+                  key={booking.id}
+                  className="hover:bg-gray-50 transition duration-200"
+                >
+                  <td className="p-4 border-b">{booking.id}</td>
+                  <td className="p-4 border-b">{booking.users?.email || "N/A"}</td>
+                  <td className="p-4 border-b">{booking.hotels?.name || "N/A"}</td>
+                  <td className="p-4 border-b">
+                    {new Date(booking.checkinDate).toLocaleDateString()}
+                  </td>
+                  <td className="p-4 border-b">
+                    {new Date(booking.checkoutDate).toLocaleDateString()}
+                  </td>
+                  <td className="p-4 border-b">{booking.userHavePromotionId || "None"}</td>
+                  <td className="p-4 border-b">THB {booking.totalPrice || "0.00"}</td>
+                  <td className="p-4 border-b">
+                    <select
+                      value={booking.status || "Pending"}
+                      onChange={(e) =>
+                        handlePaymentStatusChange(booking.id, e.target.value)
+                      }
+                      className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="PENDING">PENDING</option>
+                      <option value="CONFIRMED">CONFIRMED</option>
+                      <option value="CANCELED">CANCELED</option>
+                      <option value="FAILED">FAILED</option>
+                      <option value="REFUND">REFUND</option>
+                    </select>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="8" className="p-4 border-b text-center text-gray-500">
+                  No bookings found.
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="8" className="border p-2">
-                No bookings found.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

@@ -94,7 +94,7 @@ const MainRouter = createBrowserRouter([
     path: "/admin",
     element: <ProtectRouter element={<HomeAdmin />} reqRole={['ADMIN']} />,
     children: [
-      { path: "dashboard", element: <DashboardAdmin /> },
+      { index:true, element: <DashboardAdmin /> },
       { path: "userDetailAdmin", element: <UserDetailAdmin /> },
       { path: "bookingDetailAdmin", element: <BookingDetailAdmin /> },
       { path: "hotelDetailAdmin", element: <HotelDetailAdmin /> },

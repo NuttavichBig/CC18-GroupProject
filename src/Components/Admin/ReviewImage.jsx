@@ -5,10 +5,10 @@ export default function ReviewImage({ reviewsData,setReviewDetail }) {
     <>
       <div
         onClick={() => setReviewDetail(false)}
-        className="flex items-center justify-center fixed inset-0 bg-[#F2F7A140] z-50 text-[#543310]"
+        className="flex items-center justify-center fixed inset-0 bg-[#cad2d66d] z-50 text-[#0088d1]"
       >
         <div
-          className="bg-[#FFF0D1] rounded-xl shadow-xl p-8 relative"
+          className="bg-white rounded-xl shadow-xl p-8 relative"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -17,7 +17,7 @@ export default function ReviewImage({ reviewsData,setReviewDetail }) {
           >
             &times;
           </button>
-          <div className="bg-[#F8F4E1] rounded-lg p-4 flex shadow-lg">
+          <div className="bg-sky-50 rounded-lg p-4 flex shadow-lg">
             <img
               src={reviewsData?.img}
               alt="Hotel Room"

@@ -59,53 +59,53 @@ export default function UserDetailAdmin() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="w-full text-[#ffffff] ">
+    <div className="w-full bg-gray-100 py-6 px-4">
       <div>
-        <p className="bg-[#AF8F6F] text-3xl font-bold rounded-lg p-2 text-center shadow-lg">
+        <p className="bg-gradient-to-r from-[#0088d1] to-[#1E4D8C] text-3xl text-white font-bold rounded-lg p-2 text-center shadow-lg">
           USER INFORMATION
         </p>
-        <table className="text-center w-full mt-4 border-collapse">
-          <thead>
-            <tr className="bg-[#AF8F6F]">
-              {/* Column Headers */}
-              <th>ID</th>
-              <th>FIRSTNAME</th>
-              <th>LASTNAME</th>
-              <th>PHONE</th>
-              <th>EMAIL</th>
-              <th>DATE OF BIRTH</th>
-              <th>GENDER</th>
-              <th>ROLE</th>
-              <th>STATUS</th>
-              <th>ACTIONS</th>
+        <div className="overflow-x-auto mt-6 bg-white rounded-lg shadow-lg">
+        <table className="min-w-full text-sm text-gray-600 border-collapse">
+          <thead className="bg-[#0088d1] text-white">
+            <tr>
+              <th className="py-3 px-4 border-b">ID</th>
+              <th className="py-3 px-4 border-b">FIRSTNAME</th>
+              <th className="py-3 px-4 border-b">LASTNAME</th>
+              <th className="py-3 px-4 border-b">PHONE</th>
+              <th className="py-3 px-4 border-b">EMAIL</th>
+              <th className="py-3 px-4 border-b">DATE OF BIRTH</th>
+              <th className="py-3 px-4 border-b">GENDER</th>
+              <th className="py-3 px-4 border-b">ROLE</th>
+              <th className="py-3 px-4 border-b">STATUS</th>
+              <th className="py-3 px-4 border-b">ACTIONS</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user.id} className="bg-[#AF8F6F]">
-                <td>{user.id}</td>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.phone}</td>
-                <td>{user.email}</td>
-                <td>{user.birthdate}</td>
-                <td>{user.gender}</td>
-                <td>
+              <tr key={user.id} className="hover:bg-gray-50">
+                <td className="py-3 px-4 border-b">{user.id}</td>
+                <td className="py-3 px-4 border-b">{user.firstName}</td>
+                <td className="py-3 px-4 border-b">{user.lastName}</td>
+                <td className="py-3 px-4 border-b">{user.phone}</td>
+                <td className="py-3 px-4 border-b">{user.email}</td>
+                <td className="py-3 px-4 border-b">{user.birthdate}</td>
+                <td className="py-3 px-4 border-b">{user.gender}</td>
+                <td className="py-3 px-4 border-b">
                   <select
                     value={user.role}
                     onChange={(e) => handleUpdate(user.id, { role: e.target.value })}
-                    className="bg-[#AF8F6F]"
+                    className="w-full bg-gray-100 border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="USER">USER</option>
                     <option value="ADMIN">ADMIN</option>
                     <option value="PARTNER">PARTNER</option>
                   </select>
                 </td>
-                <td>
+                <td className="py-3 px-4 border-b">
                   <select
                     value={user.status}
                     onChange={(e) => handleUpdate(user.id, { status: e.target.value })}
-                    className="bg-[#AF8F6F]"
+                    className="w-full bg-gray-100 border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="PENDING">PENDING</option>
                     <option value="ACTIVE">ACTIVE</option>
@@ -113,8 +113,11 @@ export default function UserDetailAdmin() {
                     <option value="BANNED">BANNED</option>
                   </select>
                 </td>
-                <td>
-                  <button onClick={() => handleDelete(user.id)} className="text-red-500">
+                <td className="py-3 px-4 border-b">
+                  <button
+                    onClick={() => handleDelete(user.id)}
+                    className="text-red-600 hover:text-red-800 transition duration-200"
+                  >
                     Delete
                   </button>
                 </td>
@@ -123,7 +126,7 @@ export default function UserDetailAdmin() {
           </tbody>
         </table>
       </div>
-
+    </div>
     </div>
   );
-}
+};
