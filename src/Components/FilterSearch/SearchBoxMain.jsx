@@ -178,10 +178,10 @@ const SearchBoxMain = (props) => {
           <span className="font-bold text-[#543310] px-2">
             Guests & Rooms :{" "}
           </span>
-          <div className="relative inline-block text-left">
+          <div className="relative inline-block text-left flex-1">
             <button
               onClick={toggleDropdown}
-              className="flex items-center p-1 border rounded-full text-[#543310] bg-white shadow w-full"
+              className="flex items-center py-1 px-3 border rounded-full text-[#543310] bg-white shadow w-full"
             >
               <span className="mr-2">
                 {adults} GUEST, {rooms} ROOM
