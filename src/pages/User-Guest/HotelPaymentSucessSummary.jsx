@@ -13,7 +13,7 @@ function HotelPaymentSucessSummary() {
         <HeaderUserPage />
       </div>
       <div className="flex justify-center items-start mt-[150px] border-t-2">
-        <div className="container mx-auto p-6 grid gap-5 px-[50px]">
+        <div className="mx-auto px-[50px]">
           <div className="mx-auto ">
             {/* <HotelDetailMain /> */}
           </div>

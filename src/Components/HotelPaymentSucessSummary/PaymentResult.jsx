@@ -82,7 +82,7 @@ function PaymentResult() {
 
 
             <div className="flex flex-col items-center mt-8">
-                <p className="text-green-500 text-2xl pb-5 font-semibold">SUCCESS</p>
+                <p className="text-green-500 text-3xl pb-5 font-semibold">SUCCESS</p>
                 <FaRegCheckCircle size={60} color='#22c55e'/>
 
             </div>

@@ -2,7 +2,8 @@ import { motion } from "framer-motion";
 
 function BookingProgressBallRight() {
   return (
-    <div className="flex justify-center items-center w-full mx-auto">
+    <div className="grid grid-cols-2 items-center mb-8">
+      <h2 className="text-5xl font-bold ml-2 text-green-500">SUCCESS</h2>
       <div className="flex items-center h-[100px]">
         <motion.div
           className="rounded-full bg-orange-500"
