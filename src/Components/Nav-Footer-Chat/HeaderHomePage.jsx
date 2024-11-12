@@ -11,6 +11,7 @@ const HeaderHomePage = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isSearchHover , setIsSearchHover] =useState(false)
   const [input, setInput] = useState('')
   const navigate = useNavigate();
   const setSearch = useUserStore(state => state.setSearch)
@@ -26,6 +27,9 @@ const HeaderHomePage = () => {
 
   const handleMouseEnterProfile = () => setIsProfileDropdownOpen(true);
   const handleMouseLeaveProfile = () => setIsProfileDropdownOpen(false);
+
+  const handleHoverEnterSearch = ()=>setIsSearchHover(true);
+  const handleHoverLeaveSearch = ()=>setIsSearchHover(false); 
 
   const hdlChange = (e) => {
     setInput(e.target.value)
@@ -117,11 +121,13 @@ const HeaderHomePage = () => {
         </nav>
 
         <div className="space-x-4 pr-12 flex items-center">
-          <div className="flex absolute  right-52 max-2xl:static">
-            <input type="text" name="UUID" className="rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 max-2xl:w-[192px] bg-white"
+          <div className="flex absolute  right-52  p-2" onMouseLeave={handleHoverLeaveSearch}>
+            <input type="text" name="UUID" 
+            className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white origin-right transition-transform ${isSearchHover ? 'scale-100': 'scale-x-0'}`}
               onChange={hdlChange} value={input} placeholder="Your Booking Number" />
-            <button className="bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full"
-              onClick={hdlConfirm}>Search</button>
+            <button className={`bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full ${isSearchHover?"rounded-l-none": "rounded-l-full"}`}
+            onMouseEnter={handleHoverEnterSearch}
+              onClick={hdlConfirm}>{isSearchHover ? 'Search': 'Find Your booking'}</button>
           </div>
           {token ? (
             <div className="relative">
