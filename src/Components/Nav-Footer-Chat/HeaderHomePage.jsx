@@ -134,9 +134,9 @@ const HeaderHomePage = () => {
               )}
             </div>
           ) : (
-            <span className="uppercase tracking-wider cursor-pointer hover:bg-white hover:bg-opacity-10 border-white border rounded-lg p-2">
-              Hello, Guest !
-            </span>
+            <Link className="uppercase tracking-wider cursor-pointer hover:bg-white hover:bg-opacity-10 border-white border rounded-lg p-2">
+              Search booking
+            </Link>
           )}
         </div>
       </div>
