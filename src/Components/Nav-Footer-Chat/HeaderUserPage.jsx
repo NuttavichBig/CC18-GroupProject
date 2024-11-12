@@ -33,7 +33,6 @@ const HeaderUserPage = () => {
           top: -30,
           left: 0,
           zIndex: 10,
-          backgroundColor: "white",
         }}
       >
         <img
