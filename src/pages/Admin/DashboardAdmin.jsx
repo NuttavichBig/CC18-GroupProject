@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import booking from "../../assets/booking.png";
-import hotel from "../../assets/hotel.png";
+// import hotel from "../../assets/hotel.png";
 import star from "../../assets/star.png";
 import user from "../../assets/user.png";
 import AllChatAdmin from "../../pages/Admin/AllChatAdmin";
 import useAdminStore from "../../stores/socket-store";
 import { useShallow } from "zustand/shallow";
-import hotel2 from "../../assets/hotel2.png";
+// import hotel2 from "../../assets/hotel2.png";
+import hotel3 from "../../assets/hotel3.png";
+import user2 from "../../assets/user2.png";
 
 import { Bar, Line, Pie } from "react-chartjs-2";
 import {
@@ -301,13 +303,13 @@ export default function DashboardAdmin({}) {
             },
             {
               link: "userDetailAdmin",
-              img: user,
+              img: user2,
               label: "TOTAL USERS",
               count: data.totalUsers,
             },
             {
               link: "hotelDetailAdmin",
-              img: hotel2,
+              img: hotel3,
               label: "TOTAL HOTELS",
               count: data.totalPartners,
             },
