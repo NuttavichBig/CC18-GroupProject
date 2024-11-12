@@ -34,7 +34,7 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }));
+    })); 
   };
 
   const handleDateRangeChange = (ranges) => {
@@ -98,28 +98,28 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
   return (
     <div
       onClick={onCancel}
-      className="flex items-center justify-center fixed inset-0 bg-[#F2F7A140] z-50"
+      className="flex items-center justify-center fixed inset-0 bg-[#83959f6d] z-50"
     >
       <div
-        className="bg-[#F8F4E1] rounded-xl shadow-xl p-8 relative w-full max-w-3xl h-[600px] overflow-hidden overflow-y-auto"
+        className="bg-white rounded-xl shadow-xl p-8 relative w-full max-w-3xl h-[600px] overflow-hidden overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onCancel}
-          className="absolute top-4 right-4 text-3xl font-semibold text-[#543310] bg-transparent border-none cursor-pointer"
+          className="absolute top-4 right-4 text-3xl font-semibold text-[#0088d1] bg-transparent border-none cursor-pointer"
         >
           &times;
         </button>
 
         <div className="text-center mb-8">
-          <p className="text-3xl font-bold text-[#543310]">Edit Promotion</p>
+          <p className="text-3xl font-bold text-[#0088d1]">Edit Promotion</p>
         </div>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Text Inputs */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label htmlFor="name" className="text-lg font-semibold text-[#543310]">
+              <label htmlFor="name" className="text-lg font-semibold text-[#0088d1]">
                 Promotion Campaign Name
               </label>
               <input
@@ -129,12 +129,12 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
                 value={formData.name}
                 onChange={handleInputChange}
                 placeholder="Enter promotion campaign name"
-                className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#543310] text-[#543310] placeholder:text-[#B4A791] shadow-md transition-all duration-200 ease-in-out"
+                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="description" className="text-lg font-semibold text-[#543310]">
+              <label htmlFor="description" className="text-lg font-semibold text-[#0088d1]">
                 Description
               </label>
               <input
@@ -144,12 +144,12 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
                 value={formData.description}
                 onChange={handleInputChange}
                 placeholder="Enter promotion description"
-                className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#543310] text-[#543310] placeholder:text-[#B4A791] shadow-md transition-all duration-200 ease-in-out"
+                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="discountPercent" className="text-lg font-semibold text-[#543310]">
+              <label htmlFor="discountPercent" className="text-lg font-semibold text-[#0088d1]">
                 Discount Percentage (%)
               </label>
               <input
@@ -159,12 +159,12 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
                 value={formData.discountPercent}
                 onChange={handleInputChange}
                 placeholder="Enter discount percentage"
-                className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#543310] text-[#543310] placeholder:text-[#B4A791] shadow-md transition-all duration-200 ease-in-out"
+                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="discountValue" className="text-lg font-semibold text-[#543310]">
+              <label htmlFor="discountValue" className="text-lg font-semibold text-[#0088d1]">
                 Discount Value (THB)
               </label>
               <input
@@ -174,7 +174,7 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
                 value={formData.discountValue}
                 onChange={handleInputChange}
                 placeholder="Enter discount value"
-                className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#543310] text-[#543310] placeholder:text-[#B4A791] shadow-md transition-all duration-200 ease-in-out"
+                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
               />
             </div>
 
@@ -189,12 +189,12 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
                 value={formData.minimumSpend}
                 onChange={handleInputChange}
                 placeholder="Enter minimum spend"
-                className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#543310] text-[#543310] placeholder:text-[#B4A791] shadow-md transition-all duration-200 ease-in-out"
+                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="maxDiscount" className="text-lg font-semibold text-[#543310]">
+              <label htmlFor="maxDiscount" className="text-lg font-semibold text-[#0088d1]">
                 Maximum Discount (THB)
               </label>
               <input
@@ -204,12 +204,12 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
                 value={formData.maxDiscount}
                 onChange={handleInputChange}
                 placeholder="Enter maximum discount"
-                className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#543310] text-[#543310] placeholder:text-[#B4A791] shadow-md transition-all duration-200 ease-in-out"
+                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="usageLimit" className="text-lg font-semibold text-[#543310]">
+              <label htmlFor="usageLimit" className="text-lg font-semibold text-[#0088d1]">
                 Usage Limit
               </label>
               <input
@@ -219,12 +219,12 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
                 value={formData.usageLimit}
                 onChange={handleInputChange}
                 placeholder="Enter usage limit"
-                className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#543310] text-[#543310] placeholder:text-[#B4A791] shadow-md transition-all duration-200 ease-in-out"
+                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="userLimit" className="text-lg font-semibold text-[#543310]">
+              <label htmlFor="userLimit" className="text-lg font-semibold text-[#0088d1]">
                 User Limit
               </label>
               <input
@@ -234,14 +234,14 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
                 value={formData.userLimit}
                 onChange={handleInputChange}
                 placeholder="Enter user limit"
-                className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#543310] text-[#543310] placeholder:text-[#B4A791] shadow-md transition-all duration-200 ease-in-out"
+                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
               />
             </div>
           </div>
 
           {/* Date Range Picker */}
           <div className="space-y-2">
-            <label className="text-lg font-semibold text-[#543310]">Promotion Duration</label>
+            <label className="text-lg font-semibold text-[#0088d1]">Promotion Duration</label>
             <DateRangePicker
               ranges={[dateRange]}
               onChange={handleDateRangeChange}
@@ -255,11 +255,11 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
 
           {/* File Upload */}
           <div className="space-y-2">
-            <label className="text-lg font-semibold text-[#543310]">Upload Image</label>
+            <label className="text-lg font-semibold text-[#0088d1]">Upload Image</label>
             <input
               type="file"
               onChange={(e) => setSelectedFile(e.target.files[0])}
-              className="bg-[#F8F4E1] border-2 border-[#543310] rounded-lg p-4 w-full text-[#543310] placeholder:text-[#B4A791] shadow-md"
+              className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
             />
           </div>
 
@@ -267,13 +267,13 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
             <button
               type="button"
               onClick={onCancel}
-              className="bg-[#543310] text-white py-2 px-6 rounded-lg shadow-md hover:bg-[#3c2614] transition-all duration-200 ease-in-out"
+              className="bg-[#0088d1] text-white py-2 px-6 rounded-lg shadow-md hover:bg-[#76cfff] hover:font-medium hover:text-[#204189] transition-all duration-200 ease-in-out"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-[#F8F4E1] text-[#543310] py-2 px-6 rounded-lg shadow-md hover:bg-[#D8C29A] transition-all duration-200 ease-in-out"
+              className="bg-white border-2 border-[#0088d1] text-[#0088d1] py-2 px-6 rounded-lg shadow-md hover:bg-[#0088d1] hover:text-white transition-all duration-200 ease-in-out"
             >
               Save Changes
             </button>
