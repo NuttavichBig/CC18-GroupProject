@@ -31,6 +31,8 @@ import PartnerUpdate from "../Components/Partner/PartnerUpdate";
 import HotelUpdate from "../Components/Partner/HotelUpdate";
 import PartnerDashboard from "../pages/Partner/PartnerDashboard";
 import UUIDBookingSearch from "../pages/User-Guest/UUIDBookingSearch";
+import ResetPassword from "../pages/User-Guest/ResetPassword";
+import ForgetPassword from "../pages/User-Guest/ForgetPassword";
 
 
 const MainRouter = createBrowserRouter([
@@ -51,7 +53,9 @@ const MainRouter = createBrowserRouter([
         element: <HotelPaymentSucessSummary />,
       },
       { path: "promotion", element: <HotelPromotion /> },
-      { path: "UUID" , element : <UUIDBookingSearch/>}
+      { path: "UUID" , element : <UUIDBookingSearch/>},
+      { path: "/reset-password" , element: <ForgetPassword/>},
+      { path: "/reset-password/:token",element : <ResetPassword/>}
 
     ],
   },
