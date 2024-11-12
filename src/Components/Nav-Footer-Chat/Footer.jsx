@@ -6,7 +6,7 @@ import { FaFacebook, FaLine, FaInstagram, FaYoutube } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="w-screen bottom-0">
+    <footer className="w-full bottom-0">
       <div className="relative overflow-hidden">
         <svg viewBox="0 0 120 28" className="w-full relative z-10">
           <defs>
@@ -79,9 +79,6 @@ const Footer = () => {
               <a href="#" className="text-white hover:underline">
                 Privacy Notice
               </a>
-              <a href="#" className="text-white hover:underline">
-                Help Center
-              </a>
             </div>
           </div>
           <div className="flex flex-col items-center text-white">
@@ -102,7 +99,7 @@ const Footer = () => {
       </div>
 
       {/* Footer Copyright */}
-      <div className="bg-blue-500 text-white text-sm text-center py-2">
+      <div className="bg-blue-500 text-white text-sm text-center pt-10 py-2">
         Copyright © 2024 TravelCome. All rights reserved
       </div>
     </footer>

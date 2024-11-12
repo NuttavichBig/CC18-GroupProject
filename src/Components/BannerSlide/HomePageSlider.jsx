@@ -1,4 +1,3 @@
-
 import React, { memo, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -130,10 +129,10 @@ const HomePageSlider = () => {
             <motion.div
               initial={{ scale: 0.9 }}
               whileHover={{ scale: 1.05 }}
-              transition={{ type: 'spring', stiffness: 800, damping: 20 }}
+              transition={{ type: "spring", stiffness: 800, damping: 20 }}
               style={{
                 width: "100%",
-                height: "350px",
+                height: "450px",
                 borderRadius: "20px",
                 overflow: "hidden",
                 boxShadow: "8px 8px 20px rgba(0, 0, 0, 0.3)",
@@ -150,7 +149,6 @@ const HomePageSlider = () => {
                 }}
               />
             </motion.div>
-
           </SwiperSlide>
         ))}
       </Swiper>
@@ -159,7 +157,6 @@ const HomePageSlider = () => {
 };
 
 export default memo(HomePageSlider);
-
 
 // import React, { memo, useEffect, useState } from "react";
 // import { Swiper, SwiperSlide } from "swiper/react";

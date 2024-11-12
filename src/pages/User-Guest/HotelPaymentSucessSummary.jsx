@@ -13,15 +13,15 @@ function HotelPaymentSucessSummary() {
 
     return (
         <div>
-            <div className='bg-gray-400 relative h-[100px]'>
+            <div className='text-[#543310]'>
                 <HeaderUserPage />
             </div>
-            <div className='min-h-screen relative bg-[#f9f9f9] flex justify-center items-start'>
+            <div className='flex justify-center items-start mt-[150px] border-t-2'>
                 <div className="container mx-auto p-6 grid gap-5">
-                    <SearchBoxMain />
+             
 
-                    <div className="bg-[#fef6e4]">
-                        <span className='ml-1'>Overview to pay</span>
+                    <div className="">
+             
                         <HotelDetailMain />
                     </div>
 

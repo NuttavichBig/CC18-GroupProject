@@ -42,7 +42,7 @@ function PromotionHomePage() {
           {promotions.map((promotion, index) => (
             <div
               key={index}
-              className="bg-[#fef6e4] rounded-lg shadow-lg overflow-hidden flex flex-col w-72 cursor-pointer"
+              className="bg-cream-gradient rounded-lg shadow-lg overflow-hidden flex flex-col w-72 cursor-pointer"
             >
               <img
                 src={promotion.img}

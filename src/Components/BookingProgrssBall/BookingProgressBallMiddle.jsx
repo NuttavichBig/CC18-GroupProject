@@ -8,19 +8,19 @@ function BookingProgressBallMiddle() {
         <div className="flex items-center h-[100px]">
           <motion.div
             className="rounded-full bg-orange-500"
-            style={{ width: "60px", height: "60px" }}
+            style={{ width: "40px", height: "40px" }}
           />
           <div className="h-1 w-52 bg-orange-300 mx-0"></div>
           <motion.div
             className="rounded-full bg-orange-500"
-            style={{ width: "60px", height: "60px" }}
+            style={{ width: "40px", height: "40px" }}
             animate={{ scale: [1, 1.2, 1] }}
             transition={{ duration: 1, repeat: Infinity, delay: 0.6 }}
           />
           <div className="h-1 w-52 bg-gray-300 mx-0"></div>
           <motion.div
             className="rounded-full bg-gray-300"
-            style={{ width: "60px", height: "60px" }}
+            style={{ width: "40px", height: "40px" }}
           />
         </div>
       </div>
