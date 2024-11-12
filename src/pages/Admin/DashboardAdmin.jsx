@@ -6,6 +6,7 @@ import user from "../../assets/user.png";
 import AllChatAdmin from "../../pages/Admin/AllChatAdmin";
 import useAdminStore from "../../stores/socket-store";
 import { useShallow } from "zustand/shallow";
+import hotel2 from "../../assets/hotel2.png";
 
 import { Bar, Line, Pie } from "react-chartjs-2";
 import {
@@ -306,7 +307,7 @@ export default function DashboardAdmin({}) {
             },
             {
               link: "hotelDetailAdmin",
-              img: hotel,
+              img: hotel2,
               label: "TOTAL HOTELS",
               count: data.totalPartners,
             },
