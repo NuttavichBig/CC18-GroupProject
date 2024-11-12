@@ -11,6 +11,8 @@ const HeaderUserPage = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [input ,setInput] = useState('')
+  const setSearch = useUserStore(state=>state.setSearch)
   const navigate = useNavigate();
   const { user, token, logout } = useUserStore(
     useShallow((state) => ({
@@ -24,6 +26,18 @@ const HeaderUserPage = () => {
 
   const handleMouseEnterProfile = () => setIsProfileDropdownOpen(true);
   const handleMouseLeaveProfile = () => setIsProfileDropdownOpen(false);
+
+  const hdlChange = (e) => {
+    setInput(e.target.value)
+  }
+
+  const hdlConfirm = () => {
+    if (!input) {
+      return
+    }
+    setSearch(input)
+    navigate('/UUID')
+  }
   return (
     <div>
       <div
@@ -99,18 +113,16 @@ const HeaderUserPage = () => {
             </div>
           )}
         </nav>
-
-        {/* Profile Dropdown for "Hello, Guest!" */}
+          {
+            token ? 
+         
         <div className="flex items-center space-x-4 mr-12">
           <div className="relative">
             <span
               className=" uppercase tracking-wider cursor-pointer hover:bg-orange-500 hover:bg-opacity-10 border-[#543310] border rounded-full text-sm p-3"
               onMouseEnter={handleMouseEnterProfile}
-            >
-              {token
-                ? `Hello, ${user.firstName} ${user.lastName}`
-                : "Hello, Guest !"}
-            </span>
+            >Hello, ${user.firstName} ${user.lastName}
+                </span>
 
             {isProfileDropdownOpen && (
               <div
@@ -131,6 +143,19 @@ const HeaderUserPage = () => {
             )}
           </div>
         </div>
+        :
+        <div className="flex gap-8">
+              <div className="flex">
+                <input type="text" name="UUID" className="rounded-l-full text-black px-4 opacity-75 border border-[#b6a089] border-opacity-75"
+                  onChange={hdlChange} value={input} placeholder="Your Booking Number"/>
+                <button className="bg-orange-dark-gradient px-4 rounded-r-full text-white"
+                  onClick={hdlConfirm}>Search</button>
+              </div>
+              <div className="uppercase tracking-wider cursor-pointer hover:bg-white hover:bg-opacity-10 border-white border rounded-lg py-1 px-2">
+                Hello, Guest
+              </div>
+            </div>
+         }
       </div>
 
       {isLoginModalOpen && <Login setIsLoginModalOpen={setIsLoginModalOpen} />}

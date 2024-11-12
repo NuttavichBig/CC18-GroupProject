@@ -23,7 +23,7 @@ function HotelPayment() {
 
                     <div className="">
 
-                        <HotelDetailMain />
+                        {/* <HotelDetailMain /> */}
                     </div>
 
                     <BookingProgressBallMiddle />

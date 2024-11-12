@@ -1,29 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PictureSlide from '../../Components/Nav-Footer-Chat/PictureSlide'
 import Footer from '../../Components/Nav-Footer-Chat/Footer'
 import HeaderUserPage from '../../Components/Nav-Footer-Chat/HeaderUserPage'
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import axios from 'axios'
+import useUserStore from '../../stores/user-store';
 const API = import.meta.env.VITE_API
 
 
 function UUIDBookingSearch() {
     const [pageParam, setPageParam] = useState({
-        input: '',
         errMsg: '',
         isLoading: false
     })
     const [booking, setBooking] = useState(null)
-
-
-    const hdlInput = (e) => {
-        setPageParam(prv => ({ ...prv, input: e.target.value }))
-    }
+    useEffect(()=>{
+        hdlSearch()
+    },[booking])
+    const searchBooking = useUserStore(state=>state.searchBooking)
 
     const hdlSearch = async (e) => {
         e.preventDefault()
         try {
-            const result = await axios.get(`${API}/booking/${pageParam.input}`)
+            const result = await axios.get(`${API}/booking/${searchBooking}`)
             console.log(result.data)
             setBooking(result.data)
         } catch (err) {
@@ -38,16 +37,10 @@ function UUIDBookingSearch() {
             </div>
             <div className='min-h-screen relative bg-[#f9f9f9] flex justify-center items-start'>
                 <div className="container mx-auto p-6 grid gap-5">
-                    <div className="flex mt-20">
-                        <form className='flex bg-orange-light-gradient px-4 py-2 rounded-full items-center justify-center shadow-lg' onSubmit={hdlSearch}>
-                            <input type='text' placeholder='UUID' className='py-2.5 px-4 w-80 rounded-l-full text-center shadow-inner shadow-gray-400'
-                                onChange={hdlInput} />
-                            <button className='bg-orange-dark-gradient rounded-r-full py-2 pl-6 text-white text-lg font-bold pr-10'>search</button>
-                        </form>
-                    </div>
+
                     {
                         booking &&
-                        <div className='flex w-fit bg-luxury-cream-gradient mt-4 rounded-md shadow-xl'>
+                        <div className='flex w-fit bg-luxury-cream-gradient rounded-md shadow-xl mt-20'>
                             <div className='flex flex-col w-full p-8'>
                                 <div className='flex'>
                                     <div className='flex flex-col gap-2'>

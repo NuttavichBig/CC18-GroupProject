@@ -11,9 +11,9 @@ const HeaderHomePage = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [input, setInput] = useState('')
   const navigate = useNavigate();
-  const setSearch = useUserStore(state=>state.setSearch)
-
+  const setSearch = useUserStore(state => state.setSearch)
   const { user, token, logout } = useUserStore(
     useShallow((state) => ({
       user: state.user,
@@ -21,13 +21,23 @@ const HeaderHomePage = () => {
       logout: state.logout,
     }))
   );
-
   const handleMouseEnterLogin = () => setIsDropdownOpen(true);
   const handleMouseLeaveRegister = () => setIsDropdownOpen(false);
 
   const handleMouseEnterProfile = () => setIsProfileDropdownOpen(true);
   const handleMouseLeaveProfile = () => setIsProfileDropdownOpen(false);
 
+  const hdlChange = (e) => {
+    setInput(e.target.value)
+  }
+
+  const hdlConfirm = () => {
+    if (!input) {
+      return
+    }
+    setSearch(input)
+    navigate('/UUID')
+  }
   return (
     <>
       <div
@@ -135,8 +145,16 @@ const HeaderHomePage = () => {
               )}
             </div>
           ) : (
-            <div to={'/UUID'}className="uppercase tracking-wider cursor-pointer hover:bg-white hover:bg-opacity-10 border-white border rounded-lg p-2">
-              Hello, Guest
+            <div className="flex gap-8 relative">
+              <div className="flex absolute -left-80 top-1">
+                <input type="text" name="UUID" className="rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75"
+                  onChange={hdlChange} value={input} placeholder="Your Booking Number" />
+                <button className="bg-orange-dark-gradient px-4 rounded-r-full"
+                  onClick={hdlConfirm}>Search</button>
+              </div>
+              <div className="uppercase tracking-wider cursor-pointer hover:bg-white hover:bg-opacity-10 border-white border rounded-lg py-1 px-2">
+                Hello, Guest
+              </div>
             </div>
           )}
         </div>

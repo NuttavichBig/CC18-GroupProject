@@ -64,7 +64,7 @@ function HotelDetailToPayment() {
                 
 
                     <div className="p-6">
-                        <HotelDetailMain />
+                        {/* <HotelDetailMain /> */}
                     </div>
 
 
