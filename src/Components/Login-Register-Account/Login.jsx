@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import travellogo from "../../assets/TRAVELHOMELOGO-USER.png";
 import useUserStore from "../../stores/user-store";
 import { useShallow } from "zustand/shallow";
-import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
+import {  useGoogleLogin } from "@react-oauth/google";
 import googleloginbutton from "../../assets/googleloginbuttonanimation3.gif";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+const API = import.meta.env.VITE_API
 
 const Login = ({ setIsLoginModalOpen }) => {
   const [input, setInput] = useState({
@@ -19,10 +21,11 @@ const Login = ({ setIsLoginModalOpen }) => {
       loginWithGoogle: state.googleLogin,
     }))
   );
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (token) {
       setIsLoginModalOpen(false);
+      getCheckRole();
     }
   }, [token]);
 
@@ -35,6 +38,20 @@ const Login = ({ setIsLoginModalOpen }) => {
       setInput((prev) => ({ ...prev, err: errMsg }));
     }
   };
+
+  const getCheckRole = async()=>{
+    const result = await axios.get(`${API}/auth/user`,{
+    headers:{
+      Authorization: `Bearer ${token}`
+    }
+    })
+    console.log(result.data.user.role)
+    if(result.data.user.role === 'PARTNER'){
+      navigate('/partner')
+    }else if(result.data.user.role === 'ADMIN'){
+      navigate('/admin')
+    }
+  }
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
