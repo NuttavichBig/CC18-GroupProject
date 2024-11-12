@@ -60,10 +60,10 @@ function HotelDetailToPayment() {
                 <HeaderUserPage />
           
             <div className='flex justify-center  items-start mt-[150px] border-t-2'>
-                <div className="container mx-auto p-6 grid gap-5">
+                <div className="mx-auto px-[50px]">
                 
 
-                    <div className="p-6">
+                    <div className="">
                         {/* <HotelDetailMain /> */}
                     </div>
 

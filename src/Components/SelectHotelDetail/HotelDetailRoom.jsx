@@ -84,18 +84,18 @@ function HotelDetailRoom({ rooms }) {
             }}
           >
             <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
-              <div className="">
-                <h4
-                  style={{
-                    fontSize: "1rem",
-                    fontWeight: "600",
-                    color: "#543310",
-                  }}
-                >
-                  {room.type}
-                </h4>
-                <p className="text-[#543310] flex items-center">
-                  Facilities :
+              <h4
+                style={{
+                  fontSize: "1rem",
+                  fontWeight: "600",
+                  color: "#543310",
+                }}
+              >
+                {room.type}
+              </h4>
+              <div className="text-[#543310] flex items-center ">
+                <div className="w-[100px]">Facilities :</div>
+                <div className="h-full flex flex-wrap items-center">
                   {Object.entries(room.facilitiesRoom || {})
                     .filter(([key, value]) => value === true)
                     .map(([key]) => (
@@ -106,22 +106,22 @@ function HotelDetailRoom({ rooms }) {
                         {formatFacilityName(key)}
                       </span>
                     ))}
-                </p>
+                </div>
               </div>
-              <div>
-                <p style={{ fontWeight: "600", color: "#543310" }}>Guests</p>
-                <p style={{ fontSize: "0.875rem", color: "#6b6b6b" }}>
-                  {room.recommendPeople || "Not specified"} Adult
-                </p>
-              </div>
-              <div>
-                <p style={{ fontWeight: "600", color: "#543310" }}>
-                  Available Room
-                </p>
-                <p style={{ fontSize: "0.875rem", color: "#6b6b6b" }}>
-                  {room.status || "Not specified"}
-                </p>
-              </div>
+            </div>
+          </div>
+          <div className="flex gap-5">
+            <div className="flex flex-col gap-2 w-[60px]">
+              <p style={{ fontWeight: "600", color: "#543310" }}>Guests</p>
+              <p style={{ fontSize: "0.875rem", color: "#6b6b6b" }}>
+                {room.recommendPeople || "Not specified"} Adults
+              </p>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p style={{ fontWeight: "600", color: "#543310" }}>Room</p>
+              <p style={{ fontSize: "0.875rem", color: "#6b6b6b" }}>
+                {room.status || "Not specified"}
+              </p>
             </div>
           </div>
           <span

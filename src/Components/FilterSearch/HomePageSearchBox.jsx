@@ -280,7 +280,7 @@ const HomePageSearchBox = () => {
         <div className=" flex w-1/5 justify-center mt-6">
           <button
             onClick={handleSearch}
-            className="font-bold w-full shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-2 outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-32 h-12"
+            className="font-bold  shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-2 outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-32 h-12"
           >
             SEARCH
           </button>
