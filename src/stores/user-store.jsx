@@ -15,15 +15,12 @@ const useUserStore = create(persist((set, get) => ({
     guest: 1
   },
   selectedLocation: null,
-
-
+  searchBooking: '',
   setUserProfileImage: (imageUrl) => {
     set((state) => ({
       user: { ...state.user, image: imageUrl }
     }));
   },
-
-
   setSelectedLocation: (location) => set({ selectedLocation: location }),
   setFilter: (value) => {
     set({ filter: value })
@@ -53,24 +50,29 @@ const useUserStore = create(persist((set, get) => ({
     const result = await axios.post(`${API}/auth/google`, { accessToken });
     set({ token: result.data.token, user: result.data.user })
   },
-  getMe : async()=>{
-    const { token }  = useUserStore.getState();
-    if(!token) throw new Error('Please Login')
-      const result  = await axios.get(`${API}/auth/user`,{
-    headers : {
-      Authorization : `Bearer ${token}`
-    }})
+  getMe: async () => {
+    const { token } = useUserStore.getState();
+    if (!token) throw new Error('Please Login')
+    const result = await axios.get(`${API}/auth/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
     return result.data
   },
-  updateUserProfile: async (data) =>{
-    const { token }  = useUserStore.getState();
-    if(!token) throw new Error('Please Login')
-    const result = await axios.patch(`${API}/auth/user`,data,{
-      headers : {
-        Authorization : `Bearer ${token}`
-      }})
-    set({user:result.data.user })
+  updateUserProfile: async (data) => {
+    const { token } = useUserStore.getState();
+    if (!token) throw new Error('Please Login')
+    const result = await axios.patch(`${API}/auth/user`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    set({ user: result.data.user })
     return result
+  },
+  setSearch: (UUID) => {
+    set({searchBooking : UUID})
   }
 }), {
   name: "stateUserData",

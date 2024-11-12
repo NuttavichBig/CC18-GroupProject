@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import searchbuttonanimation from "../../assets/GifMainButtonOrangeSearch1.gif";
 import useUserStore from "../../stores/user-store";
 import { useShallow } from "zustand/shallow";
 import SearchLocation from "../GoogleApi/SearchLocation";
