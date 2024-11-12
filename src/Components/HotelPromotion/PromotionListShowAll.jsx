@@ -50,14 +50,9 @@ function PromotionListShowAll() {
 
   const handleMouseLeave = (index) => {
     const card = document.getElementById(`promo-card-${index}`);
-    const shadow = document.getElementById(`shadow-card-${index}`);
     card.style.transform =
       "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)"; //รีเซ็ตการหมุน (rotateX และ rotateY) และการขยายขนาด (scale) ของการ์ดให้กลับมาเป็นค่าเริ่มต้น
     card.style.transition = "transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)"; //สำหรับการคืนค่าให้กลับมาเป็นค่าเริ่มต้นอย่างนุ่มนวล
-
-    shadow.style.transform =
-      "perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(-100px)";
-    shadow.style.transition = "transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)";
   };
 
   return (
@@ -78,7 +73,6 @@ function PromotionListShowAll() {
             transition={{ delay: index * 0.2, duration: 0.6 }}
           >
             <div
-              id={`shadow-card-${index}`}
               className="absolute inset-0 rounded-lg"
               style={{
                 backgroundColor: "rgba(0, 0, 0, 0.3)",
@@ -92,7 +86,7 @@ function PromotionListShowAll() {
 
             <div
               id={`promo-card-${index}`}
-              className="relative bg-[#FFF8EC] rounded-lg shadow-lg overflow-hidden cursor-pointer flex "
+              className="relative bg-[#FFF8EC] rounded-lg shadow-md overflow-hidden cursor-pointer flex "
               style={{
                 width: "100%",
                 height: "100%",
@@ -144,16 +138,3 @@ function PromotionListShowAll() {
 }
 
 export default PromotionListShowAll;
-
-// const promotions = [
-//     { id: 1, imageUrl: '/1.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 2, imageUrl: '/2.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 3, imageUrl: '/3.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 4, imageUrl: '/4.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 5, imageUrl: '/5.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 6, imageUrl: '/6.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 7, imageUrl: '/7.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 8, imageUrl: '/8.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 9, imageUrl: '/9.jpg', discount: '50%', location: 'Lotte Hotels & Resorts Korea' },
-//     { id: 10, imageUrl: '/10.jpg', discount: '40%', location: 'Lotte Hotels & Resorts Korea' },
-// ];

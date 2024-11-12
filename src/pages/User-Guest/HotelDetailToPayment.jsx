@@ -56,16 +56,14 @@ function HotelDetailToPayment() {
     // },[pageParams])
 
     return (
-        <div>
-            <div className='bg-gray-400 relative h-[100px]'>
+        <div className='text-[#543310]'>
                 <HeaderUserPage />
-            </div>
-            <div className='min-h-screen relative bg-[#f9f9f9] flex justify-center items-start'>
+          
+            <div className='flex justify-center  items-start mt-[150px] border-t-2'>
                 <div className="container mx-auto p-6 grid gap-5">
-                    <SearchBoxMain />
+                
 
                     <div className="p-6">
-                        <span className='ml-1 font-bold'>Overview to pay</span>
                         <HotelDetailMain />
                     </div>
 
@@ -85,7 +83,7 @@ function HotelDetailToPayment() {
                         <div className="col-span-2 space-y-6 mb-[500px] mr-8">
 
                             <div className="flex gap-6">
-                                <div className="w-full bg-[#fef6e4]">
+                                <div className="w-full">
                                     <TravelerDetailForm pageParams={pageParams} setPageParams={setPageParams} />
                                 </div>
                             </div>

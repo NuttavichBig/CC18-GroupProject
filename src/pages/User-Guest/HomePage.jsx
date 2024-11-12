@@ -53,7 +53,7 @@ const HomePage = () => {
           </motion.div>
         </div>
 
-        <div className="mt-[160px]">
+        <div className="mt-[200px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

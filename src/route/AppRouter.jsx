@@ -29,6 +29,11 @@ import HotelPartner from "../pages/Partner/HotelPartner";
 import ProtectRouter from "./ProtectRouter";
 import PartnerUpdate from "../Components/Partner/PartnerUpdate";
 import HotelUpdate from "../Components/Partner/HotelUpdate";
+import PartnerDashboard from "../pages/Partner/PartnerDashboard";
+import UUIDBookingSearch from "../pages/User-Guest/UUIDBookingSearch";
+import ResetPassword from "../pages/User-Guest/ResetPassword";
+import ForgetPassword from "../pages/User-Guest/ForgetPassword";
+
 
 
 const MainRouter = createBrowserRouter([
@@ -49,6 +54,9 @@ const MainRouter = createBrowserRouter([
         element: <HotelPaymentSucessSummary />,
       },
       { path: "promotion", element: <HotelPromotion /> },
+      { path: "UUID" , element : <UUIDBookingSearch/>},
+      { path: "/reset-password" , element: <ForgetPassword/>},
+      { path: "/reset-password/:token",element : <ResetPassword/>}
 
     ],
   },
@@ -77,7 +85,7 @@ const MainRouter = createBrowserRouter([
     path: "/userprofile",
     element: <ProtectRouter element={<HomeUser />} reqRole={['USER', 'PARTNER']} />,
     children: [
-      { path: "edit", element: <ProfileForm /> },
+      { path: "", element: <ProfileForm /> },
       { path: "purchasehistory", element: <MyPurchase /> },
       { path: "reviewhistory", element: <ReviewTabHistory /> },
     ],
@@ -86,7 +94,6 @@ const MainRouter = createBrowserRouter([
     path: "/admin",
     element: <ProtectRouter element={<HomeAdmin />} reqRole={['ADMIN']} />,
     children: [
-
       { index:true, element: <DashboardAdmin /> },
       { path: "userDetailAdmin", element: <UserDetailAdmin /> },
       { path: "bookingDetailAdmin", element: <BookingDetailAdmin /> },
@@ -99,8 +106,7 @@ const MainRouter = createBrowserRouter([
     path: "/partner",
     element: <ProtectRouter element={<HomePartner />} reqRole={['PARTNER']} />,
     children: [
-
-
+      { index: true, element: <PartnerDashboard /> },
       { path: "bookingDetailPartner", element: <BookingDetailPartner /> },
       { path: "hotelPartner", element: <HotelPartner /> },
       { path: "reviewDetailPartner", element: <ReviewDetailPartner /> },

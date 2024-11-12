@@ -46,7 +46,7 @@ const FilterPanel = () => {
     }
 
     return (
-        <div className="w-full  ">
+        <div className="w-full text-[#543310]">
             <div className="mb-6 shadow-md rounded-lg ">
                 <PriceRangeFilter hdlChange={hdlChange} />
             </div>

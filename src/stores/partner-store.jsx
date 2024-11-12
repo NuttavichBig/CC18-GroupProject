@@ -55,6 +55,14 @@ const usePartnerStore = create((set,get)=>({
       })
       console.log(result.data)
       set({hotel : result.data})
+    },
+    deleteRoom : async(roomId)=>{
+      const {token} = useUserStore.getState()
+      await axios.delete(`${API}/room/${roomId}`,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
     }
     
     

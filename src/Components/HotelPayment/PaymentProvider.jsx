@@ -109,7 +109,6 @@ export default function PaymentProvider({ children }) {
         theme: 'stripe',
         variables: {
             colorPrimary: '#FFA500',
-            colorBackground: '#fffaf0',
             colorText: '#333333',
             borderRadius: '10px',
             spacingUnit: '10px',
@@ -125,7 +124,7 @@ export default function PaymentProvider({ children }) {
                 fontSize: '16px'
             },
             '.Tab--selected': {
-                backgroundColor: '#fffaf0',
+            
                 borderColor: '#FFA500'
             }
         }

@@ -11,7 +11,7 @@ const HotelDetailMain = () => {
 
 
     return (
-        <div className="flex flex-col w-full p-6 bg-cream-light-gradient rounded-lg shadow-lg space-y-6">
+        <div className="flex flex-col rounded-lg w-full p-6 bg-cream-gradient space-y-6 text-[#543310]">
 
             <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold">{currentHotel.name}</h2>
@@ -38,12 +38,12 @@ const HotelDetailMain = () => {
             </div>
 
             <div>
-                <h3 className="font-semibold">Facilities:</h3>
+                <h3 className="font-semibold pb-2">Facilities:</h3>
                 <div className="flex flex-wrap gap-2">
                     {Object.entries(currentHotel.facilitiesHotel || {})
                         .filter(([key, value]) => value === true)
                         .map(([key]) => (
-                            <span key={key} className="px-2 py-1 bg-gray-200 rounded">
+                            <span key={key} className="px-3 py-1 bg-orange-50 shadow-md rounded-lg">
                                 {formatFacilityName(key)}
                             </span>
                         ))}
