@@ -22,7 +22,7 @@ function HotelPaymentSucessSummary() {
 
                     <div className="">
              
-                        <HotelDetailMain />
+                        {/* <HotelDetailMain /> */}
                     </div>
 
 
