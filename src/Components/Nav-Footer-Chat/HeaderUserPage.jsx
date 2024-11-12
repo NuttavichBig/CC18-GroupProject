@@ -104,7 +104,7 @@ const HeaderUserPage = () => {
         <div className="flex items-center space-x-4 mr-12">
           <div className="relative">
             <span
-              className=" uppercase tracking-wider cursor-pointer hover:bg-orange-500 hover:bg-opacity-10 border-[#543310] border rounded-lg p-2"
+              className=" uppercase tracking-wider cursor-pointer hover:bg-orange-500 hover:bg-opacity-10 border-[#543310] border rounded-full text-sm p-3"
               onMouseEnter={handleMouseEnterProfile}
             >
               {token
