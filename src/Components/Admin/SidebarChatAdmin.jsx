@@ -1,5 +1,5 @@
 import React from "react";
-import userchat from "../../assets/userchat.png";
+import userChat2 from "../../assets/userChat2.png";
 import useAdminStore from "../../stores/socket-store";
 import { useShallow } from "zustand/shallow";
 
@@ -24,7 +24,7 @@ export default function SidebarChatAdmin({ chatBoxList }) {
               setChatBox(item.id);
             }}
           >
-            <img src={item?.user?.image || userchat} alt="" className="w-[50px] h-[50px] rounded-full border-2 border-gray-200" />
+            <img src={item?.user?.image || userChat2} alt="" className="w-[50px] h-[50px] rounded-full border-2 border-gray-200" />
             <div>
               <p className="font-bold text-gray-700">{item?.user?.email || 'guest'}</p>
               <p className="text-gray-500 text-sm truncate">{item?.messages[0]?.message || ''}</p>

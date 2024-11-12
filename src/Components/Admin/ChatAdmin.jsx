@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import userchat from "../../assets/userchat.png";
 import sent from "../../assets/sent.png";
 import useAdminStore from "../../stores/socket-store";
 import { useShallow } from "zustand/shallow";
+import userChat2 from "../../assets/userchat2.png";
 
 export default function ChatAdmin() {
   const { socket, chatRoom, addMessage } = useAdminStore(useShallow(state => ({
@@ -49,7 +49,7 @@ export default function ChatAdmin() {
       <div className="flex-1 overflow-y-auto space-y-4 p-4" ref={chatBoxRef}>
         {chatRoom !== null && chatRoom.messages.map((message, index) =>
           <div key={index} className={`flex gap-4 ${message.isAdmin ? 'flex-row-reverse' : 'justify-start'}`}>
-            <img src={message.isAdmin ? userchat : chatRoom?.user?.image || userchat} alt="" className="h-12 w-12 rounded-full border border-gray-300" />
+            <img src={message.isAdmin ? userChat2 : chatRoom?.user?.image || userChat2} alt="" className="h-12 w-12 rounded-full border border-gray-300" />
             <div>
               <p className={`font-semibold ${message.isAdmin ? 'text-end text-blue-600' : 'text-start text-gray-700'}`}>
                 {message.isAdmin ? 'Support' : chatRoom?.user?.email || 'guest'}

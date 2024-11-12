@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
-// import booking from "../../assets/booking.png";
-// import hotel from "../../assets/hotel.png";
-// import star from "../../assets/star.png";
-// import user from "../../assets/user.png";
 import AllChatAdmin from "../../pages/Admin/AllChatAdmin";
 import useAdminStore from "../../stores/socket-store";
 import { useShallow } from "zustand/shallow";
-// import hotel2 from "../../assets/hotel2.png";
 import hotel3 from "../../assets/hotel3.png";
 import user2 from "../../assets/user2.png";
 import star2 from "../../assets/star2.png";
 import booking2 from "../../assets/booking2.png";
-
-
 
 import { Bar, Line, Pie } from "react-chartjs-2";
 import {
@@ -293,9 +286,9 @@ export default function DashboardAdmin({}) {
         <AllChatAdmin setChatOpen={setChatOpen} chatBoxList={chatBoxList} />
       )}
       <div className="p-8 min-h-screen bg-white rounded-2xl">
-      <div className="text-center mb-8 text-[#1b2c5c]">
-            <h1 className="text-4xl font-bold">Admin Dashboard</h1>
-          </div>
+        <div className="text-center mb-8 text-[#1b2c5c]">
+          <h1 className="text-4xl font-bold">Admin Dashboard</h1>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-6">
           {[
@@ -339,8 +332,8 @@ export default function DashboardAdmin({}) {
             </a>
           ))}
         </div>
-                {/* Chat Info */}
-                <div className="bg-gradient-to-r from-[#0088d1] to-[#1E4D8C] p-6 rounded-lg shadow-2xl mb-6">
+        {/* Chat Info */}
+        <div className="bg-gradient-to-r from-[#0088d1] to-[#1E4D8C] p-6 rounded-lg shadow-2xl mb-6">
           <div className="flex justify-between items-center">
             <div className="flex flex-col items-center">
               <p className="text-xl font-bold text-white">TOTAL CHATS</p>
@@ -367,19 +360,19 @@ export default function DashboardAdmin({}) {
           </div>
 
           <div className="bg-white rounded-lg p-6 shadow-lg">
-              <div className="mb-6 flex justify-between">
-            <p className="text-xl font-bold text-[#0f0d41]">MONTHLY SALES</p>
-                <select
-                  id="timePeriod"
-                  value={timePeriod}
-                  onChange={handleTimePeriodChange}
-                  className="p-2 text-sm font-medium rounded-lg"
-                >
-                  <option value="daily">Daily</option>
-                  <option value="weekly">Weekly</option>
-                  <option value="monthly">Monthly</option>
-                </select>
-              </div>
+            <div className="mb-6 flex justify-between">
+              <p className="text-xl font-bold text-[#0f0d41]">MONTHLY SALES</p>
+              <select
+                id="timePeriod"
+                value={timePeriod}
+                onChange={handleTimePeriodChange}
+                className="p-2 text-sm font-medium rounded-lg"
+              >
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
             <Line
               key={timePeriod}
               data={monthlySalesData}
@@ -411,19 +404,18 @@ export default function DashboardAdmin({}) {
             </p>
             <Pie data={popularBookingTypesData} options={donutOptions} />
           </div>
-        {/* </div> */}
 
-        <div className="flex flex-col justify-center items-center gap-6 ">
-          <div className="bg-white rounded-lg p-6 shadow-lg w-full">
-            <p className="text-xl font-bold text-[#0f0d41]">REVENUE</p>
-            <p className="text-2xl font-semibold">${data.revenue}</p>
-          </div>
+          <div className="flex flex-col justify-center items-center gap-6 ">
+            <div className="bg-white rounded-lg p-6 shadow-lg w-full">
+              <p className="text-xl font-bold text-[#0f0d41]">REVENUE</p>
+              <p className="text-2xl font-semibold">${data.revenue}</p>
+            </div>
 
-          <div className="bg-white rounded-lg p-6 shadow-lg w-full">
-            <p className="text-xl font-bold text-[#0f0d41]">AVERAGE RATING</p>
-            <p className="text-2xl font-semibold">{data.averageRating} ⭐</p>
+            <div className="bg-white rounded-lg p-6 shadow-lg w-full">
+              <p className="text-xl font-bold text-[#0f0d41]">AVERAGE RATING</p>
+              <p className="text-2xl font-semibold">{data.averageRating} ⭐</p>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </>

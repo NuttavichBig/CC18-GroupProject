@@ -1,5 +1,5 @@
 import React from "react";
-import NavbarAdmin from "../../Components/Admin/NavbarAdmin";
+// import NavbarAdmin from "../../Components/Admin/NavbarAdmin";
 import SidebarAdmin from "../../Components/Admin/SidebarAdmin";
 import { Outlet } from "react-router-dom";
 
