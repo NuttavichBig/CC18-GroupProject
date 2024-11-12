@@ -117,6 +117,12 @@ const HeaderHomePage = () => {
         </nav>
 
         <div className="space-x-4 pr-12 flex items-center">
+          <div className="flex absolute  right-52 max-2xl:static">
+            <input type="text" name="UUID" className="rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 max-2xl:w-[192px] bg-white"
+              onChange={hdlChange} value={input} placeholder="Your Booking Number" />
+            <button className="bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full"
+              onClick={hdlConfirm}>Search</button>
+          </div>
           {token ? (
             <div className="relative">
               <span
@@ -145,13 +151,7 @@ const HeaderHomePage = () => {
               )}
             </div>
           ) : (
-            <div className="flex max-2xl:gap-2 gap-8 relative max-2xl:static">
-              <div className="flex absolute right-40 top-1 max-2xl:static">
-                <input type="text" name="UUID" className="rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 max-2xl:w-[192px]"
-                  onChange={hdlChange} value={input} placeholder="Your Booking Number" />
-                <button className="bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full"
-                  onClick={hdlConfirm}>Search</button>
-              </div>
+            <div className="flex gap-8 relative">
               <div className="uppercase tracking-wider cursor-pointer hover:bg-white hover:bg-opacity-10 border-white border rounded-lg py-1 px-2
               max-2xl:w-fit max-2xl:self-end">
                 Hello, Guest
