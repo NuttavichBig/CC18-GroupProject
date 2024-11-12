@@ -1,62 +1,43 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; 
 import TRAVELHOMELOGOUSER from "../../assets/TRAVELHOMELOGO-HOMEPAGE.png";
 import { Link } from "react-router-dom";
 import AllChatAdmin from "../../pages/Admin/AllChatAdmin";
 
 export default function SidebarAdmin() {
   const [chatOpen, setChatOpen] = useState(false);
+
   return (
     <>
       {chatOpen && <AllChatAdmin setChatOpen={setChatOpen} />}
-      <div className="bg-[#543310] h-screen flex flex-col rounded-lg">
-        <div className="text-center">
+      <div className="bg-[#2c6cb7] h-screen flex flex-col p-6 rounded-2xl shadow-2xl sticky top-0">
+
+        <div className="text-center mb-10">
           <Link to={"dashboard"}>
             <img
               src={TRAVELHOMELOGOUSER}
-              alt=""
-              className="w-[40%] mx-auto mb-4"
+              alt="Logo"
+              className="w-32 mx-auto mb-6"
             />
           </Link>
-          <div action="" className="flex flex-col space-y-4 items-center">
-            <Link
-              to={"bookingDetailAdmin"}
-              className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out"
-            >
-              BOOKING
-            </Link>
-            <Link
-              to={"userDetailAdmin"}
-              className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out"
-            >
-              MANAGE USERS
-            </Link>
-            <Link
-              to={"hotelDetailAdmin"}
-              className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out "
-            >
-              HOTELS
-            </Link>
-            <Link
-              to={"reviewDetailAdmin"}
-              className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out "
-            >
-              REVIEWS
-            </Link>
-            <Link
-              to={"promotionDetailAdmin"}
-              className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out"
-            >
-              PROMOTIONS
-            </Link>
-
-            <button
-              onClick={() => setChatOpen(true)}
-              className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out"
-            >
-              CHAT
-            </button>
-
-            <button className="w-full bg-[#F8F4E1] bg-opacity-30 font-semibold text-lg text-[#F8F4E1] p-3 hover:bg-[#F8F4E1] hover:text-amber-950 transition-all duration-100 ease-in-out ">
+          <div className="flex flex-col space-y-4 items-center">
+            {/* Menu Items */}
+            {[ 
+              { name: "BOOKING", link: "bookingDetailAdmin" },
+              { name: "MANAGE USERS", link: "userDetailAdmin" },
+              { name: "HOTELS", link: "hotelDetailAdmin" },
+              { name: "REVIEWS", link: "reviewDetailAdmin" },
+              { name: "PROMOTIONS", link: "promotionDetailAdmin" }
+            ].map((item) => (
+              <Link
+                key={item.name}
+                to={item.link}
+                className="w-full text-white text-lg font-semibold p-3 hover:bg-[#82c0ffc9] hover:text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+              >
+                {item.name}
+              </Link>
+            ))}
+            
+            <button className="w-full text-[#E0E0E0] text-lg font-semibold p-3 mt-2 hover:bg-[#66B3FF] hover:text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
               LOGOUT
             </button>
           </div>
