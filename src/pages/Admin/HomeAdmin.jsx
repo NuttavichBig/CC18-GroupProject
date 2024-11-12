@@ -1,5 +1,5 @@
 import React from "react";
-import NavbarAdmin from "../../Components/Admin/NavbarAdmin";
+// import NavbarAdmin from "../../Components/Admin/NavbarAdmin";
 import SidebarAdmin from "../../Components/Admin/SidebarAdmin";
 import { Outlet } from "react-router-dom";
 
@@ -7,9 +7,9 @@ export default function HomeAdmin() {
   return (
     <>
     {/* BG was not full */}
-      <div className="h-screen w-full relative bg-[#FEF9F2] flex justify-center items-start">
+      <div className="h-full w-full relative bg-gray-50 flex justify-center items-start">
         <div className="container mx-auto p-6 grid gap-5 h-full">
-          <NavbarAdmin />
+          {/* <NavbarAdmin /> */}
           <div className="grid grid-cols-4 gap-6 h-full">
             <div className="col-span-1">
               <SidebarAdmin />

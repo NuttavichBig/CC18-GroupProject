@@ -176,13 +176,13 @@ const TravelerDetailForm = (props) => {
             value={bookingData.phone}
             onChange={handleChange}
           />
-        </div>
-      </div>
+          </div>
+          <div>
           <label className="block ">Promotion Code :</label>
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex items-center w-full">
           <input
             type="text"
-            className="p-2 rounded w-[590px] border border-orange-light "
+            className="p-1.5 mt-1 rounded-l w-3/4 border border-orange-light"
             name="promotion"
             value={coupon.promotion}
             onChange={handleCouponChange}
@@ -190,13 +190,15 @@ const TravelerDetailForm = (props) => {
           />
           <button
             type="button"
-            className="bg-gradient-to-r px-4 from-[#f08a4b] to-[#e05b3c] text-white py-2 rounded-lg font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
+            className="bg-gradient-to-r mt-1  px-2 from-[#f08a4b] to-[#e05b3c] text-white py-2 rounded-r-lg font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
             onClick={handleUseCoupon}
             disabled={!user?.id} // Disable button if user is a guest
           >
             Use Coupon
           </button>
         </div>
+          </div>
+      </div>
       <div className="flex justify-between items-center mt-4">
         <p className="text-lg font-bold ">Total Price</p>
         <div className="text-right flex-col-reverse flex">

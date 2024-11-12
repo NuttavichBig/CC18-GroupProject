@@ -112,9 +112,13 @@ const Login = ({ setIsLoginModalOpen }) => {
               onChange={handleChange}
             />
           </div>
-
-          <div className="text-right text-xs pb-3 text-gray-400 cursor-pointer hover:underline mb-4">
+          <div className="flex justify-between">
+    <div className="text-left text-xs text-red-500">
+      {input.err}
+    </div>
+          <div className="text-right text-xs pb-3 text-gray-400 cursor-pointer hover:underline">
             Forget Password
+          </div>
           </div>
 
           <button
