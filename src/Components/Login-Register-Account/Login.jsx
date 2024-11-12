@@ -49,7 +49,7 @@ const Login = ({ setIsLoginModalOpen }) => {
     if(result.data.user.role === 'PARTNER'){
       navigate('/partner')
     }else if(result.data.user.role === 'ADMIN'){
-      navigate('/admin/dashboard')
+      navigate('/admin')
     }
   }
 
