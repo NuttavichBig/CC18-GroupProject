@@ -16,7 +16,7 @@ function UUIDBookingSearch() {
     const [booking, setBooking] = useState(null)
     useEffect(()=>{
         hdlSearch()
-    },[booking])
+    },[])
     const searchBooking = useUserStore(state=>state.searchBooking)
 
     const hdlSearch = async (e) => {
