@@ -11,7 +11,7 @@ export default function ContentMainPage() {
         <p className="text-2xl font-semibold  text-[#543310] text-center">
           Why book with Us ?
         </p>
-        <div className="bg-cream-light-gradient rounded-lg p-8 mt-10 shadow-lg grid grid-cols-1 md:grid-cols-4 gap-8 text-[#543310] m-12">
+        <div className="bg-cream-gradient rounded-lg p-8 mt-10 shadow-lg grid grid-cols-1 md:grid-cols-4 gap-8 text-[#543310] m-12">
           <div className="p-3 bg-white rounded-lg shadow-md flex items-center">
             <img src={tripbag} alt="" className="w-[60px] h-[60px] mr-3" />
             <div className="flex flex-col">
@@ -40,7 +40,7 @@ export default function ContentMainPage() {
             <img src={envelope} alt="" className="w-[50px] h-[50px] mr-3" />
             <div className="flex flex-col">
               <p className="text-lg font-semibold mb-2">
-                Flexible booking options
+                Flexible booking options support
               </p>
               <p className="text-sm">
                 Sudden change of plan? No worries! Reschedule or Refund without
