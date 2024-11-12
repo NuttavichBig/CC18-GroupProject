@@ -68,12 +68,12 @@ const HomePageSearchBox = () => {
       initial={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
     >
       <style>{`.rdrDefinedRangesWrapper { display: none; }`}</style>
-      <div className="gap-4  flex w-full ml-7">
-        <div className="">
+      <div className="gap-4 justify-around flex w-full px-8">
+        <div className="w-1/5">
           <p className="block  text-white mb-1 font-bold">Destination</p>
           <SearchLocation onSelectLocation={handleSelectLocation} />
         </div>
-        <div className="relative flex items-center w-[600px]">
+        <div className="relative flex items-center w-2/5">
           <div className="flex-1">
             <span className="block font-bold text-sm text-white text-center mb-1">
               JOURNEY
@@ -200,7 +200,7 @@ const HomePageSearchBox = () => {
             </div>
           )}
         </div>
-        <div className="">
+        <div className="w-1/5 flex flex-col">
           <p className="block  text-white mb-1 font-bold">Guest and Room</p>
           <div className="relative inline-block text-left">
             <button
@@ -278,10 +278,10 @@ const HomePageSearchBox = () => {
             )}
           </div>
         </div>
-        <div className=" flex justify-center mt-6">
+        <div className=" flex w-1/5 justify-center mt-6">
           <button
             onClick={handleSearch}
-            className="font-bold shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-2 outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-32 h-12"
+            className="font-bold w-full shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-2 outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-32 h-12"
           >
             SEARCH
           </button>

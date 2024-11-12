@@ -65,7 +65,7 @@ export default function PromotionDetailAdmin() {
 
   return (
     <>
-       {createPromotion && <CreatePromotion onCreateSuccess={fetchPromotions} onClose={() => setCreatePromotion(false)} />}
+      {createPromotion && <CreatePromotion onCreateSuccess={fetchPromotions} onClose={() => setCreatePromotion(false)} />}
       {editPromotion && (
         <EditPromotion
           promotion={selectedPromotion}
@@ -73,49 +73,52 @@ export default function PromotionDetailAdmin() {
           onCancel={() => setEditPromotion(false)}
         />
       )}
-      <div className="w-full text-[#543310]">
-        <p className="bg-[#AF8F6F] text-3xl font-bold rounded-lg p-2 text-center shadow-lg">
-          PROMOTION
+        <div className="w-full bg-gray-100 py-6 px-4">
+        <p className="bg-gradient-to-r from-[#0088d1] to-[#1E4D8C] text-white text-3xl font-bold rounded-lg p-4 text-center shadow-xl">
+          PROMOTIONS
         </p>
-        <div className="flex justify-end my-2">
+        <div className="flex justify-end my-4">
           <button
             onClick={() => setCreatePromotion(true)}
-            className="p-2 rounded-lg border-2 bg-[#F8F4E1] border-[#543310] text-[#543310] font-semibold shadow-lg hover:bg-[#543310] hover:text-white transition-all duration-100 ease-in-out"
+            className="px-6 py-2 bg-white text-[#0088d1] border-2 border-[#102149] rounded-lg font-semibold shadow-lg hover:bg-[#0088d1] hover:text-white hover:border-white transition-all duration-300 ease-in-out"
           >
             CREATE PROMOTION
           </button>
         </div>
         {loading ? (
-          <p>Loading promotions...</p>
+          <p className="text-center text-lg">Loading promotions...</p>
         ) : (
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {promotions.map((promotion) => (
-              <div key={promotion.id} className="bg-[#F8F4E1] rounded-lg p-4 flex shadow-lg">
+              <div key={promotion.id} className="bg-white rounded-lg p-6 flex flex-col shadow-xl">
                 <img
                   src={promotion.img}
-                  alt="Hotel Room"
-                  className="w-[300px] h-[200px] rounded-lg"
+                  alt="Promotion Image"
+                  className="w-full h-56 object-cover rounded-lg mb-4"
                 />
-                <div className="flex flex-col gap-4 px-4">
-                  <p className="mb-4 text-3xl">{promotion.name}</p>
-                  <p>Promotion Detail: {promotion.description}</p>
-                  <p>
-                    Duration: {formatDate(promotion.startDate)} -{" "}
-                    {formatDate(promotion.endDate)}
+                <div className="flex flex-col gap-2 mb-4">
+                  <p className="text-2xl font-bold text-[#0088d1]">{promotion.name}</p>
+                  
+                  <div className="space-y-1 border-b border-gray-200 pb-2">
+                  <p className="text-sm text-gray-500 font-semibold">{promotion.description}</p>
+                  <p className="text-sm text-gray-500 font-medium">
+                    Duration: {formatDate(promotion.startDate)} - {formatDate(promotion.endDate)}
                   </p>
-                  <p>Usage limit: {promotion.usageLimit}</p>
-                  <p className="text-3xl">Promotion Code: {promotion.code}</p>
+                  <p className="text-sm text-gray-500 font-medium">Usage Limit: {promotion.usageLimit}</p>
+                  </div>
+                  <p className="text-xl font-bold text-[#0088d1]">Promo Code: {promotion.code}</p>
                 </div>
-                <div className="flex items-center gap-2">
+                
+                <div className="flex justify-between mt-auto">
                   <button
                     onClick={() => handleEditClick(promotion)}
-                    className="rounded-lg p-1 border-2 border-[#CD1818] bg-[#F8F4E1] text-[#CD1818] font-semibold shadow-lg hover:bg-[#CD1818] hover:text-white transition-all duration-100 ease-in-out"
+                    className="px-4 py-2 bg-white text-[#0088d1] border-2 border-[#0088d1] rounded-lg font-semibold shadow-lg hover:bg-[#0088d1] hover:border-black hover:text-white transition-all duration-200 ease-in-out"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleRemove(promotion.id)}
-                    className="rounded-lg p-1 border-2 border-[#CD1818] bg-[#F8F4E1] text-[#CD1818] font-semibold shadow-lg hover:bg-[#CD1818] hover:text-white transition-all duration-100 ease-in-out"
+                    className="px-4 py-2 bg-[#FF6347] text-white border-2 border-[#FF6347] rounded-lg font-semibold shadow-lg hover:bg-[#CD1818] hover:border-[#CD1818] transition-all duration-200 ease-in-out"
                   >
                     Remove
                   </button>

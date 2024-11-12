@@ -11,19 +11,19 @@ export default function DetailHotel({ hotelData, setHotelDetail }) {
     <>
       <div
         onClick={() => setHotelDetail(false)}
-        className="flex items-center justify-center fixed inset-0 bg-[#F2F7A140] z-50 text-[#543310]"
+        className="flex items-center justify-center fixed inset-0 bg-[#c7d5dc7c] z-50 text-[#071a25]"
       >
         <div
-          className="bg-[#FFF0D1] rounded-xl shadow-xl p-8 relative"
+          className="bg-[#ebf8ff] rounded-xl shadow-xl p-8 relative"
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={() => setHotelDetail(false)}
-            className="absolute top-4 right-4 text-3xl font-semibold text-[#543310] bg-transparent border-none cursor-pointer"
+            className="absolute top-4 right-4 text-3xl font-semibold text-[#071a25] bg-transparent border-none cursor-pointer"
           >
             &times;
           </button>
-          <div className="bg-[#F8F4E1] rounded-lg p-4 flex shadow-lg">
+          <div className="bg-white rounded-lg p-4 flex shadow-lg">
             <img
               src={hotel?.img}
               alt="Hotel"
