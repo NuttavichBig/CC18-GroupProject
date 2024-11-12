@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import booking from "../../assets/booking.png";
+// import booking from "../../assets/booking.png";
 // import hotel from "../../assets/hotel.png";
-import star from "../../assets/star.png";
-import user from "../../assets/user.png";
+// import star from "../../assets/star.png";
+// import user from "../../assets/user.png";
 import AllChatAdmin from "../../pages/Admin/AllChatAdmin";
 import useAdminStore from "../../stores/socket-store";
 import { useShallow } from "zustand/shallow";
 // import hotel2 from "../../assets/hotel2.png";
 import hotel3 from "../../assets/hotel3.png";
 import user2 from "../../assets/user2.png";
+import star2 from "../../assets/star2.png";
+import booking2 from "../../assets/booking2.png";
+
+
 
 import { Bar, Line, Pie } from "react-chartjs-2";
 import {
@@ -296,26 +300,26 @@ export default function DashboardAdmin({}) {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-6">
           {[
             {
-              link: "bookingDetailAdmin",
-              img: booking,
+              link: "/admin/bookingDetailAdmin",
+              img: booking2,
               label: "TOTAL BOOKING",
               count: data.totalBookings,
             },
             {
-              link: "userDetailAdmin",
+              link: "/admin/userDetailAdmin",
               img: user2,
               label: "TOTAL USERS",
               count: data.totalUsers,
             },
             {
-              link: "hotelDetailAdmin",
+              link: "/admin/hotelDetailAdmin",
               img: hotel3,
               label: "TOTAL HOTELS",
               count: data.totalPartners,
             },
             {
-              link: "reviewDetailAdmin",
-              img: star,
+              link: "/admin/reviewDetailAdmin",
+              img: star2,
               label: "TOTAL REVIEWS",
               count: data.totalBookings,
             },

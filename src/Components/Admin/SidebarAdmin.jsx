@@ -1,10 +1,17 @@
 import React, { useState } from "react"; 
 import TRAVELHOMELOGOUSER from "../../assets/TRAVELHOMELOGO-HOMEPAGE.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AllChatAdmin from "../../pages/Admin/AllChatAdmin";
+import useUserStore from "../../stores/user-store";
 
 export default function SidebarAdmin() {
   const [chatOpen, setChatOpen] = useState(false);
+  const logout = useUserStore(state=>state.logout)
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  }
 
   return (
     <>
@@ -12,7 +19,7 @@ export default function SidebarAdmin() {
       <div className="bg-[#2c6cb7] h-screen flex flex-col p-6 rounded-2xl shadow-2xl sticky top-0">
 
         <div className="text-center mb-10">
-          <Link to={"dashboard"}>
+          <Link to={"/admin"}>
             <img
               src={TRAVELHOMELOGOUSER}
               alt="Logo"
@@ -37,7 +44,9 @@ export default function SidebarAdmin() {
               </Link>
             ))}
             
-            <button className="w-full text-[#E0E0E0] text-lg font-semibold p-3 mt-2 hover:bg-[#66B3FF] hover:text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+            <button className="w-full text-[#E0E0E0] text-lg font-semibold p-3 mt-2 hover:bg-[#66B3FF] hover:text-white rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+            onClick={handleLogout}
+            >
               LOGOUT
             </button>
           </div>
