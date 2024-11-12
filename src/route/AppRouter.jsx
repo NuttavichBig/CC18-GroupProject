@@ -32,6 +32,7 @@ import HotelUpdate from "../Components/Partner/HotelUpdate";
 import PartnerDashboard from "../pages/Partner/PartnerDashboard";
 
 
+
 const MainRouter = createBrowserRouter([
   {
     path: "/",
