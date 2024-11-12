@@ -1,7 +1,7 @@
-// PaymentResult.jsx
 import React, { useEffect, useState } from 'react';
-import hotelsuccessicon from '../../assets/hotelsuccesspaymenticon.jpg';
 import useBookingStore from '../../stores/booking-store';
+import { FaRegCheckCircle } from "react-icons/fa";
+
 
 function PaymentResult() {
     const resBookingData = useBookingStore(state=>state.resBookingData)
@@ -19,9 +19,9 @@ function PaymentResult() {
     },[])
     
     return (
-        <div className="max-w-4xl mx-auto p-8 bg-[#fef6e4] rounded-lg shadow-md space-y-8">
+        <div className="max-w-4xl mx-auto p-8 text-[#543310] bg-cream-gradient rounded-lg shadow-md space-y-8">
 
-            <div className="flex justify-between items-center text-gray-700">
+            <div className="flex justify-between items-center text-[#543310]">
                 <p className="text-lg font-medium">Book Number</p>
                 <p className="text-lg font-medium">{resBookingData.booking.UUID}</p>
             </div>
@@ -65,25 +65,26 @@ function PaymentResult() {
             </div>
 
 
-            <div className="flex justify-between items-center mt-4 text-gray-700">
+            <div className="flex justify-between items-center mt-4 ">
                 <p className="text-lg font-medium">Total Price</p>
                 <p className="text-xl font-semibold text-orange-500">THB {resBookingData.booking?.totalPrice}</p>
             </div>
 
 
-            <div className="flex justify-between items-start mt-6 text-gray-700">
-                <p className="font-medium">Contact Details</p>
-                <div className="text-left">
+            <div className="flex justify-between items-center mt-6 ">
+                <p className="font-medium">Contact Details : </p>
+                <div className="text-left flex flex-col items-end">
                     <p>{resBookingData.booking?.firstName+' '+resBookingData.booking?.lastName}</p>
-                    <p>Tel: {resBookingData.booking?.phone}</p>
-                    <p>Email: {resBookingData.booking?.email}</p>
+                    <p>Tel : {resBookingData.booking?.phone}</p>
+                    <p>Email : {resBookingData.booking?.email}</p>
                 </div>
             </div>
 
 
             <div className="flex flex-col items-center mt-8">
-                <p className="text-green-500 text-2xl font-semibold">SUCCESS</p>
-                <img src={hotelsuccessicon} alt="Success Icon" className="w-20 h-20" />
+                <p className="text-green-500 text-2xl pb-5 font-semibold">SUCCESS</p>
+                <FaRegCheckCircle size={60} color='#22c55e'/>
+
             </div>
         </div>
     );

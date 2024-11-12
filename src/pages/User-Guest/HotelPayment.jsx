@@ -18,7 +18,7 @@ function HotelPayment() {
         <div className='text-[#543310]'>
                 <HeaderUserPage />
             <div className='flex justify-center items-start mt-[150px] border-t-2'>
-                <div className="p-6 grid gap-5">
+                <div className="">
                
 
                     <div className="">
