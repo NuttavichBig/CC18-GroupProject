@@ -28,13 +28,13 @@ function RoomSelection(props) {
   }
 
   return (
-    <div className="container mx-auto grid grid-cols-1 gap-6">
+    <div className="container  mx-auto grid grid-cols-1 gap-6">
       <div
         key={selectedRoom.id}
-        className="p-6 bg-cream-light-gradient rounded-xl shadow-lg space-y-4"
+        className="p-6 bg-cream-gradient rounded-xl shadow-lg space-y-4"
       >
         {/* Image */}
-        <div className="w-full h-40 bg-gray-200 rounded-lg overflow-hidden">
+        <div className="w-full h-40 bg-gray-100 rounded-lg overflow-hidden">
           <img
             src={selectedRoom.images[0].img}
             alt={selectedRoom.title}
@@ -54,7 +54,7 @@ function RoomSelection(props) {
             <p>{pageParams.nights} nights</p>
             <div className="flex items-center space-x-2px">
               <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-              <div className="w-16 h-0.5 bg-orange-500"></div>
+              <div className="w-20 h-0.5 bg-orange-500"></div>
               <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
             </div>
           </div>
@@ -89,7 +89,7 @@ function RoomSelection(props) {
               <div className="w-[40px] h-5 bg-orange-200 rounded-full peer peer-checked:bg-orange-500 relative">
                 <span
                   className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform ${pageParams.breakfastIncluded
-                    ? "translate-x-5 bg-orange-500 shadow-lg"
+                    ? "translate-x-5 bg-white shadow-lg"
                     : "bg-white"
                     }`}
                   style={{
@@ -99,7 +99,6 @@ function RoomSelection(props) {
                   }}
                 ></span>
               </div>
-              <span className="ml-2 text-sm text-gray-700">Slide</span>
             </label>
           </div>
         </div>
