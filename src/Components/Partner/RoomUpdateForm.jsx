@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 function RoomUpdateForm(props) {
-    const { info, setModalControl ,confirmUpdate} = props
+    const { info, setModalControl ,confirmUpdate,confirmDelete} = props
     const [pageParam ,setPageParam] = useState({
         loading : false,
         errMsg : '',
@@ -272,6 +272,11 @@ function RoomUpdateForm(props) {
                             :
                             <>
                             <p className='text-red-500 text-sm'>{pageParam.errMsg}</p>
+                            <button className='py-2 px-8 rounded-xl shadow-xl bg-red-400 text-white hover:bg-red-500'
+                            onClick={async()=>{
+                                await confirmDelete();
+                                setModalControl(prv=>({...prv,isOpen :false}))
+                            }}>Delete</button>
                             <button className='py-2 px-8 rounded-xl shadow-xl bg-lime-300 hover:text-white hover:bg-black' onClick={dataMakeConfirm}>Confirm</button>
                             <button className='py-2 px-8 rounded-xl shadow-xl bg-red-400 text-white hover:bg-red-500'
                             onClick={() => setModalControl(prv=>({...prv,isOpen :false}))}>Cancel</button>
