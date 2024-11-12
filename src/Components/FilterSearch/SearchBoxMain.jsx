@@ -181,7 +181,7 @@ const SearchBoxMain = (props) => {
           <div className="relative inline-block text-left flex-1">
             <button
               onClick={toggleDropdown}
-              className="flex items-center py-1 px-3 border rounded-full text-[#543310] bg-white shadow w-full"
+              className="flex items-center py-1 px-3 rounded-full text-[#543310] bg-white shadow w-full"
             >
               <span className="mr-2">
                 {adults} GUEST, {rooms} ROOM
@@ -201,7 +201,7 @@ const SearchBoxMain = (props) => {
             </button>
 
             {isOpen && (
-              <div className="absolute z-10 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg">
+              <div className="absolute z-10 mt-2 w-56 bg-white  rounded-lg shadow-lg">
                 <div className="p-4 space-y-4">
                   <div className="flex justify-between items-center text-[#543310] ">
                     <span>GUEST</span>

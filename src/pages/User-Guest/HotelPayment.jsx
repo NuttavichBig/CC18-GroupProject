@@ -15,22 +15,18 @@ function HotelPayment() {
 
 
     return (
-        <div>
-            <div className='bg-gray-400 relative h-[100px]'>
+        <div className='text-[#543310]'>
                 <HeaderUserPage />
-            </div>
-            <div className='min-h-screen relative bg-[#f9f9f9] flex justify-center items-start'>
-                <div className="container mx-auto p-6 grid gap-5">
-                    <SearchBoxMain />
+            <div className='flex justify-center items-start mt-[150px] border-t-2'>
+                <div className="p-6 grid gap-5">
+               
 
-                    <div className="bg-[#fef6e4]">
-                        <span className='ml-1'>Overview to pay</span>
+                    <div className="">
+
                         <HotelDetailMain />
                     </div>
 
                     <BookingProgressBallMiddle />
-
-
 
 
                     <div className="grid grid-cols-3 gap-6">
@@ -44,7 +40,7 @@ function HotelPayment() {
                         <div className="col-span-2 space-y-6 mb-[500px]">
 
                             <div className="flex gap-6">
-                                <div className="w-full bg-[#fef6e4]">
+                                <div className="w-full ">
                                     {/* <PaymentMethodForm /> */}
                                     {/* ใช้stripe แทน */}
                                     <PaymentProvider >
