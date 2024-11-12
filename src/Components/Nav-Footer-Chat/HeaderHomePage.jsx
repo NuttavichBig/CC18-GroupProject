@@ -109,7 +109,7 @@ const HeaderHomePage = () => {
           {token ? (
             <div className="relative">
               <span
-                className="uppercase tracking-wider cursor-pointer hover:text-gray-300 border- border rounded-lg p-2"
+                className="uppercase tracking-wider cursor-pointer hover:text-gray-300 text-sm border rounded-full p-3"
                 onMouseEnter={handleMouseEnterProfile}
               >
                 Hello, {user.firstName} {user.lastName}
@@ -134,7 +134,7 @@ const HeaderHomePage = () => {
               )}
             </div>
           ) : (
-            <span className="uppercase tracking-wider cursor-pointer hover:bg-white hover:bg-opacity-10 border-white border rounded-lg p-2">
+            <span className="uppercase tracking-wider cursor-pointer hover:bg-white hover:bg-opacity-10 border-white border rounded-full text-sm p-3">
               Hello, Guest !
             </span>
           )}
