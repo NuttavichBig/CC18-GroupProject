@@ -32,10 +32,10 @@ const styles = {
         fontWeight: 'bold', // ตัวหนา
         animation: 'fadeIn 1s ease-in-out', // เพิ่มอนิเมชัน
     },
-    '@keyframes fadeIn': {
-        '0%': { opacity: 0 },
-        '100%': { opacity: 1 },
-    },
+    // '@keyframes fadeIn': {
+    //     '0%': { opacity: 0 },
+    //     '100%': { opacity: 1 },
+    // },
 };
 
 export default PaymentsendFormLoading;
