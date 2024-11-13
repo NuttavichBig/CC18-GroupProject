@@ -123,7 +123,7 @@ const HeaderHomePage = () => {
         <div className="space-x-4 pr-12 flex items-center">
           <div className="flex absolute right-52 p-2" onMouseLeave={handleHoverLeaveSearch}>
             <input type="text" name="UUID" 
-            className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white origin-right transition-transform ${isSearchHover ? 'scale-100': 'absolute scale-x-0'}`}
+            className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white origin-right transition-transform ${isSearchHover ? 'scale-100': 'absolute scale-x-0 -left-48'}`}
               onChange={hdlChange} value={input} placeholder="Your Booking Number" />
             <button className={`bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full ${isSearchHover?"rounded-l-none": "rounded-l-full"}`}
             onMouseEnter={handleHoverEnterSearch}
