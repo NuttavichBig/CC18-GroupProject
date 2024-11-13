@@ -219,11 +219,6 @@ function MyPurchase() {
                     className="flex flex-col items-end font-semibold text-sm mt-2 text-gray-500"
                   >
                     <div className="text-left">
-<<<<<<< HEAD
-                      <p >Amount : {room.amountRoom} rooms</p>
-                      <p>Checkin Date:{" "}{new Date(book.checkinDate).toLocaleDateString()}</p>
-                      <p>Checkout Date:{" "}{new Date(book.checkoutDate).toLocaleDateString()}</p>
-=======
                       <p>Amount : {room.amountRoom} rooms</p>
                       <p>
                         Checkin Date:{" "}
@@ -233,11 +228,10 @@ function MyPurchase() {
                         Checkout Date:{" "}
                         {new Date(book.checkoutDate).toLocaleDateString()}
                       </p>
->>>>>>> dev
                     </div >
                   </div >
                 ))
-}
+                }
               </div >
 
               <div className="flex justify-between items-center mt-4 text-gray-700">
@@ -258,16 +252,8 @@ function MyPurchase() {
 
               <div className="flex flex-col items-center mt-8">
                 <p
-<<<<<<< HEAD
-                  className={`text-2xl font-semibold ${book.status === "CONFIRMED"
-                    ? "text-green-500"
-                    : "text-amber-500 py-8"
+                  className={`text-2xl font-semibold ${statusDetails[book.status]?.color
                     }`}
-=======
-                  className={`text-2xl font-semibold ${
-                    statusDetails[book.status]?.color
-                  }`}
->>>>>>> dev
                 >
                   {book.status}
                 </p>
@@ -283,20 +269,20 @@ function MyPurchase() {
           )}
         </div >
       ))}
-{
-  pageParams.isReviewModalOpen && pageParams.reviewHotel && (
-    <ReviewModal
-      getAllBooking={getAllBooking}
-      bookingId={pageParams.reviewHotel.id}
-      hotelName={pageParams.reviewHotel.hotels.name}
-      hotelImage={pageParams.reviewHotel.hotels.img}
-      onClose={() =>
-        setPageParams((prv) => ({ ...prv, isReviewModalOpen: false }))
+      {
+        pageParams.isReviewModalOpen && pageParams.reviewHotel && (
+          <ReviewModal
+            getAllBooking={getAllBooking}
+            bookingId={pageParams.reviewHotel.id}
+            hotelName={pageParams.reviewHotel.hotels.name}
+            hotelImage={pageParams.reviewHotel.hotels.img}
+            onClose={() =>
+              setPageParams((prv) => ({ ...prv, isReviewModalOpen: false }))
+            }
+            onSubmit={() => console.log("Review submitted!")}
+          />
+        )
       }
-      onSubmit={() => console.log("Review submitted!")}
-    />
-  )
-}
     </div >
   );
 }
