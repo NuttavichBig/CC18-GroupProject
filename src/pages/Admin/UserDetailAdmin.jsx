@@ -12,6 +12,8 @@ export default function UserDetailAdmin() {
   const [loading, setLoading] = useState(true);
   const token = useUserStore((state) => state.token);
   const API = import.meta.env.VITE_API;
+  const currentUserEmail = useUserStore((state) => state.user?.email);
+  // console.log(currentUserEmail) //myself
 
   // Fetch users when the component mounts
   useEffect(() => {
@@ -30,6 +32,9 @@ export default function UserDetailAdmin() {
     }
     fetchUsers();
   }, [API, token]);
+
+  // Filter users to exclude the current admin
+  const filteredUsers = users.filter((user) => user.email !== currentUserEmail);
 
   // Handle user role or status update
   const handleUpdate = async (userId, updatedData) => {
@@ -86,6 +91,7 @@ export default function UserDetailAdmin() {
     }
   };
 
+
   // Handle user deletion with confirmation
   const handleDelete = async (userId) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
@@ -127,7 +133,7 @@ export default function UserDetailAdmin() {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
+              {filteredUsers.map((user) => (
                 <tr key={user.id} className="hover:bg-gray-50">
                   <td className="py-3 px-4 border-b">{user.id}</td>
                   <td className="py-3 px-4 border-b">{user.firstName}</td>

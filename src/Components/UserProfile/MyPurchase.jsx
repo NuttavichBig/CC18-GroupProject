@@ -4,6 +4,11 @@ import dropdownhistorymyPurchase from "../../assets/drop-down-arrow-icon_Mypurch
 import ReviewModal from "../ModalOther/ReviewModal";
 import axios from "axios";
 import useUserStore from "../../stores/user-store";
+import Swal from "sweetalert2";
+import FormErrorAlert from '../../assets/ErrorToast1.gif'
+import FormSuccessAlert from '../../assets/SuccessToast.gif'
+
+
 const API = import.meta.env.VITE_API;
 
 function MyPurchase() {
@@ -27,8 +32,50 @@ function MyPurchase() {
       });
       console.log("result", result.data.data);
       setBooking(result.data.data);
+
+      //alert success
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormSuccessAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: green;">Profile Updated successfully</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "green";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
     } catch (err) {
+      const errMsg = error.response?.data?.message || error.message;
       console.log(err);
+      //alert error
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "#f44336";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
     }
   };
 
@@ -59,9 +106,9 @@ function MyPurchase() {
     <div className="max-w-4xl mx-auto p-8 rounded-lg space-y-4 ">
       {booking.map((book, index) => (
         <div key={index} className="p-4 bg-[#FFF8EC] rounded-lg shadow-lg mb-4">
-            <div className="text-right font-semibold text-gray-600 text-opacity-70">
-                <p>Booking ID: {book.UUID}</p>
-            </div>
+          <div className="text-right font-semibold text-gray-600 text-opacity-70">
+            <p>Booking ID: {book.UUID}</p>
+          </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <img
@@ -77,11 +124,10 @@ function MyPurchase() {
               <img
                 src={dropdownhistorymyPurchase}
                 alt="Toggle Details"
-                className={`w-12 h-12 transform ${
-                  pageParams.selectedHotelIndexes.includes(index)
-                    ? "rotate-180"
-                    : ""
-                }`}
+                className={`w-12 h-12 transform ${pageParams.selectedHotelIndexes.includes(index)
+                  ? "rotate-180"
+                  : ""
+                  }`}
               />
             </button>
           </div>
@@ -143,9 +189,9 @@ function MyPurchase() {
                 {book.bookingRooms.map((room, i) => (
                   <div key={i} className="flex flex-col items-end font-semibold text-sm mt-2 text-gray-500">
                     <div className="text-left">
-                    <p >Amount : {room.amountRoom} rooms</p>
-                    <p>Checkin Date:{" "}{new Date(book.checkinDate).toLocaleDateString()}</p>
-                    <p>Checkout Date:{" "}{new Date(book.checkoutDate).toLocaleDateString()}</p>
+                      <p >Amount : {room.amountRoom} rooms</p>
+                      <p>Checkin Date:{" "}{new Date(book.checkinDate).toLocaleDateString()}</p>
+                      <p>Checkout Date:{" "}{new Date(book.checkoutDate).toLocaleDateString()}</p>
                     </div>
                   </div>
                 ))}
@@ -169,11 +215,10 @@ function MyPurchase() {
 
               <div className="flex flex-col items-center mt-8">
                 <p
-                  className={`text-2xl font-semibold ${
-                    book.status === "CONFIRMED"
-                      ? "text-green-500"
-                      : "text-amber-500 py-8"
-                  }`}
+                  className={`text-2xl font-semibold ${book.status === "CONFIRMED"
+                    ? "text-green-500"
+                    : "text-amber-500 py-8"
+                    }`}
                 >
                   {book.status}
                 </p>
