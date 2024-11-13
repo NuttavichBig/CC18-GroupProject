@@ -19,7 +19,7 @@ const HomePage = () => {
     const handleScroll = () => {
       if (window.scrollY > 250) {
         controls.start({
-          top: "-10px",
+          top: "0",
           transform: "translate(-50%, -50%)",
           transition: { duration: 0.5, ease: "easeOut" },
         });
@@ -45,7 +45,7 @@ const HomePage = () => {
 
         <div className="relative flex justify-center w-full">
           <motion.div
-            className="absolute left-1/2 transform -translate-x-1/2 w-full z-20"
+            className="absolute left-1/2 transform  w-full z-20"
             animate={controls}
             initial={{ bottom: "60px", top: "auto", transform: "translateX(-50%)" }}
           >

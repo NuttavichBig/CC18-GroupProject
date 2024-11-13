@@ -1,11 +1,12 @@
 import React from 'react';
-import loadingAnimationUrl from '../../assets/Loading/spinnerloadingOrange.gif';
+import loadingAnimationUrl from '../../assets/Loading/LoadingBlockBlueToOrange.gif';
 
-const LoadingspinnerOrangeCircle = () => {
+
+const LoadingBluetoOrangeblock = () => {
     return (
         <div style={styles.container}>
             <img src={loadingAnimationUrl} alt="Loading..." style={styles.image} />
-            {/* <div style={styles.loadingText}>Loading ...</div> */}
+
         </div>
     );
 };
@@ -16,8 +17,8 @@ const styles = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100px', // ความสูง
-        width: '100px',  // ความกว้าง
+        height: '100vh', // ความสูง
+        width: '100vh',  // ความกว้าง
         textAlign: 'center',
         backgroundColor: 'rgba(255, 255, 255, 0)', // พื้นหลังโปร่งแสง
     },
@@ -30,7 +31,7 @@ const styles = {
         fontSize: '24px', // ขนาดตัวอักษร
         color: '#FF6AD3', // สีตัวอักษร
         fontWeight: 'bold', // ตัวหนา
-        animation: 'fadeIn 1s ease-in-out', // เพิ่มอนิเมชัน
+        animation: 'fadeIn 1s ease-in-out',
     },
     // '@keyframes fadeIn': {
     //     '0%': { opacity: 0 },
@@ -40,4 +41,4 @@ const styles = {
 
 
 
-export default LoadingspinnerOrangeCircle;
+export default LoadingBluetoOrangeblock;

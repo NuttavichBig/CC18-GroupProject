@@ -137,6 +137,7 @@ const TravelerDetailForm = (props) => {
 
   const handleUseCoupon = async () => {
     // Check if the user is logged in (i.e., has a user ID)
+    console.log(user)
     if (!user?.id) {
       toast.error("You must be logged in to use a promotion.")
       return;

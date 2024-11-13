@@ -8,6 +8,10 @@ import dropdownhistorymyPurchase from "../../assets/drop-down-arrow-icon_Mypurch
 import ReviewModal from "../ModalOther/ReviewModal";
 import axios from "axios";
 import useUserStore from "../../stores/user-store";
+import Swal from "sweetalert2";
+import FormErrorAlert from '../../assets/ErrorToast1.gif'
+import FormSuccessAlert from '../../assets/SuccessToast.gif'
+
 
 const statusDetails = {
   PENDING: {
@@ -55,8 +59,31 @@ function MyPurchase() {
       });
       console.log("result", result.data.data);
       setBooking(result.data.data);
+
+      //alert success
     } catch (err) {
+      const errMsg = error.response?.data?.message || error.message;
       console.log(err);
+      //alert error
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "#f44336";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
     }
   };
 
@@ -84,7 +111,7 @@ function MyPurchase() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-8 rounded-lg space-y-4 ">
+    <div className=" flex flex-col mt-20 w-4/5 rounded-lg space-y-4 ">
       {booking.map((book, index) => (
         <div key={index} className="p-4 bg-[#FFF8EC] rounded-lg shadow-lg mb-4">
           <div className="text-right font-semibold text-gray-600 text-opacity-70">
@@ -93,23 +120,22 @@ function MyPurchase() {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <img
-                src={book.hotels.img}
-                alt={book.hotels.name}
+                src={book.hotels?.img}
+                alt={book.hotels?.name}
                 className="w-24 h-24 rounded-lg object-cover mr-4"
               />
               <div className="text-left">
-                <p className="text-lg font-medium">{book.hotels.name}</p>
+                <p className="text-lg font-medium">{book.hotels?.name}</p>
               </div>
             </div>
             <button onClick={() => handleToggleDetails(index)}>
               <img
                 src={dropdownhistorymyPurchase}
                 alt="Toggle Details"
-                className={`w-12 h-12 transform ${
-                  pageParams.selectedHotelIndexes.includes(index)
-                    ? "rotate-180"
-                    : ""
-                }`}
+                className={`w-12 h-12 transform ${pageParams?.selectedHotelIndexes?.includes(index)
+                  ? "rotate-180"
+                  : ""
+                  }`}
               />
             </button>
           </div>
@@ -117,15 +143,15 @@ function MyPurchase() {
             <div className="mt-4">
               <div className="text-left">
                 <div className="flex justify-between">
-                  <p className="font-medium text-xl mt-2">{book.hotels.name}</p>
+                  <p className="font-medium text-xl mt-2">{book.hotels?.name}</p>
                   <div className="flex items-center space-x-2">
                     <span className="font-semibold">Rating:</span>
                     <div className="flex">
                       <span className="text-yellow-500">
-                        {"★".repeat(book.hotels.star)}
+                        {"★".repeat(book.hotels?.star)}
                       </span>
                       <span className="text-gray-300">
-                        {"★".repeat(5 - book.hotels.star)}
+                        {"★".repeat(5 - book.hotels?.star)}
                       </span>
                     </div>
                   </div>
@@ -156,15 +182,15 @@ function MyPurchase() {
                 {book.bookingRooms.map((room, i) => (
                   <div key={i} className="flex space-x-4 items-start">
                     <img
-                      src={room.rooms.images[0].img}
-                      alt={room.rooms.name}
+                      src={room?.rooms?.images[0]?.img}
+                      alt={room.rooms?.name}
                       className="w-48 h-28 rounded-lg object-cover"
                     />
                     <div className="text-left">
                       <p className="font-medium text-xl mt-2">
-                        {room.rooms.name}
+                        {room?.rooms?.name}
                       </p>
-                      <p>{room.rooms.detail}</p>
+                      <p>{room?.rooms?.detail}</p>
                     </div>
                   </div>
                 ))}
@@ -183,10 +209,11 @@ function MyPurchase() {
                         Checkout Date:{" "}
                         {new Date(book.checkoutDate).toLocaleDateString()}
                       </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                    </div >
+                  </div >
+                ))
+                }
+              </div >
 
               <div className="flex justify-between items-center mt-4 text-gray-700">
                 <p className="text-lg font-medium">Total Price</p>
@@ -206,9 +233,8 @@ function MyPurchase() {
 
               <div className="flex flex-col items-center mt-8">
                 <p
-                  className={`text-2xl font-semibold ${
-                    statusDetails[book.status]?.color
-                  }`}
+                  className={`text-2xl font-semibold ${statusDetails[book.status]?.color
+                    }`}
                 >
                   {book.status}
                 </p>
@@ -220,23 +246,25 @@ function MyPurchase() {
                   />
                 )}
               </div>
-            </div>
+            </div >
           )}
-        </div>
+        </div >
       ))}
-      {pageParams.isReviewModalOpen && pageParams.reviewHotel && (
-        <ReviewModal
-          getAllBooking={getAllBooking}
-          bookingId={pageParams.reviewHotel.id}
-          hotelName={pageParams.reviewHotel.hotels.name}
-          hotelImage={pageParams.reviewHotel.hotels.img}
-          onClose={() =>
-            setPageParams((prv) => ({ ...prv, isReviewModalOpen: false }))
-          }
-          onSubmit={() => console.log("Review submitted!")}
-        />
-      )}
-    </div>
+      {
+        pageParams.isReviewModalOpen && pageParams.reviewHotel && (
+          <ReviewModal
+            getAllBooking={getAllBooking}
+            bookingId={pageParams.reviewHotel.id}
+            hotelName={pageParams.reviewHotel.hotels.name}
+            hotelImage={pageParams.reviewHotel.hotels.img}
+            onClose={() =>
+              setPageParams((prv) => ({ ...prv, isReviewModalOpen: false }))
+            }
+            onSubmit={() => console.log("Review submitted!")}
+          />
+        )
+      }
+    </div >
   );
 }
 

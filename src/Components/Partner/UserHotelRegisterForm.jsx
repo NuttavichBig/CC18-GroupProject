@@ -154,7 +154,7 @@ function UserHotelRegisterForm(props) {
             className="hidden"
           />
           <div
-            className="w-[400px] h-[320px] bg-opacity-75 opacity-0 hover:opacity-100 absolute text-white flex items-center justify-center text-2xl rounded-lg"
+            className="w-[400px] h-[320px] bg-opacity-50 bg-black opacity-0 hover:opacity-100 absolute text-white flex items-center justify-center text-2xl rounded-lg"
             onClick={() => document.getElementById("input-file").click()}
           >
             Click
