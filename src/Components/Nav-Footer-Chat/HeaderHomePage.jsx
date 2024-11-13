@@ -11,8 +11,10 @@ const HeaderHomePage = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isSearchHover , setIsSearchHover] =useState(false)
+  const [input, setInput] = useState('')
   const navigate = useNavigate();
-
+  const setSearch = useUserStore(state => state.setSearch)
   const { user, token, logout } = useUserStore(
     useShallow((state) => ({
       user: state.user,
@@ -20,13 +22,26 @@ const HeaderHomePage = () => {
       logout: state.logout,
     }))
   );
-
   const handleMouseEnterLogin = () => setIsDropdownOpen(true);
   const handleMouseLeaveRegister = () => setIsDropdownOpen(false);
 
   const handleMouseEnterProfile = () => setIsProfileDropdownOpen(true);
   const handleMouseLeaveProfile = () => setIsProfileDropdownOpen(false);
 
+  const handleHoverEnterSearch = ()=>setIsSearchHover(true);
+  const handleHoverLeaveSearch = ()=>setIsSearchHover(false); 
+
+  const hdlChange = (e) => {
+    setInput(e.target.value)
+  }
+
+  const hdlConfirm = () => {
+    if (!input) {
+      return
+    }
+    setSearch(input)
+    navigate(`/UUID`)
+  }
   return (
     <>
       <div
@@ -59,7 +74,7 @@ const HeaderHomePage = () => {
             Travel Promotion
           </Link>
           <Link to="/user/registerpartner" className="hover:text-gray-300">
-            Contact Us
+            Be Partner
           </Link>
 
           {token ? (
@@ -106,6 +121,14 @@ const HeaderHomePage = () => {
         </nav>
 
         <div className="space-x-4 pr-12 flex items-center">
+          <div className="flex absolute right-52 p-2" onMouseLeave={handleHoverLeaveSearch}>
+            <input type="text" name="UUID" 
+            className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white origin-right transition-transform ${isSearchHover ? 'scale-100': 'absolute scale-x-0 -left-48'}`}
+              onChange={hdlChange} value={input} placeholder="Your Booking Number" />
+            <button className={`bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full ${isSearchHover?"rounded-l-none": "rounded-l-full"}`}
+            onMouseEnter={handleHoverEnterSearch}
+              onClick={hdlConfirm}>{isSearchHover ? 'Search': 'Find Your booking'}</button>
+          </div>
           {token ? (
             <div className="relative">
               <span
@@ -134,9 +157,12 @@ const HeaderHomePage = () => {
               )}
             </div>
           ) : (
-            <span className="uppercase tracking-wider cursor-pointer hover:bg-white hover:bg-opacity-10 border-white border rounded-full text-sm p-3">
-              Hello, Guest !
-            </span>
+            <div className="flex gap-8 relative">
+              <div className="uppercase tracking-wider cursor-pointer hover:bg-white hover:bg-opacity-10 border-white border rounded-lg py-1 px-2
+              max-2xl:w-fit max-2xl:self-end">
+                Hello, Guest
+              </div>
+            </div>
           )}
         </div>
       </div>

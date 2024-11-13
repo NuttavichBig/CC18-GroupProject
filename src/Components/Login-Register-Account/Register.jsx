@@ -19,14 +19,14 @@ const Register = ({ setIsRegisterModalOpen }) => {
   });
 
   const [errMsg, setErrMsg] = useState({
-    firstName: '',
+    firstName: "",
     lastName: "",
     email: "",
-    phone: '',
-    password: '',
-    confirmPassword: '',
-    birthdate: ''
-  })
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    birthdate: "",
+  });
   const { register, login } = useUserStore(
     useShallow((state) => ({
       register: state.register,
@@ -45,8 +45,16 @@ const Register = ({ setIsRegisterModalOpen }) => {
     try {
       e.stopPropagation();
       validator();
-      if(errMsg.firstName || errMsg.lastName || errMsg.birthdate || errMsg.email || errMsg.phone || errMsg.password || errMsg.confirmPassword){
-        throw new Error('Please complete all your form')
+      if (
+        errMsg.firstName ||
+        errMsg.lastName ||
+        errMsg.birthdate ||
+        errMsg.email ||
+        errMsg.phone ||
+        errMsg.password ||
+        errMsg.confirmPassword
+      ) {
+        throw new Error("Please complete all your form");
       }
       const { date, month, year, err, ...body } = input;
       body.birthdate = `${year}-${month.toString().padStart(2, "0")}-${date
@@ -64,49 +72,56 @@ const Register = ({ setIsRegisterModalOpen }) => {
 
   const validator = () => {
     if (!input.firstName) {
-      setErrMsg(prv => ({ ...prv, firstName: 'First name is required' }))
-    }else{
-      setErrMsg(prv => ({ ...prv, firstName: '' }))
+      setErrMsg((prv) => ({ ...prv, firstName: "First name is required" }));
+    } else {
+      setErrMsg((prv) => ({ ...prv, firstName: "" }));
     }
     if (!input.lastName) {
-      setErrMsg(prv => ({ ...prv, lastName: 'Last name is required' }))
-    }else{
-      setErrMsg(prv => ({ ...prv, lastName: '' }))
+      setErrMsg((prv) => ({ ...prv, lastName: "Last name is required" }));
+    } else {
+      setErrMsg((prv) => ({ ...prv, lastName: "" }));
     }
     if (!input.date || !input.month || !input.year) {
-      setErrMsg(prv => ({ ...prv, birthdate: 'Birth day is required' }))
-    } else if (input.date.length > 2 || input.month.length > 2 || !input.year.length > 4) {
-      setErrMsg(prv => ({ ...prv, birthdate: 'Birth day should be valid' }))
-    }else{
-      setErrMsg(prv => ({ ...prv, birthdate: '' }))
+      setErrMsg((prv) => ({ ...prv, birthdate: "Birth day is required" }));
+    } else if (
+      input.date.length > 2 ||
+      input.month.length > 2 ||
+      !input.year.length > 4
+    ) {
+      setErrMsg((prv) => ({ ...prv, birthdate: "Birth day should be valid" }));
+    } else {
+      setErrMsg((prv) => ({ ...prv, birthdate: "" }));
     }
     if (!input.email) {
-      setErrMsg(prv => ({ ...prv, email: 'Email should be provided' }))
-    } else if (!input.email.includes('@')) {
-      setErrMsg(prv => ({ ...prv, email: 'Email is invalid' }))
-    }else{
-      setErrMsg(prv => ({ ...prv, email: '' }))
+      setErrMsg((prv) => ({ ...prv, email: "Email should be provided" }));
+    } else if (!input.email.includes("@")) {
+      setErrMsg((prv) => ({ ...prv, email: "Email is invalid" }));
+    } else {
+      setErrMsg((prv) => ({ ...prv, email: "" }));
     }
     if (!input.phone) {
-      setErrMsg(prv => ({ ...prv, phone: 'Phone should be provided' }))
+      setErrMsg((prv) => ({ ...prv, phone: "Phone should be provided" }));
     } else if (input.phone.length < 9 || input.phone.length > 10) {
-      setErrMsg(prv => ({ ...prv, phone: "Phone should be 9-10 number" }))
-    }else{
-      setErrMsg(prv => ({ ...prv, phone: "" }))
+      setErrMsg((prv) => ({ ...prv, phone: "Phone should be 9-10 number" }));
+    } else {
+      setErrMsg((prv) => ({ ...prv, phone: "" }));
     }
     if (!input.password) {
-      setErrMsg(prv => ({ ...prv, password: 'Password should be provided' }))
-    }else{
-      setErrMsg(prv => ({ ...prv, password: '' }))
+      setErrMsg((prv) => ({ ...prv, password: "Password should be provided" }));
+    } else {
+      setErrMsg((prv) => ({ ...prv, password: "" }));
     }
     if (!input.confirmPassword) {
-      setErrMsg(prv => ({ ...prv, confirmPassword: "Confirm password should be provided" }))
+      setErrMsg((prv) => ({
+        ...prv,
+        confirmPassword: "Confirm password should be provided",
+      }));
     } else if (input.password !== input.confirmPassword) {
-      setErrMsg(prv => ({ ...prv, confirmPassword: "Password not match" }))
-    }else{
-      setErrMsg(prv => ({ ...prv, confirmPassword: "" }))
+      setErrMsg((prv) => ({ ...prv, confirmPassword: "Password not match" }));
+    } else {
+      setErrMsg((prv) => ({ ...prv, confirmPassword: "" }));
     }
-  }
+  };
   return (
     <div
       onClick={() => setIsRegisterModalOpen(false)}
@@ -123,11 +138,11 @@ const Register = ({ setIsRegisterModalOpen }) => {
           ✕
         </button>
 
-        <div className="absolute top-[-4rem] left-1/2 transform -translate-x-1/2">
+        <div className="absolute top-[-3.5rem] left-1/2 transform -translate-x-1/2">
           <img
             src={travellogo}
             alt="Travel Logo"
-            className="w-[100px] h-[100px] rounded-lg shadow-lg bg-[#FFF8EB]"
+            className="w-[90px] h-[90px] rounded-lg shadow-lg bg-[#FFF8EB]"
           />
         </div>
 
@@ -139,27 +154,27 @@ const Register = ({ setIsRegisterModalOpen }) => {
           />
         </div>
 
-        <div className="w-1/2 pl-4 space-y-4">
+        <div className="w-1/2 pl-4 space-y-1">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm pb-2">First Name</label>
+              <label className="block text-sm pb-1">First Name</label>
               <input
                 name="firstName"
                 type="text"
                 placeholder="First Name"
-                className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="bg-[#FFE4B0] w-full p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 onChange={hdlChange}
                 value={input.firstName}
               />
               <p className="text-sm text-red-500">{errMsg.firstName}</p>
             </div>
             <div>
-              <label className="block text-sm pb-2">Last Name</label>
+              <label className="block text-sm pb-1">Last Name</label>
               <input
                 name="lastName"
                 type="text"
                 placeholder="Last Name"
-                className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="bg-[#FFE4B0] w-full p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 onChange={hdlChange}
                 value={input.lastName}
               />
@@ -168,12 +183,12 @@ const Register = ({ setIsRegisterModalOpen }) => {
           </div>
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm pb-2">Day</label>
+              <label className="block text-sm pb-1">Day</label>
               <input
                 name="date"
                 type="text"
                 placeholder="Day"
-                className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="bg-[#FFE4B0] w-full p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 onChange={hdlChange}
                 value={input.date}
                 maxLength={2}
@@ -181,24 +196,24 @@ const Register = ({ setIsRegisterModalOpen }) => {
               <p className="text-sm text-red-500">{errMsg.birthdate}</p>
             </div>
             <div>
-              <label className="block text-sm pb-2">Month</label>
+              <label className="block text-sm pb-1">Month</label>
               <input
                 name="month"
                 type="text"
                 placeholder="Month"
-                className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="bg-[#FFE4B0] w-full p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 onChange={hdlChange}
                 value={input.month}
                 maxLength={2}
               />
             </div>
             <div>
-              <label className="block text-sm pb-2">Year</label>
+              <label className="block text-sm pb-1">Year</label>
               <input
                 name="year"
                 type="text"
                 placeholder="Year"
-                className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="bg-[#FFE4B0] w-full p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 onChange={hdlChange}
                 value={input.year}
                 maxLength={4}
@@ -206,24 +221,24 @@ const Register = ({ setIsRegisterModalOpen }) => {
             </div>
           </div>
           <div>
-            <label className="block text-sm pb-2">Email</label>
+            <label className="block text-sm pb-1">Email</label>
             <input
               name="email"
               type="email"
               placeholder="Email"
-              className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="bg-[#FFE4B0] w-full p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               onChange={hdlChange}
               value={input.email}
             />
             <p className="text-sm text-red-500">{errMsg.email}</p>
           </div>
           <div>
-            <label className="block text-sm pb-2">Phone</label>
+            <label className="block text-sm pb-1">Phone</label>
             <input
               name="phone"
               type="text"
               placeholder="Phone"
-              className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="bg-[#FFE4B0] w-full p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               onChange={hdlChange}
               value={input.phone}
               minLength={9}
@@ -232,7 +247,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
             <p className="text-sm text-red-500">{errMsg.phone}</p>
           </div>
           <div>
-            <label className="block text-sm pb-2">Gender</label>
+            <label className="block text-sm pb-1">Gender</label>
             <div className="flex space-x-4">
               <label>
                 <input
@@ -265,24 +280,24 @@ const Register = ({ setIsRegisterModalOpen }) => {
             </div>
           </div>
           <div>
-            <label className="block text-sm pb-2">Password</label>
+            <label className="block text-sm pb-1">Password</label>
             <input
               name="password"
               type="password"
               placeholder="Password"
-              className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="bg-[#FFE4B0] w-full p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               onChange={hdlChange}
               value={input.password}
             />
             <p className="text-sm text-red-500">{errMsg.password}</p>
           </div>
           <div>
-            <label className="block text-sm pb-2">Confirm Password</label>
+            <label className="block text-sm pb-1">Confirm Password</label>
             <input
               name="confirmPassword"
               type="password"
               placeholder="Confirm Password"
-              className="bg-[#FFE4B0] w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="bg-[#FFE4B0] w-full p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               onChange={hdlChange}
               value={input.confirmPassword}
             />

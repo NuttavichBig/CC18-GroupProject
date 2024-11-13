@@ -136,11 +136,11 @@ function RoomPartnerRegisterForm(props) {
     }
 
     return (
-        <div className="bg-[#fef6e4] p-8 rounded-lg shadow-md max-w-4xl mx-auto">
+        <div className="bg-cream-gradient text-[#543310] p-8 rounded-lg shadow-md max-w-4xl mx-auto">
             <h2 className="text-2xl font-semibold text-center mb-4">
                 Hotel Partner Registration
             </h2>
-            <hr className="border-black" />
+            <hr className="border-[#543310]" />
             <h2 className="text-2xl font-semibold text-center my-4">
                 Please add room in your hotel
             </h2>
@@ -157,7 +157,7 @@ function RoomPartnerRegisterForm(props) {
                 )}
             </div>
 
-            <button className="py-2 bg-blue-500 w-full text-xl text-white font-semibold shadow-lg hover:bg-amber-500 active:translate-y-1 my-4"
+            <button className="py-2 bg-blue-500 w-full text-xl text-white font-semibold rounded-lg shadow-lg hover:bg-orange-400 active:translate-y-1 my-4"
                 onClick={addNewRoom}>Add new room</button>
             <p className="text-red-500 text-sm">{pageParam.errMsg}</p>
             {!pageParam.isLoading &&
@@ -168,10 +168,10 @@ function RoomPartnerRegisterForm(props) {
                             setPage(prv => prv - 1)
                         }}>Back</button>
                     <button
-                        className="w-3/4 bg-orange-500 text-white py-2 px-8 rounded-md hover:bg-black"
+                        className="w-3/4 bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-102 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
                         onClick={handleDataConfirm}
                     >
-                        Confirm
+                        CONFIRM
                     </button>
                 </div>
             }

@@ -11,6 +11,9 @@ const HeaderUserPage = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isSearchHover , setIsSearchHover] =useState(false)
+  const [input, setInput] = useState('');
+  const setSearch = useUserStore(state => state.setSearch)
   const navigate = useNavigate();
   const { user, token, logout } = useUserStore(
     useShallow((state) => ({
@@ -24,16 +27,24 @@ const HeaderUserPage = () => {
 
   const handleMouseEnterProfile = () => setIsProfileDropdownOpen(true);
   const handleMouseLeaveProfile = () => setIsProfileDropdownOpen(false);
+
+  const handleHoverEnterSearch = ()=>setIsSearchHover(true);
+  const handleHoverLeaveSearch = ()=>setIsSearchHover(false); 
+  const hdlChange = (e) => {
+    setInput(e.target.value)
+  }
+
+  const hdlConfirm = () => {
+    if (!input) {
+      return
+    }
+    setSearch(input)
+    navigate(`/UUID`)
+  }
   return (
     <div>
       <div
-        className="w-full flex items-center text-[#543310]"
-        style={{
-          position: "absolute",
-          top: -30,
-          left: 0,
-          zIndex: 10,
-        }}
+        className="w-full flex items-center justify-between text-[#543310] absolute -top-[30px] left-0 z-10"
       >
         <img
           src={travellogo}
@@ -54,7 +65,7 @@ const HeaderUserPage = () => {
             Travel Promotion
           </Link>
           <Link to="/user/registerpartner" className="hover:text-gray-300">
-            Contact Us
+            Be Partner
           </Link>
 
           {token ? (
@@ -102,7 +113,16 @@ const HeaderUserPage = () => {
 
         {/* Profile Dropdown for "Hello, Guest!" */}
         <div className="flex items-center space-x-4 mr-12">
+        <div className="flex absolute right-52 p-2" onMouseLeave={handleHoverLeaveSearch}>
+            <input type="text" name="UUID" 
+            className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white origin-right transition-transform ${isSearchHover ? 'scale-100': 'absolute scale-x-0 -left-48'}`}
+              onChange={hdlChange} value={input} placeholder="Your Booking Number" />
+            <button className={`bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full text-white ${isSearchHover?"rounded-l-none": "rounded-l-full"}`}
+            onMouseEnter={handleHoverEnterSearch}
+              onClick={hdlConfirm}>{isSearchHover ? 'Search': 'Find Your booking'}</button>
+          </div>
           <div className="relative">
+           
             <span
               className=" uppercase tracking-wider cursor-pointer hover:bg-orange-500 hover:bg-opacity-10 border-[#543310] border rounded-full text-sm p-3"
               onMouseEnter={handleMouseEnterProfile}

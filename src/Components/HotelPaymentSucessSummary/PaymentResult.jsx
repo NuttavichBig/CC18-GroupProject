@@ -23,7 +23,7 @@ function PaymentResult() {
 
             <div className="flex justify-between items-center text-[#543310]">
                 <p className="text-lg font-medium">Book Number</p>
-                <p className="text-lg font-medium">{resBookingData.booking.UUID}</p>
+                <p className="text-lg font-medium text-orange-500">{resBookingData.booking.UUID}</p>
             </div>
 
 
@@ -53,8 +53,8 @@ function PaymentResult() {
 
             <div className="grid grid-cols-2 gap-8 mt-4">
                 {resBookingData.booking.bookingRooms.map((room, index) => (
-                    <div key={index} className="flex space-x-4 items-start">
-                        <img src={room.rooms?.images[0]?.img} alt={room.rooms?.name} className="w-48 h-28 rounded-lg object-cover" />
+                    <div key={index} className="flex space-x-4 items-center">
+                        <img src={room.rooms?.images[0]?.img} alt={room.rooms?.name} className="w-[200px] h-[150px] rounded-lg object-cover" />
                         <div className="text-left">
                             <p className="font-medium mt-2">{room.rooms?.name}</p>
                                 <p>{room.rooms?.detail}</p>
@@ -82,7 +82,7 @@ function PaymentResult() {
 
 
             <div className="flex flex-col items-center mt-8">
-                <p className="text-green-500 text-2xl pb-5 font-semibold">SUCCESS</p>
+                <p className="text-green-500 text-3xl pb-5 font-semibold">SUCCESS</p>
                 <FaRegCheckCircle size={60} color='#22c55e'/>
 
             </div>

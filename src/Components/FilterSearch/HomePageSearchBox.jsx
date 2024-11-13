@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import searchbuttonanimation from "../../assets/GifMainButtonOrangeSearch1.gif";
 import useUserStore from "../../stores/user-store";
 import { useShallow } from "zustand/shallow";
 import SearchLocation from "../GoogleApi/SearchLocation";
@@ -281,7 +280,7 @@ const HomePageSearchBox = () => {
         <div className=" flex w-1/5 justify-center mt-6">
           <button
             onClick={handleSearch}
-            className="font-bold w-full shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-2 outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-32 h-12"
+            className="font-bold  shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-2 outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-32 h-12"
           >
             SEARCH
           </button>
