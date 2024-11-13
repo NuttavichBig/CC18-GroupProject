@@ -8,12 +8,14 @@ import LoadingRainbow from "../../Components/Loading/LoadingRainbow";
 
 export default function UserDetailAdmin() {
   const [users, setUsers] = useState([]);
-  console.log("users", users);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
   const token = useUserStore((state) => state.token);
   const API = import.meta.env.VITE_API;
   const currentUserEmail = useUserStore((state) => state.user?.email);
   // console.log(currentUserEmail) //myself
+
 
   // Fetch users when the component mounts
   useEffect(() => {
@@ -91,22 +93,32 @@ export default function UserDetailAdmin() {
     }
   };
 
-
-  // Handle user deletion with confirmation
+  // Handle user deletion
   const handleDelete = async (userId) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      try {
-        await axios.delete(`${API}/admin/user/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setUsers((prev) => prev.filter((user) => user.id !== userId));
-      } catch (error) {
-        console.error("Error deleting user:", error);
-      }
+    try {
+      const res = await axios.delete(`${API}/admin/user/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUsers((prev) =>
+        prev.map((user) => (user.id === userId ? { ...user, status: res.data.user.status } : user))
+      );
+    } catch (error) {
+      console.error("Error deleting user:", error);
     }
   };
 
+  // Open modal to confirm deletion
+  const openDeleteModal = (userId) => {
+    setSelectedUserId(userId);
+    setIsModalOpen(true);
+  };
 
+  // Confirm deletion
+  const confirmDelete = () => {
+    console.log(selectedUserId)
+    handleDelete(selectedUserId);
+    setIsModalOpen(false);
+  };
 
   if (loading) return <LoadingRainbow />;
 
@@ -167,10 +179,10 @@ export default function UserDetailAdmin() {
                   </td>
                   <td className="py-3 px-4 border-b">
                     <button
-                      onClick={() => handleDelete(user.id)}
-                      className="text-red-600 hover:text-red-800 transition duration-200"
+                      onClick={() => openDeleteModal(user.id)}
+                      className="text-white hover:bg-red-800 transition duration-200 bg-red-500 p-2 rounded-md "
                     >
-                      Delete
+                      Banned
                     </button>
                   </td>
                 </tr>
@@ -179,6 +191,30 @@ export default function UserDetailAdmin() {
           </table>
         </div>
       </div>
+
+      {/* Inline Confirmation Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-[90%] max-w-md">
+            <h2 className="text-lg font-semibold mb-4">Confirm Action</h2>
+            <p className="text-gray-700 mb-6">Are you sure you want to Banned this account?</p>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-};
+}

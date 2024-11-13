@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import HeaderUserPage from "../../Components/Nav-Footer-Chat/HeaderUserPage";
-import SearchBoxMain from "../../Components/FilterSearch/SearchBoxMain";
-import FilterPanel from "../../Components/FilterSearch/FilterPanel";
-import PictureSlide from "../../Components/Nav-Footer-Chat/PictureSlide";
 import Footer from "../../Components/Nav-Footer-Chat/Footer";
+import PictureSlide from "../../Components/Nav-Footer-Chat/PictureSlide";
 import HotelDetailMain from "../../Components/SelectHotelDetail/HotelDetailMain";
 import HotelDetailMap from "../../Components/SelectHotelDetail/HotelDetailMap";
 import HotelDetailReview from "../../Components/SelectHotelDetail/HotelDetailReview";
 import HotelDetailRoom from "../../Components/SelectHotelDetail/HotelDetailRoom";
 import HotelDetailRecommend from "../../Components/SelectHotelDetail/HotelDetailRecommend";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 import useHotelStore from "../../stores/hotel-store";
 
@@ -42,35 +39,22 @@ function SelectHotelDetail() {
     <div>
       <HeaderUserPage />
       <div className="flex justify-center items-start mt-[150px] border-t-2">
-        <div className="p-6 grid gap-5">
-          <div className="grid grid-cols-4 gap-6 mt-10 ">
-            <div className="col-span-1 h-full w-full">
-              <FilterPanel />
-            </div>
-
-            <div className="col-span-3">
-              <div className="flex flex-col space-y-6 w-full bg-cream-gradient">
-                <HotelDetailMain hotelData={hotelData} />
-                <div className="flex gap-6">
-                  <div className="w-1/2 ml-3">
-                    <HotelDetailMap
-                      location={{ lat: hotelData.lat, lng: hotelData.lng }}
-                    />
-                  </div>
-                  <div className="w-1/2 mr-3">
-                    <HotelDetailReview reviews={hotelData.reviews} />
-                  </div>
-                </div>
-                <HotelDetailRoom rooms={hotelData.rooms} />
+        <div className="p-6 grid gap-5 w-full max-w-7xl">
+          <div className="flex flex-col space-y-6 w-full bg-cream-gradient rounded-lg px-3">
+            <HotelDetailMain hotelData={hotelData} />
+            <div className="flex gap-6">
+              <div className="w-1/2 ml-3">
+                <HotelDetailMap location={{ lat: hotelData.lat, lng: hotelData.lng }} />
+              </div>
+              <div className="w-1/2 mr-3">
+                <HotelDetailReview reviews={hotelData.reviews} />
               </div>
             </div>
+            <HotelDetailRoom rooms={hotelData.rooms} />
           </div>
 
-          <div className="grid grid-cols-4 gap-6 mt-[60px] mb-[500px]">
-            <div className="col-span-1"></div>
-            <div className="col-span-3">
-              <HotelDetailRecommend />
-            </div>
+          <div className="mt-[60px] mb-[48px]">
+            <HotelDetailRecommend />
           </div>
         </div>
       </div>
