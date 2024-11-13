@@ -1,8 +1,8 @@
 import React from 'react';
-import loadingAnimationUrl from '../../assets/Loading/LoadingBlockBlueToOrange.gif';
+import loadingAnimationUrl from '../../assets/Loading/LoadingCouponCreate.gif';
 
 
-const LoadingBluetoOrangeblock = () => {
+const LoadingCouponCreate = () => {
     return (
         <div style={styles.container}>
             <img src={loadingAnimationUrl} alt="Loading..." style={styles.image} />
@@ -23,8 +23,8 @@ const styles = {
         backgroundColor: 'rgba(255, 255, 255, 0)', // พื้นหลังโปร่งแสง
     },
     image: {
-        width: '100px', // ขนาดภาพ
-        height: '100px', // ขนาดภาพ
+        width: '300px', // ขนาดภาพ
+        height: '300px', // ขนาดภาพ
         marginBottom: '10px', // เพิ่มระยะห่างด้านล่างของภาพ
     },
     loadingText: {
@@ -41,4 +41,4 @@ const styles = {
 
 
 
-export default LoadingBluetoOrangeblock;
+export default LoadingCouponCreate;

@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { DateRangePicker } from "react-date-range";
 import useUserStore from "../../stores/user-store";
 import axios from "axios";
+import LoadingCouponCreate from "../Loading/LoadingCouponCreate";
+import Swal from "sweetalert2";
+import FormErrorAlert from '../../assets/ErrorToast1.gif';
+import FormSuccessAlert from '../../assets/SuccessToast.gif';
 
 export default function CreatePromotion({ onCreateSuccess, onClose }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [promotionData, setPromotionData] = useState({
     name: "",
     description: "",
@@ -30,7 +35,8 @@ export default function CreatePromotion({ onCreateSuccess, onClose }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    setIsLoading(true);
     try {
       const formData = new FormData();
       Object.keys(promotionData).forEach((key) => {
@@ -47,14 +53,60 @@ export default function CreatePromotion({ onCreateSuccess, onClose }) {
           Authorization: `Bearer ${token}`,
         },
       });
-      alert(response.data.message);
+
       onCreateSuccess(response.data.promotion);
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormSuccessAlert}" alt="Success Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: green;">Create Promotion Success</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "green";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
       onClose();
     } catch (error) {
+
+      const errMsg = error.response?.data?.message || error.message;
       console.error("Error creating promotion:", error);
-      alert("Error creating promotion. Please try again.");
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "#f44336";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
+
+    } finally {
+      setIsLoading(false);
     }
   };
+  if (isLoading) {
+    return <LoadingCouponCreate />;
+  }
+
 
   return (
     <div

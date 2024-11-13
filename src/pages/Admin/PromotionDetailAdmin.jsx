@@ -6,6 +6,7 @@ import useUserStore from "../../stores/user-store";
 import Swal from "sweetalert2";
 import FormErrorAlert from '../../assets/ErrorToast1.gif';
 import FormSuccessAlert from '../../assets/SuccessToast.gif';
+import LoadingBluetoOrangeblock from "../../Components/Loading/LoadingBluetoOrangeblock";
 
 export default function PromotionDetailAdmin() {
   const [promotions, setPromotions] = useState([]);
@@ -146,7 +147,7 @@ export default function PromotionDetailAdmin() {
           </button>
         </div>
         {loading ? (
-          <p className="text-center text-lg">Loading promotions...</p>
+          <LoadingBluetoOrangeblock />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {promotions.map((promotion) => (
