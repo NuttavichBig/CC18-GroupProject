@@ -32,27 +32,14 @@ function HotelPartnerRegisterForm(props) {
       }));
     }
   }, []);
-
+  console.log(errMsg)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       validator();
-      console.log(errMsg)
-      if (errMsg.address || errMsg.bankAccount || errMsg.bankName || errMsg.companyName || errMsg.taxNo) {
-        throw new Error('You have to complete all info')
-      }else{
-
-        setAllFormData((prv) => ({ ...prv, partner: input }));
-        setErrMsg({
-          overall: '',
-          companyName: '',
-          address: '',
-          bankAccount: '',
-          bankName: '',
-          taxNo: '',
-        })
-        setPage((prv) => prv + 1);
-      }
+      setAllFormData((prv) => ({ ...prv, partner: input }));
+      setPage((prv) => prv + 1);
+ 
 
 
     } catch (err) {
@@ -87,38 +74,39 @@ function HotelPartnerRegisterForm(props) {
   };
 
   const validator = () => {
-    console.log('validator')
-    console.log(input)
+    const err  = {
+      overall: '',
+      companyName: '',
+      address: '',
+      bankAccount: '',
+      bankName: '',
+      taxNo: '',
+    }
     if (!input.companyName) {
-      setErrMsg(prv => ({ ...prv, companyName: 'Company name is required' }))
-    }else{
-      setErrMsg(prv => ({ ...prv, companyName: '' }))
+      err.companyName = 'Company name is required'
     }
     if (!input.address) {
-      setErrMsg(prv => ({ ...prv, address: 'Address is required' }))
-    }else{
-      setErrMsg(prv => ({ ...prv, address: '' }))
+      err.address = 'Address is required'
     }
     const bankAccountRegEx = /^[0-9]{8,16}$/
     if (!input.bankAccount) {
-      setErrMsg(prv => ({ ...prv, bankAccount: 'Bank Account is required' }))
+      err.bankAccount = 'Bank Account is required'
     } else if (!bankAccountRegEx.test(input.bankAccount)) {
-      setErrMsg(prv => ({ ...prv, bankAccount: 'Bank Account is invalid' }))
-    }else{
-      setErrMsg(prv => ({ ...prv, bankAccount: '' }))
+      err.bankAccount = 'Bank Account is invalid'
     }
     if (!input.bankName) {
-      setErrMsg(prv => ({ ...prv, bankName: 'Bank name is required' }))
-    }else{
-      setErrMsg(prv => ({ ...prv, bankName: '' }))
+      err.bankName  ='Bank name is required'
     }
     if (!input.taxNo) {
-      setErrMsg(prv => ({ ...prv, taxNo: 'Tax No. is required' }))
+      err.taxNo = 'Tax No. is required'
     } else if (input.taxNo.length !== 13) {
-      setErrMsg(prv => ({ ...prv, taxNo: 'Tax No. is invalid' }))
-    }else{
-      setErrMsg(prv => ({ ...prv, taxNo: '' }))
+      err.taxNo = 'Tax No. is invalid'
     }
+    setErrMsg(err)
+    if(err.taxNo || err.bankName || err.bankAccount || err.address || err.companyName){
+      throw new Error('You have to complete all info')
+    }
+
   }
 
   return (

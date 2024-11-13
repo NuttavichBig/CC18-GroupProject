@@ -36,7 +36,7 @@ const HotelList = ({ hotels }) => {
 
   return (
     <div className="w-full flex flex-col text-[#543310]">
-      {hotels.length === 0 ? (
+      {hotels?.length === 0 ? (
         <div className="text-center text-gray-500">No hotels available</div>
       ) : (
         hotels.map((hotel) => {
@@ -60,20 +60,20 @@ const HotelList = ({ hotels }) => {
                     <p className="text-sm text-gray-500">{hotel.address}</p>
                   </div>
                   <div className="flex items-center space-x-2">
-                    {hotel.reviews.length > 0 ? (
+                    {hotel.reviews?.length > 0 ? (
                       <div className="flex flex-col -gap-1">
                         <p className="text-lg font-bold">
                           {getReviewLabel(hotel.rating)}
                         </p>
                         <p className="text-sm text-gray-500">
-                          {hotel.reviews.length} review
-                          {hotel.reviews.length !== 1 && "s"}
+                          {hotel.reviews?.length} review
+                          {hotel.reviews?.length !== 1 && "s"}
                         </p>
                       </div>
                     ) : (
                       <p className="text-gray-500 italic">No Rating</p>
                     )}
-                    {hotel.rating && hotel.reviews.length > 0 ? (
+                    {hotel.rating && hotel.reviews?.length > 0 ? (
                       <p className="bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white font-bold p-2 px-2 rounded-md text-lg shadow-sm">
                         {hotel.rating.toFixed(1)}
                       </p>

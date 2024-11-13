@@ -15,7 +15,6 @@ function RoomPartnerRegisterForm(props) {
         isLoading: false,
         errMsg: '',
     })
-
     const defaultObject = {
         name: '',
         detail: '',
