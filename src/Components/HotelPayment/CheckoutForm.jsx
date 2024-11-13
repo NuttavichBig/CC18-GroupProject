@@ -20,7 +20,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
     })
     const [isSubmit, setIsSubmit] = useState(false)
 
-    const [timer ,setTimer] = useState(300)
+    const [timer ,setTimer] = useState(10)
     useEffect(()=>{
         setTimeout(()=>{
             if(timer > 0){
