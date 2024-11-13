@@ -1,9 +1,37 @@
 import React, { useEffect, useState } from "react";
 import hotelsuccessicon from "../../assets/hotelsuccesspaymenticon.jpg";
+import cancle from "../../assets/cancle.png";
+import fail from "../../assets/fail.png";
+import refund from "../../assets/refund.png";
+import pending from "../../assets/pending.png";
 import dropdownhistorymyPurchase from "../../assets/drop-down-arrow-icon_Mypurchase.gif";
 import ReviewModal from "../ModalOther/ReviewModal";
 import axios from "axios";
 import useUserStore from "../../stores/user-store";
+
+const statusDetails = {
+  PENDING: {
+    color: "text-[#ffae00]",
+    icon: pending,
+  },
+  CONFIRMED: {
+    color: "text-green-500",
+    icon: hotelsuccessicon,
+  },
+  CANCELED: {
+    color: "text-[#ff0000]",
+    icon: cancle,
+  },
+  FAILED: {
+    color: "text-[#ff4d00]",
+    icon: fail,
+  },
+  REFUND: {
+    color: "text-[#3596fd]",
+    icon: refund,
+  },
+};
+
 const API = import.meta.env.VITE_API;
 
 function MyPurchase() {
@@ -59,9 +87,9 @@ function MyPurchase() {
     <div className="max-w-4xl mx-auto p-8 rounded-lg space-y-4 ">
       {booking.map((book, index) => (
         <div key={index} className="p-4 bg-[#FFF8EC] rounded-lg shadow-lg mb-4">
-            <div className="text-right font-semibold text-gray-600 text-opacity-70">
-                <p>Booking ID: {book.UUID}</p>
-            </div>
+          <div className="text-right font-semibold text-gray-600 text-opacity-70">
+            <p>Booking ID: {book.UUID}</p>
+          </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <img
@@ -141,11 +169,20 @@ function MyPurchase() {
                   </div>
                 ))}
                 {book.bookingRooms.map((room, i) => (
-                  <div key={i} className="flex flex-col items-end font-semibold text-sm mt-2 text-gray-500">
+                  <div
+                    key={i}
+                    className="flex flex-col items-end font-semibold text-sm mt-2 text-gray-500"
+                  >
                     <div className="text-left">
-                    <p >Amount : {room.amountRoom} rooms</p>
-                    <p>Checkin Date:{" "}{new Date(book.checkinDate).toLocaleDateString()}</p>
-                    <p>Checkout Date:{" "}{new Date(book.checkoutDate).toLocaleDateString()}</p>
+                      <p>Amount : {room.amountRoom} rooms</p>
+                      <p>
+                        Checkin Date:{" "}
+                        {new Date(book.checkinDate).toLocaleDateString()}
+                      </p>
+                      <p>
+                        Checkout Date:{" "}
+                        {new Date(book.checkoutDate).toLocaleDateString()}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -170,17 +207,15 @@ function MyPurchase() {
               <div className="flex flex-col items-center mt-8">
                 <p
                   className={`text-2xl font-semibold ${
-                    book.status === "CONFIRMED"
-                      ? "text-green-500"
-                      : "text-amber-500 py-8"
+                    statusDetails[book.status]?.color
                   }`}
                 >
                   {book.status}
                 </p>
-                {book.status === "CONFIRMED" && (
+                {statusDetails[book.status]?.icon && (
                   <img
-                    src={hotelsuccessicon}
-                    alt="Success Icon"
+                    src={statusDetails[book.status].icon}
+                    alt={`${book.status} Icon`}
                     className="w-20 h-20"
                   />
                 )}
