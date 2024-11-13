@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import usePartnerStore from "../../stores/partner-store";
 import { useShallow } from "zustand/shallow";
+import Swal from "sweetalert2";
+import FormErrorAlert from '../../assets/ErrorToast1.gif'
+import FormSuccessAlert from '../../assets/SuccessToast.gif'
+
 
 export default function PartnerUpdate() {
   const { partner, updatePartner } = usePartnerStore(
@@ -47,9 +51,49 @@ export default function PartnerUpdate() {
       const { isLoading, errMsg, ...body } = input;
       await updatePartner(body);
       setInput((prev) => ({ ...prev, errMsg: "Update Completed" }));
+      //alert success
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormSuccessAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: green;">Partner Update Success</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "green";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
     } catch (err) {
       const errMsg = err.response?.data?.message || err.message;
       setInput((prev) => ({ ...prev, errMsg: errMsg }));
+      //alert error
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "#f44336";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
     } finally {
       setInput((prev) => ({ ...prev, isLoading: false }));
     }

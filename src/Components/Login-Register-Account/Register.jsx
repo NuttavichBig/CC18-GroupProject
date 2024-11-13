@@ -68,7 +68,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
       console.log("after registered");
       await login({ email: body.email, password: body.password });
       setIsRegisterModalOpen(false);
-      //alert
+      //alert success
       Swal.fire({
         html: `<div class="flex items-center gap-2">
            <img src="${toastRegisterSuccess}" alt="Error Animation" class="w-10 h-10" />
@@ -93,7 +93,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
     } catch (err) {
       const errMsg = err?.response?.data?.message || err.message;
       setInput((prv) => ({ ...prv, err: errMsg }));
-      //alert
+      //alert error
       Swal.fire({
         html: `<div class="flex items-center gap-2">
            <img src="${toastRegisterFail}" alt="Error Animation" class="w-10 h-10" />

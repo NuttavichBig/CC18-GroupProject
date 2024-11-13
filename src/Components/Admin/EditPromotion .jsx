@@ -4,6 +4,10 @@ import useUserStore from "../../stores/user-store";
 import axios from "axios";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import Swal from "sweetalert2";
+import FormErrorAlert from '../../assets/ErrorToast1.gif'
+import FormSuccessAlert from '../../assets/SuccessToast.gif'
+import { toast } from "react-toastify";
 
 export default function EditPromotion({ promotion, onSave, onCancel }) {
   const [journeyDate, setJourneyDate] = useState(new Date(promotion.startDate));
@@ -15,11 +19,11 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
   });
   const [selectedFile, setSelectedFile] = useState(null);
 
-  
+
   const token = useUserStore((state) => state.token);
   const API = import.meta.env.VITE_API;
 
-  console.log('dateRange',dateRange)
+  console.log('dateRange', dateRange)
   const [formData, setFormData] = useState({
     name: promotion.name,
     description: promotion.description,
@@ -36,7 +40,7 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    })); 
+    }));
   };
 
   const handleDateRangeChange = (ranges) => {
@@ -45,30 +49,30 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
     setReturnDate(endDate);
     setDateRange(ranges.selection);
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const today = new Date();
     const selectedStartDate = journeyDate;
     const selectedEndDate = returnDate;
-  
+
     if (selectedStartDate < today) {
-      alert("Start date cannot be earlier than today.");
+      toast.error("Start date cannot be earlier than today.");
       return;
     }
-  
+
     if (selectedEndDate < selectedStartDate) {
-      alert("End date cannot be earlier than start date.");
+      toast.error("End date cannot be earlier than start date.");
       return;
     }
-  
-    const formPayload = createFormPayload(); 
-  
+
+    const formPayload = createFormPayload();
+
     try {
       const response = await axios.patch(
-        `${API}/admin/promotion/${promotion.id}`, 
-        formPayload, 
+        `${API}/admin/promotion/${promotion.id}`,
+        formPayload,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -76,44 +80,84 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
           },
         }
       );
-  
+
       if (response.status >= 200 && response.status < 300) {
         onSave({ ...promotion, ...formData });
-        alert("Promotion updated successfully.");
+        //alert success
+        Swal.fire({
+          html: `<div class="flex items-center gap-2">
+           <img src="${FormSuccessAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: green;">Promotion deleted successfully</span>
+         </div>`,
+          position: "top-end",
+          timer: 3000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+          toast: true,
+          background: "#ffffff",
+          didOpen: (toast) => {
+            const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+            if (progressBar) {
+              progressBar.style.backgroundColor = "green";
+            }
+            toast.addEventListener("click", Swal.close);
+          },
+        });
       } else {
-        alert("Failed to update promotion.");
+        toast.error("Failed to update promotion.");
       }
+
     } catch (error) {
+      const errMsg = error.response?.data?.message || error.message;
       console.error("Error updating promotion:", error.response ? error.response.data : error.message);
-      alert("An error occurred while updating the promotion.");
+      //alert error
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "#f44336";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
     }
   };
-  
+
   const createFormPayload = () => {
     const formPayload = new FormData();
 
     const fields = {
-        name: formData.name,
-        description: formData.description,
-        discountPercent: parseFloat(formData.discountPercent) || 0,
-        discountValue: parseFloat(formData.discountValue) || 0,
-        minimumSpend: parseFloat(formData.minimumSpend) || 0,
-        maxDiscount: parseFloat(formData.maxDiscount) || 0,
-        usageLimit: parseInt(formData.usageLimit, 10) || 0,
-        userLimit: parseInt(formData.userLimit, 10) || 0,
-        startDate: journeyDate.toISOString(),  
-        endDate: returnDate.toISOString(), 
+      name: formData.name,
+      description: formData.description,
+      discountPercent: parseFloat(formData.discountPercent) || 0,
+      discountValue: parseFloat(formData.discountValue) || 0,
+      minimumSpend: parseFloat(formData.minimumSpend) || 0,
+      maxDiscount: parseFloat(formData.maxDiscount) || 0,
+      usageLimit: parseInt(formData.usageLimit, 10) || 0,
+      userLimit: parseInt(formData.userLimit, 10) || 0,
+      startDate: journeyDate.toISOString(),
+      endDate: returnDate.toISOString(),
     };
 
     Object.entries(fields).forEach(([key, value]) => formPayload.append(key, value));
 
     if (selectedFile) {
-        formPayload.append("img", selectedFile);
+      formPayload.append("img", selectedFile);
     }
 
     return formPayload;
-};
-  
+  };
+
   return (
     <div
       onClick={onCancel}
