@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import Swal from "sweetalert2";
+import FormErrorAlert from '../../assets/ErrorToast1.gif'
+import FormSuccessAlert from '../../assets/SuccessToast.gif'
+import LoadingspinnerOrangeCircle from "../Loading/LoadingspinnerOrangeCircle";
 
 function RoomUpdateForm(props) {
     const { info, setModalControl, confirmUpdate, confirmDelete } = props;
@@ -76,10 +80,50 @@ function RoomUpdateForm(props) {
 
             Object.entries(input.facilityRoom).forEach(([key, value]) => body.append(`facilityRoom[${key}]`, value));
             await confirmUpdate(body);
+            //alert success
+            Swal.fire({
+                html: `<div class="flex items-center gap-2">
+           <img src="${FormSuccessAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: green;">Update Room Success</span>
+         </div>`,
+                position: "top-end",
+                timer: 3000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                toast: true,
+                background: "#ffffff",
+                didOpen: (toast) => {
+                    const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+                    if (progressBar) {
+                        progressBar.style.backgroundColor = "green";
+                    }
+                    toast.addEventListener("click", Swal.close);
+                },
+            });
             setModalControl((prev) => ({ ...prev, isOpen: false }));
         } catch (err) {
             const errMsg = err.response?.data?.message || err.message;
             setPageParam({ ...pageParam, errMsg, loading: false });
+            //alert error
+            Swal.fire({
+                html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+                position: "top-end",
+                timer: 3000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                toast: true,
+                background: "#ffffff",
+                didOpen: (toast) => {
+                    const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+                    if (progressBar) {
+                        progressBar.style.backgroundColor = "#f44336";
+                    }
+                    toast.addEventListener("click", Swal.close);
+                },
+            });
         } finally {
             setPageParam((prev) => ({ ...prev, loading: false }));
         }
