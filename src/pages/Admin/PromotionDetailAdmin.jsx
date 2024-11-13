@@ -38,7 +38,6 @@ export default function PromotionDetailAdmin() {
     }
   };
 
-
   const handleRemove = async (promotionId) => {
     try {
       await axios.delete(`${API}/admin/promotion/${promotionId}`, {
@@ -63,9 +62,15 @@ export default function PromotionDetailAdmin() {
     setEditPromotion(false);
   };
 
+  const handleAddPromotion = (newPromotion) => {
+    setPromotions((prevPromotions) => [newPromotion, ...prevPromotions]);
+    setCreatePromotion(false);
+};
+
+
   return (
     <>
-      {createPromotion && <CreatePromotion onCreateSuccess={fetchPromotions} onClose={() => setCreatePromotion(false)} />}
+      {createPromotion && <CreatePromotion onCreateSuccess={handleAddPromotion} onClose={() => setCreatePromotion(false)} />}
       {editPromotion && (
         <EditPromotion
           promotion={selectedPromotion}

@@ -18,6 +18,7 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
   const token = useUserStore((state) => state.token);
   const API = import.meta.env.VITE_API;
 
+  console.log('dateRange',dateRange)
   const [formData, setFormData] = useState({
     name: promotion.name,
     description: promotion.description,
@@ -39,6 +40,7 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
 
   const handleDateRangeChange = (ranges) => {
     setDateRange(ranges.selection);
+    
   };
 
   const handleSubmit = async (e) => {
