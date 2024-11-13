@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { motion, useAnimation } from "framer-motion";
 import slidebarpic from "../../assets/slideright.gif";
@@ -19,6 +19,17 @@ export default function CheckoutForm({ dpmCheckerLink }) {
         // elements : useElements()
     })
     const [isSubmit, setIsSubmit] = useState(false)
+
+    const [timer ,setTimer] = useState(10)
+    useEffect(()=>{
+        setTimeout(()=>{
+            if(timer > 0){
+                setTimer(prv=>prv-1)
+            }else{
+                navigate('/bookinghotel-detail-payment-method-fail')
+            }
+        },1000)
+    },[timer])
     const navigate = useNavigate();
     const controls = useAnimation();
     const { id, clientSecret, setResponseBooking } = useBookingStore(useShallow(state => ({
@@ -98,7 +109,11 @@ export default function CheckoutForm({ dpmCheckerLink }) {
             className="flex flex-col p-6 bg-cream-gradient rounded-lg shadow-md space-y-4"
             onSubmit={handleSubmit}
         >
+            <div className="flex w-full justify-between">
+
             <h3 className="text-xl font-bold mb-5">Select Payment Method</h3>
+            <p>{Math.trunc(timer/60)} : {((timer%60).toString()).padStart(2,'0')}</p>
+            </div>
 
             <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
 
