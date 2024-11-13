@@ -8,8 +8,6 @@ const HotelDetailMain = () => {
 
     const currentHotel = useHotelStore(state => state.currentHotel)
 
-
-
     return (
         <div className="flex flex-col rounded-lg w-full p-6 bg-cream-gradient space-y-6 text-[#543310]">
 
@@ -29,7 +27,7 @@ const HotelDetailMain = () => {
 
 
             <div className="flex items-center space-x-2">
-                <span className="font-semibold">Reviews:</span>
+                <span className="font-semibold">Rating:</span>
                 <div className="flex">
                     <span className="text-yellow-500">{'★'.repeat(currentHotel.star)}</span>
                     <span className="text-gray-300">{'★'.repeat(5 - currentHotel.star)}</span>

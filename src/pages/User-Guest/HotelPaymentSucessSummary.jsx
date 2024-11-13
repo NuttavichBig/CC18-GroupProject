@@ -13,14 +13,13 @@ function HotelPaymentSucessSummary() {
         <HeaderUserPage />
       </div>
       <div className="flex justify-center items-start mt-[150px] border-t-2">
-        <div className="mx-auto px-[50px]">
+        <div className="mx-auto px-[50px] py-10 w-[80%]">
           <div className="mx-auto ">
             {/* <HotelDetailMain /> */}
           </div>
 
           <BookingProgressBallRight />
-
-          <div className="grid grid-cols-3 gap-6 mb-[500px]">
+          <div className="grid grid-cols-3 gap-6 ">
             <div className="col-span-3 h-full">
               <div>
                 <PaymentResult />
@@ -29,7 +28,6 @@ function HotelPaymentSucessSummary() {
           </div>
         </div>
       </div>
-
       <Footer />
     </div>
   );
