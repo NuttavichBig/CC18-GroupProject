@@ -15,6 +15,7 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
   });
   const [selectedFile, setSelectedFile] = useState(null);
 
+  
   const token = useUserStore((state) => state.token);
   const API = import.meta.env.VITE_API;
 
@@ -39,12 +40,28 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
   };
 
   const handleDateRangeChange = (ranges) => {
+    const { startDate, endDate } = ranges.selection;
+    setJourneyDate(startDate);
+    setReturnDate(endDate);
     setDateRange(ranges.selection);
-    
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    const today = new Date();
+    const selectedStartDate = journeyDate;
+    const selectedEndDate = returnDate;
+  
+    if (selectedStartDate < today) {
+      alert("Start date cannot be earlier than today.");
+      return;
+    }
+  
+    if (selectedEndDate < selectedStartDate) {
+      alert("End date cannot be earlier than start date.");
+      return;
+    }
   
     const formPayload = createFormPayload(); 
   
@@ -71,32 +88,32 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
       alert("An error occurred while updating the promotion.");
     }
   };
-
+  
   const createFormPayload = () => {
     const formPayload = new FormData();
-    
-    const fields = {
-      name: formData.name,
-      description: formData.description,
-      discountPercent: parseFloat(formData.discountPercent) || 0,
-      discountValue: parseFloat(formData.discountValue) || 0,
-      minimumSpend: parseFloat(formData.minimumSpend) || 0,
-      maxDiscount: parseFloat(formData.maxDiscount) || 0,
-      usageLimit: parseInt(formData.usageLimit, 10) || 0,
-      userLimit: parseInt(formData.userLimit, 10) || 0,
-      startDate: journeyDate.toISOString().split("T")[0],
-      endDate: returnDate.toISOString().split("T")[0],
-    };
- 
-    Object.entries(fields).forEach(([key, value]) => formPayload.append(key, value));
-    
-    if (selectedFile) {
-      formPayload.append("img", selectedFile);
-    }
-  
-    return formPayload;
-  };
 
+    const fields = {
+        name: formData.name,
+        description: formData.description,
+        discountPercent: parseFloat(formData.discountPercent) || 0,
+        discountValue: parseFloat(formData.discountValue) || 0,
+        minimumSpend: parseFloat(formData.minimumSpend) || 0,
+        maxDiscount: parseFloat(formData.maxDiscount) || 0,
+        usageLimit: parseInt(formData.usageLimit, 10) || 0,
+        userLimit: parseInt(formData.userLimit, 10) || 0,
+        startDate: journeyDate.toISOString(),  
+        endDate: returnDate.toISOString(), 
+    };
+
+    Object.entries(fields).forEach(([key, value]) => formPayload.append(key, value));
+
+    if (selectedFile) {
+        formPayload.append("img", selectedFile);
+    }
+
+    return formPayload;
+};
+  
   return (
     <div
       onClick={onCancel}
@@ -118,7 +135,6 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
         </div>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
-          {/* Text Inputs */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label htmlFor="name" className="text-lg font-semibold text-[#0088d1]">

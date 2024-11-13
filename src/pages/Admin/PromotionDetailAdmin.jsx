@@ -23,20 +23,19 @@ export default function PromotionDetailAdmin() {
   };
 
   useEffect(() => {
+    const fetchPromotions = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`${API}/promotion?limit=999`);
+        setPromotions(response.data.promotion || []);
+      } catch (error) {
+        console.error("Error fetching promotions:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchPromotions();
-  }, []);
-
-  const fetchPromotions = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`${API}/promotion`);
-      setPromotions(response.data.promotion || []);
-    } catch (error) {
-      console.error("Error fetching promotions:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [createPromotion, editPromotion]);
 
   const handleRemove = async (promotionId) => {
     try {
@@ -63,9 +62,10 @@ export default function PromotionDetailAdmin() {
   };
 
   const handleAddPromotion = (newPromotion) => {
-    setPromotions((prevPromotions) => [newPromotion, ...prevPromotions]);
     setCreatePromotion(false);
-};
+    setPromotions((prevPromotions) => [newPromotion, ...prevPromotions]);
+  };
+  
 
 
   return (
