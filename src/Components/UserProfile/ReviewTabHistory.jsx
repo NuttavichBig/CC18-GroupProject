@@ -186,7 +186,7 @@ function ReviewTabHistory() {
 
     console.log(edit)
     return (
-        <div className="max-w-4xl mx-auto p-8 rounded-lg space-y-4">
+        <div className="flex flex-col mt-20 w-4/5 rounded-lg space-y-4">
             {hotelReviewList.map((review, index) => (
                 <div key={index} className="p-4 bg-[#FFF8EC] rounded-lg shadow-lg mb-4">
                     <div className="flex items-center justify-between">
