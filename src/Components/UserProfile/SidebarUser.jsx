@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import defaultPic from '../../assets/ProfilePicture.webp';
 import useUserStore from '../../stores/user-store';
 
@@ -7,16 +7,21 @@ function SidebarUser() {
     const profileImage = useUserStore(state => state.user?.image);
     const FirstName = useUserStore(state => state.user?.firstName);
     const LastName = useUserStore(state => state.user?.lastName);
-    
+    const location = useLocation();
+
     return (
-        <div className="bg-gradient-to-b from-cream to-light-cream border p-8 rounded-2xl shadow-lg w-[350px] text-center relative mt-20 ml-16">
-            <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 w-28 h-28 rounded-full shadow-lg overflow-hidden border-4 border-white bg-white">
+        <div className="bg-gradient-to-b from-cream to-light-cream border pb-40 p-8 rounded-2xl shadow-lg w-[350px] text-center relative mt-20 ml-16">
+{
+    location === 'userprofile' &&
+                <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 w-28 h-28 rounded-full shadow-lg overflow-hidden border-4 border-white bg-white">
                 <img
                     src={profileImage || defaultPic}
                     alt="User Profile"
                     className="w-full h-full object-cover"
-                />
+                    />
             </div>
+                }
+          
             
             <div className="mt-10">
                 <h3 className="text-2xl font-semibold text-[#543310]">
