@@ -1,14 +1,72 @@
 // SummaryRoomDetail.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import useHotelStore from '../../stores/hotel-store';
 import useBookingStore from '../../stores/booking-store';
 
 function SummaryRoomDetail() {
     const selectedRoom = useHotelStore(state=>state.selectedRoom)
     const bookingDetail = useBookingStore(state=>state.bookingDetail)
-    // const bookingData = useBookingStore(state=>state.bookingData)
-
+    const currentHotel = useHotelStore((state) => state.currentHotel);
+    const [isFacilitiesOpen, setIsFacilitiesOpen] = useState(true); 
+  
+    const toggleFacilities = () => {
+      setIsFacilitiesOpen((prev) => !prev);
+    };
+    const formatFacilityName = (key) => {
+        return key
+          .replace(/is|([A-Z])/g, " $1")
+          .trim()
+          .replace(/  +/g, " ");
+      };
     return (
+                  <div className="flex flex-col rounded-lg w-full p-6 bg-cream-gradient space-y-6 text-[#543310]">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold">{currentHotel.name}</h2>
+          <div className="flex items-center space-x-2 ">
+          <span className="font-semibold">Rating:</span>
+          <div className="flex">
+            <span className="text-yellow-500">
+              {"★".repeat(currentHotel.star)}
+            </span>
+            <span className="text-gray-300">
+              {"★".repeat(5 - currentHotel.star)}
+            </span>
+          </div>
+        </div>
+        </div>
+
+        <div className="rounded-lg overflow-hidden">
+          <img
+            src={currentHotel.img}
+            alt={currentHotel.name}
+            className="w-full h-64 object-cover"
+          />
+        </div>
+
+        <p className="text-gray-700">
+          {currentHotel.detail ||
+            "A beautiful hotel located in a prime area, offering luxurious facilities and services for a memorable stay."}
+        </p>
+
+        <div>
+          <h3 className="font-semibold pb-2 cursor-pointer" onClick={toggleFacilities}>
+            Facilities: {isFacilitiesOpen ? "▲" : "▼"}
+          </h3>
+          {isFacilitiesOpen && (
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(currentHotel.facilitiesHotel || {})
+                .filter(([key, value]) => value === true)
+                .map(([key]) => (
+                  <span
+                    key={key}
+                    className="px-3 py-1 bg-orange-50 shadow-md rounded-lg"
+                  >
+                    {formatFacilityName(key)}
+                  </span>
+                ))}
+            </div>
+          )}
+        </div>
         <div className="p-6 bg-cream-gradient rounded-lg shadow-md space-y-4">
                 <div className="flex items-center space-x-4">
                     <div className="w-1/3 h-24 rounded-lg overflow-hidden">
@@ -48,7 +106,6 @@ function SummaryRoomDetail() {
                     <p>{bookingDetail.amount} room(s), {bookingDetail.nights} night(s)</p>
                 </div>
                 <div>
-                    {/* <p className="text-lg font-bold text-gray-600 line-through">THB 1,186.67</p> */}
                     <p className="text-2xl font-bold text-orange-600">{bookingDetail.totalPrice} THB</p>
                 </div>
             </div>
@@ -59,6 +116,7 @@ function SummaryRoomDetail() {
                 <p className='ml-5'>Tel: {bookingDetail.phone}</p>
                 <p className='ml-5'>Email: {bookingDetail.email}</p>
             </div>
+        </div>
         </div>
     );
 }
