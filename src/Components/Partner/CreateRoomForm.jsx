@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import FormErrorAlert from '../../assets/ErrorToast1.gif'
+import FormSuccessAlert from '../../assets/SuccessToast.gif'
+import LoadingspinnerOrangeCircle from "../Loading/LoadingspinnerOrangeCircle";
 
 function CreateRoomForm(props) {
   const { setModalControl, confirmCreate } = props;
@@ -81,10 +85,50 @@ function CreateRoomForm(props) {
         body.append(`facilityRoom[${key}]`, value);
       });
       await confirmCreate(body);
+      //alert success
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormSuccessAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: green;">Create Room Success</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "green";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
       setModalControl((prv) => ({ ...prv, isCreate: false }));
     } catch (err) {
       const errMsg = err.response?.data?.message || err.message;
       setPageParam((prv) => ({ ...prv, errMsg }));
+      //alert error
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "#f44336";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
     } finally {
       setPageParam((prv) => ({ ...prv, loading: false }));
     }
@@ -260,7 +304,7 @@ function CreateRoomForm(props) {
             {/* Action Buttons */}
             <div className="flex justify-end gap-4 mt-6">
               {pageParam.loading ? (
-                <p>Loading...</p>
+                <LoadingspinnerOrangeCircle />
               ) : (
                 <>
                   <p className="text-red-500 text-sm">{pageParam.errMsg}</p>

@@ -1,6 +1,6 @@
 import React from "react";
-export default function ReviewImage({ reviewsData,setReviewDetail }) {
-  console.log('set review img',reviewsData);
+export default function ReviewImage({ reviewsData, setReviewDetail }) {
+  console.log('set review img', reviewsData);
   return (
     <>
       <div
