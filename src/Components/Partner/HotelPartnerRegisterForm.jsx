@@ -79,6 +79,10 @@ function HotelPartnerRegisterForm(props) {
     setInput((prv) => ({ ...prv, [e.target.name]: e.target.value }));
   };
 
+  const validator =()=>{
+    
+  }
+
   return (
     <form
       className="bg-cream-gradient text-[#543310] p-8 rounded-lg shadow-md max-w-4xl mx-auto"
