@@ -110,8 +110,8 @@ function ReviewTabHistory() {
     const handleToggleDetails = (index) => {
         setSelectedHotelIndexes(prevIndexes =>
             prevIndexes.includes(index)
-                ? prevIndexes.filter(i => i !== index) // ลบ index ออกหากมีอยู่แล้ว
-                : [...prevIndexes, index] // เพิ่ม index หากไม่มี
+                ? prevIndexes.filter(i => i !== index) 
+                : [...prevIndexes, index] 
         );
     };
 
@@ -181,18 +181,16 @@ function ReviewTabHistory() {
                                 </div>
                                 <div className="flex justify-end mt-4 gap-4">
                                     <button
-                                        className="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition duration-200 ease-in-out flex items-center"
+                                        className="bg-orange-500 text-white font-semibold px-4 py-2 rounded-xl shadow-md hover:bg-orange-600 transition duration-200 ease-in-out flex items-center"
                                         onClick={() => hdlEditButton(index)}
                                     >
-                                        <span className="mr-2">✏️</span>
-                                        แก้ไข
+                                        Edit
                                     </button>
                                     <button
-                                        className="bg-orange-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-orange-600 transition duration-200 ease-in-out flex items-center"
+                                        className="bg-red-500 text-white px-4 py-2 font-semibold rounded-xl shadow-md hover:bg-red-600 transition duration-200 ease-in-out flex items-center"
                                         onClick={() => hdlDeleteReview(index)}
                                     >
-                                        <span className="mr-2">🗑️</span>
-                                        ลบรีวิว
+                                        Remove
                                     </button>
                                 </div>
                             </div>
@@ -246,24 +244,20 @@ function ReviewTabHistory() {
                                                 :
                                                 <div className='w-full h-40 rounded-lg bg-slate-100 cursor-pointer flex items-center justify-center text-2xl' onClick={() => document.getElementById('input-file').click()}>Click to add Image</div>
 
-
-
                                     }
                                 </div>
                                 <div className="flex justify-end mt-4 gap-4">
                                     <button
-                                        className="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition duration-200 ease-in-out flex items-center"
+                                        className="bg-orange-500 text-white font-semibold px-4 py-2 rounded-xl shadow-md hover:bg-orange-600 transition duration-200 ease-in-out flex items-center"
                                         onClick={updateHotel}
                                     >
-                                        <span className="mr-2"></span>
-                                        บันทึก
+                                        Save
                                     </button>
                                     <button
-                                        className="bg-orange-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-orange-600 transition duration-200 ease-in-out flex items-center"
+                                        className="bg-red-500 text-white px-4 py-2 font-semibold rounded-xl shadow-md hover:bg-red-600 transition duration-200 ease-in-out flex items-center"
                                         onClick={() => setEdit({ ...edit, editIndex: null })}
                                     >
-                                        <span className="mr-2"></span>
-                                        ยกเลิก
+                                        Cancle
                                     </button>
                                 </div>
                             </div>
