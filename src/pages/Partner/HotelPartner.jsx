@@ -8,12 +8,12 @@ import CreateRoomForm from "../../Components/Partner/CreateRoomForm";
 const API = import.meta.env.VITE_API;
 
 export default function HotelPartner() {
-  const { hotel, updateRoom, creteNewRoom ,deleteRoom} = usePartnerStore(
+  const { hotel, updateRoom, creteNewRoom, deleteRoom } = usePartnerStore(
     useShallow((state) => ({
       hotel: state.hotel,
       updateRoom: state.updateRoom,
       creteNewRoom: state.creteNewRoom,
-      deleteRoom : state.deleteRoom
+      deleteRoom: state.deleteRoom
     }))
   );
   const [rooms, setRooms] = useState([]);
@@ -39,8 +39,8 @@ export default function HotelPartner() {
     }
   };
 
-  const confirmDelete = async()=>{
-    if(modalControl.active){
+  const confirmDelete = async () => {
+    if (modalControl.active) {
       await deleteRoom(modalControl.active.id)
       await getHotelDetail();
     }

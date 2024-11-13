@@ -54,9 +54,9 @@ const MainRouter = createBrowserRouter([
         element: <HotelPaymentSucessSummary />,
       },
       { path: "promotion", element: <HotelPromotion /> },
-      { path: "UUID" , element : <UUIDBookingSearch/>},
-      { path: "/reset-password" , element: <ForgetPassword/>},
-      { path: "/reset-password/:token",element : <ResetPassword/>}
+      { path: "UUID", element: <UUIDBookingSearch /> },
+      { path: "/reset-password", element: <ForgetPassword /> },
+      { path: "/reset-password/:token", element: <ResetPassword /> }
 
     ],
   },
@@ -94,7 +94,7 @@ const MainRouter = createBrowserRouter([
     path: "/admin",
     element: <ProtectRouter element={<HomeAdmin />} reqRole={['ADMIN']} />,
     children: [
-      { index:true, element: <DashboardAdmin /> },
+      { index: true, element: <DashboardAdmin /> },
       { path: "userDetailAdmin", element: <UserDetailAdmin /> },
       { path: "bookingDetailAdmin", element: <BookingDetailAdmin /> },
       { path: "hotelDetailAdmin", element: <HotelDetailAdmin /> },
