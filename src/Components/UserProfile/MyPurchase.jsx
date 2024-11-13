@@ -8,6 +8,10 @@ import dropdownhistorymyPurchase from "../../assets/drop-down-arrow-icon_Mypurch
 import ReviewModal from "../ModalOther/ReviewModal";
 import axios from "axios";
 import useUserStore from "../../stores/user-store";
+import Swal from "sweetalert2";
+import FormErrorAlert from '../../assets/ErrorToast1.gif'
+import FormSuccessAlert from '../../assets/SuccessToast.gif'
+
 
 const statusDetails = {
   PENDING: {
@@ -55,8 +59,50 @@ function MyPurchase() {
       });
       console.log("result", result.data.data);
       setBooking(result.data.data);
+
+      //alert success
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormSuccessAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: green;">Profile Updated successfully</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "green";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
     } catch (err) {
+      const errMsg = error.response?.data?.message || error.message;
       console.log(err);
+      //alert error
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "#f44336";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
     }
   };
 
@@ -105,11 +151,10 @@ function MyPurchase() {
               <img
                 src={dropdownhistorymyPurchase}
                 alt="Toggle Details"
-                className={`w-12 h-12 transform ${
-                  pageParams.selectedHotelIndexes.includes(index)
-                    ? "rotate-180"
-                    : ""
-                }`}
+                className={`w-12 h-12 transform ${pageParams.selectedHotelIndexes.includes(index)
+                  ? "rotate-180"
+                  : ""
+                  }`}
               />
             </button>
           </div>
@@ -183,10 +228,11 @@ function MyPurchase() {
                         Checkout Date:{" "}
                         {new Date(book.checkoutDate).toLocaleDateString()}
                       </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                    </div >
+                  </div >
+                ))
+                }
+              </div >
 
               <div className="flex justify-between items-center mt-4 text-gray-700">
                 <p className="text-lg font-medium">Total Price</p>
@@ -206,9 +252,8 @@ function MyPurchase() {
 
               <div className="flex flex-col items-center mt-8">
                 <p
-                  className={`text-2xl font-semibold ${
-                    statusDetails[book.status]?.color
-                  }`}
+                  className={`text-2xl font-semibold ${statusDetails[book.status]?.color
+                    }`}
                 >
                   {book.status}
                 </p>
@@ -220,23 +265,25 @@ function MyPurchase() {
                   />
                 )}
               </div>
-            </div>
+            </div >
           )}
-        </div>
+        </div >
       ))}
-      {pageParams.isReviewModalOpen && pageParams.reviewHotel && (
-        <ReviewModal
-          getAllBooking={getAllBooking}
-          bookingId={pageParams.reviewHotel.id}
-          hotelName={pageParams.reviewHotel.hotels.name}
-          hotelImage={pageParams.reviewHotel.hotels.img}
-          onClose={() =>
-            setPageParams((prv) => ({ ...prv, isReviewModalOpen: false }))
-          }
-          onSubmit={() => console.log("Review submitted!")}
-        />
-      )}
-    </div>
+      {
+        pageParams.isReviewModalOpen && pageParams.reviewHotel && (
+          <ReviewModal
+            getAllBooking={getAllBooking}
+            bookingId={pageParams.reviewHotel.id}
+            hotelName={pageParams.reviewHotel.hotels.name}
+            hotelImage={pageParams.reviewHotel.hotels.img}
+            onClose={() =>
+              setPageParams((prv) => ({ ...prv, isReviewModalOpen: false }))
+            }
+            onSubmit={() => console.log("Review submitted!")}
+          />
+        )
+      }
+    </div >
   );
 }
 

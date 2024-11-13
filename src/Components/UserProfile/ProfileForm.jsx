@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { IoCheckmarkOutline } from "react-icons/io5";
 import defaultPic from '../../assets/ProfilePicture.webp';
 import useUserStore from '../../stores/user-store';
+import Swal from "sweetalert2";
+import FormErrorAlert from '../../assets/ErrorToast1.gif'
+import FormSuccessAlert from '../../assets/SuccessToast.gif'
+
+
 
 function ProfileForm() {
     const user = useUserStore(state => state.user)
@@ -69,10 +74,50 @@ function ProfileForm() {
                 setUserProfileImage(response.data.user.image);
             }
             console.log(response.data.user.image)
-            alert("Profile updated successfully");
+            //alert success
+            Swal.fire({
+                html: `<div class="flex items-center gap-2">
+           <img src="${FormSuccessAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: green;">Profile Updated successfully</span>
+         </div>`,
+                position: "top-end",
+                timer: 3000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                toast: true,
+                background: "#ffffff",
+                didOpen: (toast) => {
+                    const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+                    if (progressBar) {
+                        progressBar.style.backgroundColor = "green";
+                    }
+                    toast.addEventListener("click", Swal.close);
+                },
+            });
+
         } catch (error) {
+            const errMsg = error.response?.data?.message || error.message;
             console.error("Error updating profile:", error);
-            alert("Failed to update profile");
+            //alert error
+            Swal.fire({
+                html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+                position: "top-end",
+                timer: 3000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                toast: true,
+                background: "#ffffff",
+                didOpen: (toast) => {
+                    const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+                    if (progressBar) {
+                        progressBar.style.backgroundColor = "#f44336";
+                    }
+                    toast.addEventListener("click", Swal.close);
+                },
+            });
         }
     };
 
@@ -81,19 +126,20 @@ function ProfileForm() {
             <div className='flex relative items-start mt-10'>
                 <input type="file" id="file-upload"
                     accept="image/*"
-                    onChange={handleImageChange} 
-                    className="hidden"/>
+                    onChange={handleImageChange}
+                    className="hidden" />
                 <div className='flex justify-center items-center rounded-full bg-white min-h-80 min-w-80 h-80 w-80 border-r-8 border-orange-200 mt-1 ' >
                     <div className='min-w-60 min-h-60 w-60 h-60 cursor-pointer rounded-full absolute bg-black bg-opacity-50 text-white flex justify-center items-center font-semibold text-xl opacity-0 hover:opacity-100'
-                    onClick={()=>document.getElementById('file-upload').click()}>Upload</div>
-                    <div className='p-2 border-2 border-orange-300 rounded-full bg-white shadow-lg'>
+                        onClick={() => document.getElementById('file-upload').click()}>Upload</div>
 
-                    <img
-                        src={localProfileImage || defaultPic}
-                        alt="Profile"
-                        className="min-w-60 min-h-60 w-60 h-60 rounded-full object-cover object-center"
+                    <div className='p-2 border-2 border-orange-300 rounded-full bg-white shadow-lg'>
+                        <img
+                            src={localProfileImage || defaultPic}
+                            alt="Profile"
+                            className="min-w-60 min-h-60 w-60 h-60 rounded-full object-cover object-center"
                         />
-                        </div>
+
+                    </div>
 
                 </div>
             </div>
@@ -191,7 +237,7 @@ function ProfileForm() {
                 </div>
 
                 <button className='ml-96 bg-gradient-to-b from-orange-400 to-orange-600 hover:from-green-400 hover:to-green-600 p-2 px-8 font-bold text-white shadow-xl flex items-center justify-center rounded-full'
-                onClick={updateProfile}>
+                    onClick={updateProfile}>
                     Confirm
                 </button>
 
