@@ -8,7 +8,8 @@ const useHotelStore = create(
       currentHotel: null,
       selectedRoom: null, // Keep selectedRoom as a single item
       summary: null,
-      amount : 1,
+      amount: 1,
+      allHotels: [],
       actionSetCurrentHotel: (hotel) => {
         set({ currentHotel: hotel });
       },
@@ -24,13 +25,20 @@ const useHotelStore = create(
       actionSetSummary: (summaryData) => { // Renamed parameter to avoid conflict
         set({ summary: summaryData });
       },
-      actionSetRoom : (room)=>{
-        set({amount :room})
+      actionSetRoom: (room) => {
+        set({ amount: room })
       },
-      actionClearSummary: () =>{
-        set({ summary: null ,amount : 1});
-      }
+      actionClearSummary: () => {
+        set({ summary: null, amount: 1 });
+      },
+      actionSetAllHotels: (hotels) => { // เพิ่ม action สำหรับเซ็ตข้อมูลโรงแรมทั้งหมด
+        set({ allHotels: hotels });
+      },
+      actionClearAllHotels: () => { // เพิ่ม action สำหรับล้างข้อมูลโรงแรมทั้งหมด
+        set({ allHotels: [] });
+      },
     }),
+
     {
       name: "HotelData",
       storage: createJSONStorage(() => localStorage),

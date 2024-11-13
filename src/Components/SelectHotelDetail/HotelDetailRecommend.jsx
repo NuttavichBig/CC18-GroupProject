@@ -1,31 +1,33 @@
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import useHotelStore from "../../stores/hotel-store";
 
 function HotelDetailRecommend() {
   const navigate = useNavigate();
-  const recommendedHotels = [
-    {
-      id: 1,
-      name: "B2 South Pattaya Premier Hotel",
-      price: 750,
-      location: "Lotte Hotels & Resorts Korea",
-      imageUrl: "/1.jpg",
+
+  // ดึงข้อมูล Zustand
+  const currentHotel = useHotelStore((state) => state.currentHotel);
+  const allHotels = useHotelStore((state) => state.allHotels);
+  const actionSetCurrentHotel = useHotelStore(
+    (state) => state.actionSetCurrentHotel
+  );
+
+  // ใช้ useMemo กรองโรงแรมที่ไม่ใช่โรงแรมปัจจุบัน
+  const recommendedHotels = useMemo(() => {
+    return allHotels.filter((hotel) => hotel.id !== currentHotel?.id);
+  }, [allHotels, currentHotel]);
+
+  // Memoize handleViewDetails เพื่อลดการสร้างฟังก์ชันใหม่ในทุกการ render
+  const handleViewDetails = useCallback(
+    (hotel) => {
+      if (currentHotel?.id !== hotel.id) {
+        // อัปเดตเฉพาะเมื่อโรงแรมเปลี่ยน
+        actionSetCurrentHotel(hotel);
+      }
+      navigate("/bookinghotel-detail");
     },
-    {
-      id: 2,
-      name: "B2 North Pattaya Premier Hotel",
-      price: 800,
-      location: "Lotte Hotels & Resorts Korea",
-      imageUrl: "/2.jpg",
-    },
-    {
-      id: 3,
-      name: "B2 Central Pattaya Premier Hotel",
-      price: 820,
-      location: "Lotte Hotels & Resorts Korea",
-      imageUrl: "/3.jpg",
-    },
-  ];
+    [currentHotel, actionSetCurrentHotel, navigate]
+  );
 
   return (
     <div
@@ -62,7 +64,7 @@ function HotelDetailRecommend() {
           }}
         >
           <img
-            src={hotel.imageUrl}
+            src={hotel.img}
             alt={hotel.name}
             style={{
               width: "8rem",
@@ -83,9 +85,8 @@ function HotelDetailRecommend() {
               {hotel.name}
             </h4>
             <p style={{ color: "#6b6b6b", fontSize: "0.875rem" }}>
-              {hotel.location}
+              {hotel.address}
             </p>
-
             <p
               style={{
                 fontSize: "1.25rem",
@@ -94,12 +95,15 @@ function HotelDetailRecommend() {
                 color: "#f08a4b",
               }}
             >
-              THB {hotel.price}
+              THB{" "}
+              {hotel.rooms.length
+                ? Math.min(...hotel.rooms.map((room) => parseFloat(room.price)))
+                : "N/A"}
             </p>
           </div>
           <button
             className="bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
-            onClick={() => navigate("/bookinghotel-detail")}
+            onClick={() => handleViewDetails(hotel)}
             style={{
               backgroundColor: "#f08a4b",
               padding: "8px 16px",
