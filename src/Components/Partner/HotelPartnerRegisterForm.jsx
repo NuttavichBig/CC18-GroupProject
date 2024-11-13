@@ -11,7 +11,14 @@ function HotelPartnerRegisterForm(props) {
     bankName: "",
     taxNo: "",
   });
-  const [errMsg, setErrMsg] = useState("");
+  const [errMsg, setErrMsg] = useState({
+    overall : '',
+    companyName : '',
+    address : '',
+    bankAccount : '',
+    bankName : '',
+    TaxNumber : '',
+  });
   useEffect(() => {
     if (partnerData) {
       setInput((prv) => ({
@@ -43,7 +50,7 @@ function HotelPartnerRegisterForm(props) {
 
     } catch (err) {
       const errMsg = err.response?.data?.message || err.message;
-      setErrMsg(errMsg);
+      setErrMsg(prv=>({...prv,overall : errMsg}));
       //alert error
       Swal.fire({
         html: `<div class="flex items-center gap-2">
@@ -145,7 +152,7 @@ function HotelPartnerRegisterForm(props) {
         </div>
       </div>
       <div className="flex flex-col justify-center mt-8">
-        <p className="text-sm text-red-500">{errMsg}</p>
+        <p className="text-sm text-red-500">{errMsg.overall}</p>
         <button
           type="submit"
           className="bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
