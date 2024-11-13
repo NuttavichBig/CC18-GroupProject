@@ -48,7 +48,7 @@ export default function CreatePromotion({ onCreateSuccess, onClose }) {
         },
       });
       alert(response.data.message);
-      onCreateSuccess();
+      onCreateSuccess(response.data.promotion);
       onClose();
     } catch (error) {
       console.error("Error creating promotion:", error);
