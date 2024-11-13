@@ -1,93 +1,93 @@
-import React, { useEffect, useState } from 'react';
-import useBookingStore from '../../stores/booking-store';
+import React, { useEffect, useState } from "react";
+import useBookingStore from "../../stores/booking-store";
 import { FaRegCheckCircle } from "react-icons/fa";
-
+import useHotelStore from "../../stores/hotel-store";
+import { useNavigate } from "react-router-dom";
 
 function PaymentResult() {
-    const resBookingData = useBookingStore(state=>state.resBookingData)
-    const [date , setDate]= useState({
-        checkInDate : '',
-        checkOutDate : ''
-    })
+  const resBookingData = useBookingStore((state) => state.resBookingData);
+  const [date, setDate] = useState({
+    checkInDate: "",
+    checkOutDate: "",
+  });
+  const currentHotel = useHotelStore((state) => state.currentHotel);
+  const navigate = useNavigate()
 
-    useEffect(()=>{
-        const checkInDate = new Date(resBookingData.booking.checkinDate)
-        const checkOutDate = new Date(resBookingData.booking.checkoutDate)
-        const checkInDateString = `${checkInDate.getFullYear()}-${checkInDate.getMonth().toString().padStart(2, '0')}-${checkInDate.getDate().toString().padStart(2, '0')}`
-        const checkOutDateString = `${checkOutDate.getFullYear()}-${checkOutDate.getMonth().toString().padStart(2, '0')}-${checkOutDate.getDate().toString().padStart(2, '0')}`
-        setDate(prv=>({...prv,checkInDate : checkInDateString , checkOutDate : checkOutDateString}))
-    },[])
-    
-    return (
-        <div className="max-w-4xl mx-auto p-8 text-[#543310] bg-cream-gradient rounded-lg shadow-md space-y-8">
+  const handleClick = () => {
+    navigate("/")
+  }
 
-            <div className="flex justify-between items-center text-[#543310]">
-                <p className="text-lg font-medium">Book Number</p>
-                <p className="text-lg font-medium text-orange-500">{resBookingData.booking.UUID}</p>
-            </div>
+  useEffect(() => {
+    const checkInDate = new Date(resBookingData.booking.checkinDate);
+    const checkOutDate = new Date(resBookingData.booking.checkoutDate);
+    const checkInDateString = `${checkInDate.getFullYear()}-${(checkInDate.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${checkInDate.getDate().toString().padStart(2, "0")}`;
+    const checkOutDateString = `${checkOutDate.getFullYear()}-${(checkOutDate.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${checkOutDate.getDate().toString().padStart(2, "0")}`;
+    setDate({
+      checkInDate: checkInDateString,
+      checkOutDate: checkOutDateString,
+    });
+  }, [resBookingData]);
 
+  return (
+    <div className="max-w-3xl mx-auto p-10 text-gray-800 bg-orange-50 rounded-2xl shadow-lg space-y-10 w-full">
+      {/* Success Icon and Heading */}
+      <div className="flex flex-col items-center space-y-4">
+        <FaRegCheckCircle size={80} className="text-green-500" />
+        <h1 className="text-3xl font-extrabold text-green-600">Payment Successful</h1>
+      </div>
 
-            <div className="flex items-center justify-between">
-                <div className="w-[250px] text-center p-4 border rounded-lg bg-white border-orange-400">
-                    <p className="text-orange-500 font-medium ">Check-In</p>
-                    <p>{date.checkInDate}</p>
-                    <p>From 14:00</p>
-                </div>
-
-                <div className="text-orange-500 font-medium text-center flex flex-col items-center">
-                    <p>6 nights</p>
-                    <div className="flex items-center space-x-0">
-                        <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                        <div className="w-64 h-0.5 bg-orange-500"></div>
-                        <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                    </div>
-                </div>
-
-                <div className="w-[250px] text-center p-4 border rounded-lg bg-white border-orange-400">
-                    <p className="text-orange-500 font-medium">Check-Out</p>
-                    <p>{date.checkOutDate }</p>
-                    <p>Before 12:00</p>
-                </div>
-            </div>
-
-
-            <div className="grid grid-cols-2 gap-8 mt-4">
-                {resBookingData.booking.bookingRooms.map((room, index) => (
-                    <div key={index} className="flex space-x-4 items-center">
-                        <img src={room.rooms?.images[0]?.img} alt={room.rooms?.name} className="w-[200px] h-[150px] rounded-lg object-cover" />
-                        <div className="text-left">
-                            <p className="font-medium mt-2">{room.rooms?.name}</p>
-                                <p>{room.rooms?.detail}</p>
-    
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-
-            <div className="flex justify-between items-center mt-4 ">
-                <p className="text-lg font-medium">Total Price</p>
-                <p className="text-xl font-semibold text-orange-500">THB {resBookingData.booking?.totalPrice}</p>
-            </div>
-
-
-            <div className="flex justify-between items-center mt-6 ">
-                <p className="font-medium">Contact Details : </p>
-                <div className="text-left flex flex-col items-end">
-                    <p>{resBookingData.booking?.firstName+' '+resBookingData.booking?.lastName}</p>
-                    <p>Tel : {resBookingData.booking?.phone}</p>
-                    <p>Email : {resBookingData.booking?.email}</p>
-                </div>
-            </div>
-
-
-            <div className="flex flex-col items-center mt-8">
-                <p className="text-green-500 text-3xl pb-5 font-semibold">SUCCESS</p>
-                <FaRegCheckCircle size={60} color='#22c55e'/>
-
-            </div>
+      {/* Booking Number and Total Price */}
+      <div className="bg-orange-100 rounded-lg p-6 text-lg ">
+        <div className="flex items-center justify-between">
+          <p className="font-semibold">Booking Number:</p>
+          <span className="text-orange-600 font-semibold">{resBookingData.booking.UUID}</span>
         </div>
-    );
+        <div className="flex items-center justify-between mt-3">
+          <p className="font-semibold">Total Price:</p>
+          <span className="text-orange-600 font-semibold">
+            {resBookingData.booking?.totalPrice} THB
+          </span>
+        </div>
+      </div>
+
+      <div className="flex gap-8">
+        {/* Booking Details */}
+        <div className="bg-orange-100 rounded-lg p-6 space-y-4 flex-1">
+          <p className="text-lg font-semibold border-b pb-2">Booking Details</p>
+          <div className="grid grid-cols-2 gap-y-2 text-sm">
+            <p className="font-medium">Hotel Name:</p>
+            <p>{currentHotel?.name}</p>
+            <p className="font-medium">Room:</p>
+            <p>{resBookingData.booking?.bookingRooms[0]?.rooms?.name} x {resBookingData.booking?.bookingRooms[0]?.amountRoom}</p>
+            <p className="font-medium">Check-in :</p>
+            <p>{date.checkInDate}</p>
+            <p className="font-medium">Check-out :</p>
+            <p>{date.checkOutDate}</p>
+          </div>
+        </div>
+
+        {/* Contact Details */}
+        <div className="bg-orange-100 rounded-lg p-6 space-y-4 flex-1">
+          <p className="text-lg font-semibold border-b pb-2">Contact Details</p>
+          <div className="grid grid-cols-2 gap-y-2 text-sm">
+            <p className="font-medium">Name:</p>
+            <p>{resBookingData.booking?.firstName} {resBookingData.booking?.lastName}</p>
+            <p className="font-medium">Tel:</p>
+            <p>{resBookingData.booking?.phone}</p>
+            <p className="font-medium">Email:</p>
+            <p>{resBookingData.booking?.email}</p>
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-center">
+        <button className="bg-orange-500 text-white font-bold p-2 rounded-md" onClick={handleClick}>Go Home</button>
+      </div>
+    </div>
+  );
 }
 
 export default PaymentResult;
