@@ -93,6 +93,7 @@ const Register = ({ setIsRegisterModalOpen }) => {
     } catch (err) {
       const errMsg = err?.response?.data?.message || err.message;
       setInput((prv) => ({ ...prv, err: errMsg }));
+      //alert
       Swal.fire({
         html: `<div class="flex items-center gap-2">
            <img src="${toastRegisterFail}" alt="Error Animation" class="w-10 h-10" />

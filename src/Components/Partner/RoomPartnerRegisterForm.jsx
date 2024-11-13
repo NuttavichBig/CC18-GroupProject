@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import CreateRoomRegisterForm from "./CreateRoomRegisterForm";
 import axios from "axios";
 import useUserStore from "../../stores/user-store";
+import Swal from "sweetalert2";
+import FormErrorIcon from '../../assets/ErrorToast1.gif'
+
 const API = import.meta.env.VITE_API
 
 function RoomPartnerRegisterForm(props) {
@@ -73,10 +76,32 @@ function RoomPartnerRegisterForm(props) {
             })
             await createAllData()
             setPageParam(prv => ({ ...prv, errMsg: 'Update Completed' }))
+
             setPage(prv => prv + 1)
+
         } catch (err) {
             const errMsg = err.response?.data?.message || err.message
             setPageParam(prv => ({ ...prv, errMsg }))
+            //alert error
+            Swal.fire({
+                html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorIcon}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+                position: "top-end",
+                timer: 3000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                toast: true,
+                background: "#ffffff",
+                didOpen: (toast) => {
+                    const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+                    if (progressBar) {
+                        progressBar.style.backgroundColor = "#f44336";
+                    }
+                    toast.addEventListener("click", Swal.close);
+                },
+            });
         } finally {
             setPageParam(prv => ({ ...prv, isLoading: false }))
         }
