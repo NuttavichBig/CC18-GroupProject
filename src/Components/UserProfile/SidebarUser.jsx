@@ -8,11 +8,11 @@ function SidebarUser() {
     const FirstName = useUserStore(state => state.user?.firstName);
     const LastName = useUserStore(state => state.user?.lastName);
     const location = useLocation();
-
+console.log(location)
     return (
         <div className="bg-gradient-to-b from-cream to-light-cream border pb-40 p-8 rounded-2xl shadow-lg w-[350px] text-center relative mt-20 ml-16">
 {
-    location === 'userprofile' &&
+    location.pathname !== '/userprofile' &&
                 <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 w-28 h-28 rounded-full shadow-lg overflow-hidden border-4 border-white bg-white">
                 <img
                     src={profileImage || defaultPic}
@@ -39,16 +39,6 @@ function SidebarUser() {
                             }
                         >
                             My Account
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to="/userprofile/achievements"
-                            className={({ isActive }) =>
-                                isActive ? 'text-orange-500 font-bold' : 'hover:text-orange-500 cursor-pointer transition duration-300'
-                            }
-                        >
-                            My Achievement
                         </NavLink>
                     </li>
                     <li>

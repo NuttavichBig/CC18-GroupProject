@@ -10,11 +10,11 @@ export default function HomeAdmin() {
             <div className="min-h-screen relative bg-white flex justify-center items-start">
                 <div className="container mx-auto p-6 grid gap-5">
                     <HeaderUserPage />
-                    <div className="grid grid-cols-3 gap-6 mt-20">
-                        <div className="col-span-1 ml-20">
+                    <div className="flex gap-20 justify-start mt-20">
+                        <div className="">
                             <SidebarUser />
                         </div>
-                        <div className="col-span-2  h-screen">
+                        <div className="w-4/5">
                             <Outlet />
                         </div>
                     </div>

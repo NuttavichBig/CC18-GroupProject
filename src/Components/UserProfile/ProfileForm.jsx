@@ -47,6 +47,7 @@ function ProfileForm() {
     };
 
     const updateProfile = async () => {
+        console.log('update function')
         const day = parseInt(profileData.day);
         const month = parseInt(profileData.month);
         const year = parseInt(profileData.year);
@@ -122,129 +123,96 @@ function ProfileForm() {
     };
 
     return (
-        <div className="bg-white flex max-w-xl ml-10 mt-32">
-            <div className='flex relative items-start mt-10'>
-                <input type="file" id="file-upload"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className="hidden" />
-                <div className='flex justify-center items-center rounded-full bg-white min-h-80 min-w-80 h-80 w-80 border-r-8 border-orange-200 mt-1 ' >
-                    <div className='min-w-60 min-h-60 w-60 h-60 cursor-pointer rounded-full absolute bg-black bg-opacity-50 text-white flex justify-center items-center font-semibold text-xl opacity-0 hover:opacity-100'
+        <div className='flex self-start flex-col mt-12 w-3/5 bg-white'>
+
+            <div className='relative flex justify-center items-center'>
+                <div className='absolute w-28 h-28 border-gray-500 border-2 rounded-full flex justify-center items-center'>
+                    <div className='absolute rounded-full bg-black bg-opacity-50 text-white w-24 h-24 flex justify-center items-center opacity-0 hover:opacity-100 cursor-pointer'
                         onClick={() => document.getElementById('file-upload').click()}>Upload</div>
+                    <input type="file" id="file-upload"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="hidden" />
+                    <img src={localProfileImage || defaultPic} alt="profile image" className='w-24 h-24 rounded-full shadow-lg object-contain' />
+                </div>
+            </div>
+            <div className='flex flex-col w-full mt-16'>
 
-                    <div className='p-2 border-2 border-orange-300 rounded-full bg-white shadow-lg'>
-                        <img
-                            src={localProfileImage || defaultPic}
-                            alt="Profile"
-                            className="min-w-60 min-h-60 w-60 h-60 rounded-full object-cover object-center"
-                        />
-
+                <div className='flex flex-col border-y-2 p-2'>
+                    <label className='text-sm text-gray-600'>First name</label>
+                    <input type="text"
+                        name="firstName"
+                        value={profileData.firstName}
+                        onChange={handleChange}
+                        className=" p-3 pl-4 border-0 shadow-md shadow-gray-200 hover:scale-[0.975] transition-transform cursor-pointer"
+                        placeholder="First Name" />
+                </div>
+                <div className='flex flex-col border-b-2 p-2'>
+                    <label className='text-sm text-gray-600'>Last name</label>
+                    <input type="text"
+                        name="lastName"
+                        value={profileData.lastName}
+                        onChange={handleChange}
+                        className=" p-3 pl-4 border-0 shadow-md shadow-gray-200 hover:scale-[0.975] transition-transform cursor-pointer"
+                        placeholder="Last Name" />
+                </div>
+                <div className='flex gap-2 w-full border-b-2 p-2'>
+                    <div className='flex flex-col w-1/3'>
+                        <label className='text-sm text-gray-600'>Day</label>
+                        <input type="text"
+                            name="day"
+                            value={profileData.day}
+                            onChange={handleChange}
+                            className=" p-3 pl-4 border-0 w-full shadow-md shadow-gray-200 hover:scale-[0.975] transition-transform cursor-pointer"
+                            placeholder="DD" />
+                    </div>
+                    <div className='flex flex-col w-1/3'>
+                        <label className='text-sm text-gray-600'>Month</label>
+                        <input type="text"
+                            name="month"
+                            value={profileData.month}
+                            onChange={handleChange}
+                            className=" p-3 pl-4 border-0 w-full shadow-md shadow-gray-200  hover:scale-[0.975] transition-transform cursor-pointer"
+                            placeholder="MM" />
+                    </div>
+                    <div className='flex flex-col w-1/3'>
+                        <label className='text-sm text-gray-600'>Year</label>
+                        <input type="text"
+                            name="year"
+                            value={profileData.year}
+                            onChange={handleChange}
+                            className=" p-3 pl-4 border-0 shadow-md w-full shadow-gray-200 hover:scale-[0.975] transition-transform cursor-pointer"
+                            placeholder="YY" />
                     </div>
 
                 </div>
-            </div>
-            <div className='flex relative -left-16 flex-col'>
-                <div className='flex gap-2 p-2'>
-                    <label className='text-gray-700 '>
-                        First name
-                        <div className='flex p-1 bg-orange-200 shadow-lg rounded-full'>
-                            <input type="text"
-                                name="firstName"
-                                value={profileData.firstName}
-                                onChange={handleChange}
-                                className=" p-3 pl-4 shadow-inner rounded-full"
-                                placeholder="First Name" />
-                        </div>
-                    </label>
-                    <label className='text-gray-700 '>
-                        Last name
-                        <div className='flex p-1 bg-orange-200 shadow-lg rounded-full'>
-                            <input type="text"
-                                name="lastName"
-                                value={profileData.lastName}
-                                onChange={handleChange}
-                                className=" p-3 pl-4 shadow-inner rounded-full"
-                                placeholder="Last Name" />
-                        </div>
-                    </label>
+                <div className='flex flex-col w-full border-b-2 p-2'>
+                    <label className='text-sm text-gray-600'>Phone</label>
+                    <input type="text"
+                        name="phone"
+                        value={profileData.phone}
+                        onChange={handleChange}
+                        className=" p-3 pl-4 border-0 shadow-md shadow-gray-200 hover:scale-[0.975] transition-transform cursor-pointer"
+                        placeholder="Phone" />
                 </div>
-                <div className='flex gap-1 ml-14 p-2 '>
-                    <label className='text-gray-700 '>
-                        Day
-                        <div className='flex w-32 p-1 bg-orange-200 shadow-lg rounded-full'>
-                            <input type="text"
-                                name="day"
-                                value={profileData.day}
-                                onChange={handleChange}
-                                className=" p-3 pl-4 shadow-inner w-full rounded-full"
-                                placeholder="DD" />
-                        </div>
-                    </label>
-                    <label className='text-gray-700 '>
-                        Month
-                        <div className='flex w-32 p-1 bg-orange-200 shadow-lg rounded-full'>
-                            <input type="text"
-                                name="month"
-                                value={profileData.month}
-                                onChange={handleChange}
-                                className=" p-3 pl-4 w-full shadow-inner rounded-full"
-                                placeholder="MM" />
-                        </div>
-                    </label>
-                    <label className='text-gray-700 '>
-                        Year
-                        <div className='flex w-32 p-1 bg-orange-200 shadow-lg rounded-full'>
-                            <input type="text"
-                                name="year"
-                                value={profileData.year}
-                                onChange={handleChange}
-                                className=" p-3 pl-4 w-full shadow-inner rounded-full"
-                                placeholder="YY" />
-                        </div>
-                    </label>
+                <div className='flex flex-col w-full border-b-2 p-2'>
+                <label className='text-sm text-gray-600'>Gender</label>
+                    <select
+                        name="gender"
+                        value={profileData.gender}
+                        onChange={handleChange}
+                        className="p-3 pl-4 border-0 shadow-md shadow-gray-200 hover:scale-[0.975] transition-transform cursor-pointer">
 
+                        <option value="">Select Gender</option>
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                        <option value="OTHER">Other</option>
+                    </select>
                 </div>
-                <div className='flex gap-4 ml-14 p-2 '>
-                    <label className='text-gray-700 '>
-                        <p className='pl-6'>Phone</p>
-                        <div className='flex p-1 bg-orange-200 shadow-lg rounded-full'>
-                            <input type="text"
-                                name="phone"
-                                value={profileData.phone}
-                                onChange={handleChange}
-                                className=" p-3 pl-4 shadow-inner w-80 rounded-full"
-                                placeholder="Phone" />
-                        </div>
-                    </label>
-                </div>
-                <div className='flex gap-4 p-2 '>
-                    <label className='text-gray-700 '>
-                        <p className='pl-8'>Gender</p>
-                        <div className='flex p-1 bg-orange-200 shadow-lg rounded-full'>
-                            <select
-                                name="gender"
-                                value={profileData.gender}
-                                onChange={handleChange}
-                                className=" p-3 pl-4 shadow-inner w-80 rounded-full">
-
-                                <option value="">Select Gender</option>
-                                <option value="MALE">Male</option>
-                                <option value="FEMALE">Female</option>
-                                <option value="OTHER">Other</option>
-                            </select>
-                        </div>
-                    </label>
-                </div>
-
-                <button className='ml-96 bg-gradient-to-b from-orange-400 to-orange-600 hover:from-green-400 hover:to-green-600 p-2 px-8 font-bold text-white shadow-xl flex items-center justify-center rounded-full'
-                    onClick={updateProfile}>
-                    Confirm
-                </button>
-
-
+                <button className='bg-gradient-to-b from-orange-400 to-orange-600 w-1/4 self-center text-white py-2 rounded-lg mt-8'
+                onClick={updateProfile}>Confirm</button>
 
             </div>
-
         </div>
     );
 }
