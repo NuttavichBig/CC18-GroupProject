@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SidebarChatAdmin from "../../Components/Admin/SidebarChatAdmin";
 import ChatAdmin from "../../Components/Admin/ChatAdmin";
 
-export default function CreatePromotion({ setChatOpen,chatBoxList }) {
+export default function CreatePromotion({ setChatOpen, chatBoxList }) {
   return (
     <div
       onClick={() => setChatOpen(false)}
@@ -19,7 +19,7 @@ export default function CreatePromotion({ setChatOpen,chatBoxList }) {
           <p className="text-3xl font-bold text-[#0f2045] bg-white rounded-sm p-3">Chat</p>
         </div>
         <div className="flex gap-2">
-          <SidebarChatAdmin chatBoxList={chatBoxList}/>
+          <SidebarChatAdmin chatBoxList={chatBoxList} />
           <ChatAdmin />
         </div>
       </div>
