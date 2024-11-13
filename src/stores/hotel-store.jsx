@@ -31,10 +31,10 @@ const useHotelStore = create(
       actionClearSummary: () => {
         set({ summary: null, amount: 1 });
       },
-      actionSetAllHotels: (hotels) => { // เพิ่ม action สำหรับเซ็ตข้อมูลโรงแรมทั้งหมด
+      actionSetAllHotels: (hotels) => {
         set({ allHotels: hotels });
       },
-      actionClearAllHotels: () => { // เพิ่ม action สำหรับล้างข้อมูลโรงแรมทั้งหมด
+      actionClearAllHotels: () => {
         set({ allHotels: [] });
       },
     }),

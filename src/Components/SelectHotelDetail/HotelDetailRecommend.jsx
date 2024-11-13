@@ -5,7 +5,7 @@ import useHotelStore from "../../stores/hotel-store";
 function HotelDetailRecommend() {
   const navigate = useNavigate();
 
-  // ดึงข้อมูล Zustand
+
   const currentHotel = useHotelStore((state) => state.currentHotel);
   const allHotels = useHotelStore((state) => state.allHotels);
   const actionSetCurrentHotel = useHotelStore(

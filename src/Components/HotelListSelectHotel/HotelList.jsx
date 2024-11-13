@@ -35,7 +35,7 @@ const HotelList = ({ hotels }) => {
     if (rating >= 0 && rating < 3) return "Review Score";
     return "No Rating";
   };
-  const actionSetAllHotel = useHotelStore( //all hotel
+  const actionSetAllHotel = useHotelStore( //set allhotel to use ในRecommend นะ
     (state) => state.actionSetAllHotels
   );
   actionSetAllHotel(hotels)
