@@ -11,7 +11,7 @@ export default function ReviewDetailAdmin() {
   const [reviewDetail, setReviewDetail] = useState(false);
   const token = useUserStore((state) => state.token);
   const API = import.meta.env.VITE_API;
-
+ const [index ,setIndex] = useState(null)
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -83,7 +83,7 @@ export default function ReviewDetailAdmin() {
 
   return (
     <>
-      {reviewDetail && <ReviewImage reviewsData={reviews} setReviewDetail={setReviewDetail} />}
+      {reviewDetail && <ReviewImage reviewsData={reviews[index]} setReviewDetail={setReviewDetail} />}
       <div className="w-full bg-gray-100 py-6 px-4">
         <p className="bg-gradient-to-r from-[#0088d1] to-[#1E4D8C] text-3xl font-bold rounded-lg p-3 text-center shadow-lg text-white">
           REVIEWS
@@ -103,7 +103,7 @@ export default function ReviewDetailAdmin() {
               </tr>
             </thead>
             <tbody>
-              {reviews.map((review) => (
+              {reviews.map((review,index) => (
                 <tr key={review.id} className="bg-white hover:bg-sky-100 transition duration-300 ease-in-out">
                   <td className="py-3 px-4 border-b">{review.id}</td>
                   <td className="py-3 px-4 border-b">{review.content}</td>
@@ -113,7 +113,10 @@ export default function ReviewDetailAdmin() {
                   <td className="py-3 px-4 border-b">{review.rating}</td>
                   <td className="py-3 px-4 border-b">
                     <button
-                      onClick={() => setReviewDetail(true)}
+                      onClick={() => {
+                        setIndex(index)
+                        setReviewDetail(true)
+                      }}
                       className="px-4 py-2 bg-[#8ed0ff] text-[#0c1b48] border-2 border-[#0c1b48] rounded-lg font-semibold shadow-md hover:bg-[#3882d7] hover:text-white transition-all duration-200 ease-in-out"
                     >
                       MORE IMAGE
