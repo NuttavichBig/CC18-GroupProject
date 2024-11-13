@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import dropdownIcon from '../../assets/drop-down-arrow-icon_Mypurchase.gif';
 import axios from 'axios';
 import useUserStore from '../../stores/user-store';
+import Swal from "sweetalert2";
+import FormErrorAlert from '../../assets/ErrorToast1.gif'
+import FormSuccessAlert from '../../assets/SuccessToast.gif'
+
 const API = import.meta.env.VITE_API
 
 function ReviewTabHistory() {
@@ -78,8 +82,49 @@ function ReviewTabHistory() {
             let newArr = [...hotelReviewList]
             newArr.splice(index, 1)
             setHotelReviewList(newArr)
+            //alert success
+            Swal.fire({
+                html: `<div class="flex items-center gap-2">
+           <img src="${FormSuccessAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: green;">Profile Delete Success</span>
+         </div>`,
+                position: "top-end",
+                timer: 3000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                toast: true,
+                background: "#ffffff",
+                didOpen: (toast) => {
+                    const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+                    if (progressBar) {
+                        progressBar.style.backgroundColor = "green";
+                    }
+                    toast.addEventListener("click", Swal.close);
+                },
+            });
         } catch (err) {
+            const errMsg = err.response?.data?.message || err.message;
             console.log(err.message)
+            //alert error
+            Swal.fire({
+                html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+                position: "top-end",
+                timer: 3000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                toast: true,
+                background: "#ffffff",
+                didOpen: (toast) => {
+                    const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+                    if (progressBar) {
+                        progressBar.style.backgroundColor = "#f44336";
+                    }
+                    toast.addEventListener("click", Swal.close);
+                },
+            });
         }
     }
 
@@ -110,8 +155,8 @@ function ReviewTabHistory() {
     const handleToggleDetails = (index) => {
         setSelectedHotelIndexes(prevIndexes =>
             prevIndexes.includes(index)
-                ? prevIndexes.filter(i => i !== index) 
-                : [...prevIndexes, index] 
+                ? prevIndexes.filter(i => i !== index)
+                : [...prevIndexes, index]
         );
     };
 

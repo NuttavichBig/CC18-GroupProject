@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { IoCheckmarkOutline } from "react-icons/io5";
 import defaultPic from '../../assets/ProfilePicture.webp';
 import useUserStore from '../../stores/user-store';
+import Swal from "sweetalert2";
+import FormErrorAlert from '../../assets/ErrorToast1.gif'
+import FormSuccessAlert from '../../assets/SuccessToast.gif'
+
+
 
 function ProfileForm() {
     const user = useUserStore(state => state.user)
@@ -42,6 +47,7 @@ function ProfileForm() {
     };
 
     const updateProfile = async () => {
+        console.log('update function')
         const day = parseInt(profileData.day);
         const month = parseInt(profileData.month);
         const year = parseInt(profileData.year);
@@ -69,10 +75,50 @@ function ProfileForm() {
                 setUserProfileImage(response.data.user.image);
             }
             console.log(response.data.user.image)
-            alert("Profile updated successfully");
+            //alert success
+            Swal.fire({
+                html: `<div class="flex items-center gap-2">
+           <img src="${FormSuccessAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: green;">Profile Updated successfully</span>
+         </div>`,
+                position: "top-end",
+                timer: 3000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                toast: true,
+                background: "#ffffff",
+                didOpen: (toast) => {
+                    const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+                    if (progressBar) {
+                        progressBar.style.backgroundColor = "green";
+                    }
+                    toast.addEventListener("click", Swal.close);
+                },
+            });
+
         } catch (error) {
+            const errMsg = error.response?.data?.message || error.message;
             console.error("Error updating profile:", error);
-            alert("Failed to update profile");
+            //alert error
+            Swal.fire({
+                html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+                position: "top-end",
+                timer: 3000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                toast: true,
+                background: "#ffffff",
+                didOpen: (toast) => {
+                    const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+                    if (progressBar) {
+                        progressBar.style.backgroundColor = "#f44336";
+                    }
+                    toast.addEventListener("click", Swal.close);
+                },
+            });
         }
     };
 
@@ -163,7 +209,8 @@ function ProfileForm() {
                         <option value="OTHER">Other</option>
                     </select>
                 </div>
-                <button className='bg-gradient-to-b from-orange-400 to-orange-600 w-1/4 self-center text-white py-2 rounded-lg mt-8'>Confirm</button>
+                <button className='bg-gradient-to-b from-orange-400 to-orange-600 w-1/4 self-center text-white py-2 rounded-lg mt-8'
+                onClick={updateProfile}>Confirm</button>
 
             </div>
         </div>
