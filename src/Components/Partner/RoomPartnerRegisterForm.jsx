@@ -73,7 +73,7 @@ function RoomPartnerRegisterForm(props) {
             })
             await createAllData()
             setPageParam(prv => ({ ...prv, errMsg: 'Update Completed' }))
-            setPage(prv=>prv+1)
+            setPage(prv => prv + 1)
         } catch (err) {
             const errMsg = err.response?.data?.message || err.message
             setPageParam(prv => ({ ...prv, errMsg }))
@@ -160,7 +160,7 @@ function RoomPartnerRegisterForm(props) {
             <button className="py-2 bg-blue-500 w-full text-xl text-white font-semibold shadow-lg hover:bg-amber-500 active:translate-y-1 my-4"
                 onClick={addNewRoom}>Add new room</button>
             <p className="text-red-500 text-sm">{pageParam.errMsg}</p>
-            { !pageParam.isLoading &&
+            {!pageParam.isLoading &&
                 <div className="flex gap-4">
                     <button type="button" className="w-1/4 py-2 px-8 rounded-md bg-gray-200 hover:bg-red-500 hover:text-white"
                         onClick={() => {
