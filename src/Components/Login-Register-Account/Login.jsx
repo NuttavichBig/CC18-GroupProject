@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import travellogo from "../../assets/TRAVELHOMELOGO-USER.png";
 import useUserStore from "../../stores/user-store";
 import { useShallow } from "zustand/shallow";
-import {  useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import googleloginbutton from "../../assets/googleloginbuttonanimation3.gif";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -39,16 +39,16 @@ const Login = ({ setIsLoginModalOpen }) => {
     }
   };
 
-  const getCheckRole = async()=>{
-    const result = await axios.get(`${API}/auth/user`,{
-    headers:{
-      Authorization: `Bearer ${token}`
-    }
+  const getCheckRole = async () => {
+    const result = await axios.get(`${API}/auth/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
     console.log(result.data.user.role)
-    if(result.data.user.role === 'PARTNER'){
+    if (result.data.user.role === 'PARTNER') {
       navigate('/partner')
-    }else if(result.data.user.role === 'ADMIN'){
+    } else if (result.data.user.role === 'ADMIN') {
       navigate('/admin')
     }
   }
@@ -130,12 +130,12 @@ const Login = ({ setIsLoginModalOpen }) => {
             />
           </div>
           <div className="flex justify-between">
-    <div className="text-left text-xs text-red-500">
-      {input.err}
-    </div>
-          <Link to={'/reset-password'} className="text-right text-xs pb-3 text-gray-400 cursor-pointer hover:underline">
-            Forget Password
-          </Link>
+            <div className="text-left text-xs text-red-500">
+              {input.err}
+            </div>
+            <Link to={'/reset-password'} className="text-right text-xs pb-3 text-gray-400 cursor-pointer hover:underline">
+              Forget Password
+            </Link>
           </div>
 
           <button

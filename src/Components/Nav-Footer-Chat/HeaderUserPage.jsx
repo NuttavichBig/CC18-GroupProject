@@ -113,14 +113,19 @@ const HeaderUserPage = () => {
 
         {/* Profile Dropdown for "Hello, Guest!" */}
         <div className="flex items-center space-x-4 mr-12">
-        <div className="flex absolute right-52 p-2" onMouseLeave={handleHoverLeaveSearch}>
-            <input type="text" name="UUID" 
-            className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white origin-right transition-transform ${isSearchHover ? 'scale-100': 'absolute scale-x-0 -left-48'}`}
-              onChange={hdlChange} value={input} placeholder="Your Booking Number" />
-            <button className={`bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full text-white ${isSearchHover?"rounded-l-none": "rounded-l-full"}`}
-            onMouseEnter={handleHoverEnterSearch}
-              onClick={hdlConfirm}>{isSearchHover ? 'Search': 'Find Your booking'}</button>
+        <div className="relative">
+            <div className={`flex p-2 absolute -top-5 ${isSearchHover ? '-left-[300px]' : '-left-[392px]'}`} onMouseLeave={handleHoverLeaveSearch}>
+              <input type="text" name="UUID"
+                className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white origin-right transition-transform ${isSearchHover ? 'scale-100' : 'scale-x-0'}`}
+                onChange={hdlChange} value={input} placeholder="Your Booking Number" />
+              <button className={`bg-orange-dark-gradient px-4 max-2xl:px-2 text-white max-2xl:text-sm rounded-r-full ${isSearchHover ? "rounded-l-none w-[80px] max-2xl:w-[68px]" : "rounded-l-full w-[172px] max-2xl:w-[160px]"}`}
+                onMouseEnter={handleHoverEnterSearch}
+                onClick={hdlConfirm}>{isSearchHover ? 'Search' : 'Find Your booking'}
+
+              </button>
+            </div>
           </div>
+
           <div className="relative">
            
             <span

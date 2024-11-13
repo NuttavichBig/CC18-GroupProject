@@ -5,6 +5,12 @@ import useUserStore from "../../stores/user-store";
 import axios from "axios";
 import useBookingStore from "../../stores/booking-store";
 import { useShallow } from "zustand/shallow";
+import Swal from "sweetalert2";
+import FormErrorIcon from '../../assets/ErrorToast1.gif'
+import FormSuccessIcon from '../../assets/SuccessToast.gif'
+import CouponUseSuccessIconAlert from '../../assets/couponsuccessAlert.gif'
+import { toast } from "react-toastify";
+
 
 const TravelerDetailForm = (props) => {
   const { pageParams, setPageParams } = props
@@ -37,7 +43,7 @@ const TravelerDetailForm = (props) => {
       console.log('have coupon')
       console.log(pageParams)
       if (+pageParams.totalPrice < +pageParams.coupon?.minimumSpend) {
-        alert(`This coupon requires a minimum spend of ${pageParams.coupon?.minimumSpend}`)
+        toast.error(`This coupon requires a minimum spend of ${pageParams.coupon?.minimumSpend}`)
         setPageParams(prv => ({ ...prv, coupon: null, discount: 0 }))
       } else {
 
@@ -101,35 +107,98 @@ const TravelerDetailForm = (props) => {
         bookingPayload
       );
       actionSetId(res.data.booking.id);
-
       navigate("/bookinghotel-detail-payment-method");
     } catch (error) {
       console.error("Error:", error);
+      const errMsg = error?.response?.data?.message || error.message;
+      //alert error
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorIcon}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "#f44336";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
+
     }
   };
 
   const handleUseCoupon = async () => {
     // Check if the user is logged in (i.e., has a user ID)
     if (!user?.id) {
-      alert("You must be logged in to use a promotion.");
+      toast.error("You must be logged in to use a promotion.")
       return;
     }
     if (!coupon.promotion.trim()) {
-      alert("Please fill your code")
+      toast.info("Please fill your code")
       return;
     }
     try {
       const res = await axios.get(`http://localhost:8000/promotion/${coupon.promotion}`);
       const couponData = res.data;
       if (!couponData) {
-        return alert("You coupon invalid")
+        return toast.error("You coupon invalid")
       }
       console.log(couponData)
       setPageParams({ ...pageParams, coupon: couponData })
-      alert("Coupon applied successfully!");
+      if (+pageParams.totalPrice > +pageParams.coupon?.minimumSpend) {
+        //alert success
+        Swal.fire({
+          html: `<div class="flex items-center gap-2">
+           <img src="${CouponUseSuccessIconAlert}" alt="Error Animation" class="w-14 h-14" />
+           <span style="font-size: 16px; font-weight: bold; color: green;">Coupon Use Success</span>
+         </div>`,
+          position: "top-end",
+          timer: 3000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+          toast: true,
+          background: "#ffffff",
+          didOpen: (toast) => {
+            const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+            if (progressBar) {
+              progressBar.style.backgroundColor = "green";
+            }
+            toast.addEventListener("click", Swal.close);
+          },
+        });
+      }
     } catch (error) {
       console.log("Error applying coupon:", error);
-      alert("An error occurred while applying the coupon.");
+      const errMsg = error?.response?.data?.message || error.message;
+      //alert error
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorIcon}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "#f44336";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
+
     }
   };
 
@@ -138,13 +207,14 @@ const TravelerDetailForm = (props) => {
       <h3 className="text-lg font-semibold mb-4 ">Traveler Details :</h3>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <label className="block ">Name :</label>
+          <label className="block ">First Name :</label>
           <input
             type="text"
             className="w-full p-2 mt-1 rounded  border border-orange-light "
             name="firstName"
             value={bookingData.firstName}
             onChange={handleChange}
+            placeholder="First Name"
           />
         </div>
         <div>
@@ -155,6 +225,7 @@ const TravelerDetailForm = (props) => {
             name="lastName"
             value={bookingData.lastName}
             onChange={handleChange}
+            placeholder="Last Name"
           />
         </div>
         <div>
@@ -165,6 +236,7 @@ const TravelerDetailForm = (props) => {
             name="email"
             value={bookingData.email}
             onChange={handleChange}
+            placeholder="Email"
           />
         </div>
         <div>
@@ -175,29 +247,30 @@ const TravelerDetailForm = (props) => {
             name="phone"
             value={bookingData.phone}
             onChange={handleChange}
+            placeholder="Phone Number"
           />
-          </div>
-          <div>
-          <label className="block ">Promotion Code :</label>
-        <div className="flex items-center w-full">
-          <input
-            type="text"
-            className="p-1.5 mt-1 rounded-l w-3/4 border border-orange-light"
-            name="promotion"
-            value={coupon.promotion}
-            onChange={handleCouponChange}
-            disabled={!user?.id} // Disable input if user is a guest
-          />
-          <button
-            type="button"
-            className="bg-gradient-to-r mt-1  px-2 from-[#f08a4b] to-[#e05b3c] text-white py-2 rounded-r-lg font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
-            onClick={handleUseCoupon}
-            disabled={!user?.id} // Disable button if user is a guest
-          >
-            Use Coupon
-          </button>
         </div>
+        <div>
+          <label className="block ">Promotion Code :</label>
+          <div className="flex items-center w-full">
+            <input
+              type="text"
+              className="p-1.5 mt-1 rounded-l w-3/4 border border-orange-light"
+              name="promotion"
+              value={coupon.promotion}
+              onChange={handleCouponChange}
+              disabled={!user?.id} // Disable input if user is a guest
+            />
+            <button
+              type="button"
+              className="bg-gradient-to-r mt-1  px-2 from-[#f08a4b] to-[#e05b3c] text-white py-2 rounded-r-lg font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
+              onClick={handleUseCoupon}
+              disabled={!user?.id} // Disable button if user is a guest
+            >
+              Use Coupon
+            </button>
           </div>
+        </div>
       </div>
       <div className="flex justify-between items-center mt-4">
         <p className="text-lg font-bold ">Total Price</p>

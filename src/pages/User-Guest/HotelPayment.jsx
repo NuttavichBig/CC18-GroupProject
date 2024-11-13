@@ -15,8 +15,6 @@ function HotelPayment() {
       <HeaderUserPage />
       <div className="flex justify-center items-start mt-[150px] border-t-2">
         <div className="mx-auto px-[50px]">
-          <div className="">{/* <HotelDetailMain /> */}</div>
-
           <BookingProgressBallMiddle />
 
           <div className="grid grid-cols-3 gap-6">
