@@ -194,7 +194,7 @@ function UserHotelRegisterForm(props) {
         <div>
           <label className="block  mb-2">Check-in Time</label>
           <input
-            type="text"
+            type="time"
             className="w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
             name="checkinTime"
             value={input.checkinTime}
@@ -205,7 +205,7 @@ function UserHotelRegisterForm(props) {
         <div>
           <label className="block  mb-2">Check-out Time</label>
           <input
-            type="text"
+            type="time"
             className="w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
             name="checkoutTime"
             value={input.checkoutTime}

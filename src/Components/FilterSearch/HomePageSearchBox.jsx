@@ -64,7 +64,7 @@ const HomePageSearchBox = () => {
     <motion.div
       className="bg-black bg-opacity-40 rounded-lg shadow-lg p-6 max-w-[83%] mx-auto top-12 relative "
       animate={controls}
-      initial={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+      initial={{ backgroundColor: "rgba(0, 0, 0, 0.6)"}}
     >
       <style>{`.rdrDefinedRangesWrapper { display: none; }`}</style>
       <div className="gap-4 justify-around flex w-full px-8">

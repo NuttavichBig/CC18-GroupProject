@@ -19,7 +19,7 @@ const HomePage = () => {
     const handleScroll = () => {
       if (window.scrollY > 250) {
         controls.start({
-          top: "50px",
+          top: "-10px",
           transform: "translate(-50%, -50%)",
           transition: { duration: 0.5, ease: "easeOut" },
         });

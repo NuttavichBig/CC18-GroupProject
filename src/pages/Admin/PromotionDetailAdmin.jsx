@@ -14,6 +14,8 @@ export default function PromotionDetailAdmin() {
   const [createPromotion, setCreatePromotion] = useState(false);
   const [editPromotion, setEditPromotion] = useState(false);
   const [selectedPromotion, setSelectedPromotion] = useState(null);
+  
+  const [page, setPage] = useState(1);
   const API = import.meta.env.VITE_API;
   const token = useUserStore((state) => state.token);
 
@@ -26,11 +28,13 @@ export default function PromotionDetailAdmin() {
     });
   };
 
+
+
   useEffect(() => {
     const fetchPromotions = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${API}/promotion?limit=999`);
+        const response = await axios.get(`${API}/promotion?page=${page}&limit=9`);
         setPromotions(response.data.promotion || []);
       } catch (error) {
         console.error("Error fetching promotions:", error);
@@ -39,7 +43,7 @@ export default function PromotionDetailAdmin() {
       }
     };
     fetchPromotions();
-  }, [createPromotion, editPromotion]);
+  }, [createPromotion, editPromotion,page]);
 
   const handleRemove = async (promotionId) => {
     try {
@@ -110,8 +114,6 @@ export default function PromotionDetailAdmin() {
     setPromotions((prevPromotions) => [newPromotion, ...prevPromotions]);
   };
 
-
-
   return (
     <>
       {createPromotion && <CreatePromotion onCreateSuccess={handleAddPromotion} onClose={() => setCreatePromotion(false)} />}
@@ -122,6 +124,7 @@ export default function PromotionDetailAdmin() {
           onCancel={() => setEditPromotion(false)}
         />
       )}
+
       <div className="w-full bg-gray-100 py-6 px-4">
         <p className="bg-gradient-to-r from-[#0088d1] to-[#1E4D8C] text-white text-3xl font-bold rounded-lg p-4 text-center shadow-xl">
           PROMOTIONS
@@ -133,6 +136,10 @@ export default function PromotionDetailAdmin() {
           >
             CREATE PROMOTION
           </button>
+        </div>
+        <div className="flex justify-end my-4">
+        <button onClick={() => setPage(page - 1)}>◀</button>
+        <button onClick={() => setPage(page + 1)}>▶</button>
         </div>
         {loading ? (
           <p className="text-center text-lg">Loading promotions...</p>

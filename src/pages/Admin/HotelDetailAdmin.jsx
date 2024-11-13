@@ -11,13 +11,14 @@ export default function HotelDetailAdmin() {
   const [hotelDetail, setHotelDetail] = useState(null);
   const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
   const token = useUserStore((state) => state.token);
   const API = import.meta.env.VITE_API;
 
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const response = await axios.get(`${API}/admin/partner`, {
+        const response = await axios.get(`${API}/admin/partner?page=${page}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPartners(response.data);
@@ -28,7 +29,7 @@ export default function HotelDetailAdmin() {
       }
     };
     fetchPartners();
-  }, [API, token]);
+  }, [API, token, page]);
 
   const handleUpdate = async (partnerId, updatedData) => {
     try {
@@ -95,6 +96,10 @@ export default function HotelDetailAdmin() {
         <p className="bg-gradient-to-r from-[#0088d1] to-[#1E4D8C] text-3xl font-bold rounded-lg p-3 text-center shadow-lg text-white">
           HOTEL INFORMATION
         </p>
+        <div className="flex justify-end my-4">
+        <button onClick={() => setPage(page - 1)}>◀</button>
+        <button onClick={() => setPage(page + 1)}>▶</button>
+        </div>
         <div className="overflow-x-auto mt-6 bg-white rounded-lg shadow-lg">
           <table className="min-w-full text-sm text-gray-600 border-collapse">
             <thead className="bg-[#0088d1] text-white">
