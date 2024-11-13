@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import hotelsuccessicon from "../../assets/hotelsuccesspaymenticon.jpg";
+import cancle from "../../assets/cancle.png";
+import fail from "../../assets/fail.png";
+import refund from "../../assets/refund.png";
+import pending from "../../assets/pending.png";
 import dropdownhistorymyPurchase from "../../assets/drop-down-arrow-icon_Mypurchase.gif";
 import ReviewModal from "../ModalOther/ReviewModal";
 import axios from "axios";
@@ -8,6 +12,29 @@ import Swal from "sweetalert2";
 import FormErrorAlert from '../../assets/ErrorToast1.gif'
 import FormSuccessAlert from '../../assets/SuccessToast.gif'
 
+
+const statusDetails = {
+  PENDING: {
+    color: "text-[#ffae00]",
+    icon: pending,
+  },
+  CONFIRMED: {
+    color: "text-green-500",
+    icon: hotelsuccessicon,
+  },
+  CANCELED: {
+    color: "text-[#ff0000]",
+    icon: cancle,
+  },
+  FAILED: {
+    color: "text-[#ff4d00]",
+    icon: fail,
+  },
+  REFUND: {
+    color: "text-[#3596fd]",
+    icon: refund,
+  },
+};
 
 const API = import.meta.env.VITE_API;
 
@@ -187,15 +214,31 @@ function MyPurchase() {
                   </div>
                 ))}
                 {book.bookingRooms.map((room, i) => (
-                  <div key={i} className="flex flex-col items-end font-semibold text-sm mt-2 text-gray-500">
+                  <div
+                    key={i}
+                    className="flex flex-col items-end font-semibold text-sm mt-2 text-gray-500"
+                  >
                     <div className="text-left">
+<<<<<<< HEAD
                       <p >Amount : {room.amountRoom} rooms</p>
                       <p>Checkin Date:{" "}{new Date(book.checkinDate).toLocaleDateString()}</p>
                       <p>Checkout Date:{" "}{new Date(book.checkoutDate).toLocaleDateString()}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+=======
+                      <p>Amount : {room.amountRoom} rooms</p>
+                      <p>
+                        Checkin Date:{" "}
+                        {new Date(book.checkinDate).toLocaleDateString()}
+                      </p>
+                      <p>
+                        Checkout Date:{" "}
+                        {new Date(book.checkoutDate).toLocaleDateString()}
+                      </p>
+>>>>>>> dev
+                    </div >
+                  </div >
+                ))
+}
+              </div >
 
               <div className="flex justify-between items-center mt-4 text-gray-700">
                 <p className="text-lg font-medium">Total Price</p>
@@ -215,38 +258,46 @@ function MyPurchase() {
 
               <div className="flex flex-col items-center mt-8">
                 <p
+<<<<<<< HEAD
                   className={`text-2xl font-semibold ${book.status === "CONFIRMED"
                     ? "text-green-500"
                     : "text-amber-500 py-8"
                     }`}
+=======
+                  className={`text-2xl font-semibold ${
+                    statusDetails[book.status]?.color
+                  }`}
+>>>>>>> dev
                 >
                   {book.status}
                 </p>
-                {book.status === "CONFIRMED" && (
+                {statusDetails[book.status]?.icon && (
                   <img
-                    src={hotelsuccessicon}
-                    alt="Success Icon"
+                    src={statusDetails[book.status].icon}
+                    alt={`${book.status} Icon`}
                     className="w-20 h-20"
                   />
                 )}
               </div>
-            </div>
+            </div >
           )}
-        </div>
+        </div >
       ))}
-      {pageParams.isReviewModalOpen && pageParams.reviewHotel && (
-        <ReviewModal
-          getAllBooking={getAllBooking}
-          bookingId={pageParams.reviewHotel.id}
-          hotelName={pageParams.reviewHotel.hotels.name}
-          hotelImage={pageParams.reviewHotel.hotels.img}
-          onClose={() =>
-            setPageParams((prv) => ({ ...prv, isReviewModalOpen: false }))
-          }
-          onSubmit={() => console.log("Review submitted!")}
-        />
-      )}
-    </div>
+{
+  pageParams.isReviewModalOpen && pageParams.reviewHotel && (
+    <ReviewModal
+      getAllBooking={getAllBooking}
+      bookingId={pageParams.reviewHotel.id}
+      hotelName={pageParams.reviewHotel.hotels.name}
+      hotelImage={pageParams.reviewHotel.hotels.img}
+      onClose={() =>
+        setPageParams((prv) => ({ ...prv, isReviewModalOpen: false }))
+      }
+      onSubmit={() => console.log("Review submitted!")}
+    />
+  )
+}
+    </div >
   );
 }
 
