@@ -4,6 +4,30 @@ import dropdownhistorymyPurchase from "../../assets/drop-down-arrow-icon_Mypurch
 import ReviewModal from "../ModalOther/ReviewModal";
 import axios from "axios";
 import useUserStore from "../../stores/user-store";
+
+const statusDetails = {
+    PENDING: {
+      color: "text-yellow-500",
+      icon: "path_to_pending_icon.jpg",
+    },
+    CONFIRMED: {
+      color: "text-green-500",
+      icon: hotelsuccessicon, 
+    },
+    CANCELED: {
+      color: "text-red-500",
+      icon: "path_to_canceled_icon.jpg",
+    },
+    FAILED: {
+      color: "text-gray-500",
+      icon: "path_to_failed_icon.jpg",
+    },
+    REFUND: {
+      color: "text-blue-500",
+      icon: "path_to_refund_icon.jpg",
+    },
+  };
+  
 const API = import.meta.env.VITE_API;
 
 function MyPurchase() {
@@ -167,7 +191,7 @@ function MyPurchase() {
                 </div>
               </div>
 
-              <div className="flex flex-col items-center mt-8">
+              {/* <div className="flex flex-col items-center mt-8">
                 <p
                   className={`text-2xl font-semibold ${
                     book.status === "CONFIRMED"
@@ -184,7 +208,23 @@ function MyPurchase() {
                     className="w-20 h-20"
                   />
                 )}
-              </div>
+              </div> */}
+
+<div className="flex flex-col items-center mt-8">
+  <p
+    className={`text-2xl font-semibold ${statusDetails[book.status]?.color}`}
+  >
+    {book.status}
+  </p>
+  {statusDetails[book.status]?.icon && (
+    <img
+      src={statusDetails[book.status].icon}
+      alt={`${book.status} Icon`}
+      className="w-20 h-20"
+    />
+  )}
+</div>
+
             </div>
           )}
         </div>
