@@ -9,6 +9,8 @@ import FormSuccessAlert from '../../assets/SuccessToast.gif'
 export default function ReviewDetailAdmin() {
   const [reviews, setReviews] = useState([]);
   const [reviewDetail, setReviewDetail] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedReviewId, setSelectedReviewId] = useState(null);
   const token = useUserStore((state) => state.token);
   const API = import.meta.env.VITE_API;
 
@@ -26,7 +28,6 @@ export default function ReviewDetailAdmin() {
     };
     fetchReviews();
   }, [API, token]);
-  console.log(reviews)
 
   const handleDelete = async (reviewId) => {
     try {
@@ -35,12 +36,12 @@ export default function ReviewDetailAdmin() {
       });
       setReviews((prevReviews) => prevReviews.filter((review) => review.id !== reviewId));
 
-      //alert success
+      // Success alert
       Swal.fire({
         html: `<div class="flex items-center gap-2">
-           <img src="${FormSuccessAlert}" alt="Error Animation" class="w-10 h-10" />
-           <span style="font-size: 16px; font-weight: bold; color: green;">Review deleted successfully</span>
-         </div>`,
+          <img src="${FormSuccessAlert}" alt="Success Animation" class="w-10 h-10" />
+          <span style="font-size: 16px; font-weight: bold; color: green;">Review deleted successfully</span>
+        </div>`,
         position: "top-end",
         timer: 3000,
         timerProgressBar: true,
@@ -49,21 +50,20 @@ export default function ReviewDetailAdmin() {
         background: "#ffffff",
         didOpen: (toast) => {
           const progressBar = toast.querySelector(".swal2-timer-progress-bar");
-          if (progressBar) {
-            progressBar.style.backgroundColor = "green";
-          }
+          if (progressBar) progressBar.style.backgroundColor = "green";
           toast.addEventListener("click", Swal.close);
         },
       });
     } catch (error) {
       const errMsg = error.response?.data?.message || error.message;
       console.log("Error deleting review:", error);
-      //alert error
+
+      // Error alert
       Swal.fire({
         html: `<div class="flex items-center gap-2">
-           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
-           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
-         </div>`,
+          <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+          <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+        </div>`,
         position: "top-end",
         timer: 3000,
         timerProgressBar: true,
@@ -72,13 +72,23 @@ export default function ReviewDetailAdmin() {
         background: "#ffffff",
         didOpen: (toast) => {
           const progressBar = toast.querySelector(".swal2-timer-progress-bar");
-          if (progressBar) {
-            progressBar.style.backgroundColor = "#f44336";
-          }
+          if (progressBar) progressBar.style.backgroundColor = "#f44336";
           toast.addEventListener("click", Swal.close);
         },
       });
     }
+  };
+
+  // Open modal to confirm deletion
+  const openDeleteModal = (reviewId) => {
+    setSelectedReviewId(reviewId);
+    setIsModalOpen(true);
+  };
+
+  // Confirm deletion
+  const confirmDelete = () => {
+    handleDelete(selectedReviewId);
+    setIsModalOpen(false);
   };
 
   return (
@@ -121,7 +131,7 @@ export default function ReviewDetailAdmin() {
                   </td>
                   <td className="py-3 px-4 border-b">
                     <button
-                      onClick={() => handleDelete(review.id)}
+                      onClick={() => openDeleteModal(review.id)}
                       className="px-4 py-2 bg-[#FF6347] text-white border-2 border-[#FF6347] rounded-lg font-semibold shadow-md hover:bg-[#CD1818] hover:border-[#CD1818] transition-all duration-200 ease-in-out"
                     >
                       REMOVE
@@ -133,6 +143,30 @@ export default function ReviewDetailAdmin() {
           </table>
         </div>
       </div>
+
+      {/* Inline Confirmation Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-[90%] max-w-md">
+            <h2 className="text-lg font-semibold mb-4">Confirm Action</h2>
+            <p className="text-gray-700 mb-6">Are you sure you want to delete this review?</p>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
