@@ -39,6 +39,7 @@ const SearchLocation = ({ onSelectLocation }) => {
       });
     }
   }, [google, onSelectLocation]);
+  
 
   if (!isLoaded) {
     return <div>Loading Google Maps...</div>;

@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { IoCheckmarkOutline } from "react-icons/io5";
 import defaultPic from '../../assets/ProfilePicture.webp';
 import useUserStore from '../../stores/user-store';
 
 function ProfileForm() {
-    const user = useUserStore(state=>state.user)
+    const user = useUserStore(state => state.user)
     const setUserProfileImage = useUserStore(state => state.setUserProfileImage);
-    const updateUserProfile = useUserStore(state=>state.updateUserProfile)
+    const updateUserProfile = useUserStore(state => state.updateUserProfile)
     const [localProfileImage, setLocalProfileImage] = useState(user.image);
-   
+
     const dateObj = user?.birthdate ? new Date(user.birthdate) : null;
     const day = dateObj ? dateObj.getUTCDate().toString().padStart(2, '0') : '';
-    const month = dateObj ? (dateObj.getUTCMonth() + 1).toString().padStart(2, '0') : ''; 
+    const month = dateObj ? (dateObj.getUTCMonth() + 1).toString().padStart(2, '0') : '';
     const year = dateObj ? dateObj.getUTCFullYear().toString() : '';
 
     const [profileData, setProfileData] = useState({
@@ -77,111 +77,128 @@ function ProfileForm() {
     };
 
     return (
-        <div className="bg-[#fef6e4] p-8 rounded-lg shadow-md max-w-xl mx-auto mt-20 relative">
-            <div className="absolute -top-16 left-1/2 transform -translate-x-1/2">
-                <img
-                    src={localProfileImage || defaultPic}
-                    alt="Profile"
-                    className="w-24 h-24 rounded-full shadow-md object-cover object-center"
-                />
-                <label htmlFor="file-upload" className="absolute bottom-0 right-0 bg-orange-500 text-white p-1 rounded-full cursor-pointer">
-                    <input
-                        id="file-upload"
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={handleImageChange}
-                    />
-                    📷
-                </label>
-            </div>
+        <div className="bg-white flex max-w-xl ml-10 mt-32">
+            <div className='flex relative items-start mt-10'>
+                <input type="file" id="file-upload"
+                    accept="image/*"
+                    onChange={handleImageChange} 
+                    className="hidden"/>
+                <div className='flex justify-center items-center rounded-full bg-white min-h-80 min-w-80 h-80 w-80 border-r-8 border-orange-200 mt-1 ' >
+                    <div className='min-w-60 min-h-60 w-60 h-60 cursor-pointer rounded-full absolute bg-black bg-opacity-50 text-white flex justify-center items-center font-semibold text-xl opacity-0 hover:opacity-100'
+                    onClick={()=>document.getElementById('file-upload').click()}>Upload</div>
+                    <div className='p-2 border-2 border-orange-300 rounded-full bg-white shadow-lg'>
 
-            <div className="grid grid-cols-2 gap-6 mt-5">
-                <div className="col-span-1">
-                    <label className="block text-gray-700 mb-2">First Name</label>
-                    <input
-                        type="text"
-                        name="firstName"
-                        value={profileData.firstName}
-                        onChange={handleChange}
-                        className="w-full p-3 rounded bg-[#fef0d6]"
-                        placeholder="First Name"
-                    />
-                </div>
-                <div className="col-span-1">
-                    <label className="block text-gray-700 mb-2">Last Name</label>
-                    <input
-                        type="text"
-                        name="lastName"
-                        value={profileData.lastName}
-                        onChange={handleChange}
-                        className="w-full p-3 rounded bg-[#fef0d6]"
-                        placeholder="Last Name"
-                    />
-                </div>
+                    <img
+                        src={localProfileImage || defaultPic}
+                        alt="Profile"
+                        className="min-w-60 min-h-60 w-60 h-60 rounded-full object-cover object-center"
+                        />
+                        </div>
 
-                <div className="col-span-2">
-                    <label className="block text-gray-700 mb-2">Date of Birth</label>
-                    <div className="flex gap-2">
-                        <input
-                            type="text"
-                            name="day"
-                            value={profileData.day}
-                            onChange={handleChange}
-                            className="w-full p-3 rounded bg-[#fef0d6]"
-                            placeholder="DD"
-                        />
-                        <input
-                            type="text"
-                            name="month"
-                            value={profileData.month}
-                            onChange={handleChange}
-                            className="w-full p-3 rounded bg-[#fef0d6]"
-                            placeholder="MM"
-                        />
-                        <input
-                            type="text"
-                            name="year"
-                            value={profileData.year}
-                            onChange={handleChange}
-                            className="w-full p-3 rounded bg-[#fef0d6]"
-                            placeholder="YYYY"
-                        />
-                    </div>
-                </div>
-
-                <div className="col-span-2">
-                    <label className="block text-gray-700 mb-2">Phone</label>
-                    <input
-                        type="text"
-                        name="phone"
-                        value={profileData.phone}
-                        onChange={handleChange}
-                        className="w-full p-3 rounded bg-[#fef0d6]"
-                        placeholder="Phone"
-                    />
-                </div>
-                <div className="col-span-2">
-                    <label className="block text-gray-700 mb-2">Gender</label>
-                    <select
-                        name="gender"
-                        value={profileData.gender}
-                        onChange={handleChange}
-                        className="w-full p-3 rounded bg-[#fef0d6]"
-                    >
-                        <option value="">Select Gender</option>
-                        <option value="MALE">Male</option>
-                        <option value="FEMALE">Female</option>
-                        <option value="OTHER">Other</option>
-                    </select>
                 </div>
             </div>
-            <button
-                onClick={updateProfile}
-                className="bg-orange-500 text-white py-2 px-8 rounded-md mt-8 block mx-auto"
-            >
-                Update Profile
-            </button>
+            <div className='flex relative -left-16 flex-col'>
+                <div className='flex gap-2 p-2'>
+                    <label className='text-gray-700 '>
+                        First name
+                        <div className='flex p-1 bg-orange-200 shadow-lg rounded-full'>
+                            <input type="text"
+                                name="firstName"
+                                value={profileData.firstName}
+                                onChange={handleChange}
+                                className=" p-3 pl-4 shadow-inner rounded-full"
+                                placeholder="First Name" />
+                        </div>
+                    </label>
+                    <label className='text-gray-700 '>
+                        Last name
+                        <div className='flex p-1 bg-orange-200 shadow-lg rounded-full'>
+                            <input type="text"
+                                name="lastName"
+                                value={profileData.lastName}
+                                onChange={handleChange}
+                                className=" p-3 pl-4 shadow-inner rounded-full"
+                                placeholder="Last Name" />
+                        </div>
+                    </label>
+                </div>
+                <div className='flex gap-1 ml-14 p-2 '>
+                    <label className='text-gray-700 '>
+                        Day
+                        <div className='flex w-32 p-1 bg-orange-200 shadow-lg rounded-full'>
+                            <input type="text"
+                                name="day"
+                                value={profileData.day}
+                                onChange={handleChange}
+                                className=" p-3 pl-4 shadow-inner w-full rounded-full"
+                                placeholder="DD" />
+                        </div>
+                    </label>
+                    <label className='text-gray-700 '>
+                        Month
+                        <div className='flex w-32 p-1 bg-orange-200 shadow-lg rounded-full'>
+                            <input type="text"
+                                name="month"
+                                value={profileData.month}
+                                onChange={handleChange}
+                                className=" p-3 pl-4 w-full shadow-inner rounded-full"
+                                placeholder="MM" />
+                        </div>
+                    </label>
+                    <label className='text-gray-700 '>
+                        Year
+                        <div className='flex w-32 p-1 bg-orange-200 shadow-lg rounded-full'>
+                            <input type="text"
+                                name="year"
+                                value={profileData.year}
+                                onChange={handleChange}
+                                className=" p-3 pl-4 w-full shadow-inner rounded-full"
+                                placeholder="YY" />
+                        </div>
+                    </label>
+
+                </div>
+                <div className='flex gap-4 ml-14 p-2 '>
+                    <label className='text-gray-700 '>
+                        <p className='pl-6'>Phone</p>
+                        <div className='flex p-1 bg-orange-200 shadow-lg rounded-full'>
+                            <input type="text"
+                                name="phone"
+                                value={profileData.phone}
+                                onChange={handleChange}
+                                className=" p-3 pl-4 shadow-inner w-80 rounded-full"
+                                placeholder="Phone" />
+                        </div>
+                    </label>
+                </div>
+                <div className='flex gap-4 p-2 '>
+                    <label className='text-gray-700 '>
+                        <p className='pl-8'>Gender</p>
+                        <div className='flex p-1 bg-orange-200 shadow-lg rounded-full'>
+                            <select
+                                name="gender"
+                                value={profileData.gender}
+                                onChange={handleChange}
+                                className=" p-3 pl-4 shadow-inner w-80 rounded-full">
+
+                                <option value="">Select Gender</option>
+                                <option value="MALE">Male</option>
+                                <option value="FEMALE">Female</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+                    </label>
+                </div>
+
+                <button className='ml-96 bg-gradient-to-b from-orange-400 to-orange-600 hover:from-green-400 hover:to-green-600 p-2 px-8 font-bold text-white shadow-xl flex items-center justify-center rounded-full'
+                onClick={updateProfile}>
+                    Confirm
+                </button>
+
+
+
+            </div>
+
         </div>
     );
 }
