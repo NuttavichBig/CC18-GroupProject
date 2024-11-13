@@ -138,13 +138,14 @@ const TravelerDetailForm = (props) => {
       <h3 className="text-lg font-semibold mb-4 ">Traveler Details :</h3>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <label className="block ">Name :</label>
+          <label className="block ">First Name :</label>
           <input
             type="text"
             className="w-full p-2 mt-1 rounded  border border-orange-light "
             name="firstName"
             value={bookingData.firstName}
             onChange={handleChange}
+            placeholder="First Name"
           />
         </div>
         <div>
@@ -155,6 +156,7 @@ const TravelerDetailForm = (props) => {
             name="lastName"
             value={bookingData.lastName}
             onChange={handleChange}
+            placeholder="Last Name"
           />
         </div>
         <div>
@@ -165,6 +167,7 @@ const TravelerDetailForm = (props) => {
             name="email"
             value={bookingData.email}
             onChange={handleChange}
+            placeholder="Email"
           />
         </div>
         <div>
@@ -175,6 +178,7 @@ const TravelerDetailForm = (props) => {
             name="phone"
             value={bookingData.phone}
             onChange={handleChange}
+            placeholder="Phone Number"
           />
           </div>
           <div>

@@ -41,7 +41,6 @@ function HotelDetailToPayment() {
     }, [])
     useEffect(() => {
         const breakfast = pageParams.breakfastIncluded ? 60 : 0
-        // const price = (Number(selectedRoom.price) + breakfast) * pageParams.nights * pageParams.room;
         setPageParams(prv => ({ ...prv, totalPrice: (Number(selectedRoom.price) + breakfast) * prv.nights * prv.room }))
         actionSetRoom(pageParams.room)
     }, [pageParams.room, pageParams.breakfastIncluded, pageParams.nights])
@@ -51,9 +50,6 @@ function HotelDetailToPayment() {
     useEffect(() => { // summary control
         setPageParams(prv => ({ ...prv, summaryPrice: prv.totalPrice - prv.discount }))
     }, [pageParams.discount, pageParams.totalPrice])
-    // useEffect(()=>{
-    //     console.log(pageParams)
-    // },[pageParams])
 
     return (
         <div className='text-[#543310]'>
@@ -61,12 +57,6 @@ function HotelDetailToPayment() {
           
             <div className='flex justify-center  items-start mt-[150px] border-t-2'>
                 <div className="mx-auto px-[50px]">
-                
-
-                    <div className="">
-                        {/* <HotelDetailMain /> */}
-                    </div>
-
 
                     {/* Progress Bar */}
                     <BookingProgressBallLeft />
