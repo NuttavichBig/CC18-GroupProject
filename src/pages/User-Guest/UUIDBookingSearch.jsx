@@ -13,14 +13,13 @@ function UUIDBookingSearch() {
         errMsg: '',
         isLoading: false
     })
+    const searchBooking = useUserStore(state=>state.searchBooking)
     const [booking, setBooking] = useState(null)
     useEffect(()=>{
         hdlSearch()
-    },[])
-    const searchBooking = useUserStore(state=>state.searchBooking)
+    },[searchBooking])
 
-    const hdlSearch = async (e) => {
-        e.preventDefault()
+    const hdlSearch = async () => {
         try {
             const result = await axios.get(`${API}/booking/${searchBooking}`)
             console.log(result.data)
