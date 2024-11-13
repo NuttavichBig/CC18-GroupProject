@@ -11,8 +11,10 @@ const HeaderHomePage = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isSearchHover , setIsSearchHover] =useState(false)
+  const [input, setInput] = useState('')
   const navigate = useNavigate();
-
+  const setSearch = useUserStore(state => state.setSearch)
   const { user, token, logout } = useUserStore(
     useShallow((state) => ({
       user: state.user,
@@ -20,23 +22,37 @@ const HeaderHomePage = () => {
       logout: state.logout,
     }))
   );
-
   const handleMouseEnterLogin = () => setIsDropdownOpen(true);
   const handleMouseLeaveRegister = () => setIsDropdownOpen(false);
 
   const handleMouseEnterProfile = () => setIsProfileDropdownOpen(true);
   const handleMouseLeaveProfile = () => setIsProfileDropdownOpen(false);
 
+  const handleHoverEnterSearch = ()=>setIsSearchHover(true);
+  const handleHoverLeaveSearch = ()=>setIsSearchHover(false); 
+
+  const hdlChange = (e) => {
+    setInput(e.target.value)
+  }
+
+  const hdlConfirm = () => {
+    if (!input) {
+      return
+    }
+    setSearch(input)
+    navigate(`/UUID`)
+  }
   return (
     <>
       <div
-        className="w-full h-[100px] flex items-center text-white"
+        className="w-full flex items-center text-white"
         style={{
           position: "absolute",
-          top: 0,
+          top: -30,
           left: 0,
           zIndex: 10,
-          background: "linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(0, 0, 0, 0) 100%)",
+          background:
+            "linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(0, 0, 0, 0) 100%)",
         }}
       >
         <img
@@ -50,7 +66,7 @@ const HeaderHomePage = () => {
           onClick={() => navigate("/")}
         />
 
-        <nav className="flex-grow flex justify-center space-x-8 text-xs tracking-widest uppercase">
+        <nav className="flex-grow flex justify-center space-x-16 tracking-widest uppercase">
           <Link to="/bookinghotel" className="hover:text-gray-300">
             Booking
           </Link>
@@ -58,7 +74,7 @@ const HeaderHomePage = () => {
             Travel Promotion
           </Link>
           <Link to="/user/registerpartner" className="hover:text-gray-300">
-            Contact Us
+            Be Partner
           </Link>
 
           {token ? (
@@ -82,17 +98,18 @@ const HeaderHomePage = () => {
 
               {isDropdownOpen && (
                 <div
-                  className="absolute mt-1 bg-white bg-opacity-20 border border-white rounded-lg p-2"
+                  className="absolute mt-4 rounded-lg p-2 flex items-center justify-center"
                   style={{
                     width: "100px",
-                    transform: "translateX(20%)",
+                    height: "35px",
+                    transform: "translateX(0%)",
                   }}
                   onMouseEnter={handleMouseEnterLogin}
                   onMouseLeave={handleMouseLeaveRegister}
                 >
                   <a
                     href="#register"
-                    className="block text-center text-white rounded hover:bg-black hover:bg-opacity-10 transition duration-200"
+                    className="text-center p-2 hover:bg-white hover:bg-opacity-10  rounded-lg border border-[#ffffff] transition duration-150 "
                     onClick={() => setIsRegisterModalOpen(true)}
                   >
                     Register
@@ -104,10 +121,18 @@ const HeaderHomePage = () => {
         </nav>
 
         <div className="space-x-4 pr-12 flex items-center">
+          <div className="flex absolute right-52 p-2" onMouseLeave={handleHoverLeaveSearch}>
+            <input type="text" name="UUID" 
+            className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white origin-right transition-transform ${isSearchHover ? 'scale-100': 'absolute scale-x-0 -left-48'}`}
+              onChange={hdlChange} value={input} placeholder="Your Booking Number" />
+            <button className={`bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full ${isSearchHover?"rounded-l-none": "rounded-l-full"}`}
+            onMouseEnter={handleHoverEnterSearch}
+              onClick={hdlConfirm}>{isSearchHover ? 'Search': 'Find Your booking'}</button>
+          </div>
           {token ? (
             <div className="relative">
               <span
-                className="text-xs uppercase tracking-wider cursor-pointer hover:text-gray-300"
+                className="uppercase tracking-wider cursor-pointer hover:text-gray-300 text-sm border rounded-full p-3"
                 onMouseEnter={handleMouseEnterProfile}
               >
                 Hello, {user.firstName} {user.lastName}
@@ -115,17 +140,16 @@ const HeaderHomePage = () => {
 
               {isProfileDropdownOpen && (
                 <div
-                  className="absolute mt-1 bg-white bg-opacity-20 border border-white rounded-lg p-2"
+                  className="absolute mt-4 border border-white rounded-lg"
                   style={{
-                    width: "100px",
-                    transform: "translateX(20%)",
+                    transform: "translateX(0%)",
                   }}
                   onMouseEnter={handleMouseEnterProfile}
                   onMouseLeave={handleMouseLeaveProfile}
                 >
                   <button
                     onClick={() => navigate("/userprofile")}
-                    className="block text-center text-white rounded text-xs hover:bg-black hover:bg-opacity-10 transition duration-200"
+                    className="p-2 block text-center rounded hover:bg-white hover:bg-opacity-10 transition duration-150 w-full"
                   >
                     PROFILE
                   </button>
@@ -133,9 +157,12 @@ const HeaderHomePage = () => {
               )}
             </div>
           ) : (
-            <span className="text-xs uppercase tracking-wider">
-              Hello, Guest!
-            </span>
+            <div className="flex gap-8 relative">
+              <div className="uppercase tracking-wider cursor-pointer hover:bg-white hover:bg-opacity-10 border-white border rounded-lg py-1 px-2
+              max-2xl:w-fit max-2xl:self-end">
+                Hello, Guest
+              </div>
+            </div>
           )}
         </div>
       </div>

@@ -134,73 +134,73 @@ const TravelerDetailForm = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-luxury-cream-gradient p-6 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4 text-warm-brown">Traveler Details :</h3>
+    <form onSubmit={handleSubmit} className="bg-cream-gradient p-6 rounded-lg shadow-md">
+      <h3 className="text-lg font-semibold mb-4 ">Traveler Details :</h3>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <label className="block text-warm-brown">Name :</label>
+          <label className="block ">Name :</label>
           <input
             type="text"
-            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
+            className="w-full p-2 mt-1 rounded  border border-orange-light "
             name="firstName"
             value={bookingData.firstName}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label className="block text-warm-brown">Last Name :</label>
+          <label className="block ">Last Name :</label>
           <input
             type="text"
-            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
+            className="w-full p-2 mt-1 rounded  border border-orange-light "
             name="lastName"
             value={bookingData.lastName}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label className="block text-warm-brown">Email :</label>
+          <label className="block ">Email :</label>
           <input
             type="email"
-            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
+            className="w-full p-2 mt-1 rounded  border border-orange-light "
             name="email"
             value={bookingData.email}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label className="block text-warm-brown">Phone :</label>
+          <label className="block">Phone :</label>
           <input
             type="text"
-            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
+            className="w-full p-2 mt-1 rounded  border border-orange-light "
             name="phone"
             value={bookingData.phone}
             onChange={handleChange}
           />
-        </div>
-        <div>
-          <label className="block text-warm-brown">Promotion Code :</label>
+          </div>
+          <div>
+          <label className="block ">Promotion Code :</label>
+        <div className="flex items-center w-full">
           <input
             type="text"
-            className="w-full p-2 mt-1 rounded bg-cream-gradient border border-orange-light text-warm-brown"
+            className="p-1.5 mt-1 rounded-l w-3/4 border border-orange-light"
             name="promotion"
             value={coupon.promotion}
             onChange={handleCouponChange}
             disabled={!user?.id} // Disable input if user is a guest
           />
-        </div>
-        <div className="flex items-end">
           <button
             type="button"
-            className="bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2.5 px-4 rounded-lg font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
+            className="bg-gradient-to-r mt-1  px-2 from-[#f08a4b] to-[#e05b3c] text-white py-2 rounded-r-lg font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
             onClick={handleUseCoupon}
             disabled={!user?.id} // Disable button if user is a guest
           >
             Use Coupon
           </button>
         </div>
+          </div>
       </div>
       <div className="flex justify-between items-center mt-4">
-        <p className="text-lg font-bold text-warm-brown">Total Price</p>
+        <p className="text-lg font-bold ">Total Price</p>
         <div className="text-right flex-col-reverse flex">
           <p className="text-xl font-bold text-orange-500">
             {pageParams.summaryPrice.toFixed(2)}

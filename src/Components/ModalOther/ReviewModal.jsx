@@ -1,32 +1,37 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import useUserStore from '../../stores/user-store';
+const API = import.meta.env.VITE_API
 
-function ReviewModal({ hotelName, hotelImage, onClose, onSubmit }) {
-  const [reviewText, setReviewText] = useState('');
-  const [selectedImages, setSelectedImages] = useState([]);
-  const [rating, setRating] = useState(0);
+function ReviewModal({ hotelName, hotelImage, onClose, onSubmit ,bookingId ,getAllBooking}) {
+  const token = useUserStore(state=>state.token)
+  const [input , setInput] = useState({
+    reviewText : '',
+    rating : 0,
+    file : null
+  })
 
   const handleImageUpload = (event) => {
-    const files = Array.from(event.target.files);
-    const images = files.map(file => URL.createObjectURL(file));
-    setSelectedImages(prevImages => [...prevImages, ...images]);
+    setInput(prv=>({...prv,file : event.target.files[0]}))
   };
 
   const handleSubmit = async () => {
     const formData = new FormData();
-    formData.append('reviewText', reviewText);
-    formData.append('rating', rating);
-    selectedImages.forEach((image, index) => {
-      formData.append(`images[${index}]`, image);
-    });
+    formData.append('content', input.reviewText);
+    formData.append('rating', input.rating);
+    formData.append('bookingId' , bookingId)
+    if(input.file){
+      formData.append(`img`, input.file);
+    }
 
     try {
-      await axios.post('/api/reviews', formData, {
+      await axios.post(`${API}/review`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+            Authorization : `Bearer ${token}`
         }
       });
       onSubmit();
+      getAllBooking();
       onClose();
     } catch (error) {
       console.error('Error submitting review:', error);
@@ -49,8 +54,8 @@ function ReviewModal({ hotelName, hotelImage, onClose, onSubmit }) {
             {[...Array(5)].map((_, index) => (
               <span
                 key={index}
-                className={`text-xl cursor-pointer ${index < rating ? 'text-yellow-400' : 'text-gray-300'}`}
-                onClick={() => setRating(index + 1)}
+                className={`text-xl cursor-pointer ${index < input.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                onClick={() => setInput(prv=>({...prv,rating : index+1}))}
               >
                 ★
               </span>
@@ -61,14 +66,16 @@ function ReviewModal({ hotelName, hotelImage, onClose, onSubmit }) {
         <textarea
           className="w-full p-4 h-32 bg-[#fef0d6] rounded-md mb-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
           placeholder="Write your review here..."
-          value={reviewText}
-          onChange={(e) => setReviewText(e.target.value)}
+          value={input.reviewText}
+          onChange={(e) => setInput(prv=>({...prv, reviewText : e.target.value}))}
         />
 
         <div className="flex flex-wrap gap-4 mb-4 max-w-full">
-          {selectedImages.map((src, index) => (
-            <img key={index} src={src} alt={`Upload ${index}`} className="w-20 h-20 rounded-md object-cover shadow-sm" />
-          ))}
+          { input.file &&
+            <img  src={URL.createObjectURL(input.file)} alt={`Upload`} className="w-20 h-20 rounded-md object-cover shadow-sm" />
+
+          }
+          
         </div>
 
         <div className="flex justify-between mt-6">

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function StarFilter(props) {
   const { hdlStarCheck } = props
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const stars = [5, 4, 3, 2, 1];
 
   return (

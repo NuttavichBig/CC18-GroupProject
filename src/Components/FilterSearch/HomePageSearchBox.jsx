@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import searchbuttonanimation from "../../assets/GifMainButtonOrangeSearch1.gif";
 import useUserStore from "../../stores/user-store";
 import { useShallow } from "zustand/shallow";
 import SearchLocation from "../GoogleApi/SearchLocation";
@@ -30,7 +29,7 @@ const HomePageSearchBox = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 250) {
-        controls.start({ backgroundColor: "rgba(255, 165, 0, 0.8)" });
+        controls.start({ backgroundColor: "rgba(255, 174, 0,25)" });
       } else {
         controls.start({ backgroundColor: "rgba(0, 0, 0, 0.4)" });
       }
@@ -63,22 +62,22 @@ const HomePageSearchBox = () => {
 
   return (
     <motion.div
-      className="bg-black bg-opacity-40 rounded-lg shadow-lg p-6 w-full max-w-[80%] mx-auto relative justify-end"
+      className="bg-black bg-opacity-40 rounded-lg shadow-lg p-6 max-w-[83%] mx-auto top-12 relative "
       animate={controls}
-      initial={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}
+      initial={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
     >
       <style>{`.rdrDefinedRangesWrapper { display: none; }`}</style>
-      <div className="grid grid-cols-5 gap-4 items-center w-full ml-7">
-        <div className="col-span-1">
-          <p className="block text-sm text-white mb-1 font-bold">Destination</p>
+      <div className="gap-4 justify-around flex w-full px-8">
+        <div className="w-1/5">
+          <p className="block  text-white mb-1 font-bold">Destination</p>
           <SearchLocation onSelectLocation={handleSelectLocation} />
         </div>
-        <div className="col-span-2 relative flex items-center ">
+        <div className="relative flex items-center w-2/5">
           <div className="flex-1">
             <span className="block font-bold text-sm text-white text-center mb-1">
               JOURNEY
             </span>
-            <div className="w-full p-3 rounded-l-lg border-r border-h border-white bg-gradient-to-t from-orange-400 to-orange-500 flex justify-between items-center shadow-md cursor-pointer h-10">
+            <div className="w-full p-3 rounded-l-full border-r border-h border-white bg-gradient-to-t from-orange-400 to-orange-500 flex items-center shadow-md cursor-pointer h-10">
               <div
                 onClick={() => {
                   setCalenderControl({
@@ -89,7 +88,7 @@ const HomePageSearchBox = () => {
                 }}
                 className="text-center flex-1 py-2 text-[#543310]"
               >
-                <span className="text-white font-bold text-xl">
+                <span className="text-white text-xl">
                   {new Date(input.journeyDate).toLocaleDateString("en-GB", {
                     day: "2-digit",
                     month: "short",
@@ -103,7 +102,7 @@ const HomePageSearchBox = () => {
             <span className="block font-bold text-sm text-white text-center mb-1">
               RETURN DATE
             </span>
-            <div className="w-full p-3 rounded-r-lg bg-gradient-to-t from-orange-400 to-orange-500 flex justify-between items-center shadow-md cursor-pointer h-10">
+            <div className="w-full p-3 rounded-r-full bg-gradient-to-t from-orange-400 to-orange-500 flex justify-between items-center shadow-md cursor-pointer h-10">
               <div
                 onClick={() => {
                   setCalenderControl({
@@ -114,7 +113,7 @@ const HomePageSearchBox = () => {
                 }}
                 className="text-center flex-1 py-2 text-[#543310]"
               >
-                <span className="text-white font-bold text-xl">
+                <span className="text-white text-xl">
                   {new Date(input.returnDate).toLocaleDateString("en-GB", {
                     day: "2-digit",
                     month: "short",
@@ -127,7 +126,7 @@ const HomePageSearchBox = () => {
 
           {calenderControl.showJourneyCalendar && (
             <div
-              className="absolute z-10 mt-2 bg-white shadow-lg rounded-lg p-4"
+              className="absolute z-10 mt-2 bg-white shadow-full rounded-lg p-4"
               style={{ left: 0 }}
             >
               <DateRangePicker
@@ -171,7 +170,7 @@ const HomePageSearchBox = () => {
 
           {calenderControl.showReturnCalendar && (
             <div
-              className="absolute z-10 mt-2 bg-white shadow-lg rounded-lg p-4"
+              className="absolute z-10 mt-2 bg-white shadow-full rounded-lg p-4"
               style={{ right: 0 }}
             >
               <DateRangePicker
@@ -200,12 +199,12 @@ const HomePageSearchBox = () => {
             </div>
           )}
         </div>
-        <div className="col-span-1 ml-5">
-          <p className="block text-sm text-white mb-1 font-bold">Guest and Room</p>
+        <div className="w-1/5 flex flex-col">
+          <p className="block  text-white mb-1 font-bold">Guest and Room</p>
           <div className="relative inline-block text-left">
             <button
               onClick={toggleDropdown}
-              className="flex items-center p-2 border rounded-md text-[#543310] bg-white shadow w-full"
+              className="flex items-center p-2 border rounded-full text-[#543310] bg-white shadow w-full"
             >
               <span className="mr-2">
                 {adults} GUEST, {rooms} ROOM
@@ -278,22 +277,17 @@ const HomePageSearchBox = () => {
             )}
           </div>
         </div>
-        <div className="col-span-1 flex justify-center mt-5">
+        <div className=" flex w-1/5 justify-center mt-6">
           <button
             onClick={handleSearch}
-            className="font-bold shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-2 outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-28 h-10"
+            className="font-bold  shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-2 outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-32 h-12"
           >
             SEARCH
           </button>
         </div>
       </div>
-
-    </motion.div >
+    </motion.div>
   );
 };
 
 export default HomePageSearchBox;
-
-
-
-
