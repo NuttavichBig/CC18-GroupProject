@@ -93,12 +93,7 @@ export default function UserDetailAdmin() {
     }
   };
 
-<<<<<<< HEAD
   // Handle user deletion
-=======
-
-  // Handle user deletion with confirmation
->>>>>>> dev
   const handleDelete = async (userId) => {
     try {
       const res = await axios.delete(`${API}/admin/user/${userId}`, {
