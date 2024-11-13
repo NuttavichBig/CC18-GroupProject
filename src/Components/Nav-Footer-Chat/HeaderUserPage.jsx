@@ -11,7 +11,7 @@ const HeaderUserPage = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const [isSearchHover , setIsSearchHover] =useState(false)
+  const [isSearchHover, setIsSearchHover] = useState(false)
   const [input, setInput] = useState('');
   const setSearch = useUserStore(state => state.setSearch)
   const navigate = useNavigate();
@@ -28,8 +28,8 @@ const HeaderUserPage = () => {
   const handleMouseEnterProfile = () => setIsProfileDropdownOpen(true);
   const handleMouseLeaveProfile = () => setIsProfileDropdownOpen(false);
 
-  const handleHoverEnterSearch = ()=>setIsSearchHover(true);
-  const handleHoverLeaveSearch = ()=>setIsSearchHover(false); 
+  const handleHoverEnterSearch = () => setIsSearchHover(true);
+  const handleHoverLeaveSearch = () => setIsSearchHover(false);
   const hdlChange = (e) => {
     setInput(e.target.value)
   }
@@ -57,7 +57,7 @@ const HeaderUserPage = () => {
           onClick={() => navigate("/")}
         />
 
-        <nav className="flex-grow flex justify-center space-x-16 tracking-widest uppercase">
+        <nav className="flex justify-center space-x-16 tracking-widest uppercase">
           <Link to="/user/bookinghotel" className="hover:text-gray-300">
             Booking
           </Link>
@@ -113,12 +113,14 @@ const HeaderUserPage = () => {
 
         {/* Profile Dropdown for "Hello, Guest!" */}
         <div className="flex items-center space-x-4 mr-12">
-        <div className="relative">
-            <div className={`flex p-2 absolute -top-5 ${isSearchHover ? '-left-[300px]' : '-left-[392px]'}`} onMouseLeave={handleHoverLeaveSearch}>
+          <div className="relative">
+
+            <div className={`flex absolute  p-2 -top-5 ${isSearchHover ? '-left-[300px]' : '-z-10 -left-[392px]'}`} onMouseLeave={handleHoverLeaveSearch}>
+
               <input type="text" name="UUID"
                 className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white origin-right transition-transform ${isSearchHover ? 'scale-100' : 'scale-x-0'}`}
                 onChange={hdlChange} value={input} placeholder="Your Booking Number" />
-              <button className={`bg-orange-dark-gradient px-4 max-2xl:px-2 text-white max-2xl:text-sm rounded-r-full ${isSearchHover ? "rounded-l-none w-[80px] max-2xl:w-[68px]" : "rounded-l-full w-[172px] max-2xl:w-[160px]"}`}
+              <button className={`bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full ${isSearchHover ? "rounded-l-none w-[80px] max-2xl:w-[68px]" : "rounded-l-full w-[172px] max-2xl:w-[160px]"}`}
                 onMouseEnter={handleHoverEnterSearch}
                 onClick={hdlConfirm}>{isSearchHover ? 'Search' : 'Find Your booking'}
 
@@ -127,7 +129,7 @@ const HeaderUserPage = () => {
           </div>
 
           <div className="relative">
-           
+
             <span
               className=" uppercase tracking-wider cursor-pointer hover:bg-orange-500 hover:bg-opacity-10 border-[#543310] border rounded-full text-sm p-3"
               onMouseEnter={handleMouseEnterProfile}
