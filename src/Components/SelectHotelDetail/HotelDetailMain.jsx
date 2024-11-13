@@ -15,7 +15,6 @@ const HotelDetailMain = () => {
 
             <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold">{currentHotel.name}</h2>
-                <span className="text-2xl font-bold text-orange-500">THB {currentHotel.price}</span>
             </div>
 
 
