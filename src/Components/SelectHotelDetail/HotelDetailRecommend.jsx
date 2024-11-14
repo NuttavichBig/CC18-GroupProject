@@ -23,6 +23,13 @@ function HotelDetailRecommend() {
       if (currentHotel?.id !== hotel.id) {
         // อัปเดตเฉพาะเมื่อโรงแรมเปลี่ยน
         actionSetCurrentHotel(hotel);
+
+        // เลื่อนหน้าไปด้านบนสุด
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+
       }
       navigate("/bookinghotel-detail");
     },
