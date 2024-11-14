@@ -8,9 +8,6 @@ import dropdownhistorymyPurchase from "../../assets/drop-down-arrow-icon_Mypurch
 import ReviewModal from "../ModalOther/ReviewModal";
 import axios from "axios";
 import useUserStore from "../../stores/user-store";
-import Swal from "sweetalert2";
-import FormErrorAlert from '../../assets/ErrorToast1.gif'
-import FormSuccessAlert from '../../assets/SuccessToast.gif'
 
 
 const statusDetails = {
@@ -60,30 +57,10 @@ function MyPurchase() {
       console.log("result", result.data.data);
       setBooking(result.data.data);
 
-      //alert success
     } catch (err) {
-      const errMsg = error.response?.data?.message || error.message;
+      const errMsg = err.response?.data?.message || err.message;
       console.log(err);
-      //alert error
-      Swal.fire({
-        html: `<div class="flex items-center gap-2">
-           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
-           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
-         </div>`,
-        position: "top-end",
-        timer: 3000,
-        timerProgressBar: true,
-        showConfirmButton: false,
-        toast: true,
-        background: "#ffffff",
-        didOpen: (toast) => {
-          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
-          if (progressBar) {
-            progressBar.style.backgroundColor = "#f44336";
-          }
-          toast.addEventListener("click", Swal.close);
-        },
-      });
+
     }
   };
 
