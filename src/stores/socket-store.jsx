@@ -27,6 +27,7 @@ const useAdminStore = create(persist((set, get) => ({
             socket.off('joinComplete')
             socket.on('joinComplete',(data)=>{
                 set({chatRoom : data.room})
+                
             })
             socket.emit('adminJoinChat',id)
 
