@@ -3,6 +3,7 @@ import AddressMap from "./AddressMap";
 import SearchLocation from "../GoogleApi/SearchLocation";
 import Swal from "sweetalert2";
 import FormErrorIcon from '../../assets/ErrorToast1.gif'
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 function UserHotelRegisterForm(props) {
   const { setAllFormData, hotelData, setPage } = props;
@@ -142,6 +143,13 @@ function UserHotelRegisterForm(props) {
       className="bg-cream-gradient text-[#543310] p-8 rounded-lg shadow-md max-w-4xl mx-auto"
       onSubmit={handleSubmit}
     >
+      <div className="p-2 absolute cursor-pointer"
+        onClick={() => {
+          setAllFormData((prv) => ({ ...prv, hotel: input }));
+          setPage((prv) => prv - 1);
+        }}>
+        <FaArrowLeftLong size={25} color="gray" />
+      </div>
       <h2 className="text-2xl font-semibold text-center mb-8">
         Hotel Partner Registration
       </h2>
@@ -402,18 +410,8 @@ function UserHotelRegisterForm(props) {
         <p className="text-sm text-red-500">{errMsg}</p>
         <div className="flex gap-4">
           <button
-            type="button"
-            className="w-1/4 py-2 px-8 bg-gray-300 rounded-md hover:bg-orange-200 hover:text-black"
-            onClick={() => {
-              setAllFormData((prv) => ({ ...prv, hotel: input }));
-              setPage((prv) => prv - 1);
-            }}
-          >
-            Back
-          </button>
-          <button
             type="submit"
-            className="w-3/4 bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
+            className="w-full bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
           >
             NEXT
           </button>

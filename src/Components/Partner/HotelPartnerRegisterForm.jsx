@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import FormErrorIcon from '../../assets/ErrorToast1.gif'
-
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 function HotelPartnerRegisterForm(props) {
   const { setAllFormData, partnerData, setPage } = props;
   const [input, setInput] = useState({
@@ -88,6 +89,9 @@ function HotelPartnerRegisterForm(props) {
       className="bg-cream-gradient text-[#543310] p-8 rounded-lg shadow-md max-w-4xl mx-auto"
       onSubmit={handleSubmit}
     >
+      <Link to={'/'} className="p-2 absolute cursor-pointer">
+      <FaArrowLeftLong size={25} color="gray"/>
+      </Link>
       <h2 className="text-3xl font-semibold text-center mb-8">
         Hotel Partner Registration
       </h2>

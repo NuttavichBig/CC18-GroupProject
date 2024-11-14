@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import FormErrorIcon from '../../assets/ErrorToast1.gif'
 import FormSuccessAlert from '../../assets/SuccessToast.gif'
 import LoadingRoomPartnerRegisterForm from "../Loading/LoadingRoomPartnerRegisterForm";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const API = import.meta.env.VITE_API
 
@@ -186,7 +187,13 @@ function RoomPartnerRegisterForm(props) {
 
     return (
         <div className="bg-cream-gradient text-[#543310] p-8 rounded-lg shadow-md max-w-4xl mx-auto">
-
+            <div className="p-2 absolute cursor-pointer"
+                onClick={() => {
+                    setAllFormData((prv) => ({ ...prv, room: rooms }));
+                    setPage((prv) => prv - 1);
+                }}>
+                <FaArrowLeftLong size={25} color="gray" />
+            </div>
             <h2 className="text-2xl font-semibold text-center mb-4">
                 Hotel Partner Registration
             </h2>
@@ -218,18 +225,9 @@ function RoomPartnerRegisterForm(props) {
                     </div>
                 ) : (
                     <>
+                    
                         <button
-                            type="button"
-                            className="w-1/4 py-2 px-8 rounded-md bg-gray-200 hover:bg-red-500 hover:text-white"
-                            onClick={() => {
-                                setAllFormData((prv) => ({ ...prv, room: rooms }));
-                                setPage((prv) => prv - 1);
-                            }}
-                        >
-                            Back
-                        </button>
-                        <button
-                            className="w-3/4 bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-102 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
+                            className="w-full bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-102 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
                             onClick={handleDataConfirm}
                         >
                             CONFIRM
