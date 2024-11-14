@@ -17,14 +17,14 @@ const styles = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100px', // ความสูง
-        width: '100px',  // ความกว้าง
+        height: '100vh', // ความสูง
+        width: '100vh',  // ความกว้าง
         textAlign: 'center',
         backgroundColor: 'rgba(255, 255, 255, 0)', // พื้นหลังโปร่งแสง
     },
     image: {
-        width: '100px', // ขนาดภาพ
-        height: '100px', // ขนาดภาพ
+        width: '300px', // ขนาดภาพ
+        height: '300px', // ขนาดภาพ
         marginBottom: '10px', // เพิ่มระยะห่างด้านล่างของภาพ
     },
     loadingText: {
