@@ -34,7 +34,7 @@ function UUIDBookingSearch() {
 
                 <HeaderUserPage />
             <div className='min-h-screen relative bg-[#f9f9f9] flex justify-center items-start'>
-                <div className="container mx-auto p-6 grid gap-5">
+                <div className="container mx-auto p-6 grid gap-5 pb-40">
 
                     {
                         booking &&
@@ -42,8 +42,8 @@ function UUIDBookingSearch() {
                             <div className='flex flex-col w-full p-8'>
                                 <div className='flex'>
                                     <div className='flex flex-col gap-2'>
-                                        <div className='flex gap-2 items-baseline'>
-                                            <h1 className='text-4xl font-bold'>Booking</h1><p className='text-gray-500'> UUID : {booking.UUID} </p>
+                                        <div className='flex w-full justify-between gap-2 items-baseline'>
+                                            <h1 className='text-4xl font-bold'>Booking</h1><p className='text-gray-500'>{booking.UUID} </p>
                                         </div>
                                         <h2 className='flex bg-blue-100 justify-center p-2 text-2xl font-bold text-white bg-orange-dark-pink-gradient w-full'>Hotel Info</h2>
                                         <div className='flex gap-4 bg-white p-4'>
@@ -92,7 +92,7 @@ function UUIDBookingSearch() {
                                         <div className='flex flex-col w-full gap-2'>
                                             <h2 className='flex justify-center p-2 text-2xl font-bold text-white bg-orange-dark-pink-gradient w-full'>Booking Info</h2>
                                             <div className='flex justify-center items-start'>
-                                                <div className='flex items-start w-full justify-between'>
+                                                <div className='flex items-start w-full h-fit justify-between'>
                                                     <div className='flex flex-col gap-4 bg-white p-4 rounded-lg shadow-lg'>
                                                         <h1 className='text-center text-2xl font-bold'>Detail</h1>
                                                         <hr className='border-gray-300' />
@@ -130,7 +130,7 @@ function UUIDBookingSearch() {
                                                         </div>
                                                     </div>
 
-                                                    <div className='flex flex-col gap-4 bg-white p-4 rounded-lg shadow-lg'>
+                                                    <div className='flex pb-32 flex-col gap-4 bg-white p-4 rounded-lg shadow-lg'>
                                                         <h1 className='text-center text-2xl font-bold'>Contact</h1>
                                                         <hr className='border-gray-300' />
                                                         <div className='flex flex-col gap-2'>

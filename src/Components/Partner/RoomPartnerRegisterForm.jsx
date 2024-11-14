@@ -202,10 +202,6 @@ function RoomPartnerRegisterForm(props) {
                         }}>
                         <FaArrowLeftLong size={25} color="gray" />
                     </div>
-                    <h2 className="text-2xl font-semibold text-center mb-4">
-                        Hotel Partner Registration
-                    </h2>
-                    <hr className="border-[#543310]" />
                     <h2 className="text-2xl font-semibold text-center my-4">
                         Please add room in your hotel
                     </h2>
