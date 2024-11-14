@@ -9,7 +9,7 @@ const ReviewsComponent = ({ reviews }) => {
     <div className="bg-white rounded-lg p-6 shadow-md h-full">
       <div className="text-lg font-semibold mb-4 flex items-center justify-between ">
         <div>
-        Reviews
+          Reviews
         </div>
         <div className='bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] p-2 rounded-lg text-white'>{averageRating}</div>
       </div>
