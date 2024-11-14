@@ -88,7 +88,7 @@ function MyPurchase() {
   };
 
   return (
-    <div className=" flex flex-col mt-20 w-4/5 rounded-lg space-y-4 ">
+    <div className=" flex flex-col mt-20 w-4/5 rounded-lg space-y-4 overflow-hidden overflow-y-auto pr-3 h-[60vh]">
       {booking.map((book, index) => (
         <div key={index} className="p-4 bg-[#FFF8EC] rounded-lg shadow-lg mb-4">
           <div className="text-right font-semibold text-gray-600 text-opacity-70">
