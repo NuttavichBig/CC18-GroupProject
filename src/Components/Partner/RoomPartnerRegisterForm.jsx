@@ -185,39 +185,50 @@ function RoomPartnerRegisterForm(props) {
     }
 
     return (
-        <div className="bg-cream-gradient text-[#543310] p-8 rounded-lg shadow-md max-w-4xl mx-auto">
+        <div className="relative bg-cream-gradient text-[#543310] p-8 rounded-lg shadow-md max-w-4xl mx-auto">
 
-            <h2 className="text-2xl font-semibold text-center mb-4">
-                Hotel Partner Registration
-            </h2>
-            <hr className="border-[#543310]" />
-            <h2 className="text-2xl font-semibold text-center my-4">
-                Please add room in your hotel
-            </h2>
-            <div className="flex flex-col gap-4">
-                {rooms && rooms?.map((item, index) => <div className="flex flex-col gap-2" key={index} >
-                    <div className="flex gap-2" >
-                        <p className="text-xl font-bold">Room {index + 1}</p>
-                        {index > 0 &&
-                            <button className="py-0.5 px-4 bg-red-500 text-white shadow-md rounded-lg hover:bg-black active:translate-y-1"
-                                onClick={() => deleteRoom(index)}>Delete</button>}
+            {pageParam.isLoading ? (
+                <LoadingRoomPartnerRegisterForm />
+            ) : (
+                <>
+                    <h2 className="text-2xl font-semibold text-center mb-4">
+                        Hotel Partner Registration
+                    </h2>
+                    <hr className="border-[#543310]" />
+                    <h2 className="text-2xl font-semibold text-center my-4">
+                        Please add room in your hotel
+                    </h2>
+                    <div className="flex flex-col gap-4">
+                        {rooms &&
+                            rooms.map((item, index) => (
+                                <div className="flex flex-col gap-2" key={index}>
+                                    <div className="flex gap-2">
+                                        <p className="text-xl font-bold">Room {index + 1}</p>
+                                        {index > 0 && (
+                                            <button
+                                                className="py-0.5 px-4 bg-red-500 text-white shadow-md rounded-lg hover:bg-black active:translate-y-1"
+                                                onClick={() => deleteRoom(index)}
+                                            >
+                                                Delete
+                                            </button>
+                                        )}
+                                    </div>
+                                    <CreateRoomRegisterForm
+                                        room={item}
+                                        setRooms={setRooms}
+                                        index={index}
+                                    />
+                                </div>
+                            ))}
                     </div>
-                    <CreateRoomRegisterForm room={item} setRooms={setRooms} index={index} />
-                </div>
-                )}
-            </div>
-
-            <button className="py-2 bg-blue-500 w-full text-xl text-white font-semibold rounded-lg shadow-lg hover:bg-orange-400 active:translate-y-1 my-4"
-                onClick={addNewRoom}>Add new room</button>
-            <p className="text-red-500 text-sm">{pageParam.errMsg}</p>
-
-            <div className="flex gap-4 justify-center">
-                {pageParam.isLoading ? (
-                    <div className="flex justify-center items-center">
-                        <LoadingRoomPartnerRegisterForm />
-                    </div>
-                ) : (
-                    <>
+                    <button
+                        className="py-2 bg-blue-500 w-full text-xl text-white font-semibold rounded-lg shadow-lg hover:bg-orange-400 active:translate-y-1 my-4"
+                        onClick={addNewRoom}
+                    >
+                        Add new room
+                    </button>
+                    <p className="text-red-500 text-sm">{pageParam.errMsg}</p>
+                    <div className="flex gap-4 justify-center">
                         <button
                             type="button"
                             className="w-1/4 py-2 px-8 rounded-md bg-gray-200 hover:bg-red-500 hover:text-white"
@@ -234,14 +245,12 @@ function RoomPartnerRegisterForm(props) {
                         >
                             CONFIRM
                         </button>
-                    </>
-                )}
-            </div>
-
-
-
+                    </div>
+                </>
+            )}
         </div>
     );
+
 }
 
 export default RoomPartnerRegisterForm;

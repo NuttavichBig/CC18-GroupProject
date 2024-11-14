@@ -20,6 +20,13 @@ function HotelDetailRecommend() {
     (hotel) => {
       if (currentHotel?.id !== hotel.id) {
         actionSetCurrentHotel(hotel);
+
+        // เลื่อนหน้าไปด้านบนสุด
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+
       }
       navigate("/bookinghotel-detail");
     },

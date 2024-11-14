@@ -14,7 +14,7 @@ export default function PromotionDetailAdmin() {
   const [createPromotion, setCreatePromotion] = useState(false);
   const [editPromotion, setEditPromotion] = useState(false);
   const [selectedPromotion, setSelectedPromotion] = useState(null);
-  
+
   const [page, setPage] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(false);
   const itemsPerPage = 9;
@@ -49,7 +49,7 @@ export default function PromotionDetailAdmin() {
       }
     };
     fetchPromotions();
-  }, [createPromotion, editPromotion,page]);
+  }, [createPromotion, editPromotion, page]);
 
   const handleRemove = async (promotionId) => {
     try {
@@ -226,15 +226,14 @@ export default function PromotionDetailAdmin() {
           </div>
         </div>
       )}
-            <div className="flex justify-center items-center my-4 space-x-4">
+      <div className="flex justify-center items-center my-4 space-x-4">
         <button
           onClick={handlePreviousPage}
           disabled={page === 1}
-          className={`px-2 py-2 rounded-xl transition ${
-            page === 1
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
-          }`}
+          className={`px-2 py-2 rounded-xl transition ${page === 1
+            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+            }`}
         >
           ◀ Previous
         </button>
@@ -244,11 +243,10 @@ export default function PromotionDetailAdmin() {
         <button
           onClick={handleNextPage}
           disabled={!hasNextPage}
-          className={`px-2 py-2 rounded-xl transition ${
-            !hasNextPage
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
-          }`}
+          className={`px-2 py-2 rounded-xl transition ${!hasNextPage
+            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+            }`}
         >
           Next ▶
         </button>
