@@ -11,10 +11,10 @@ const HeaderHomePage = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const [isSearchHover, setIsSearchHover] = useState(false)
-  const [input, setInput] = useState('')
+  const [isSearchHover, setIsSearchHover] = useState(false);
+  const [input, setInput] = useState("");
   const navigate = useNavigate();
-  const setSearch = useUserStore(state => state.setSearch)
+  const setSearch = useUserStore((state) => state.setSearch);
   const { user, token, logout } = useUserStore(
     useShallow((state) => ({
       user: state.user,
@@ -22,6 +22,14 @@ const HeaderHomePage = () => {
       logout: state.logout,
     }))
   );
+
+  const toSearchBar = () => {
+    window.scrollTo({
+      top: 750,
+      behavior: "smooth",
+    });
+  };
+
   const handleMouseEnterLogin = () => setIsDropdownOpen(true);
   const handleMouseLeaveRegister = () => setIsDropdownOpen(false);
 
@@ -32,16 +40,16 @@ const HeaderHomePage = () => {
   const handleHoverLeaveSearch = () => setIsSearchHover(false);
 
   const hdlChange = (e) => {
-    setInput(e.target.value)
-  }
+    setInput(e.target.value);
+  };
 
   const hdlConfirm = () => {
     if (!input) {
-      return
+      return;
     }
-    setSearch(input)
-    navigate(`/UUID`)
-  }
+    setSearch(input);
+    navigate(`/UUID`);
+  };
   return (
     <>
       <div
@@ -67,9 +75,9 @@ const HeaderHomePage = () => {
         />
 
         <nav className=" flex justify-center space-x-16 tracking-widest uppercase text-[0.925rem]">
-          <Link to="/bookinghotel" className="hover:text-gray-300">
+          <button onClick={toSearchBar} className="hover:text-gray-300">
             Booking
-          </Link>
+          </button>
           <Link to="/promotion" className="hover:text-gray-300">
             Travel Promotion
           </Link>
@@ -122,16 +130,32 @@ const HeaderHomePage = () => {
 
         <div className="space-x-4 pr-12 flex items-center">
           <div className="relative">
-
-            <div className={`flex absolute  p-2 -top-5 ${isSearchHover ? '-left-[300px]' : '-z-10 -left-[392px]'}`} onMouseLeave={handleHoverLeaveSearch}>
-
-              <input type="text" name="UUID"
-                className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white origin-right transition-transform ${isSearchHover ? 'scale-100' : 'scale-x-0'}`}
-                onChange={hdlChange} value={input} placeholder="Your Booking Number" />
-              <button className={`bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full ${isSearchHover ? "rounded-l-none w-[80px] max-2xl:w-[68px]" : "rounded-l-full w-[172px] max-2xl:w-[160px]"}`}
+            <div
+              className={`flex absolute  p-2 -top-5 ${
+                isSearchHover ? "-left-[300px]" : "-z-10 -left-[392px]"
+              }`}
+              onMouseLeave={handleHoverLeaveSearch}
+            >
+              <input
+                type="text"
+                name="UUID"
+                className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white origin-right transition-transform ${
+                  isSearchHover ? "scale-100" : "scale-x-0"
+                }`}
+                onChange={hdlChange}
+                value={input}
+                placeholder="Your Booking Number"
+              />
+              <button
+                className={`bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full ${
+                  isSearchHover
+                    ? "rounded-l-none w-[80px] max-2xl:w-[68px]"
+                    : "rounded-l-full w-[172px] max-2xl:w-[160px]"
+                }`}
                 onMouseEnter={handleHoverEnterSearch}
-                onClick={hdlConfirm}>{isSearchHover ? 'Search' : 'Find Your booking'}
-
+                onClick={hdlConfirm}
+              >
+                {isSearchHover ? "Search" : "Find Your booking"}
               </button>
             </div>
           </div>
@@ -165,8 +189,10 @@ const HeaderHomePage = () => {
             </div>
           ) : (
             <div className="flex gap-8 relative">
-              <div className="uppercase tracking-wider cursor-pointer hover:bg-white hover:bg-opacity-10 border-white border rounded-lg py-1 px-2
-              max-2xl:w-fit max-2xl:self-end">
+              <div
+                className="uppercase tracking-wider cursor-pointer hover:bg-white hover:bg-opacity-10 border-white border rounded-lg py-1 px-2
+              max-2xl:w-fit max-2xl:self-end"
+              >
                 Hello, Guest
               </div>
             </div>
