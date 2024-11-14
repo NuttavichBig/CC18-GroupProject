@@ -27,7 +27,7 @@ function HotelDetailRecommend() {
         // เลื่อนหน้าไปด้านบนสุด
         window.scrollTo({
           top: 0,
-          behavior: "smooth", // เลื่อนแบบ Smooth
+          behavior: "smooth",
         });
 
       }
