@@ -54,7 +54,7 @@ const MainRouter = createBrowserRouter([
         path: "bookinghotel-detail-payment-method-summary",
         element: <HotelPaymentSucessSummary />,
       },
-      { path: "bookinghotel-detail-payment-method-fail" ,element : <PaymentFail/> },
+      { path: "bookinghotel-detail-payment-method-fail", element: <PaymentFail /> },
       { path: "promotion", element: <HotelPromotion /> },
       { path: "UUID", element: <UUIDBookingSearch /> },
       { path: "/reset-password", element: <ForgetPassword /> },

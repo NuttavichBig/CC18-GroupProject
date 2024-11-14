@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import FormErrorAlert from '../../assets/ErrorToast1.gif'
 import FormSuccessAlert from '../../assets/SuccessToast.gif'
 
+
 const API = import.meta.env.VITE_API;
 
 export default function BookingDetailAdmin() {
@@ -107,6 +108,7 @@ export default function BookingDetailAdmin() {
 
   if (error) return <div>{error}</div>;
 
+
   return (
     <div className="w-full bg-gray-100 py-6 px-4">
       {/* Title Section */}
@@ -177,11 +179,10 @@ export default function BookingDetailAdmin() {
         <button
           onClick={handlePreviousPage}
           disabled={page === 1}
-          className={`px-2 py-2 rounded-xl transition ${
-            page === 1
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
-          }`}
+          className={`px-2 py-2 rounded-xl transition ${page === 1
+            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+            }`}
         >
           ◀ Previous
         </button>
@@ -191,11 +192,10 @@ export default function BookingDetailAdmin() {
         <button
           onClick={handleNextPage}
           disabled={!hasNextPage}
-          className={`px-2 py-2 rounded-xl transition ${
-            !hasNextPage
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
-          }`}
+          className={`px-2 py-2 rounded-xl transition ${!hasNextPage
+            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+            }`}
         >
           Next ▶
         </button>
