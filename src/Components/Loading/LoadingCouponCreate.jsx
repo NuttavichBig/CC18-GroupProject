@@ -17,20 +17,20 @@ const styles = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh', // ความสูง
-        width: '100vh',  // ความกว้าง
+        height: '100vh', 
+        width: '100vh',  
         textAlign: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0)', // พื้นหลังโปร่งแสง
+        backgroundColor: 'rgba(255, 255, 255, 0)', 
     },
     image: {
-        width: '300px', // ขนาดภาพ
-        height: '300px', // ขนาดภาพ
-        marginBottom: '10px', // เพิ่มระยะห่างด้านล่างของภาพ
+        width: '300px', 
+        height: '300px', 
+        marginBottom: '10px',
     },
     loadingText: {
-        fontSize: '24px', // ขนาดตัวอักษร
-        color: '#FF6AD3', // สีตัวอักษร
-        fontWeight: 'bold', // ตัวหนา
+        fontSize: '24px', 
+        color: '#FF6AD3', 
+        fontWeight: 'bold', 
         animation: 'fadeIn 1s ease-in-out',
     },
     // '@keyframes fadeIn': {

@@ -71,18 +71,18 @@ export default function HotelPartner() {
         <p className="bg-orange-400 text-3xl font-bold rounded-lg p-4 text-center text-white shadow-md">
           ROOM
         </p>
-        <button
-          className="self-center w-full text-center bg-orange-500 text-white p-3 mt-4 rounded-lg text-xl font-semibold transition-transform transform hover:scale-95"
-          onClick={() =>
-            setModalControl((prv) => ({
-              ...prv,
-              isOpen: false,
-              isCreate: true,
-            }))
-          }
-        >
-          Add New Room
-        </button>
+          <button
+            className="self-center w-full text-center bg-orange-500 text-white p-3 mt-4 rounded-lg text-xl font-semibold transition-transform transform hover:scale-95 hover:bg-white hover:text-orange-500 border-2 border-orange-500"
+            onClick={() =>
+              setModalControl((prv) => ({
+                ...prv,
+                isOpen: false,
+                isCreate: true,
+              }))
+            }
+          >
+            Add New Room
+          </button>
         <table className="text-center w-full mt-4 border-collapse">
           <thead>
             <tr className="bg-orange-400 text-white">

@@ -11,16 +11,20 @@ export default function HotelDetailAdmin() {
   const [hotelDetail, setHotelDetail] = useState(null);
   const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const itemsPerPage = 10;
   const token = useUserStore((state) => state.token);
   const API = import.meta.env.VITE_API;
 
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const response = await axios.get(`${API}/admin/partner`, {
+        const response = await axios.get(`${API}/admin/partner?page=${page}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPartners(response.data);
+        setHasNextPage(response.data.length === itemsPerPage);
       } catch (error) {
         console.log("Error fetching users:", error);
       } finally {
@@ -28,7 +32,7 @@ export default function HotelDetailAdmin() {
       }
     };
     fetchPartners();
-  }, [API, token]);
+  }, [API, token, page]);
 
   const handleUpdate = async (partnerId, updatedData) => {
     try {
@@ -82,6 +86,12 @@ export default function HotelDetailAdmin() {
         },
       });
     }
+  };
+  const handleNextPage = () => {
+    if (hasNextPage) setPage(page + 1);
+  };
+  const handlePreviousPage = () => {
+    if (page > 1) setPage(page - 1);
   };
 
   if (loading) return <p className="text-center text-xl">Loading...</p>;
@@ -147,6 +157,33 @@ export default function HotelDetailAdmin() {
             </tbody>
           </table>
         </div>
+      </div>
+      <div className="flex justify-center items-center my-4 space-x-4">
+        <button
+          onClick={handlePreviousPage}
+          disabled={page === 1}
+          className={`px-2 py-2 rounded-xl transition ${
+            page === 1
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+          }`}
+        >
+          ◀ Previous
+        </button>
+
+        <span className="text-lg font-semibold">Page {page}</span>
+
+        <button
+          onClick={handleNextPage}
+          disabled={!hasNextPage}
+          className={`px-2 py-2 rounded-xl transition ${
+            !hasNextPage
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+          }`}
+        >
+          Next ▶
+        </button>
       </div>
     </>
   );

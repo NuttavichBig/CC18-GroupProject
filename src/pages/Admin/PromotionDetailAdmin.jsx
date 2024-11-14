@@ -14,6 +14,11 @@ export default function PromotionDetailAdmin() {
   const [createPromotion, setCreatePromotion] = useState(false);
   const [editPromotion, setEditPromotion] = useState(false);
   const [selectedPromotion, setSelectedPromotion] = useState(null);
+  
+  const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const itemsPerPage = 9;
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPromotionId, setSelectedPromotionId] = useState(null);
   const API = import.meta.env.VITE_API;
@@ -28,12 +33,15 @@ export default function PromotionDetailAdmin() {
     });
   };
 
+
+
   useEffect(() => {
     const fetchPromotions = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${API}/promotion?limit=999`);
+        const response = await axios.get(`${API}/promotion?page=${page}&limit=${itemsPerPage}`);
         setPromotions(response.data.promotion || []);
+        setHasNextPage(response.data.promotion.length === itemsPerPage);
       } catch (error) {
         console.error("Error fetching promotions:", error);
       } finally {
@@ -41,7 +49,7 @@ export default function PromotionDetailAdmin() {
       }
     };
     fetchPromotions();
-  }, [createPromotion, editPromotion]);
+  }, [createPromotion, editPromotion,page]);
 
   const handleRemove = async (promotionId) => {
     try {
@@ -121,6 +129,12 @@ export default function PromotionDetailAdmin() {
     setCreatePromotion(false);
     setPromotions((prevPromotions) => [newPromotion, ...prevPromotions]);
   };
+  const handleNextPage = () => {
+    if (hasNextPage) setPage(page + 1);
+  };
+  const handlePreviousPage = () => {
+    if (page > 1) setPage(page - 1);
+  };
 
   return (
     <>
@@ -134,6 +148,7 @@ export default function PromotionDetailAdmin() {
           onCancel={() => setEditPromotion(false)}
         />
       )}
+
       <div className="w-full bg-gray-100 py-6 px-4">
         <p className="bg-gradient-to-r from-[#0088d1] to-[#1E4D8C] text-white text-3xl font-bold rounded-lg p-4 text-center shadow-xl">
           PROMOTIONS
@@ -211,6 +226,33 @@ export default function PromotionDetailAdmin() {
           </div>
         </div>
       )}
+            <div className="flex justify-center items-center my-4 space-x-4">
+        <button
+          onClick={handlePreviousPage}
+          disabled={page === 1}
+          className={`px-2 py-2 rounded-xl transition ${
+            page === 1
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+          }`}
+        >
+          ◀ Previous
+        </button>
+
+        <span className="text-lg font-semibold">Page {page}</span>
+
+        <button
+          onClick={handleNextPage}
+          disabled={!hasNextPage}
+          className={`px-2 py-2 rounded-xl transition ${
+            !hasNextPage
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+          }`}
+        >
+          Next ▶
+        </button>
+      </div>
     </>
   );
 }
