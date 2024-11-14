@@ -37,12 +37,12 @@ const HeaderUserPage = () => {
       // Add more routes here as needed
       default: 750, // Default scroll value if no specific route is matched
     };
-  
+
     // Get the scroll value for the current path, or fallback to default
     const scrollValue = scrollValues[path.pathname] || scrollValues.default;
-  
+
     console.log(scrollValue);
-  
+
     // Navigate and scroll
     navigate("/");
     window.scrollTo({
@@ -77,7 +77,7 @@ const HeaderUserPage = () => {
 
         <nav className="flex justify-center space-x-16 tracking-widest uppercase">
           <button onClick={toSearchBooking} className="hover:text-gray-300">
-            Booking
+            BOOKING
           </button>
           <Link to="/user/promotion" className="hover:text-gray-300">
             Travel Promotion
@@ -133,27 +133,24 @@ const HeaderUserPage = () => {
         <div className="flex items-center space-x-4 mr-12">
           <div className="relative">
             <div
-              className={`flex absolute  p-2 -top-5 ${
-                isSearchHover ? "-left-[300px]" : "-z-10 -left-[392px]"
-              }`}
+              className={`flex absolute  p-2 -top-5 ${isSearchHover ? "-left-[300px]" : "-z-10 -left-[392px]"
+                }`}
               onMouseLeave={handleHoverLeaveSearch}
             >
               <input
                 type="text"
                 name="UUID"
-                className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white  origin-right transition-transform ${
-                  isSearchHover ? "scale-100" : "scale-x-0"
-                }`}
+                className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white  origin-right transition-transform ${isSearchHover ? "scale-100" : "scale-x-0"
+                  }`}
                 onChange={hdlChange}
                 value={input}
                 placeholder="Your Booking Number"
               />
               <button
-                className={`text-white bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full ${
-                  isSearchHover
-                    ? "rounded-l-none w-[80px] max-2xl:w-[68px]"
-                    : "rounded-l-full w-[172px] max-2xl:w-[160px]"
-                }`}
+                className={`text-white bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full ${isSearchHover
+                  ? "rounded-l-none w-[80px] max-2xl:w-[68px]"
+                  : "rounded-l-full w-[172px] max-2xl:w-[160px]"
+                  }`}
                 onMouseEnter={handleHoverEnterSearch}
                 onClick={hdlConfirm}
               >
