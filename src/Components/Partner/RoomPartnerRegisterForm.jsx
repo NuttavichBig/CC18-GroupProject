@@ -186,60 +186,70 @@ function RoomPartnerRegisterForm(props) {
     }
 
     return (
-        <div className="bg-cream-gradient text-[#543310] p-8 rounded-lg shadow-md max-w-4xl mx-auto">
-            <div className="p-2 absolute cursor-pointer"
-                onClick={() => {
-                    setAllFormData((prv) => ({ ...prv, room: rooms }));
-                    setPage((prv) => prv - 1);
-                }}>
-                <FaArrowLeftLong size={25} color="gray" />
-            </div>
-            <h2 className="text-2xl font-semibold text-center mb-4">
-                Hotel Partner Registration
-            </h2>
-            <hr className="border-[#543310]" />
-            <h2 className="text-2xl font-semibold text-center my-4">
-                Please add room in your hotel
-            </h2>
-            <div className="flex flex-col gap-4">
-                {rooms && rooms?.map((item, index) => <div className="flex flex-col gap-2" key={index} >
-                    <div className="flex gap-2" >
-                        <p className="text-xl font-bold">Room {index + 1}</p>
-                        {index > 0 &&
-                            <button className="py-0.5 px-4 bg-red-500 text-white shadow-md rounded-lg hover:bg-black active:translate-y-1"
-                                onClick={() => deleteRoom(index)}>Delete</button>}
-                    </div>
-                    <CreateRoomRegisterForm room={item} setRooms={setRooms} index={index} />
-                </div>
-                )}
-            </div>
+        <div className="relative bg-cream-gradient text-[#543310] p-8 rounded-lg shadow-md max-w-4xl mx-auto">
 
-            <button className="py-2 bg-blue-500 w-full text-xl text-white font-semibold rounded-lg shadow-lg hover:bg-orange-400 active:translate-y-1 my-4"
-                onClick={addNewRoom}>Add new room</button>
-            <p className="text-red-500 text-sm">{pageParam.errMsg}</p>
+            {pageParam.isLoading ? (
 
-            <div className="flex gap-4 justify-center">
-                {pageParam.isLoading ? (
-                    <div className="flex justify-center items-center">
-                        <LoadingRoomPartnerRegisterForm />
+                <LoadingRoomPartnerRegisterForm />
+            ) : (
+                <>
+                    <div className="p-2 absolute cursor-pointer"
+                        onClick={() => {
+                            setAllFormData((prv) => ({ ...prv, room: rooms }));
+                            setPage((prv) => prv - 1);
+                        }}>
+                        <FaArrowLeftLong size={25} color="gray" />
                     </div>
-                ) : (
-                    <>
-                    
+                    <h2 className="text-2xl font-semibold text-center mb-4">
+                        Hotel Partner Registration
+                    </h2>
+                    <hr className="border-[#543310]" />
+                    <h2 className="text-2xl font-semibold text-center my-4">
+                        Please add room in your hotel
+                    </h2>
+                    <div className="flex flex-col gap-4">
+                        {rooms &&
+                            rooms.map((item, index) => (
+                                <div className="flex flex-col gap-2" key={index}>
+                                    <div className="flex gap-2">
+                                        <p className="text-xl font-bold">Room {index + 1}</p>
+                                        {index > 0 && (
+                                            <button
+                                                className="py-0.5 px-4 bg-red-500 text-white shadow-md rounded-lg hover:bg-black active:translate-y-1"
+                                                onClick={() => deleteRoom(index)}
+                                            >
+                                                Delete
+                                            </button>
+                                        )}
+                                    </div>
+                                    <CreateRoomRegisterForm
+                                        room={item}
+                                        setRooms={setRooms}
+                                        index={index}
+                                    />
+                                </div>
+                            ))}
+                    </div>
+                    <button
+                        className="py-2 bg-blue-500 w-full text-xl text-white font-semibold rounded-lg shadow-lg hover:bg-orange-400 active:translate-y-1 my-4"
+                        onClick={addNewRoom}
+                    >
+                        Add new room
+                    </button>
+                    <p className="text-red-500 text-sm">{pageParam.errMsg}</p>
+                    <div className="flex gap-4 justify-center">
                         <button
                             className="w-full bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-102 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
                             onClick={handleDataConfirm}
                         >
                             CONFIRM
                         </button>
-                    </>
-                )}
-            </div>
-
-
-
+                    </div>
+                </>
+            )}
         </div>
     );
+
 }
 
 export default RoomPartnerRegisterForm;
