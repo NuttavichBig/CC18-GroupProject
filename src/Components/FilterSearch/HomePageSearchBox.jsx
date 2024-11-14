@@ -48,8 +48,10 @@ const HomePageSearchBox = () => {
   const handleSelectLocation = (selectedLocation) => {
     setSelectedLocation(selectedLocation);
   };
-
+ 
   const handleSearch = () => {
+    console.log(adults)
+    setInput({...input,guest : adults})
     navigate("/bookinghotel");
   };
 

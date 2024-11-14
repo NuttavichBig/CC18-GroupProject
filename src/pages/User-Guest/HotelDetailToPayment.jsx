@@ -40,8 +40,9 @@ function HotelDetailToPayment() {
         }))
     }, [])
     useEffect(() => {
-        const breakfast = pageParams.breakfastIncluded ? 60 : 0
-        setPageParams(prv => ({ ...prv, totalPrice: (Number(selectedRoom.price) + breakfast) * prv.nights * prv.room }))
+        const breakfast = pageParams.breakfastIncluded ? 250 : 0
+        console.log(filter.guest)
+        setPageParams(prv => ({ ...prv, totalPrice: (Number(selectedRoom.price) + (breakfast*Number(filter.guest))) * prv.nights * prv.room }))
         actionSetRoom(pageParams.room)
     }, [pageParams.room, pageParams.breakfastIncluded, pageParams.nights])
     useEffect(() => {
