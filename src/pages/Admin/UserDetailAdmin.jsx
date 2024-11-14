@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useUserStore from "../../stores/user-store";
 import Swal from "sweetalert2";
-import FormErrorAlert from '../../assets/ErrorToast1.gif'
-import FormSuccessAlert from '../../assets/SuccessToast.gif'
+import FormErrorAlert from "../../assets/ErrorToast1.gif";
+import FormSuccessAlert from "../../assets/SuccessToast.gif";
 import LoadingRainbow from "../../Components/Loading/LoadingRainbow";
 
 export default function UserDetailAdmin() {
@@ -12,20 +12,21 @@ export default function UserDetailAdmin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const token = useUserStore((state) => state.token);
+  const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const itemsPerPage = 10;
+
   const API = import.meta.env.VITE_API;
   const currentUserEmail = useUserStore((state) => state.user?.email);
-  // console.log(currentUserEmail) //myself
 
-
-  // Fetch users when the component mounts
   useEffect(() => {
     async function fetchUsers() {
       try {
-        const response = await axios.get(`${API}/admin/user`, {
+        const response = await axios.get(`${API}/admin/user?page=${page}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUsers(response.data);
-
+        setHasNextPage(response.data.length === itemsPerPage);
       } catch (error) {
         console.error("Error fetching users:", error);
       } finally {
@@ -33,7 +34,7 @@ export default function UserDetailAdmin() {
       }
     }
     fetchUsers();
-  }, [API, token]);
+  }, [API, token, page]);
 
   // Filter users to exclude the current admin
   const filteredUsers = users.filter((user) => user.email !== currentUserEmail);
@@ -45,7 +46,9 @@ export default function UserDetailAdmin() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers((prev) =>
-        prev.map((user) => (user.id === userId ? { ...user, ...updatedData } : user))
+        prev.map((user) =>
+          user.id === userId ? { ...user, ...updatedData } : user
+        )
       );
       //alert success
       Swal.fire({
@@ -100,7 +103,9 @@ export default function UserDetailAdmin() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers((prev) =>
-        prev.map((user) => (user.id === userId ? { ...user, status: res.data.user.status } : user))
+        prev.map((user) =>
+          user.id === userId ? { ...user, status: res.data.user.status } : user
+        )
       );
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -115,11 +120,16 @@ export default function UserDetailAdmin() {
 
   // Confirm deletion
   const confirmDelete = () => {
-    console.log(selectedUserId)
+    console.log(selectedUserId);
     handleDelete(selectedUserId);
     setIsModalOpen(false);
   };
-
+  const handleNextPage = () => {
+    if (hasNextPage) setPage(page + 1);
+  };
+  const handlePreviousPage = () => {
+    if (page > 1) setPage(page - 1);
+  };
   if (loading) return <LoadingRainbow />;
 
   return (
@@ -128,6 +138,7 @@ export default function UserDetailAdmin() {
         <p className="bg-gradient-to-r from-[#0088d1] to-[#1E4D8C] text-3xl text-white font-bold rounded-lg p-2 text-center shadow-lg">
           USER INFORMATION
         </p>
+
         <div className="overflow-x-auto mt-6 bg-white rounded-lg shadow-lg">
           <table className="min-w-full text-sm text-gray-600 border-collapse">
             <thead className="bg-[#0088d1] text-white">
@@ -157,7 +168,9 @@ export default function UserDetailAdmin() {
                   <td className="py-3 px-4 border-b">
                     <select
                       value={user.role}
-                      onChange={(e) => handleUpdate(user.id, { role: e.target.value })}
+                      onChange={(e) =>
+                        handleUpdate(user.id, { role: e.target.value })
+                      }
                       className="w-full bg-gray-100 border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="USER">USER</option>
@@ -168,7 +181,9 @@ export default function UserDetailAdmin() {
                   <td className="py-3 px-4 border-b">
                     <select
                       value={user.status}
-                      onChange={(e) => handleUpdate(user.id, { status: e.target.value })}
+                      onChange={(e) =>
+                        handleUpdate(user.id, { status: e.target.value })
+                      }
                       className="w-full bg-gray-100 border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="PENDING">PENDING</option>
@@ -197,7 +212,9 @@ export default function UserDetailAdmin() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-6 w-[90%] max-w-md">
             <h2 className="text-lg font-semibold mb-4">Confirm Action</h2>
-            <p className="text-gray-700 mb-6">Are you sure you want to Banned this account?</p>
+            <p className="text-gray-700 mb-6">
+              Are you sure you want to Banned this account?
+            </p>
             <div className="flex justify-end space-x-4">
               <button
                 onClick={() => setIsModalOpen(false)}
@@ -215,6 +232,33 @@ export default function UserDetailAdmin() {
           </div>
         </div>
       )}
+      <div className="flex justify-center items-center my-4 space-x-4">
+        <button
+          onClick={handlePreviousPage}
+          disabled={page === 1}
+          className={`px-2 py-2 rounded-xl transition ${
+            page === 1
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+          }`}
+        >
+          ◀ Previous
+        </button>
+
+        <span className="text-lg font-semibold">Page {page}</span>
+
+        <button
+          onClick={handleNextPage}
+          disabled={!hasNextPage}
+          className={`px-2 py-2 rounded-xl transition ${
+            !hasNextPage
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+          }`}
+        >
+          Next ▶
+        </button>
+      </div>
     </div>
   );
 }

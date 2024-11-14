@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import FormErrorAlert from '../../assets/ErrorToast1.gif'
 import FormSuccessAlert from '../../assets/SuccessToast.gif'
 import { toast } from "react-toastify";
+import LoadingCouponCreate from "../Loading/LoadingCouponCreate";
 
 export default function EditPromotion({ promotion, onSave, onCancel }) {
   const [journeyDate, setJourneyDate] = useState(new Date(promotion.startDate));
@@ -157,6 +158,9 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
 
     return formPayload;
   };
+  if (isLoading) {
+    return <LoadingCouponCreate />;
+  }
 
   return (
     <div

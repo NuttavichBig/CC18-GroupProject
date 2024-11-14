@@ -82,8 +82,8 @@ const HeaderUserPage = () => {
             <div className="relative">
               <span
                 className="hover:text-gray-300 cursor-pointer"
-                onClick={() => setIsLoginModalOpen(true)} // แก้ไขตรงนี้เพื่อเปิด Login modal
-                onMouseEnter={handleMouseEnterLogin} // แสดง dropdown เมื่อ hover ที่ Login
+                onClick={() => setIsLoginModalOpen(true)} 
+                onMouseEnter={handleMouseEnterLogin} 
               >
                 Login
               </span>

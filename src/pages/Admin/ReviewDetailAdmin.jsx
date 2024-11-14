@@ -11,17 +11,20 @@ export default function ReviewDetailAdmin() {
   const [reviewDetail, setReviewDetail] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedReviewId, setSelectedReviewId] = useState(null);
+  const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const itemsPerPage = 10;
   const token = useUserStore((state) => state.token);
   const API = import.meta.env.VITE_API;
  const [index ,setIndex] = useState(null)
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`${API}/review`, {
-          params: { page: 1, limit: 10 },
+        const response = await axios.get(`${API}/review?page=${page}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setReviews(response.data.data);
+        setHasNextPage(response.data.length === itemsPerPage);
       } catch (error) {
         console.log("Error fetching reviews:", error);
       }
@@ -89,6 +92,13 @@ export default function ReviewDetailAdmin() {
   const confirmDelete = () => {
     handleDelete(selectedReviewId);
     setIsModalOpen(false);
+  };
+
+  const handleNextPage = () => {
+    if (hasNextPage) setPage(page + 1);
+  };
+  const handlePreviousPage = () => {
+    if (page > 1) setPage(page - 1);
   };
 
   return (
@@ -170,6 +180,33 @@ export default function ReviewDetailAdmin() {
           </div>
         </div>
       )}
+            <div className="flex justify-center items-center my-4 space-x-4">
+        <button
+          onClick={handlePreviousPage}
+          disabled={page === 1}
+          className={`px-2 py-2 rounded-xl transition ${
+            page === 1
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+          }`}
+        >
+          ◀ Previous
+        </button>
+
+        <span className="text-lg font-semibold">Page {page}</span>
+
+        <button
+          onClick={handleNextPage}
+          disabled={!hasNextPage}
+          className={`px-2 py-2 rounded-xl transition ${
+            !hasNextPage
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+          }`}
+        >
+          Next ▶
+        </button>
+      </div>
     </>
   );
 }
