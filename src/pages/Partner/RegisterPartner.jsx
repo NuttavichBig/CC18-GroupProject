@@ -19,10 +19,10 @@ function RegisterPartner() {
       <HeaderUserPage />
       <div className="border-b mt-8 h-[100px]"></div>
       <div className="min-h-screen relative flex justify-center items-start">
-        <div className="container mx-auto p-6 py-24 grid gap-5">
+        <div className="container mx-auto p-6 grid gap-5">
           <div className="grid grid-cols-3 gap-6">
             <div className="col-span-3 h-full">
-              <div>
+              <div className="pt-20">
                 {page === 1 && (
                   <HotelPartnerRegisterForm
                     setAllFormData={setAllFormData}
@@ -50,7 +50,7 @@ function RegisterPartner() {
           </div>
         </div>
       </div>
-      <div className="-mt-8">
+      <div className="-mt-40">
         <Footer />
       </div>
     </div>

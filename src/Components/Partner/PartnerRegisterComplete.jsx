@@ -3,7 +3,7 @@ import React from 'react'
 function PartnerRegisterComplete() {
   return (
     <div className='flex text-[#543310] justify-center items-center '>
-        <div className='flex flex-col p-20'>
+        <div className='flex flex-col mt-20'>
             <h2 className='text-3xl font-bold'>You Register has been complete</h2>
             <hr className='border-blue-500 my-8 border-4'/>
             <div className='flex flex-col gap-2'>
