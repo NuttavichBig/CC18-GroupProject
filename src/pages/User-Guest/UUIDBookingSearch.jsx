@@ -38,20 +38,20 @@ function UUIDBookingSearch() {
 
                     {
                         booking &&
-                        <div className='flex w-fit bg-luxury-cream-gradient rounded-md mx-auto shadow-xl mt-40'>
+                        <div className='flex w-fit bg-luxury-cream-gradient rounded-md mx-auto shadow-lg mt-40'>
                             <div className='flex flex-col w-full p-8'>
                                 <div className='flex'>
                                     <div className='flex flex-col gap-2'>
                                         <div className='flex w-full justify-between gap-2 items-baseline'>
-                                            <h1 className='text-4xl font-bold'>Booking</h1><p className='text-gray-500'>{booking.UUID} </p>
+                                            <h1 className='text-4xl font-bold p-2'>Booking</h1><p className='text-gray-500'>{booking.UUID} </p>
                                         </div>
-                                        <h2 className='flex bg-blue-100 justify-center p-2 text-2xl font-bold text-white bg-orange-dark-pink-gradient w-full'>Hotel Info</h2>
-                                        <div className='flex gap-4 bg-white p-4'>
+                                        <h2 className='flex bg-blue-100 justify-center p-2 text-2xl font-bold text-white bg-orange-dark-pink-gradient w-full rounded-md'>Hotel Info</h2>
+                                        <div className='flex gap-4 bg-white p-4 rounded-md'>
                                             <div className='p-1 border-2 w-fit border-pink-500 rounded-lg'>
                                                 <img src={booking.hotels.img} alt={booking.hotels.name} className='w-[400px] max-h-[320px] object-cover rounded-lg' />
                                             </div>
                                             <div className='flex flex-col gap-2'>
-                                                <div className='flex flex-col gap-1'>
+                                                <div className='flex flex-col gap-1 px-2'>
                                                     <h3 className='text-2xl font-semibold'>{booking.hotels.name}</h3>
                                                     <p className='text-lg'>{booking.hotels.detail}</p>
                                                     <div className='flex gap-2 mt-8'>
@@ -67,14 +67,14 @@ function UUIDBookingSearch() {
                                             </div>
                                         </div>
                                         <div className='flex flex-col gap-2'>
-                                            <h2 className='flex justify-center p-2 text-2xl font-bold text-white bg-orange-dark-gradient w-full'>Room Info</h2>
-                                            <div className='flex-row-reverse flex gap-4 w-full  bg-white p-4'>
+                                            <h2 className='flex justify-center p-2 text-2xl font-bold text-white bg-orange-dark-gradient w-full rounded-md'>Room Info</h2>
+                                            <div className='flex-row-reverse flex justify-center gap-4 w-full  bg-white p-4 rounded-md'>
 
                                                 <div className='p-1 border-2 w-fit border-amber-600 rounded-lg'>
                                                     <img src={booking.bookingRooms[0].rooms.images[0].img} alt={booking.bookingRooms[0].rooms.name} className='w-[400px] max-h-[320px] object-cover rounded-lg' />
                                                 </div>
                                                 <div className='flex flex-col gap-2'>
-                                                    <div className='flex flex-col gap-1'>
+                                                    <div className='flex flex-col gap-1 pt-4'>
                                                         <h3 className='text-2xl font-semibold'>{booking.bookingRooms[0].rooms.name}</h3>
                                                         <p className='text-lg text-end'>{booking.bookingRooms[0].rooms.detail}</p>
                                                         <div className='flex gap-2 mt-8'>
@@ -90,9 +90,9 @@ function UUIDBookingSearch() {
 
                                         </div>
                                         <div className='flex flex-col w-full gap-2'>
-                                            <h2 className='flex justify-center p-2 text-2xl font-bold text-white bg-orange-dark-pink-gradient w-full'>Booking Info</h2>
+                                            <h2 className='flex justify-center p-2 text-2xl font-bold text-white bg-orange-dark-pink-gradient w-full rounded-md'>Booking Info</h2>
                                             <div className='flex justify-center items-start'>
-                                                <div className='flex items-start w-full h-fit justify-between'>
+                                                <div className='flex items-start w-full h-fit justify-center gap-10 p-3'>
                                                     <div className='flex flex-col gap-4 bg-white p-4 rounded-lg shadow-lg'>
                                                         <h1 className='text-center text-2xl font-bold'>Detail</h1>
                                                         <hr className='border-gray-300' />
@@ -101,14 +101,14 @@ function UUIDBookingSearch() {
                                                             <h2>{booking.createdAt.split('', 10)}</h2>
                                                         </div>
                                                         <div className='flex justify-center items-center'>
-                                                            <div className='flex bg-white border border-gray-400 py-4 px-8 rounded-lg shadow-lg'>
+                                                            <div className='flex bg-white border border-gray-400 py-4 px-8 rounded-lg'>
                                                                 <div className='flex flex-col gap-1 text-center'>
                                                                     <p className='font-semibold'>Check-in Date</p>
                                                                     <p className='text-sm'>{booking.checkinDate.split('', 10)}</p>
                                                                 </div>
                                                             </div>
                                                             <HiOutlineArrowNarrowRight size={50} color='orange' />
-                                                            <div className='flex bg-white border border-gray-400 py-4 px-8 rounded-lg shadow-lg'>
+                                                            <div className='flex bg-white border border-gray-400 py-4 px-8 rounded-lg'>
                                                                 <div className='flex flex-col gap-1 text-center'>
                                                                     <p className='font-semibold'>Check-out Date</p>
                                                                     <p className='text-sm'>{booking.checkoutDate.split('', 10)}</p>
@@ -125,7 +125,7 @@ function UUIDBookingSearch() {
                                                             <hr className='border-gray-300'></hr>
                                                             <div className='flex justify-between'>
                                                                 <h1 className='text-2xl font-semibold'>Total</h1>
-                                                                <p className='text-orange-500 font-bold text-2xl'>{booking.totalPrice}</p>
+                                                                <p className='text-orange-500 font-bold text-2xl'>{booking.totalPrice} THB</p>
                                                             </div>
                                                         </div>
                                                     </div>
