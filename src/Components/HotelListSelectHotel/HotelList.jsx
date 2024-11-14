@@ -9,6 +9,8 @@ const HotelList = ({ hotels }) => {
     (state) => state.actionSetCurrentHotel
   );
 
+
+
   const handleBookNow = (hotel) => {
     actionSetCurrentHotel(hotel);
     navigate("/bookinghotel-detail");
@@ -33,6 +35,10 @@ const HotelList = ({ hotels }) => {
     if (rating >= 0 && rating < 3) return "Review Score";
     return "No Rating";
   };
+  const actionSetAllHotel = useHotelStore( //set allhotel to use ในRecommend นะ
+    (state) => state.actionSetAllHotels
+  );
+  actionSetAllHotel(hotels)
 
   return (
     <div className="w-full flex flex-col text-[#543310]">
@@ -83,12 +89,12 @@ const HotelList = ({ hotels }) => {
 
                 <div className="flex justify-between">
                   <div>
-                  <span className="text-yellow-500">
-                    {"★".repeat(hotel.star)}
-                  </span>
-                  <span className="text-gray-400">
-                    {"★".repeat(5 - hotel.star)}
-                  </span>
+                    <span className="text-yellow-500">
+                      {"★".repeat(hotel.star)}
+                    </span>
+                    <span className="text-gray-400">
+                      {"★".repeat(5 - hotel.star)}
+                    </span>
                   </div>
                   <div className="text-lg text-[#543310] font-bold">THB {getLowestRoomPrice(hotel.rooms)}</div>
                 </div>
