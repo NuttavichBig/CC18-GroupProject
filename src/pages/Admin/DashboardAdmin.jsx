@@ -47,6 +47,7 @@ export default function DashboardAdmin({}) {
   );
   const [chatBoxList, setChatBoxList] = useState([]);
   const [chatOpen, setChatOpen] = useState(false);
+  const [noti,setNoti] = useState(0);
 
   const [data, setData] = useState({
     totalUsers: 0,
@@ -70,7 +71,6 @@ export default function DashboardAdmin({}) {
   useEffect(() => {
     connect();
   }, []);
-
   useEffect(() => {
     if (socket) {
       socket.on("adminJoinComplete", (allLastMessage) => {
@@ -99,11 +99,16 @@ export default function DashboardAdmin({}) {
         });
         setChatBoxNull();
       });
+      socket.on('adminRead',({data})=>{
+        console.log('admin read')
+        setChatBoxList(data)
+      })
     }
     return () => {
       if (socket) {
         socket.off("userMessage");
         socket.off("userLeave");
+        socket.off('adminRead')
       }
     };
   }, [socket]);
@@ -166,6 +171,17 @@ export default function DashboardAdmin({}) {
     fetchData();
   }, [timePeriod]);
 
+
+  useEffect(()=>{
+    let noti = 0
+    chatBoxList.map(item=>{
+      const find = item.messages.find(chat=>chat.isRead === false)
+      if(find){
+        noti++
+      }
+    })
+    setNoti(noti)
+  },[chatBoxList])
   const bookingTrendsData = {
     labels: Array.isArray(data.bookingTrends)
       ? data.bookingTrends.map((item) =>
@@ -347,7 +363,7 @@ export default function DashboardAdmin({}) {
             >
               <p className="text-2xl font-bold">WAITING CHAT</p>
               <p className="absolute top-3 right-3 transform translate-x-1/2 -translate-y-1/2 text-3xl font-bold text-[#FF1744] rounded-full border-4 border-[#FFD700] bg-[#ffaa20] p-2">
-                {chatBoxList.filter((el) => el.isAdmin === false).length}
+                {noti}
               </p>
             </button>
           </div>

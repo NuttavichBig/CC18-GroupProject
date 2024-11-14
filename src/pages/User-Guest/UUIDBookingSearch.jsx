@@ -38,7 +38,7 @@ function UUIDBookingSearch() {
 
                     {
                         booking &&
-                        <div className='flex w-fit bg-luxury-cream-gradient rounded-md shadow-xl mt-20'>
+                        <div className='flex w-fit bg-luxury-cream-gradient rounded-md mx-auto shadow-xl mt-40'>
                             <div className='flex flex-col w-full p-8'>
                                 <div className='flex'>
                                     <div className='flex flex-col gap-2'>

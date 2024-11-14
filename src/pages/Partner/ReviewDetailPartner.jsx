@@ -8,14 +8,25 @@ export default function ReviewDetailPartner() {
   const [reviewsPartner, setReviewsPartner] = useState(false);
   const hotel = usePartnerStore((state) => state.hotel);
   const [reviews, setReviews] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     getAllReview();
-  }, []);
+  }, [page]);
 
   const getAllReview = async () => {
-    const result = await axios.get(`${API}/hotel/${hotel.id}`);
+    const result = await axios.get(`${API}/hotel/${hotel.id}?page=${page}`);
     setReviews(result.data.reviews);
+    setHasNextPage(result.data.reviews.length === itemsPerPage);
+  };
+
+    const handleNextPage = () => {
+    if (hasNextPage) setPage(page + 1);
+  };
+  const handlePreviousPage = () => {
+    if (page > 1) setPage(page - 1);
   };
 
   return (
@@ -48,6 +59,35 @@ export default function ReviewDetailPartner() {
           ))}
         </tbody>
       </table>
+      {(reviews.length === itemsPerPage || page > 1) && (
+        <div className="flex justify-center items-center my-4 space-x-4">
+          <button
+            onClick={handlePreviousPage}
+            disabled={page === 1}
+            className={`px-2 py-2 rounded-xl transition ${
+              page === 1
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-orange-400 border-2 border-orange-400 text-white hover:bg-[#ffffff] hover:text-orange-400 hover:border-2 hover:border-orange-400"
+            }`}
+          >
+            ◀ Previous
+          </button>
+
+          <span className="text-lg font-semibold">Page {page}</span>
+
+          <button
+            onClick={handleNextPage}
+            disabled={!hasNextPage}
+            className={`px-2 py-2 rounded-xl transition ${
+              !hasNextPage
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-orange-400 border-2 border-orange-400 text-white hover:bg-[#ffffff] hover:text-orange-400 hover:border-2 hover:border-orange-400"
+            }`}
+          >
+            Next ▶
+          </button>
+        </div>
+      )}
     </div>
   );
 }

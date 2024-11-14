@@ -1,11 +1,12 @@
 import React from 'react';
-import loadingAnimationUrl from '../../assets/Loading/paymentSendFormmethodloading.gif';
+import loadingAnimationUrl from '../../assets/Loading/PartnerRegisterLoadingFinished.gif';
 
-const PaymentsendFormLoading = () => {
+
+const LoadingRoomPartnerRegisterForm = () => {
     return (
         <div style={styles.container}>
             <img src={loadingAnimationUrl} alt="Loading..." style={styles.image} />
-            {/* <div style={styles.loadingText}>Loading ...</div> */}
+
         </div>
     );
 };
@@ -16,21 +17,21 @@ const styles = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',  // ปรับให้เต็มความสูงของการ์ด
-        width: '100%',   // ปรับให้เต็มความกว้างของการ์ด
+        height: '100vh', // ความสูง
+        width: '100vh',  // ความกว้าง
         textAlign: 'center',
-        backgroundColor: '#f9f9f9',
+        backgroundColor: 'rgba(255, 255, 255, 0)', // พื้นหลังโปร่งแสง
     },
     image: {
         width: '300px', // ขนาดภาพ
         height: '300px', // ขนาดภาพ
-        marginBottom: '20px', // เพิ่มระยะห่างด้านล่างของภาพ
+        marginBottom: '10px', // เพิ่มระยะห่างด้านล่างของภาพ
     },
     loadingText: {
         fontSize: '24px', // ขนาดตัวอักษร
         color: '#FF6AD3', // สีตัวอักษร
         fontWeight: 'bold', // ตัวหนา
-        animation: 'fadeIn 1s ease-in-out', // เพิ่มอนิเมชัน
+        animation: 'fadeIn 1s ease-in-out',
     },
     // '@keyframes fadeIn': {
     //     '0%': { opacity: 0 },
@@ -38,4 +39,6 @@ const styles = {
     // },
 };
 
-export default PaymentsendFormLoading;
+
+
+export default LoadingRoomPartnerRegisterForm;

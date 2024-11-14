@@ -218,12 +218,12 @@ export default function HotelUpdate() {
             />
 
             <label className="text-gray-500 text-sm">Check-in Time</label>
-            <input type="text" placeholder="CHECK-IN TIME" name="checkinTime" value={input.checkinTime} onChange={hdlTextChange}
+            <input type="time" placeholder="CHECK-IN TIME" name="checkinTime" value={input.checkinTime} onChange={hdlTextChange}
               className="border border-orange-500 rounded-lg p-3 w-full focus:ring-2 focus:ring-orange-300"
             />
 
             <label className="text-gray-500 text-sm">Check-out Time</label>
-            <input type="text" placeholder="CHECK-OUT TIME" name="checkoutTime" value={input.checkoutTime} onChange={hdlTextChange}
+            <input type="time" placeholder="CHECK-OUT TIME" name="checkoutTime" value={input.checkoutTime} onChange={hdlTextChange}
               className="border border-orange-500 rounded-lg p-3 w-full focus:ring-2 focus:ring-orange-300"
             />
 

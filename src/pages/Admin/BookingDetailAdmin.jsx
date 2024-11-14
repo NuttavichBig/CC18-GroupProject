@@ -10,18 +10,22 @@ const API = import.meta.env.VITE_API;
 export default function BookingDetailAdmin() {
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const itemsPerPage = 10;
+
   const token = useUserStore((state) => state.token);
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get(`${API}/booking`, {
+        const response = await axios.get(`${API}/booking?page=${page}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("Response Data:", response.data);
         setBookings(response.data.data);
+        setHasNextPage(response.data.data.length === itemsPerPage);
       } catch (err) {
         console.error("Failed to fetch bookings:", err);
         setError("Failed to load booking data");
@@ -29,7 +33,7 @@ export default function BookingDetailAdmin() {
     };
 
     fetchBookings();
-  }, [token]);
+  }, [token, page]);
 
   const handlePaymentStatusChange = async (bookingId, newStatus) => {
     console.log('bookingId:', bookingId, 'newStatus:', newStatus);
@@ -94,6 +98,13 @@ export default function BookingDetailAdmin() {
     }
   };
 
+  const handleNextPage = () => {
+    if (hasNextPage) setPage(page + 1);
+  };
+  const handlePreviousPage = () => {
+    if (page > 1) setPage(page - 1);
+  };
+
   if (error) return <div>{error}</div>;
 
   return (
@@ -102,7 +113,6 @@ export default function BookingDetailAdmin() {
       <p className="bg-gradient-to-r from-[#0088d1] to-[#1E4D8C] text-3xl font-bold text-white rounded-lg py-2 text-center shadow-lg">
         BOOKING INFORMATION
       </p>
-
       {/* Table Section */}
       <div className="overflow-x-auto mt-6 bg-white rounded-lg shadow-md">
         <table className="min-w-full text-sm text-center text-gray-600">
@@ -162,6 +172,33 @@ export default function BookingDetailAdmin() {
             )}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-center items-center my-4 space-x-4">
+        <button
+          onClick={handlePreviousPage}
+          disabled={page === 1}
+          className={`px-2 py-2 rounded-xl transition ${
+            page === 1
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+          }`}
+        >
+          ◀ Previous
+        </button>
+
+        <span className="text-lg font-semibold">Page {page}</span>
+
+        <button
+          onClick={handleNextPage}
+          disabled={!hasNextPage}
+          className={`px-2 py-2 rounded-xl transition ${
+            !hasNextPage
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-[#27a6ea] border-2 border-[#27a6ea] text-white hover:bg-[#ffffff] hover:text-[#27a6ea] hover:border-2 hover:border-[#27a6ea]"
+          }`}
+        >
+          Next ▶
+        </button>
       </div>
     </div>
   );

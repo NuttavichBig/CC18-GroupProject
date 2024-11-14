@@ -33,7 +33,7 @@ function PromotionHomePage() {
           onClose={() => setPromotionCard(null)}
         />
       )}
-      <div className="text-center py-10">
+      <div className="text-center py-5">
         <h2 className="text-2xl font-semibold mb-10 text-[#543310]">
           Promotions
         </h2>

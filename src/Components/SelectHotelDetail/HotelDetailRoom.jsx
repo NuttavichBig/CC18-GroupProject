@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import useHotelStore from "../../stores/hotel-store";
 
 function HotelDetailRoom({ rooms }) {
   const navigate = useNavigate();
-  const actionSetSelectedRoom = useHotelStore(
-    (state) => state.actionSetSelectedRoom
-  );
-  const actionClearSelectedRooms = useHotelStore(
-    (state) => state.actionClearSelectedRooms
-  );
+  const actionSetSelectedRoom = useHotelStore((state) => state.actionSetSelectedRoom);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImages, setModalImages] = useState([]);
 
   if (!rooms || rooms.length === 0) {
     return <div>No rooms available at this time.</div>;
@@ -22,28 +21,42 @@ function HotelDetailRoom({ rooms }) {
       .replace(/  +/g, " ");
   };
 
+  const openImageModal = (images) => {
+    setModalImages(images);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // Close modal when clicking outside of modal content
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (event.target.classList.contains("modal-overlay")) {
+        closeModal();
+      }
+    };
+
+    if (isModalOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [isModalOpen]);
+
   const handleBookNow = (room) => {
-    // actionClearSelectedRooms()
     actionSetSelectedRoom(room);
     navigate("/bookinghotel-detail-payment");
   };
 
   return (
-    <div
-      style={{
-        padding: "16px",
-        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-        width: "100%",
-      }}
-    >
-      <h3
-        style={{
-          fontSize: "1.125rem",
-          fontWeight: "600",
-          marginBottom: "16px",
-          color: "#413831",
-        }}
-      >
+    <div style={{ padding: "16px", width: "100%" }}>
+      <h3 style={{ fontSize: "1.125rem", fontWeight: "600", marginBottom: "16px", color: "#413831" }}>
         Rooms
       </h3>
       {rooms.map((room) => (
@@ -60,39 +73,32 @@ function HotelDetailRoom({ rooms }) {
             marginBottom: "16px",
           }}
         >
-          <img
-            src={
-              room.images && room.images.length > 0
-                ? room.images[0].img
-                : "/default-room.jpg"
-            }
-            alt={room.type}
-            style={{
-              width: "8rem",
-              height: "6rem",
-              objectFit: "cover",
-              borderRadius: "8px",
-              marginRight: "16px",
-            }}
-          />
-          <div
-            style={{
-              flexGrow: 1,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
+          <div style={{ width: "12rem", height: "8rem", marginRight: "16px" }} onClick={() => openImageModal(room.images)}>
+            <Carousel showThumbs={false} showStatus={false} infiniteLoop>
+              {room.images && room.images.length > 0 ? (
+                room.images.map((image, index) => (
+                  <div key={index}>
+                    <img
+                      src={image.img}
+                      alt={`${room.type} image ${index + 1}`}
+                      style={{ objectFit: "cover", borderRadius: "8px", width: "100%", height: "100%" }}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div>
+                  <img
+                    src="/default-room.jpg"
+                    alt="Default room"
+                    style={{ objectFit: "cover", borderRadius: "8px", width: "100%", height: "100%" }}
+                  />
+                </div>
+              )}
+            </Carousel>
+          </div>
+          <div style={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
-              <h4
-                style={{
-                  fontSize: "1rem",
-                  fontWeight: "600",
-                  color: "#543310",
-                }}
-              >
-                {room.type}
-              </h4>
+              <h4 style={{ fontSize: "1rem", fontWeight: "600", color: "#543310" }}>{room.name}</h4>
               <div className="text-[#543310] flex items-center ">
                 <div className="w-[100px]">Facilities :</div>
                 <div className="h-full flex flex-wrap items-center">
@@ -119,20 +125,10 @@ function HotelDetailRoom({ rooms }) {
             </div>
             <div className="flex flex-col gap-2">
               <p style={{ fontWeight: "600", color: "#543310" }}>Room</p>
-              <p style={{ fontSize: "0.875rem", color: "#6b6b6b" }}>
-                {room.status || "Not specified"}
-              </p>
+              <p style={{ fontSize: "0.875rem", color: "#6b6b6b" }}>{room.type || "Not specified"}</p>
             </div>
           </div>
-          <span
-            style={{
-              fontSize: "1.25rem",
-              fontWeight: "bold",
-              color: "#f08a4b",
-              marginLeft: "16px",
-              whiteSpace: "nowrap",
-            }}
-          >
+          <span style={{ fontSize: "1.25rem", fontWeight: "bold", color: "#f08a4b", marginLeft: "16px", whiteSpace: "nowrap" }}>
             THB {room.price || "N/A"}
           </span>
           <button
@@ -143,6 +139,31 @@ function HotelDetailRoom({ rooms }) {
           </button>
         </div>
       ))}
+
+      {/* Modal for larger image carousel */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 modal-overlay">
+          <div className="bg-white rounded-lg overflow-hidden max-w-4xl w-full p-4 relative">
+            <button
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl"
+              onClick={closeModal}
+            >
+              &times;
+            </button>
+            <Carousel showThumbs={false} showStatus={false} infiniteLoop>
+              {modalImages.map((image, index) => (
+                <div key={index}>
+                  <img
+                    src={image.img}
+                    alt={`Room image ${index + 1}`}
+                    className="w-full h-[500px] object-cover rounded-lg"
+                  />
+                </div>
+              ))}
+            </Carousel>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -33,6 +33,7 @@ import PartnerDashboard from "../pages/Partner/PartnerDashboard";
 import UUIDBookingSearch from "../pages/User-Guest/UUIDBookingSearch";
 import ResetPassword from "../pages/User-Guest/ResetPassword";
 import ForgetPassword from "../pages/User-Guest/ForgetPassword";
+import PaymentFail from "../pages/User-Guest/PaymentFail";
 
 
 
@@ -53,6 +54,7 @@ const MainRouter = createBrowserRouter([
         path: "bookinghotel-detail-payment-method-summary",
         element: <HotelPaymentSucessSummary />,
       },
+      { path: "bookinghotel-detail-payment-method-fail" ,element : <PaymentFail/> },
       { path: "promotion", element: <HotelPromotion /> },
       { path: "UUID", element: <UUIDBookingSearch /> },
       { path: "/reset-password", element: <ForgetPassword /> },
@@ -77,6 +79,7 @@ const MainRouter = createBrowserRouter([
         path: "bookinghotel-detail-payment-method-summary",
         element: <HotelPaymentSucessSummary />,
       },
+
       { path: "promotion", element: <HotelPromotion /> },
     ],
   },
