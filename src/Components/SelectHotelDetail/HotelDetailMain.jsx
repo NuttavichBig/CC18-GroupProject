@@ -3,8 +3,11 @@ import useHotelStore from '../../stores/hotel-store';
 
 const HotelDetailMain = () => {
     const formatFacilityName = (key) => {
-        return key.replace(/is|([A-Z])/g, " $1").trim().replace(/  +/g, " ");
-    }
+        return key
+          .slice(2) // Remove the first two characters
+          .replace(/([A-Z])/g, " $1") // Add spaces before capital letters
+          .trim(); // Trim any leading or trailing spaces
+      };
 
     const currentHotel = useHotelStore(state => state.currentHotel)
 

@@ -58,7 +58,7 @@ function PaymentResult() {
         {/* Booking Details */}
         <div className="bg-orange-100 rounded-lg p-6 space-y-4 flex-1">
           <p className="text-lg font-semibold border-b pb-2">Booking Details</p>
-          <div className="grid grid-cols-2 gap-y-2 text-sm">
+          <div className="grid grid-cols-2 gap-y-2 text-sm break-words">
             <p className="font-medium">Hotel Name:</p>
             <p>{currentHotel?.name}</p>
             <p className="font-medium">Room:</p>
@@ -73,7 +73,7 @@ function PaymentResult() {
         {/* Contact Details */}
         <div className="bg-orange-100 rounded-lg p-6 space-y-4 flex-1">
           <p className="text-lg font-semibold border-b pb-2">Contact Details</p>
-          <div className="grid grid-cols-2 gap-y-2 text-sm">
+          <div className="grid grid-cols-2 gap-y-2 text-sm break-words">
             <p className="font-medium">Name:</p>
             <p>{resBookingData.booking?.firstName} {resBookingData.booking?.lastName}</p>
             <p className="font-medium">Tel:</p>
