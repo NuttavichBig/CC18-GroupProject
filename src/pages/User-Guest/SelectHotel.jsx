@@ -84,13 +84,13 @@ const SelectHotel = () => {
               <FilterPanel />
             </div>
 
-            <div className="col-span-3 mb-[500px]">
+            <div className="col-span-3 mb-[48px]">
               <HotelList hotels={locations} />
             </div>
           </div>
         </div>
       </div>
-      <PictureSlide />
+      {/* <PictureSlide /> */}
       <Footer />
     </div>
   );
