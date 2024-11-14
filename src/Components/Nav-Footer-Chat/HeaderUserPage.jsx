@@ -120,7 +120,7 @@ const HeaderUserPage = () => {
               <input type="text" name="UUID"
                 className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white  origin-right transition-transform ${isSearchHover ? 'scale-100' : 'scale-x-0'}`}
                 onChange={hdlChange} value={input} placeholder="Your Booking Number" />
-              <button className={`bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full text-white ${isSearchHover ? "rounded-l-none w-[80px] max-2xl:w-[68px]" : "rounded-l-full w-[172px] max-2xl:w-[160px]"}`}
+              <button className={`text-white bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full ${isSearchHover ? "rounded-l-none w-[80px] max-2xl:w-[68px]" : "rounded-l-full w-[172px] max-2xl:w-[160px]"}`}
                 onMouseEnter={handleHoverEnterSearch}
                 onClick={hdlConfirm}>{isSearchHover ? 'Search' : 'Find Your booking'}
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { IoCheckmarkOutline } from "react-icons/io5";
 import defaultPic from '../../assets/ProfilePicture.webp';
 import useUserStore from '../../stores/user-store';
 import Swal from "sweetalert2";
+import defaultProfile from "../../assets/avatar.svg"
 import FormErrorAlert from '../../assets/ErrorToast1.gif'
 import FormSuccessAlert from '../../assets/SuccessToast.gif'
 
@@ -133,7 +133,7 @@ function ProfileForm() {
                         accept="image/*"
                         onChange={handleImageChange}
                         className="hidden" />
-                    <img src={localProfileImage || defaultPic} alt="profile image" className='w-24 h-24 rounded-full shadow-lg object-contain' />
+                    <img src={localProfileImage || defaultProfile} alt="profile image" className='w-24 h-24 rounded-full shadow-lg object-cover' />
                 </div>
             </div>
             <div className='flex flex-col w-full mt-16'>

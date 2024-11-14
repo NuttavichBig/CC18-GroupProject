@@ -34,7 +34,7 @@ function ForgetPassword() {
 
     return (
         <div>
-            <div className='bg-gray-400 relative h-[100px]'>
+            <div className='bg-white relative h-[132px] shadow-md'>
                 <HeaderUserPage />
             </div>
             <div className='min-h-screen relative bg-[#f9f9f9] flex justify-center items-start'>

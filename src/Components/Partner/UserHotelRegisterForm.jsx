@@ -3,6 +3,7 @@ import AddressMap from "./AddressMap";
 import SearchLocation from "../GoogleApi/SearchLocation";
 import Swal from "sweetalert2";
 import FormErrorIcon from '../../assets/ErrorToast1.gif'
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 function UserHotelRegisterForm(props) {
   const { setAllFormData, hotelData, setPage } = props;
@@ -32,7 +33,18 @@ function UserHotelRegisterForm(props) {
       isElevator: false,
     },
   });
-  const [errMsg, setErrMsg] = useState("");
+  const [errMsg, setErrMsg] = useState({
+    name: '',
+    detail: '',
+    address: '',
+    latlng: '',
+    checkinTime: '',
+    checkoutTime: '',
+    phone: '',
+    webPage: '',
+    file: null,
+    overall: ''
+  });
   useEffect(() => {
     if (hotelData) {
       setInput((prv) => ({
@@ -66,33 +78,21 @@ function UserHotelRegisterForm(props) {
   }, []);
 
   const handleSubmit = (e) => {
+    console.log(input)
     e.preventDefault();
     try {
-      if (
-        !input.name ||
-        !input.address ||
-        !input.detail ||
-        !input.lat ||
-        !input.lng ||
-        !input.star ||
-        !input.checkinTime ||
-        !input.checkoutTime ||
-        !input.phone ||
-        !input.webPage ||
-        !input.file
-      ) {
-        throw new Error("Please fill all info");
-      }
+      validator();
       setAllFormData((prv) => ({ ...prv, hotel: input }));
       setPage((prv) => prv + 1);
     } catch (err) {
+        console.log(err)
       const errMsg = err.response?.data?.message || err.message;
-      setErrMsg(errMsg);
+      setErrMsg(prv => ({ ...prv, overall: errMsg }));
       //alert error
       Swal.fire({
         html: `<div class="flex items-center gap-2">
            <img src="${FormErrorIcon}" alt="Error Animation" class="w-10 h-10" />
-           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg.overall}</span>
          </div>`,
         position: "top-end",
         timer: 3000,
@@ -137,16 +137,81 @@ function UserHotelRegisterForm(props) {
     }));
   };
 
+  const validator = () => {
+    const err = {
+      name: '',
+      detail: '',
+      address: '',
+      latlng: '',
+      checkinTime: '',
+      checkoutTime: '',
+      phone: '',
+      webPage: '',
+      file: '',
+      overall : ''
+    }
+    if (!input.name) {
+      err.name = 'Name is required'
+    }
+    if (!input.detail) {
+      err.detail = 'Detail is required'
+    }
+    if (!input.address) {
+      err.address = 'Address is required'
+    }
+    if (!input.lat || !input.lng) {
+      err.latlng = 'Please pin you map'
+    }
+    const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/
+    if (!input.checkinTime) {
+      err.checkinTime = 'Check-in Time is required'
+    }
+    if (!input.checkoutTime) {
+      err.checkoutTime = 'Check-out Time is required'
+    }
+    if (!timePattern.test(input.checkinTime)) {
+      err.checkinTime = 'Check-in Time should be in HH:MM form'
+    }
+    if (!timePattern.test(input.checkoutTime)) {
+      err.checkoutTime = 'Check-out time should be in HH:MM form'
+    }
+    const phonePattern = /^\d{10}$/
+    if (!input.phone) {
+      err.phone = 'Phone number is required'
+    }
+    if (!phonePattern.test(input.phone)) {
+      err.phone = 'Phone number should be 10 digits'
+    }
+    if (!input.webPage) {
+      err.webPage = 'Web Page is required'
+    }
+    if (!input.file) {
+      err.file = 'Image is required'
+    }
+    setErrMsg(err)
+    if (err.name || err.address || err.checkinTime || err.checkoutTime || err.detail || err.file || err.latlng || err.phone || err.webPage) {
+      throw new Error("Please fill all info")
+    }
+
+  }
   return (
+    <>
     <form
       className="bg-cream-gradient text-[#543310] p-8 rounded-lg shadow-md max-w-4xl mx-auto"
       onSubmit={handleSubmit}
     >
+      <div className="p-2 absolute cursor-pointer"
+        onClick={() => {
+          setAllFormData((prv) => ({ ...prv, hotel: input }));
+          setPage((prv) => prv - 1);
+        }}>
+        <FaArrowLeftLong size={25} color="gray" />
+      </div>
       <h2 className="text-2xl font-semibold text-center mb-8">
         Hotel Partner Registration
       </h2>
       <div className="grid grid-cols-2 gap-6">
-        <div className="flex justify-center col-span-2 relative">
+        <div className="flex flex-col items-center justify-center col-span-2 relative">
           <input
             type="file"
             onChange={hdlFileChange}
@@ -167,6 +232,7 @@ function UserHotelRegisterForm(props) {
             }
             className="w-[400px] h-[320px] object-cover rounded-lg"
           />
+          <p className="text-sm text-red-500">{errMsg.file}</p>
         </div>
         <div className="col-span-2">
           <label className="block  mb-2">Hotel Name</label>
@@ -178,6 +244,7 @@ function UserHotelRegisterForm(props) {
             onChange={handleChange}
             placeholder="Hotel Name"
           />
+          <p className="text-sm text-red-500">{errMsg.name}</p>
         </div>
 
         <div className="col-span-2">
@@ -190,6 +257,7 @@ function UserHotelRegisterForm(props) {
             onChange={handleChange}
             rows={input.detail.split("\n").length}
           ></textarea>
+          <p className="text-sm text-red-500">{errMsg.detail}</p>
         </div>
         <div>
           <label className="block  mb-2">Check-in Time</label>
@@ -199,8 +267,9 @@ function UserHotelRegisterForm(props) {
             name="checkinTime"
             value={input.checkinTime}
             onChange={handleChange}
-            placeholder="Check-in Time"
+            placeholder="HH:MM"
           />
+          <p className="text-sm text-red-500">{errMsg.checkinTime}</p>
         </div>
         <div>
           <label className="block  mb-2">Check-out Time</label>
@@ -210,8 +279,9 @@ function UserHotelRegisterForm(props) {
             name="checkoutTime"
             value={input.checkoutTime}
             onChange={handleChange}
-            placeholder="Check-out Time"
+            placeholder="HH:MM"
           />
+          <p className="text-sm text-red-500">{errMsg.checkoutTime}</p>
         </div>
         <div>
           <label className="block mb-2">Star</label>
@@ -226,7 +296,7 @@ function UserHotelRegisterForm(props) {
             <option value={3}>★★★</option>
             <option value={4}>★★★★</option>
             <option value={5}>★★★★★</option>
-          </select>
+          </select><p className="text-sm text-red-500">{errMsg.star}</p>
         </div>
 
         <div>
@@ -239,6 +309,7 @@ function UserHotelRegisterForm(props) {
             onChange={handleChange}
             placeholder="Phone"
           />
+          <p className="text-sm text-red-500">{errMsg.phone}</p>
         </div>
         <div>
           <label className="block  mb-2">Web Page</label>
@@ -250,6 +321,7 @@ function UserHotelRegisterForm(props) {
             onChange={handleChange}
             placeholder="Web Page"
           />
+          <p className="text-sm text-red-500">{errMsg.webPage}</p>
         </div>
 
         {/* Facility */}
@@ -373,53 +445,55 @@ function UserHotelRegisterForm(props) {
             </label>
           </div>
         </div>
-
         <div className="col-span-2">
-          <label className="block  mb-2">Address</label>
-          <div className="flex items-center gap-2">
-            <SearchLocation onSelectLocation={hdlLocationSelect} />
-            <input
-              type="text"
-              className="w-full p-3 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500 "
-              name="address"
-              value={input.address}
-              onChange={handleChange}
-              placeholder="please enter your address"
+
+
+          <div className="w-full">
+            <label className="block  mb-2">Address</label>
+            <div className="flex items-center gap-2 w-full">
+              <div className="flex flex-col">
+
+                <SearchLocation onSelectLocation={hdlLocationSelect} />
+                <p className="text-sm text-red-500">{errMsg.latlng}</p>
+              </div>
+              <div className="flex flex-col w-full ">
+                <input
+                  type="text"
+                  className="w-full p-3 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500 "
+                  name="address"
+                  value={input.address}
+                  onChange={handleChange}
+                  placeholder="please enter your address"
+                />
+                <p className="text-sm text-red-500">{errMsg.address}</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p className="block  mb-2">Map</p>
+            <AddressMap
+              lat={parseFloat(input.lat)}
+              lng={parseFloat(input.lng)}
+              onLocationChange={hdlLocationSelect}
             />
           </div>
         </div>
-
-        <div>
-          <p className="block  mb-2">Map</p>
-          <AddressMap
-            lat={parseFloat(input.lat)}
-            lng={parseFloat(input.lng)}
-            onLocationChange={hdlLocationSelect}
-          />
-        </div>
       </div>
       <div className="flex flex-col justify-center mt-8">
-        <p className="text-sm text-red-500">{errMsg}</p>
+        <p className="text-sm text-red-500">{errMsg.overall}</p>
         <div className="flex gap-4">
           <button
-            type="button"
-            className="w-1/4 py-2 px-8 bg-gray-300 rounded-md hover:bg-orange-200 hover:text-black"
-            onClick={() => {
-              setAllFormData((prv) => ({ ...prv, hotel: input }));
-              setPage((prv) => prv - 1);
-            }}
-          >
-            Back
-          </button>
-          <button
             type="submit"
-            className="w-3/4 bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
+            className="w-full bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
           >
             NEXT
           </button>
         </div>
       </div>
     </form>
+    <div className="py-20"></div>
+    </>
   );
 }
 
