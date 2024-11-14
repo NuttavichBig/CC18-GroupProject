@@ -185,13 +185,16 @@ function RoomPartnerRegisterForm(props) {
     }
 
     return (
-        <div className="relative bg-cream-gradient text-[#543310] p-8 rounded-lg shadow-md max-w-4xl mx-auto">
+        <>
 
             {pageParam.isLoading ? (
-
+<div className="mx-auto justify-center flex">
                 <LoadingRoomPartnerRegisterForm />
+                </div>
             ) : (
                 <>
+
+                <div className="relative bg-cream-gradient text-[#543310] p-8 rounded-lg shadow-md max-w-4xl mx-auto">
                     <div className="p-2 absolute cursor-pointer"
                         onClick={() => {
                             setAllFormData((prv) => ({ ...prv, room: rooms }));
@@ -244,9 +247,11 @@ function RoomPartnerRegisterForm(props) {
                             CONFIRM
                         </button>
                     </div>
+                </div>
+                <div className="py-20"></div>
                 </>
             )}
-        </div>
+        </>
     );
 
 }

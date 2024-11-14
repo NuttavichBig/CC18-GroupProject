@@ -192,16 +192,9 @@ function HotelPartnerRegisterForm(props) {
       <div className="flex flex-col justify-center mt-8">
         <p className="text-sm text-red-500">{errMsg.overall}</p>
         <div className="flex gap-2">
-        <Link to={'/'}
-            type="button"
-            className="w-1/4 py-2 px-8 bg-gray-300 rounded-md hover:bg-orange-200 text-center hover:text-black"
-
-          >
-            Back
-          </Link>
         <button
           type="submit"
-          className="bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] w-3/4 text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
+          className="bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] w-full text-white py-2 px-4 rounded-full font-bold shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
         >
           NEXT
         </button>

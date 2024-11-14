@@ -195,6 +195,7 @@ function UserHotelRegisterForm(props) {
 
   }
   return (
+    <>
     <form
       className="bg-cream-gradient text-[#543310] p-8 rounded-lg shadow-md max-w-4xl mx-auto"
       onSubmit={handleSubmit}
@@ -491,6 +492,8 @@ function UserHotelRegisterForm(props) {
         </div>
       </div>
     </form>
+    <div className="py-20"></div>
+    </>
   );
 }
 
