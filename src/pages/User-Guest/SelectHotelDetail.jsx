@@ -53,13 +53,11 @@ function SelectHotelDetail() {
             <HotelDetailRoom rooms={hotelData.rooms} />
           </div>
 
-          <div className="mt-[60px] mb-[48px]">
+          <div className="mt-[12px] mb-[48px]">
             <HotelDetailRecommend />
           </div>
         </div>
       </div>
-
-      <PictureSlide />
       <Footer />
     </div>
   );
