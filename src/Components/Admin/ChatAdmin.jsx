@@ -31,7 +31,9 @@ export default function ChatAdmin() {
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
     }
   }, [chatRoom?.messages]);
-
+  useEffect(()=>{
+    socket.emit('read')
+  },[chatRoom])
   const hdlSendMessage = (e) => {
     e.preventDefault();
     if (socket) {

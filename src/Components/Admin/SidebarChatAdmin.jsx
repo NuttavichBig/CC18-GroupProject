@@ -8,7 +8,6 @@ export default function SidebarChatAdmin({ chatBoxList }) {
     chatRoom: state.chatRoom,
     setChatBox: state.setChatBox
   })));
-
   return (
     <div className="w-1/4 bg-white p-4 border-r border-gray-300 overflow-y-auto rounded-md shadow-md">
       <h2 className="text-lg font-semibold border-b border-gray-300 mb-4">Recent Chats</h2>
