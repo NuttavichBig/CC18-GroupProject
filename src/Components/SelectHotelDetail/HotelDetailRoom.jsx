@@ -73,15 +73,15 @@ function HotelDetailRoom({ rooms }) {
             marginBottom: "16px",
           }}
         >
-          <div style={{ width: "12rem", height: "8rem", marginRight: "16px" }} onClick={() => openImageModal(room.images)}>
+          <div style={{ width: "10rem", height: "8rem", marginRight: "16px" }} onClick={() => openImageModal(room.images)}>
             <Carousel showThumbs={false} showStatus={false} infiniteLoop>
               {room.images && room.images.length > 0 ? (
                 room.images.map((image, index) => (
-                  <div key={index}>
+                  <div key={index} className="w-[10rem] h-[8rem]">
                     <img
                       src={image.img}
                       alt={`${room.type} image ${index + 1}`}
-                      style={{ objectFit: "cover", borderRadius: "8px", width: "100%", height: "100%" }}
+                      style={{ objectFit: "cover", borderRadius: "8px", width: "10rem", height: "8rem" }}
                     />
                   </div>
                 ))
