@@ -60,7 +60,7 @@ function HotelDetailRecommend() {
                 onClick={() => handleViewDetails(hotel)}
                 className="bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white py-2 px-4 rounded-md font-bold shadow-md mt-4 hover:scale-105 transition-transform"
               >
-                BOOK NOW
+                View More
               </button>
             </div>
           </div>

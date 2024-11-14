@@ -13,11 +13,11 @@ function SummaryRoomDetail() {
       setIsFacilitiesOpen((prev) => !prev);
     };
     const formatFacilityName = (key) => {
-        return key
-          .replace(/is|([A-Z])/g, " $1")
-          .trim()
-          .replace(/  +/g, " ");
-      };
+      return key
+        .slice(2) // Remove the first two characters
+        .replace(/([A-Z])/g, " $1") // Add spaces before capital letters
+        .trim(); // Trim any leading or trailing spaces
+    };
     return (
                   <div className="flex flex-col rounded-lg w-full p-6 bg-cream-gradient space-y-6 text-[#543310]">
         <div className="flex items-center justify-between">

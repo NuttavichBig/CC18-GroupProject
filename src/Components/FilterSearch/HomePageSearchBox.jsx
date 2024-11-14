@@ -204,7 +204,7 @@ const HomePageSearchBox = () => {
           <div className="relative inline-block text-left">
             <button
               onClick={toggleDropdown}
-              className="flex items-center p-2 border rounded-full text-[#543310] bg-white shadow w-full"
+              className="flex items-center p-2 border rounded-full text-[#543310] px-4 bg-white shadow w-full"
             >
               <span className="mr-2">
                 {adults} GUEST, {rooms} ROOM
@@ -225,42 +225,51 @@ const HomePageSearchBox = () => {
 
             {isOpen && (
               <div className="absolute z-10 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg">
+                
                 <div className="p-4 space-y-4">
                   <div className="flex justify-between items-center text-[#543310] ">
                     <span>GUEST</span>
                     <div className="flex items-center space-x-2">
+                      <div className="h-6 text-xl font-bold rounded-full w-6 flex justify-center items-center bg-gray-200">
                       <button
                         onClick={() => decrement(setAdults, adults)}
-                        className="p-1 bg-gray-200 rounded"
+                        className="relative -top-1"
                       >
                         -
                       </button>
+                      </div>
                       <span>{adults}</span>
+                      <div className="h-6 text-xl font-bold rounded-full w-6 flex justify-center items-center bg-gray-200">
                       <button
                         onClick={() => increment(setAdults, adults)}
-                        className="p-1 bg-gray-200 rounded"
+                        className="relative -top-1"
                       >
                         +
                       </button>
+                      </div>  
                     </div>
                   </div>
 
                   <div className="flex justify-between items-center text-black">
                     <span>ROOM</span>
                     <div className="flex items-center space-x-2">
+                    <div className="h-6 text-xl font-bold rounded-full w-6 flex justify-center items-center bg-gray-200">
                       <button
                         onClick={() => decrement(setRooms, rooms)}
-                        className="p-1 bg-gray-200 rounded"
+                        className="relative -top-1"
                       >
                         -
                       </button>
+                      </div>
                       <span>{rooms}</span>
+                      <div className="h-6 text-xl font-bold rounded-full w-6 flex justify-center items-center bg-gray-200">
                       <button
                         onClick={() => increment(setRooms, rooms)}
-                        className="p-1 bg-gray-200 rounded"
+                        className="relative -top-1"
                       >
                         +
                       </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -268,7 +277,7 @@ const HomePageSearchBox = () => {
                 <div className="p-4 border-t flex justify-center">
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="bg-gradient-to-t from-orange-400 to-orange-500 text-white p-3 rounded-lg"
+                    className="bg-gradient-to-t from-orange-400 to-orange-500 text-white px-4 py-1 rounded-lg"
                   >
                     SUBMIT
                   </button>
@@ -280,7 +289,7 @@ const HomePageSearchBox = () => {
         <div className=" flex w-1/5 justify-center mt-6">
           <button
             onClick={handleSearch}
-            className="font-bold  shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-2 outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 w-32 h-12"
+            className="font-bold w-full shadow-lg bg-gradient-to-t from-orange-400 to-orange-500 text-white p-2 outline-none border-none transition-transform duration-200 rounded-full overflow-hidden hover:scale-105 h-12"
           >
             SEARCH
           </button>
