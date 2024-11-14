@@ -1,40 +1,85 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import useUserStore from '../../stores/user-store';
+import useUserStore from '../../stores/user-store'
+import Swal from "sweetalert2";
+import FormErrorAlert from '../../assets/ErrorToast1.gif'
+import FormSuccessAlert from '../../assets/SuccessToast.gif'
+
 const API = import.meta.env.VITE_API
 
-function ReviewModal({ hotelName, hotelImage, onClose, onSubmit ,bookingId ,getAllBooking}) {
-  const token = useUserStore(state=>state.token)
-  const [input , setInput] = useState({
-    reviewText : '',
-    rating : 0,
-    file : null
+function ReviewModal({ hotelName, hotelImage, onClose, onSubmit, bookingId, getAllBooking }) {
+  const token = useUserStore(state => state.token)
+  const [input, setInput] = useState({
+    reviewText: '',
+    rating: 0,
+    file: null
   })
 
   const handleImageUpload = (event) => {
-    setInput(prv=>({...prv,file : event.target.files[0]}))
+    setInput(prv => ({ ...prv, file: event.target.files[0] }))
   };
 
   const handleSubmit = async () => {
     const formData = new FormData();
     formData.append('content', input.reviewText);
     formData.append('rating', input.rating);
-    formData.append('bookingId' , bookingId)
-    if(input.file){
+    formData.append('bookingId', bookingId)
+    if (input.file) {
       formData.append(`img`, input.file);
     }
 
     try {
       await axios.post(`${API}/review`, formData, {
         headers: {
-            Authorization : `Bearer ${token}`
+          Authorization: `Bearer ${token}`
         }
       });
       onSubmit();
       getAllBooking();
       onClose();
+      //alert success
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormSuccessAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: green;">Review Success</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "green";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
     } catch (error) {
+      const errMsg = error.response?.data?.message || error.message;
       console.error('Error submitting review:', error);
+      //alert error
+      Swal.fire({
+        html: `<div class="flex items-center gap-2">
+           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
+         </div>`,
+        position: "top-end",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        toast: true,
+        background: "#ffffff",
+        didOpen: (toast) => {
+          const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+          if (progressBar) {
+            progressBar.style.backgroundColor = "#f44336";
+          }
+          toast.addEventListener("click", Swal.close);
+        },
+      });
     }
   };
 
@@ -55,7 +100,7 @@ function ReviewModal({ hotelName, hotelImage, onClose, onSubmit ,bookingId ,getA
               <span
                 key={index}
                 className={`text-xl cursor-pointer ${index < input.rating ? 'text-yellow-400' : 'text-gray-300'}`}
-                onClick={() => setInput(prv=>({...prv,rating : index+1}))}
+                onClick={() => setInput(prv => ({ ...prv, rating: index + 1 }))}
               >
                 ★
               </span>
@@ -67,15 +112,15 @@ function ReviewModal({ hotelName, hotelImage, onClose, onSubmit ,bookingId ,getA
           className="w-full p-4 h-32 bg-[#fef0d6] rounded-md mb-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
           placeholder="Write your review here..."
           value={input.reviewText}
-          onChange={(e) => setInput(prv=>({...prv, reviewText : e.target.value}))}
+          onChange={(e) => setInput(prv => ({ ...prv, reviewText: e.target.value }))}
         />
 
         <div className="flex flex-wrap gap-4 mb-4 max-w-full">
-          { input.file &&
-            <img  src={URL.createObjectURL(input.file)} alt={`Upload`} className="w-20 h-20 rounded-md object-cover shadow-sm" />
+          {input.file &&
+            <img src={URL.createObjectURL(input.file)} alt={`Upload`} className="w-20 h-20 rounded-md object-cover shadow-sm" />
 
           }
-          
+
         </div>
 
         <div className="flex justify-between mt-6">
