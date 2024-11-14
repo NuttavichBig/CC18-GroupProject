@@ -178,19 +178,18 @@ export default function UserDetailAdmin() {
                       <option value="PARTNER">PARTNER</option>
                     </select>
                   </td>
-                  <td className="py-3 px-4 border-b">
-                    <select
-                      value={user.status}
-                      onChange={(e) =>
-                        handleUpdate(user.id, { status: e.target.value })
-                      }
-                      className="w-full bg-gray-100 border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500"
+                  <td className="py-3 px-4 border-b text-center">
+                    <span
+                      className={`p-2 rounded-md ${
+                        user.status === "BANNED"
+                          ? "bg-red-200 text-red-700"
+                          : user.status === "ACTIVE"
+                          ? "bg-green-200 text-green-700"
+                          : "bg-gray-200 text-gray-700"
+                      }`}
                     >
-                      <option value="PENDING">PENDING</option>
-                      <option value="ACTIVE">ACTIVE</option>
-                      <option value="INACTIVE">INACTIVE</option>
-                      <option value="BANNED">BANNED</option>
-                    </select>
+                      {user.status}
+                    </span>
                   </td>
                   <td className="py-3 px-4 border-b">
                     <button

@@ -11,7 +11,7 @@ function HotelPromotion() {
       <div className="border-b mt-8 h-[100px]"></div>
       <div className="min-h-screen relative flex justify-center items-start">
         <div className="container mx-auto p-6 grid gap-5">
-          <div className="grid grid-cols-3 gap-6 mb-[500px]">
+          <div className="grid grid-cols-3 gap-6">
             <div className="col-span-3 h-full">
               <div>
                 <PromotionListShowAll />

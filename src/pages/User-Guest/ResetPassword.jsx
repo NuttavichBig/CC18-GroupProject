@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import HeaderUserPage from '../../Components/Nav-Footer-Chat/HeaderUserPage';
 import Footer from '../../Components/Nav-Footer-Chat/Footer';
+import key from '../../assets/key.gif';
 import axios from 'axios';
 const API = import.meta.env.VITE_API;
 
@@ -95,7 +96,7 @@ function ResetPassword() {
                         
                         <div className="flex justify-center mb-6">
                             <img
-                                src="https://s4.ezgif.com/tmp/ezgif-4-fe60088ff5.gif" 
+                                src={key}
                                 alt="Success Animation"
                                 className="w-24 h-24"
                             />
@@ -110,7 +111,7 @@ function ResetPassword() {
                         <div className="flex justify-center space-x-4">
                             <button
                                 onClick={handleCloseModal}
-                                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                                className="px-4 py-2 bg-orange-400 text-white text-lg font-semibold rounded-md hover:bg-orange-500 transition"
                             >
                                 Got it! Home
                             </button>
