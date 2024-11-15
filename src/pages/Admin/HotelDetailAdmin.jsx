@@ -33,6 +33,7 @@ export default function HotelDetailAdmin() {
     };
     fetchPartners();
   }, [API, token, page]);
+  console.log(partners)
 
   const handleUpdate = async (partnerId, updatedData) => {
     try {
