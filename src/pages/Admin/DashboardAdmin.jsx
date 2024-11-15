@@ -22,6 +22,7 @@ import {
 } from "chart.js";
 import axios from "axios";
 import moment from "moment";
+import useUserStore from "../../stores/user-store";
 
 ChartJS.register(
   CategoryScale,
@@ -37,7 +38,7 @@ ChartJS.register(
 
 export default function DashboardAdmin({}) {
   const API = import.meta.env.VITE_API;
-
+  const token = useUserStore(state=>state.token)
   const { socket, connect, setChatBoxNull } = useAdminStore(
     useShallow((state) => ({
       socket: state.socket,
@@ -60,6 +61,7 @@ export default function DashboardAdmin({}) {
     newPartnersByMonth: [],
     popularBookingTypes: [],
     monthlySales: [],
+    totalReview : [],
   });
 
   const [timePeriod, setTimePeriod] = useState("daily");
@@ -149,6 +151,9 @@ export default function DashboardAdmin({}) {
             params: { timePeriod: timePeriod },
           }
         );
+        const reviewList = await axios.get(`${API}/review?limit=999`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
         setData({
           totalUsers: totalUsersResponse.data.totalUsers,
@@ -162,6 +167,7 @@ export default function DashboardAdmin({}) {
           popularBookingTypes:
             popularBookingTypesResponse.data.popularBookingTypes,
           monthlySales: monthlySalesResponse.data.monthlySales,
+          totalReview : reviewList.data.data.length
         });
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -330,7 +336,7 @@ export default function DashboardAdmin({}) {
               link: "/admin/reviewDetailAdmin",
               img: star2,
               label: "TOTAL REVIEWS",
-              count: data.totalBookings,
+              count: data.totalReview,
             },
           ].map(({ link, img, label, count }, index) => (
             <a
