@@ -22,6 +22,7 @@ import {
 } from "chart.js";
 import axios from "axios";
 import moment from "moment";
+import useUserStore from "../../stores/user-store";
 
 ChartJS.register(
   CategoryScale,
@@ -37,7 +38,7 @@ ChartJS.register(
 
 export default function DashboardAdmin({}) {
   const API = import.meta.env.VITE_API;
-
+  const token = useUserStore(state=>state.token)
   const { socket, connect, setChatBoxNull } = useAdminStore(
     useShallow((state) => ({
       socket: state.socket,
