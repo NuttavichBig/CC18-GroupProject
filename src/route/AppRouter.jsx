@@ -34,6 +34,8 @@ import UUIDBookingSearch from "../pages/User-Guest/UUIDBookingSearch";
 import ResetPassword from "../pages/User-Guest/ResetPassword";
 import ForgetPassword from "../pages/User-Guest/ForgetPassword";
 import PaymentFail from "../pages/User-Guest/PaymentFail";
+import PageNotFound from "./PageNotFound";
+import Unauthorization from "./Unauthorization";
 
 
 
@@ -58,7 +60,10 @@ const MainRouter = createBrowserRouter([
       { path: "promotion", element: <HotelPromotion /> },
       { path: "UUID", element: <UUIDBookingSearch /> },
       { path: "/reset-password", element: <ForgetPassword /> },
-      { path: "/reset-password/:token", element: <ResetPassword /> }
+      { path: "/reset-password/:token", element: <ResetPassword /> },
+      { path: "*", element: <PageNotFound /> },
+      { path: '/unauthorization', element: <Unauthorization /> },
+
 
     ],
   },
@@ -81,6 +86,7 @@ const MainRouter = createBrowserRouter([
       },
 
       { path: "promotion", element: <HotelPromotion /> },
+
     ],
   },
 
@@ -91,6 +97,7 @@ const MainRouter = createBrowserRouter([
       { path: "", element: <ProfileForm /> },
       { path: "purchasehistory", element: <MyPurchase /> },
       { path: "reviewhistory", element: <ReviewTabHistory /> },
+
     ],
   },
   {
@@ -103,6 +110,7 @@ const MainRouter = createBrowserRouter([
       { path: "hotelDetailAdmin", element: <HotelDetailAdmin /> },
       { path: "promotionDetailAdmin", element: <PromotionDetailAdmin /> },
       { path: "reviewDetailAdmin", element: <ReviewDetailAdmin /> },
+
     ],
   },
   {
@@ -115,6 +123,7 @@ const MainRouter = createBrowserRouter([
       { path: "reviewDetailPartner", element: <ReviewDetailPartner /> },
       { path: "partnerUpdate", element: <PartnerUpdate /> },
       { path: "HotelUpdate", element: <HotelUpdate /> },
+
     ],
   },
 ]);
