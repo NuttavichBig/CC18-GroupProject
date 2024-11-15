@@ -15,7 +15,7 @@ export default function SidebarChatAdmin({ chatBoxList }) {
         {chatBoxList.map((item, index) =>
           <div
             key={index}
-            className={`flex items-center gap-4 p-3 cursor-pointer rounded-md hover:bg-blue-50 transition ${
+            className={`flex items-center gap-4 p-3 cursor-pointer rounded-md overflow-hidden hover:bg-blue-50 transition ${
               chatRoom && item.id === chatRoom.id ? "bg-blue-100" : ""
             }`}
             onClick={() => {

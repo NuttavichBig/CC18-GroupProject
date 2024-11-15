@@ -18,7 +18,7 @@ export default function CreatePromotion({ setChatOpen, chatBoxList }) {
         <div className="text-center mb-3">
           <p className="text-3xl font-bold text-[#0f2045] bg-white rounded-sm p-3">Chat</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex w-[1200px] gap-2">
           <SidebarChatAdmin chatBoxList={chatBoxList} />
           <ChatAdmin />
         </div>
