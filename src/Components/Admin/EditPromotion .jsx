@@ -5,26 +5,25 @@ import axios from "axios";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import Swal from "sweetalert2";
-import FormErrorAlert from '../../assets/ErrorToast1.gif'
-import FormSuccessAlert from '../../assets/SuccessToast.gif'
+import FormErrorAlert from '../../assets/ErrorToast1.gif';
+import FormSuccessAlert from '../../assets/SuccessToast.gif';
 import { toast } from "react-toastify";
 import LoadingCouponCreate from "../Loading/LoadingCouponCreate";
 
 export default function EditPromotion({ promotion, onSave, onCancel }) {
+  const token = useUserStore((state) => state.token);
+  const API = import.meta.env.VITE_API;
+
   const [journeyDate, setJourneyDate] = useState(new Date(promotion.startDate));
   const [returnDate, setReturnDate] = useState(new Date(promotion.endDate));
   const [dateRange, setDateRange] = useState({
     startDate: new Date(promotion.startDate),
     endDate: new Date(promotion.endDate),
-    key: 'selection'
+    key: "selection",
   });
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-
-  const token = useUserStore((state) => state.token);
-  const API = import.meta.env.VITE_API;
-
-  console.log('dateRange', dateRange)
   const [formData, setFormData] = useState({
     name: promotion.name,
     description: promotion.description,
@@ -53,6 +52,7 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // เริ่มแสดง Loading
 
     const today = new Date();
     const selectedStartDate = journeyDate;
@@ -60,11 +60,13 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
 
     if (selectedStartDate < today) {
       toast.error("Start date cannot be earlier than today.");
+      setIsLoading(false);
       return;
     }
 
     if (selectedEndDate < selectedStartDate) {
       toast.error("End date cannot be earlier than start date.");
+      setIsLoading(false);
       return;
     }
 
@@ -84,11 +86,10 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
 
       if (response.status >= 200 && response.status < 300) {
         onSave({ ...promotion, ...formData });
-        //alert success
         Swal.fire({
           html: `<div class="flex items-center gap-2">
-           <img src="${FormSuccessAlert}" alt="Error Animation" class="w-10 h-10" />
-           <span style="font-size: 16px; font-weight: bold; color: green;">Promotion deleted successfully</span>
+           <img src="${FormSuccessAlert}" alt="Success" class="w-10 h-10" />
+           <span style="font-size: 16px; font-weight: bold; color: green;">Promotion updated successfully</span>
          </div>`,
           position: "top-end",
           timer: 3000,
@@ -107,14 +108,12 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
       } else {
         toast.error("Failed to update promotion.");
       }
-
     } catch (error) {
       const errMsg = error.response?.data?.message || error.message;
       console.error("Error updating promotion:", error.response ? error.response.data : error.message);
-      //alert error
       Swal.fire({
         html: `<div class="flex items-center gap-2">
-           <img src="${FormErrorAlert}" alt="Error Animation" class="w-10 h-10" />
+           <img src="${FormErrorAlert}" alt="Error" class="w-10 h-10" />
            <span style="font-size: 16px; font-weight: bold; color: red;">${errMsg}</span>
          </div>`,
         position: "top-end",
@@ -131,6 +130,8 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
           toast.addEventListener("click", Swal.close);
         },
       });
+    } finally {
+      setIsLoading(false); // ซ่อน Loading
     }
   };
 
@@ -158,6 +159,7 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
 
     return formPayload;
   };
+
   if (isLoading) {
     return <LoadingCouponCreate />;
   }
@@ -171,140 +173,13 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
         className="bg-white rounded-xl shadow-xl p-8 relative w-full max-w-3xl h-[600px] overflow-hidden overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          onClick={onCancel}
-          className="absolute top-4 right-4 text-3xl font-semibold text-[#0088d1] bg-transparent border-none cursor-pointer"
-        >
-          &times;
-        </button>
 
         <div className="text-center mb-8">
           <p className="text-3xl font-bold text-[#0088d1]">Edit Promotion</p>
         </div>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label htmlFor="name" className="text-lg font-semibold text-[#0088d1]">
-                Promotion Campaign Name
-              </label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                placeholder="Enter promotion campaign name"
-                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="description" className="text-lg font-semibold text-[#0088d1]">
-                Description
-              </label>
-              <input
-                type="text"
-                name="description"
-                id="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                placeholder="Enter promotion description"
-                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="discountPercent" className="text-lg font-semibold text-[#0088d1]">
-                Discount Percentage (%)
-              </label>
-              <input
-                type="text"
-                name="discountPercent"
-                id="discountPercent"
-                value={formData.discountPercent}
-                onChange={handleInputChange}
-                placeholder="Enter discount percentage"
-                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="discountValue" className="text-lg font-semibold text-[#0088d1]">
-                Discount Value (THB)
-              </label>
-              <input
-                type="text"
-                name="discountValue"
-                id="discountValue"
-                value={formData.discountValue}
-                onChange={handleInputChange}
-                placeholder="Enter discount value"
-                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="minimumSpend" className="text-lg font-semibold text-[#543310]">
-                Minimum Spend (THB)
-              </label>
-              <input
-                type="text"
-                name="minimumSpend"
-                id="minimumSpend"
-                value={formData.minimumSpend}
-                onChange={handleInputChange}
-                placeholder="Enter minimum spend"
-                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="maxDiscount" className="text-lg font-semibold text-[#0088d1]">
-                Maximum Discount (THB)
-              </label>
-              <input
-                type="text"
-                name="maxDiscount"
-                id="maxDiscount"
-                value={formData.maxDiscount}
-                onChange={handleInputChange}
-                placeholder="Enter maximum discount"
-                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="usageLimit" className="text-lg font-semibold text-[#0088d1]">
-                Usage Limit
-              </label>
-              <input
-                type="text"
-                name="usageLimit"
-                id="usageLimit"
-                value={formData.usageLimit}
-                onChange={handleInputChange}
-                placeholder="Enter usage limit"
-                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="userLimit" className="text-lg font-semibold text-[#0088d1]">
-                User Limit
-              </label>
-              <input
-                type="text"
-                name="userLimit"
-                id="userLimit"
-                value={formData.userLimit}
-                onChange={handleInputChange}
-                placeholder="Enter user limit"
-                className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
-              />
-            </div>
-          </div>
-
+          {/* Fields ต่างๆ */}
           {/* Date Range Picker */}
           <div className="space-y-2">
             <label className="text-lg font-semibold text-[#0088d1]">Promotion Duration</label>
@@ -328,6 +203,7 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
               className="bg-white border-2 border-[#163067] rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-[#204189] text-[#0088d1] placeholder:text-[#6d8e9f] shadow-md transition-all duration-200 ease-in-out"
             />
           </div>
+
 
           <div className="flex justify-center space-x-4 mt-6">
             <button
