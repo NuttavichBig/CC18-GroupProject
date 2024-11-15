@@ -76,7 +76,7 @@ const HeaderHomePage = () => {
 
         <nav className=" flex justify-center space-x-16 tracking-widest uppercase text-[0.925rem]">
           <button onClick={toSearchBar} className="hover:text-gray-300">
-            Booking
+            BOOKING
           </button>
           <Link to="/promotion" className="hover:text-gray-300">
             Travel Promotion
@@ -131,27 +131,24 @@ const HeaderHomePage = () => {
         <div className="space-x-4 pr-12 flex items-center">
           <div className="relative">
             <div
-              className={`flex absolute  p-2 -top-5 ${
-                isSearchHover ? "-left-[300px]" : "-z-10 -left-[392px]"
-              }`}
+              className={`flex absolute  p-2 -top-5 ${isSearchHover ? "-left-[300px]" : "-z-10 -left-[392px]"
+                }`}
               onMouseLeave={handleHoverLeaveSearch}
             >
               <input
                 type="text"
                 name="UUID"
-                className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white origin-right transition-transform ${
-                  isSearchHover ? "scale-100" : "scale-x-0"
-                }`}
+                className={`rounded-l-full text-black px-4 opacity-75 border border-black border-opacity-75 bg-white origin-right transition-transform ${isSearchHover ? "scale-100" : "scale-x-0"
+                  }`}
                 onChange={hdlChange}
                 value={input}
                 placeholder="Your Booking Number"
               />
               <button
-                className={`bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full ${
-                  isSearchHover
+                className={`bg-orange-dark-gradient px-4 max-2xl:px-2 max-2xl:text-sm rounded-r-full ${isSearchHover
                     ? "rounded-l-none w-[80px] max-2xl:w-[68px]"
                     : "rounded-l-full w-[172px] max-2xl:w-[160px]"
-                }`}
+                  }`}
                 onMouseEnter={handleHoverEnterSearch}
                 onClick={hdlConfirm}
               >
