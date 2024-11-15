@@ -8,9 +8,10 @@ import Swal from "sweetalert2";
 import FormErrorAlert from '../../assets/ErrorToast1.gif'
 import FormSuccessAlert from '../../assets/SuccessToast.gif'
 import { toast } from "react-toastify";
-import LoadingCouponCreate from "../Loading/LoadingCouponCreate";
+import LoadingBluetoOrangeblock from "../Loading/LoadingBluetoOrangeblock";
 
 export default function EditPromotion({ promotion, onSave, onCancel }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [journeyDate, setJourneyDate] = useState(new Date(promotion.startDate));
   const [returnDate, setReturnDate] = useState(new Date(promotion.endDate));
   const [dateRange, setDateRange] = useState({
@@ -53,18 +54,20 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     const today = new Date();
     const selectedStartDate = journeyDate;
     const selectedEndDate = returnDate;
 
     if (selectedStartDate < today) {
       toast.error("Start date cannot be earlier than today.");
+      setIsLoading(false);
       return;
     }
 
     if (selectedEndDate < selectedStartDate) {
       toast.error("End date cannot be earlier than start date.");
+      setIsLoading(false);
       return;
     }
 
@@ -131,6 +134,8 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
           toast.addEventListener("click", Swal.close);
         },
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -158,15 +163,18 @@ export default function EditPromotion({ promotion, onSave, onCancel }) {
 
     return formPayload;
   };
-  if (isLoading) {
-    return <LoadingCouponCreate />;
-  }
+
 
   return (
     <div
       onClick={onCancel}
       className="flex items-center justify-center fixed inset-0 bg-[#83959f6d] z-50"
     >
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <LoadingBluetoOrangeblock />
+        </div>
+      )}
       <div
         className="bg-white rounded-xl shadow-xl p-8 relative w-full max-w-3xl h-[600px] overflow-hidden overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
