@@ -141,7 +141,7 @@ function RoomUpdateForm(props) {
                 >
                     <button
                         onClick={() => setModalControl((prev) => ({ ...prev, isOpen: false }))}
-                        className="absolute top-4 right-4 text-3xl font-semibold text-gray-600 hover:text-gray-800"
+                        className="absolute top-0 right-2 text-3xl font-semibold text-gray-600 hover:text-gray-800"
                     >
                         &times;
                     </button>
