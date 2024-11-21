@@ -182,7 +182,7 @@ function CreateRoomForm(props) {
                   />
                   {file && (
                     <button
-                      className="absolute top-2 right-2 text-red-500 bg-white rounded-full p-1"
+                      className="absolute top-2 right-2 text-red-500 bg-white rounded-full w-4 h-4 flex justify-center items-center"
                       onClick={(e) => hdlDeleteImg(e, index)}
                     >
                       &times;

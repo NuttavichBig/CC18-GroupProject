@@ -9,6 +9,7 @@ import HotelList from "../../Components/HotelListSelectHotel/HotelList";
 import SearchBoxMain from "../../Components/FilterSearch/SearchBoxMain";
 import useUserStore from "../../stores/user-store";
 import { useShallow } from "zustand/shallow";
+import Compare from "../../Components/compare/Compare";
 const API = import.meta.env.VITE_API;
 
 const SelectHotel = () => {
@@ -71,6 +72,8 @@ const SelectHotel = () => {
   };
 
   return (
+    <>
+
     <div>
       <div className="relative h-[100px] text-[#543310]">
         <HeaderUserPage />
@@ -93,6 +96,9 @@ const SelectHotel = () => {
       {/* <PictureSlide /> */}
       <Footer />
     </div>
+    <Compare/>
+    
+</>
   );
 };
 

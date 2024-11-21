@@ -3,17 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import useHotelStore from "../../stores/hotel-store";
+import useCompareStore from "../../stores/compare-store";
 
-function HotelDetailRoom({ rooms }) {
+function HotelDetailRoom({ rooms,hotelData }) {
   const navigate = useNavigate();
   const actionSetSelectedRoom = useHotelStore((state) => state.actionSetSelectedRoom);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImages, setModalImages] = useState([]);
-
+  const addItem = useCompareStore(state=>state.addItem)
   if (!rooms || rooms.length === 0) {
     return <div>No rooms available at this time.</div>;
   }
-
+  const {rooms:notUse , ...hotel} = hotelData
   const formatFacilityName = (key) => {
     return key
       .slice(2) // Remove the first two characters
@@ -131,12 +132,16 @@ function HotelDetailRoom({ rooms }) {
           <span style={{ fontSize: "1.25rem", fontWeight: "bold", color: "#f08a4b", marginLeft: "16px", whiteSpace: "nowrap" }}>
             THB {room.price || "N/A"}
           </span>
+          <div className="flex gap-2 absolute right-4 bottom-4">
+          <button className="flex gap-2 bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white font-bold py-2 px-4 rounded-full text-base shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
+          onClick={()=>addItem({room,hotel})}><div className="rounded-full border-2 border-white w-6 text-xl h-6 flex items-center justify-center"><div className="pb-1">+</div></div>Compare</button>
           <button
-            className="absolute right-4 bottom-4 bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white font-bold py-2 px-4 rounded-full text-base shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
+            className=" bg-gradient-to-r from-[#f08a4b] to-[#e05b3c] text-white font-bold py-2 px-4 rounded-full text-base shadow-lg transition-transform duration-200 cursor-pointer hover:scale-105 hover:shadow-[inset_0_0_8px_rgba(240,138,75,0.4),0_4px_15px_rgba(240,138,75,0.6),0_4px_15px_rgba(224,91,60,0.4)]"
             onClick={() => handleBookNow(room)}
-          >
+            >
             BOOK NOW
           </button>
+            </div>
         </div>
       ))}
 

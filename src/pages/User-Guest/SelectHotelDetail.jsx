@@ -9,6 +9,7 @@ import HotelDetailRoom from "../../Components/SelectHotelDetail/HotelDetailRoom"
 import HotelDetailRecommend from "../../Components/SelectHotelDetail/HotelDetailRecommend";
 import axios from "axios";
 import useHotelStore from "../../stores/hotel-store";
+import Compare from "../../Components/compare/Compare";
 
 function SelectHotelDetail() {
   const [hotelData, setHotelData] = useState(null);
@@ -50,7 +51,7 @@ function SelectHotelDetail() {
                 <HotelDetailReview reviews={hotelData.reviews} />
               </div>
             </div>
-            <HotelDetailRoom rooms={hotelData.rooms} />
+            <HotelDetailRoom rooms={hotelData.rooms} hotelData={hotelData}/>
           </div>
 
           <div className="mt-[12px] mb-[48px]">
@@ -58,6 +59,7 @@ function SelectHotelDetail() {
           </div>
         </div>
       </div>
+      <Compare/>
       <Footer />
     </div>
   );

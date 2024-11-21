@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import defaultPic from '../../assets/ProfilePicture.webp';
+import defaultPic from '../../assets/avatar.svg';
 import useUserStore from '../../stores/user-store';
 
 function SidebarUser() {
@@ -40,6 +40,17 @@ console.log(location)
                         >
                             My Account
                         </NavLink>
+                        
+                    </li>
+                    <li>
+                        <NavLink
+                        to={"/userprofile/achievement"}
+                        className={({ isActive }) =>
+                            isActive ? 'text-orange-500 font-bold' : 'hover:text-orange-500 cursor-pointer transition duration-300'
+                        }
+                    >
+                        My Achievement
+                    </NavLink>
                     </li>
                     <li>
                         <NavLink
