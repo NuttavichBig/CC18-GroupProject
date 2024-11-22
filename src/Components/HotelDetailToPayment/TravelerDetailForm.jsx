@@ -148,7 +148,7 @@ const TravelerDetailForm = (props) => {
       return;
     }
     try {
-      const res = await axios.get(`http://localhost:8000/promotion/${coupon.promotion}`);
+      const res = await axios.get(`${API}/promotion/${coupon.promotion}`);
       const couponData = res.data;
       if (!couponData) {
         return toast.error("You coupon invalid")

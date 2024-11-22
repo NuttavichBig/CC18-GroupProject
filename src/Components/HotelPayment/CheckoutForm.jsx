@@ -10,7 +10,7 @@ import "../../utills/StripeCSS/stripe.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useBookingStore from "../../stores/booking-store";
-import PaymentFormLoading from "../Loading/PaymentsendFormLoading";
+import PaymentFormLoading from "../Loading/paymentsendFormLoading";
 import { useShallow } from "zustand/shallow";
 const API = import.meta.env.VITE_API
 
