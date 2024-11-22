@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HeaderUserPage from "../../Components/Nav-Footer-Chat/HeaderUserPage";
 import Footer from "../../Components/Nav-Footer-Chat/Footer";
-import PictureSlide from "../../Components/Nav-Footer-Chat/PictureSlide";
 import HotelDetailMain from "../../Components/SelectHotelDetail/HotelDetailMain";
 import HotelDetailMap from "../../Components/SelectHotelDetail/HotelDetailMap";
 import HotelDetailReview from "../../Components/SelectHotelDetail/HotelDetailReview";
@@ -10,6 +9,7 @@ import HotelDetailRecommend from "../../Components/SelectHotelDetail/HotelDetail
 import axios from "axios";
 import useHotelStore from "../../stores/hotel-store";
 import Compare from "../../Components/compare/Compare";
+const API = Import.meta.env.VITE_API
 
 function SelectHotelDetail() {
   const [hotelData, setHotelData] = useState(null);
@@ -20,7 +20,7 @@ function SelectHotelDetail() {
       if (currentHotel) {
         try {
           const res = await axios.get(
-            `http://localhost:8000/hotel/${currentHotel.id}`
+            `${API}/hotel/${currentHotel.id}`
           );
           setHotelData(res.data);
         } catch (error) {
