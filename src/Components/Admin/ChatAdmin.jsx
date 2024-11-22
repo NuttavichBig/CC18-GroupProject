@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import sent from "../../assets/sent.png";
 import useAdminStore from "../../stores/socket-store";
 import { useShallow } from "zustand/shallow";
-import userChat2 from "../../assets/userchat2.png";
+import userChat2 from "../../assets/userChat2.png";
 
 export default function ChatAdmin() {
   const { socket, chatRoom, addMessage } = useAdminStore(useShallow(state => ({
