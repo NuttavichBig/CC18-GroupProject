@@ -148,8 +148,8 @@ function CreateRoomForm(props) {
             onClick={() =>
               setModalControl((prv) => ({ ...prv, isCreate: false }))
             }
-            className="absolute top-4 right-4 text-3xl font-semibold"
-          >
+            className="absolute top-0 right-2 text-3xl font-semibold text-gray-600 hover:text-gray-800"
+            >
             &times;
           </button>
 
@@ -182,7 +182,7 @@ function CreateRoomForm(props) {
                   />
                   {file && (
                     <button
-                      className="absolute top-2 right-2 text-red-500 bg-white rounded-full p-1"
+                      className="absolute top-2 right-2 text-red-500 bg-white rounded-full w-4 h-4 flex justify-center items-center"
                       onClick={(e) => hdlDeleteImg(e, index)}
                     >
                       &times;

@@ -51,7 +51,13 @@ export default function ReviewDetailPartner() {
               <td className="border border-orange-300 p-3">{item.bookingId}</td>
               <td className="border border-orange-300 p-3">{item.rating}</td>
               <td className="border border-orange-300 p-3">
-                <img src={item.img} alt={`Review ${item.id} image`} className="w-20 h-20 object-cover rounded-lg mx-auto" />
+                {
+                  item.img ? 
+                  <img src={item.img} alt={`Review ${item.id} image`} className="w-20 h-20 object-cover rounded-lg mx-auto" />
+                  : 
+                  <p>No Image</p>
+                }
+                
               </td>
               <td className="border border-orange-300 p-3">{item.content}</td>
               <td className="border border-orange-300 p-3">{item.createdAt.slice(0, 10)}</td>

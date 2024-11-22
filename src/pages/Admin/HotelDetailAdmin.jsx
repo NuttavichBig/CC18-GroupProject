@@ -13,27 +13,53 @@ export default function HotelDetailAdmin() {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(false);
+  const [viewList,setViewList] = useState(false)
   const itemsPerPage = 10;
   const token = useUserStore((state) => state.token);
   const API = import.meta.env.VITE_API;
 
   useEffect(() => {
-    const fetchPartners = async () => {
-      try {
-        const response = await axios.get(`${API}/admin/partner?page=${page}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setPartners(response.data);
-        setHasNextPage(response.data.length === itemsPerPage);
-      } catch (error) {
-        console.log("Error fetching users:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPartners();
-  }, [API, token, page]);
+    if(viewList === false){
+      fetchPartners()
+    }
+    if(viewList === true){
+      
+      fetchPending()
 
+    }
+  }, [API, token, page ,viewList]);
+
+  const fetchPartners = async () => {
+    try {
+      const response = await axios.get(`${API}/admin/partner?page=${page}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setPartners(response.data);
+      setHasNextPage(response.data.length === itemsPerPage);
+    } catch (error) {
+      console.log("Error fetching users:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchPending = async()=>{
+    try {
+      const response = await axios.get(`${API}/admin/partner?page=${page}&status=PENDING`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setPartners(response.data);
+      setHasNextPage(response.data.length === itemsPerPage);
+    } catch (error) {
+      console.log("Error fetching users:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+  const onClickView = async()=>{
+    setViewList(prev => !prev)
+    setPage(1)
+  }
   const handleUpdate = async (partnerId, updatedData) => {
     try {
       await axios.patch(`${API}/admin/partner/${partnerId}`, updatedData, {
@@ -105,9 +131,12 @@ export default function HotelDetailAdmin() {
         <p className="bg-gradient-to-r from-[#0088d1] to-[#1E4D8C] text-3xl font-bold rounded-lg p-3 text-center shadow-lg text-white">
           HOTEL INFORMATION
         </p>
+        <button className="bg-gradient-to-r from-[#0088d1] to-[#1E3D8C] text-xl font-semibold rounded-lg py-2 text-white shadow-md w-full mt-6
+         hover:bg-none hover:border-2 hover:py-1.5 hover:border-[#0088d1] hover:text-[#0088d1] active:scale-x-95 transition-transform"
+         onClick={onClickView}>{viewList ? 'View All' : 'View Pending'}</button>
         <div className="overflow-x-auto mt-6 bg-white rounded-lg shadow-lg">
           <table className="min-w-full text-sm text-gray-600 border-collapse">
-            <thead className="bg-[#0088d1] text-white">
+            <thead className="bg-[#0088d1] h-fit text-white">
               <tr>
                 <th className="py-3 px-4 border-b">ID</th>
                 <th className="py-3 px-4 border-b">PARTNER NAME</th>

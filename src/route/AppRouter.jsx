@@ -36,6 +36,8 @@ import ForgetPassword from "../pages/User-Guest/ForgetPassword";
 import PaymentFail from "../pages/User-Guest/PaymentFail";
 import PageNotFound from "./PageNotFound";
 import Unauthorization from "./Unauthorization";
+import MyAchievement from "../Components/UserProfile/MyAchievement";
+import ComparePage from "../pages/User-Guest/ComparePage";
 
 
 
@@ -63,6 +65,7 @@ const MainRouter = createBrowserRouter([
       { path: "/reset-password/:token", element: <ResetPassword /> },
       { path: "*", element: <PageNotFound /> },
       { path: '/unauthorization', element: <Unauthorization /> },
+      { path: '/compare' , element: <ComparePage/>}
 
 
     ],
@@ -97,6 +100,7 @@ const MainRouter = createBrowserRouter([
       { path: "", element: <ProfileForm /> },
       { path: "purchasehistory", element: <MyPurchase /> },
       { path: "reviewhistory", element: <ReviewTabHistory /> },
+      { path: "achievement",element: <MyAchievement/>}
 
     ],
   },

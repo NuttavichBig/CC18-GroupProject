@@ -47,7 +47,7 @@ export default function ChatAdmin() {
   };
 
   return (
-    <div className="bg-white p-8 shadow-lg flex flex-col justify-between w-[800px] h-[700px] rounded-md">
+    <div className="bg-white p-8 shadow-lg flex flex-col justify-between w-3/4 h-[700px] rounded-md">
       <div className="flex-1 overflow-y-auto space-y-4 p-4" ref={chatBoxRef}>
         {chatRoom !== null && chatRoom.messages.map((message, index) =>
           <div key={index} className={`flex gap-4 ${message.isAdmin ? 'flex-row-reverse' : 'justify-start'}`}>
