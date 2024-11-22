@@ -1,5 +1,5 @@
 import React from 'react';
-import loadingAnimationUrl from '../../assets/Loading/PartnerRegisterLoadingFinished.gif';
+import loadingAnimationUrl from '../../assets/Loading/partnerRegisterLoadingFinished.gif';
 
 
 const LoadingRoomPartnerRegisterForm = () => {
@@ -10,7 +10,6 @@ const LoadingRoomPartnerRegisterForm = () => {
         </div>
     );
 };
-
 const styles = {
     container: {
         display: 'flex',
