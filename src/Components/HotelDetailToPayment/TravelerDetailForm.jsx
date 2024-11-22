@@ -10,6 +10,7 @@ import FormErrorIcon from '../../assets/ErrorToast1.gif'
 import FormSuccessIcon from '../../assets/SuccessToast.gif'
 import CouponUseSuccessIconAlert from '../../assets/couponsuccessAlert.gif'
 import { toast } from "react-toastify";
+const API = import.meta.env.VITE_API
 
 
 const TravelerDetailForm = (props) => {
@@ -103,7 +104,7 @@ const TravelerDetailForm = (props) => {
       actionSetBookingDetail({ ...bookingPayload, nights: pageParams.nights })
 
       const res = await axios.post(
-        "http://localhost:8000/booking",
+        `${API}/booking`,
         bookingPayload
       );
       actionSetId(res.data.booking.id);

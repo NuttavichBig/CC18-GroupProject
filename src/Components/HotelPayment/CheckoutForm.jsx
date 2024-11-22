@@ -12,6 +12,7 @@ import axios from "axios";
 import useBookingStore from "../../stores/booking-store";
 import PaymentFormLoading from "../Loading/PaymentsendFormLoading";
 import { useShallow } from "zustand/shallow";
+const API = import.meta.env.VITE_API
 
 export default function CheckoutForm({ dpmCheckerLink }) {
   const stripe = useStripe();
@@ -83,7 +84,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
       console.log("Payment succeeded");
       setPageParams((prv) => ({ ...prv, errMsg: "", isLoading: true }));
       const result = await axios.post(
-        "http://localhost:8000/payment/payment-success",
+        `${API}/payment/payment-success`,
         { stripeId: payload.paymentIntent.id, bookingId: id }
       );
       const booking = result.data;
